@@ -15,9 +15,8 @@ controllerApp.run(function ($rootScope, $templateCache) {
 // create the controller and inject Angular's $scope
 controllerApp.controller('mainController', ['$scope', 'UserFactory', function ($scope, UserFactory) {
 	$scope.message = 'Everyone come and see how good I look!';
-	UserFactory.get({}, function (userFactory) {
-		$scope.firstname = userFactory.firstName;
-		$scope.lastname = userFactory.lastName;
+	UserFactory.getUsers(function (response) {
+		$scope.users = response;
 	})
 }]);
 
