@@ -20,13 +20,12 @@ public class UserResource {
     public Response getDefaultUserInJSON() {
         UserService userService = new UserService();
         User user = userService.getDefaultUser();
-        Response.ResponseBuilder builder = Response.status(Response.Status.OK);
-        return builder.entity(user).build();
+        return Response.ok(user).build();
     }
 
     @POST
     @Path("/login")
     public Response login(@FormParam("name") String name, @FormParam("password") String password) {
-        return Response.status(200).build();
+        return Response.ok().build();
     }
 }
