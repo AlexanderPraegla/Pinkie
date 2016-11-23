@@ -1,6 +1,6 @@
-package de.altenerding.biber.service.user.bounday;
+package de.altenerding.biber.pinkie.user.bounday;
 
-import de.altenerding.biber.service.user.entity.User;
+import de.altenerding.biber.pinkie.user.entity.User;
 
 public class UserService {
 

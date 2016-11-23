@@ -1,4 +1,4 @@
-package de.altenerding.biber.service.user.entity;
+package de.altenerding.biber.pinkie.user.entity;
 
 public class User {
 
