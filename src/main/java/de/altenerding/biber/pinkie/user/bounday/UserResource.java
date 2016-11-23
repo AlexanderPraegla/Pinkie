@@ -2,6 +2,7 @@ package de.altenerding.biber.pinkie.user.bounday;
 
 import de.altenerding.biber.pinkie.user.entity.User;
 
+import javax.inject.Inject;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,7 +18,8 @@ import java.util.Optional;
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
-    UserService userService = new UserService();
+    @Inject
+    UserService userService;
 
     @GET
     public Response getUsers() {

@@ -2,10 +2,12 @@ package de.altenerding.biber.pinkie.user.bounday;
 
 import de.altenerding.biber.pinkie.user.entity.User;
 
+import javax.ejb.Stateless;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+@Stateless
 public class UserService {
 
     public List<User> getUsers() {
