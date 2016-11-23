@@ -2,22 +2,31 @@ package de.altenerding.biber.pinkie.user.entity;
 
 public class User {
 
-	private String firstName;
-	private String lastName;
+    private long id;
+    private String firstName;
+    private String lastName;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }
