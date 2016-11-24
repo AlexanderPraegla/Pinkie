@@ -36,7 +36,7 @@ public class UserResource {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        return Response.ok(user).build();
+        return Response.ok(user.get()).build();
     }
 
     @POST
