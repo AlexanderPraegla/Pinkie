@@ -3,9 +3,7 @@ package de.altenerding.biber.pinkie.user.bounday;
 import de.altenerding.biber.pinkie.user.entity.User;
 
 import javax.inject.Inject;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -37,11 +35,5 @@ public class UserResource {
         }
 
         return Response.ok(user.get()).build();
-    }
-
-    @POST
-    @Path("/login")
-    public Response login(@FormParam("name") String name, @FormParam("password") String password) {
-        return Response.ok().build();
     }
 }
