@@ -1,4 +1,4 @@
-package de.altenerding.biber.pinkie.user.bounday;
+package de.altenerding.biber.pinkie;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
