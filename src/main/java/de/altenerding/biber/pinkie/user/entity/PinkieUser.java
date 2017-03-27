@@ -1,9 +1,20 @@
 package de.altenerding.biber.pinkie.user.entity;
 
-public class User {
+import javax.persistence.*;
 
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "user.findAll", query = "SELECT u FROM PinkieUser u"),
+        @NamedQuery(name = "user.findById", query = "SELECT u FROM PinkieUser u where u.id = :id")
+})
+public class PinkieUser {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+	@Column
     private String firstName;
+	@Column
     private String lastName;
 
     public long getId() {

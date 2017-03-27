@@ -1,36 +1,27 @@
 package de.altenerding.biber.pinkie.user.bounday;
 
-import de.altenerding.biber.pinkie.user.entity.User;
+import de.altenerding.biber.pinkie.user.control.UserProvider;
+import de.altenerding.biber.pinkie.user.entity.PinkieUser;
 
 import javax.ejb.Stateless;
-import java.util.LinkedList;
+import javax.inject.Inject;
 import java.util.List;
-import java.util.Optional;
 
 @Stateless
 public class UserService {
 
-    public List<User> getUsers() {
-        User pinky = new User();
-        pinky.setId(1);
-        pinky.setFirstName("Pinky");
-        pinky.setLastName("Narf");
+    private UserProvider userProvider;
 
-        User brain = new User();
-        brain.setId(2);
-        brain.setFirstName("Brain");
-        brain.setLastName("Domination");
-
-        List<User> users = new LinkedList<>();
-        users.add(pinky);
-        users.add(brain);
-
-        return users;
+    public List<PinkieUser> getUsers() {
+        return userProvider.getUsers();
     }
 
-    public Optional<User> getUser(long id) {
-        return getUsers().stream()
-                .filter(user -> user.getId() == id)
-                .findFirst();
+    public PinkieUser getUser(long id) {
+        return userProvider.getUserById(id);
+    }
+
+    @Inject
+    public void setUserProvider(UserProvider userProvider) {
+        this.userProvider = userProvider;
     }
 }
