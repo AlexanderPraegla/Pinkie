@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Properties>
+        <Property name="log-pattern">%d %-5p [%t] [%X{frontendName}|%X{sessionId}] %c - %m%n</Property>
+        <Property name="log-directory">${sys:catalina.base}/logs/</Property>
+        <Property name="date-suffix">.%d{yyyy-MM-dd}</Property>
+        <!-- append .gz or .zip to activate compression  -->
+    </Properties>
+
+    <Appenders>
+        <RollingRandomAccessFile name="File" fileName="${sys:log-directory}pinkie.log"
+                                 filePattern="${sys:log-directory}pinkie.log${sys:date-suffix}"
+                                 append="true">
+            <PatternLayout pattern="${sys:log-pattern}"/>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+</Configuration>

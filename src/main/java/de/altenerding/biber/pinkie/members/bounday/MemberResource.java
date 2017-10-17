@@ -1,6 +1,6 @@
-package de.altenerding.biber.pinkie.user.bounday;
+package de.altenerding.biber.pinkie.members.bounday;
 
-import de.altenerding.biber.pinkie.user.entity.PinkieUser;
+import de.altenerding.biber.pinkie.members.entity.Member;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -12,23 +12,23 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 
-@Path("/users")
+@Path("/members")
 @Produces(MediaType.APPLICATION_JSON)
-public class UserResource {
+public class MemberResource {
 
 	@Inject
-    private UserService userService;
+    private MemberService memberService;
 
     @GET
     public Response getUsers() {
-        List<PinkieUser> users = userService.getUsers();
+        List<Member> users = memberService.getMembers();
         return Response.ok(users).build();
     }
 
     @GET
     @Path("{id}")
     public Response getUser(@PathParam("id") long id) {
-        PinkieUser user = userService.getUser(id);
+        Member user = memberService.getMemberById(id);
 
         if (user == null) {
             return Response.status(Response.Status.NOT_FOUND).build();

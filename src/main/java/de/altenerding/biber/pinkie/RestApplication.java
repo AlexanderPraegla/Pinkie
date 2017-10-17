@@ -1,8 +1,15 @@
 package de.altenerding.biber.pinkie;
 
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
+import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.server.ResourceConfig;
 
-@ApplicationPath("rest/")
-public class RestApplication extends Application {
+import javax.ws.rs.ApplicationPath;
+
+@ApplicationPath("rest")
+public class RestApplication extends ResourceConfig {
+
+	public RestApplication() {
+		super.register(JacksonFeature.class)
+				.packages("de.altenerding.biber.pinkie");
+	}
 }
