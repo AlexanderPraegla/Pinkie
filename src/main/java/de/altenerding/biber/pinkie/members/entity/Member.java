@@ -6,7 +6,8 @@ import java.util.Date;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "member.findAll", query = "SELECT u FROM Member u"),
-		@NamedQuery(name = "member.findById", query = "SELECT u FROM Member u where u.id = :id")
+		@NamedQuery(name = "member.findById", query = "SELECT u FROM Member u where u.id = :id"),
+		@NamedQuery(name = "member.findByEmail", query = "SELECT u FROM Member u where u.email = :email")
 })
 public class Member {
 
@@ -19,7 +20,7 @@ public class Member {
 	private String lastName;
 	@Column
 	private String nickName;
-	@Column
+	@Column(unique = true)
 	private String email;
 	@Column
 	private String password;
@@ -40,8 +41,6 @@ public class Member {
 	@Column
 	@Temporal(value = TemporalType.DATE)
 	private Date createdOn;
-	@Transient
-	private String testFieldNoDatabase;
 
     public long getId() {
         return id;
@@ -155,11 +154,4 @@ public class Member {
 		this.createdOn = creationDate;
 	}
 
-	public String getTestFieldNoDatabase() {
-		return testFieldNoDatabase;
-	}
-
-	public void setTestFieldNoDatabase(String testFieldNoDatabase) {
-		this.testFieldNoDatabase = testFieldNoDatabase;
-	}
 }

@@ -8,5 +8,5 @@ INSERT INTO team (name, league, orderId, created_on) VALUES ('Damen 1', 'Bezirks
 INSERT INTO team (name, league, orderId, created_on) VALUES ('Damen 2', 'Bezirksliga', 4, now());
 
 
-INSERT INTO member (city, createdon, email, firstname, homepage, lastname, mobilenumber, nickname, password, phonenumber, street, zipcode) VALUES ('Erding', now(), 'altenerdingbiber@sva.org', 'Max', '', 'Mustermann', '+49123456789', 'Maxl', '', '', 'Biberstraße 8', '85435');
-INSERT INTO member (city, createdon, email, firstname, homepage, lastname, mobilenumber, nickname, password, phonenumber, street, zipcode) VALUES ('Erding', now(), 'altenerdingbiber2@sva.org', 'Eva', '', 'Musterfrau', '+49987654321', '', '', '', 'Biberstraße 8', '85435');
+INSERT INTO member (city, createdon, email, firstname, homepage, lastname, mobilenumber, nickname, password, phonenumber, street, zipcode) VALUES ('Erding', now(), 'max_biber@sva.org', 'Max', '', 'Mustermann', '+49123456789', 'Maxl', '1234', '', 'Biberstraße 8', '85435');
+INSERT INTO member (city, createdon, email, firstname, homepage, lastname, mobilenumber, nickname, password, phonenumber, street, zipcode) VALUES ('Erding', now(), 'eva_biber@sva.org', 'Eva', '', 'Musterfrau', '+49987654321', '', '1234', '', 'Biberstraße 8', '85435');

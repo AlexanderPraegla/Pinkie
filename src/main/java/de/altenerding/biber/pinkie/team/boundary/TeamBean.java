@@ -1,35 +1,37 @@
 package de.altenerding.biber.pinkie.team.boundary;
 
 import de.altenerding.biber.pinkie.team.entity.Team;
+import org.apache.logging.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class TeamBean implements Serializable {
 
 	private TeamService teamService;
+	private Logger logger;
 
 	private Team team;
 
 	public List<Team> getTeams() {
+		logger.info("Loading all teams from database");
 		return teamService.getTeams();
 	}
 
-	public Team getTeamById() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		Map<String, String> params =
-				fc.getExternalContext().getRequestParameterMap();
-		long id = Long.parseLong(params.get("teamId"));
-		Team team = teamService.getTeamById(id);
-		this.team = team;
-		return team;
+	public String getTeamById(long id) throws Exception {
+		logger.info("Getting team for id={}", id);
+		if (id > 0) {
+			this.team = teamService.getTeamById(id);
+			return "team.xhtml";
+		} else {
+			logger.error("team id is smaller than 0");
+			throw new Exception("team id is smaller than 0");
+		}
 	}
 
 	@Inject
@@ -39,5 +41,10 @@ public class TeamBean implements Serializable {
 
 	public Team getTeam() {
 		return team;
+	}
+
+	@Inject
+	public void setLogger(Logger logger) {
+		this.logger = logger;
 	}
 }

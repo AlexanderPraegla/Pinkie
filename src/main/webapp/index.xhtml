@@ -1,52 +1,92 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
-    <title>Handball Altenerding</title>
-    <meta name="author" content="The Author"/>
-</h:head>
-<!-- Add 50px padding top to the body for the navbar -->
-<h:body style="padding-top: 50px; padding-bottom: 20px;">
-    <b:navBar inverse="true" fixed="top">
-        <b:navbarLinks>
-            <b:navLink value="Home" onclick="ajax:navigationBean.setPage('start.xhtml')"
-                       update="pageContentID"/>
-            <b:dropMenu value="Aktuelles">
-                <b:navLink value="Spielberichte" onclick="ajax:navigationBean.setPage('report.xhtml')"
-                           update="pageContentID"/>
-            </b:dropMenu>
-            <b:dropMenu value="Teams">
-                <ui:repeat var="team" value="#{teamBean.teams}">
-                    <b:navLink value="#{team.name}" onclick="ajax:navigationBean.setPage('team.xhtml')"
-                               update="pageContentID">
-                        <f:param name="teamId" value="#{team.id}"/>
-                    </b:navLink>
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:o="http://omnifaces.org/ui">
+    <ui:define name="title">Altenerding Handball</ui:define>
+
+    <ui:define name="content">
+
+        <b:jumbotron>
+            <b:container>
+                <p>Willkommen auf der neuen Altenerding Biber Homepage</p>
+                <b:row>
+                    <b:column span="3">
+                        <b:button value="Ankündigung hinzufügen" look="primary" rendered="#{loginBean.isLoggedIn}"
+                                  passthrough:data-target="#modalAddAccnouncement" passthrough:data-toggle="modal"
+                                  size="lg"/>
+                    </b:column>
+                </b:row>
+
+                <b:modal id="modalAddAccnouncement" title="Ankündigung hinzufügen" styleClass="modalPseudoClass">
+                    <h:form>
+                        <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}"/>
+
+                        <!--<h:form>-->
+                        <b:button value="Abbrechen" look="danger" dismiss="modal"/>
+                        <b:commandButton value="Speichern" look="success" dismiss="modal"
+                                         actionListener="#{announcementProcessingBean.saveAnnouncement()}"/>
+                    </h:form>
+                    <!--</h:form>-->
+                </b:modal>
+
+                <b:modal id="modalEditAccnouncement" title="Ankündigung bearbeiten" styleClass="modalPseudoClass">
+                    <h:form id="editAccouncmentFormId">
+                        <b:inputTextarea id="editAccnouncementText"
+                                         value="#{announcementProcessingBean.anncouncement.text}"/>
+
+                        <b:button value="Abbrechen" look="danger" dismiss="modal"/>
+                        <b:commandButton value="Speichern" look="success" dismiss="modal"
+                                         action="#{announcementProcessingBean.saveEditedAnnouncement()}"/>
+                    </h:form>
+                </b:modal>
+                <b:modal id="modalRemoveAccnouncement" title="Ankündigung löschen" styleClass="modalPseudoClass">
+                    <b:inputTextarea id="removeAccnouncementText" disabled="true"
+                                     value="#{announcementProcessingBean.anncouncement.text}"/>
+                    <h:form>
+
+                        <b:button value="Abbrechen" look="danger" dismiss="modal"/>
+                        <b:commandButton value="Löschen" look="success" dismiss="modal"
+                                         action="#{announcementProcessingBean.deleteAnnouncement()}"/>
+                    </h:form>
+                </b:modal>
+            </b:container>
+        </b:jumbotron>
+        <b:jumbotron>
+            <b:container>
+                <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
+                    <h:form>
+                        <b:row>
+                            <b:panel collapsible="false">
+                                <h:outputText value="#{announcement.text}"/><br/>
+                                <b:commandButton rendered="#{loginBean.isLoggedIn}"
+                                                 actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
+                                                 size="sm" passthrough:data-target="#modalEditAccnouncement"
+                                                 passthrough:data-toggle="modal"
+                                                 update="@form:editAccouncmentFormId"
+                                                 disabled="false" value="Edit" look="success" icon="pencil"
+                                                 iconAlign="right"/>
+                                <b:commandButton rendered="#{loginBean.isLoggedIn}"
+                                                 actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
+                                                 size="sm" passthrough:data-target="#modalRemoveAccnouncement"
+                                                 passthrough:data-toggle="modal"
+                                                 update="@form:removeAccnouncementText"
+                                                 disabled="false" value="Löschen" look="danger" icon="remove"
+                                                 iconAlign="right"/>
+                            </b:panel>
+                        </b:row>
+                    </h:form>
                 </ui:repeat>
-            </b:dropMenu>
-        </b:navbarLinks>
-        <h:form styleClass="navbar-form navbar-right">
-            <div class="form-group">
-                <b:inputText placeholder="Email" fieldSize="sm"/>
-            </div>
-            <div class="form-group">
-                <b:inputText placeholder="Passwort" fieldSize="sm"/>
-            </div>
-            #{' '}
-            <b:commandButton action="a" value="LogIn" look="success" icon="chevron-right" iconAlign="right"/>
-        </h:form>
-    </b:navBar>
+            </b:container>
+        </b:jumbotron>
+        <b:jumbotron>
+            <b:container>
+                <b:panel title="Bild der Woche" collapsible="false">
+                    <o:graphicImage value="#{imageBean.getPictureOfTheWeek()}" dataURI="true" style="max-height: 100%; max-width: 100%" />
 
-    <b:container id="pageContentID">
-        <ui:include src="#{navigationBean.page}"/>
-    </b:container>
-    <b:container>
-        <footer>
-            <p>Hier können Infos in den Footer</p>
-        </footer>
-    </b:container>
-
-</h:body>
-</html>
+                </b:panel>
+            </b:container>
+        </b:jumbotron>
+    </ui:define>
+</ui:composition>
