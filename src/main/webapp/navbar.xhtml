@@ -17,6 +17,13 @@
 
                 </b:dropMenu>
                 <b:navLink value="Verein" href="#"/>
+                <b:navLink value="Gästebuch" href="#" rendered="#{loginBean.isLoggedIn}"/>
+                <b:navLink value="Profil" href="#" rendered="#{loginBean.isLoggedIn}"/>
+                <b:dropMenu value="Admin Bereich" rendered="#{loginBean.isLoggedIn}">
+                    <b:navLink value="Team anlegen" href="#"/>
+                    <b:navLink value="Mitglied anlegen" href="#"/>
+                    <b:navLink value="Mitglieder auflisten" href="#"/>
+                </b:dropMenu>
             </b:navbarLinks>
         </h:form>
         <h:form id="loginForm" styleClass="navbar-form navbar-right">
