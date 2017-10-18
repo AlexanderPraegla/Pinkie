@@ -7,86 +7,76 @@
     <ui:define name="title">Altenerding Handball</ui:define>
 
     <ui:define name="content">
+        <b:modal id="modalAddAccnouncement" title="Ankündigung hinzufügen" styleClass="modalPseudoClass">
+            <h:form id="addAccouncmentFormId">
+                <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}"/>
 
-        <b:jumbotron>
-            <b:container>
+                <b:button value="Abbrechen" look="danger" dismiss="modal"/>
+                <b:commandButton value="Speichern" look="success" dismiss="modal"
+                                 actionListener="#{announcementProcessingBean.saveAnnouncement()}"/>
+            </h:form>
+        </b:modal>
+
+        <b:modal id="modalEditAccnouncement" title="Ankündigung bearbeiten" styleClass="modalPseudoClass">
+            <h:form id="editAccouncmentFormId">
+                <b:inputTextarea id="editAccnouncementText"
+                                 value="#{announcementProcessingBean.anncouncement.text}"/>
+
+                <b:button value="Abbrechen" look="danger" dismiss="modal"/>
+                <b:commandButton value="Speichern" look="success" dismiss="modal"
+                                 action="#{announcementProcessingBean.saveEditedAnnouncement()}"/>
+            </h:form>
+        </b:modal>
+        <b:modal id="modalRemoveAccnouncement" title="Ankündigung löschen" styleClass="modalPseudoClass">
+            <h:form id="removeAccouncmentFormId">
+                <b:inputTextarea id="removeAccnouncementText" disabled="true"
+                                 value="#{announcementProcessingBean.anncouncement.text}"/>
+
+                <b:button value="Abbrechen" look="danger" dismiss="modal"/>
+                <b:commandButton value="Löschen" look="success" dismiss="modal"
+                                 action="#{announcementProcessingBean.deleteAnnouncement()}"/>
+            </h:form>
+        </b:modal>
+
+        <b:container>
+            <b:jumbotron>
                 <p>Willkommen auf der neuen Altenerding Biber Homepage</p>
-                <b:row>
-                    <b:column span="3">
-                        <b:button value="Ankündigung hinzufügen" look="primary" rendered="#{loginBean.isLoggedIn}"
-                                  passthrough:data-target="#modalAddAccnouncement" passthrough:data-toggle="modal"
-                                  size="lg"/>
-                    </b:column>
-                </b:row>
+            </b:jumbotron>
 
-                <b:modal id="modalAddAccnouncement" title="Ankündigung hinzufügen" styleClass="modalPseudoClass">
-                    <h:form>
-                        <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}"/>
-
-                        <!--<h:form>-->
-                        <b:button value="Abbrechen" look="danger" dismiss="modal"/>
-                        <b:commandButton value="Speichern" look="success" dismiss="modal"
-                                         actionListener="#{announcementProcessingBean.saveAnnouncement()}"/>
-                    </h:form>
-                    <!--</h:form>-->
-                </b:modal>
-
-                <b:modal id="modalEditAccnouncement" title="Ankündigung bearbeiten" styleClass="modalPseudoClass">
-                    <h:form id="editAccouncmentFormId">
-                        <b:inputTextarea id="editAccnouncementText"
-                                         value="#{announcementProcessingBean.anncouncement.text}"/>
-
-                        <b:button value="Abbrechen" look="danger" dismiss="modal"/>
-                        <b:commandButton value="Speichern" look="success" dismiss="modal"
-                                         action="#{announcementProcessingBean.saveEditedAnnouncement()}"/>
-                    </h:form>
-                </b:modal>
-                <b:modal id="modalRemoveAccnouncement" title="Ankündigung löschen" styleClass="modalPseudoClass">
-                    <b:inputTextarea id="removeAccnouncementText" disabled="true"
-                                     value="#{announcementProcessingBean.anncouncement.text}"/>
-                    <h:form>
-
-                        <b:button value="Abbrechen" look="danger" dismiss="modal"/>
-                        <b:commandButton value="Löschen" look="success" dismiss="modal"
-                                         action="#{announcementProcessingBean.deleteAnnouncement()}"/>
-                    </h:form>
-                </b:modal>
-            </b:container>
-        </b:jumbotron>
-        <b:jumbotron>
-            <b:container>
-                <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
-                    <h:form>
-                        <b:row>
-                            <b:panel collapsible="false">
-                                <h:outputText value="#{announcement.text}"/><br/>
-                                <b:commandButton rendered="#{loginBean.isLoggedIn}"
-                                                 actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
-                                                 size="sm" passthrough:data-target="#modalEditAccnouncement"
-                                                 passthrough:data-toggle="modal"
-                                                 update="@form:editAccouncmentFormId"
-                                                 disabled="false" value="Edit" look="success" icon="pencil"
-                                                 iconAlign="right"/>
-                                <b:commandButton rendered="#{loginBean.isLoggedIn}"
-                                                 actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
-                                                 size="sm" passthrough:data-target="#modalRemoveAccnouncement"
-                                                 passthrough:data-toggle="modal"
-                                                 update="@form:removeAccnouncementText"
-                                                 disabled="false" value="Löschen" look="danger" icon="remove"
-                                                 iconAlign="right"/>
-                            </b:panel>
-                        </b:row>
-                    </h:form>
-                </ui:repeat>
-            </b:container>
-        </b:jumbotron>
-        <b:jumbotron>
-            <b:container>
-                <b:panel title="Bild der Woche" collapsible="false">
-                    <o:graphicImage value="#{imageBean.getPictureOfTheWeek()}" dataURI="true" style="max-height: 100%; max-width: 100%" />
-
+            <b:panel title="Ankündigungen">
+                <b:panel rendered="#{loginBean.isLoggedIn}">
+                    <b:button value="Ankündigung hinzufügen" look="primary" rendered="#{loginBean.isLoggedIn}"
+                              passthrough:data-target="#modalAddAccnouncement" passthrough:data-toggle="modal"
+                              size="sm"/>
                 </b:panel>
-            </b:container>
-        </b:jumbotron>
+                <h:form>
+                    <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
+                        <b:panel collapsible="false">
+                            <h:outputText value="#{announcement.text}"/><br/>
+                            <b:commandButton rendered="#{loginBean.isLoggedIn}"
+                                             actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
+                                             size="sm" passthrough:data-target="#modalEditAccnouncement"
+                                             passthrough:data-toggle="modal"
+                                             update="@form:editAccouncmentFormId"
+                                             disabled="false" value="Edit" look="success" icon="pencil"
+                                             iconAlign="right"/>
+                            <b:commandButton rendered="#{loginBean.isLoggedIn}"
+                                             actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
+                                             size="sm" passthrough:data-target="#modalRemoveAccnouncement"
+                                             passthrough:data-toggle="modal"
+                                             update="@form:removeAccouncmentFormId"
+                                             disabled="false" value="Löschen" look="danger" icon="remove"
+                                             iconAlign="right"/>
+                        </b:panel>
+                    </ui:repeat>
+                </h:form>
+            </b:panel>
+
+            <b:panel title="Bild der Woche" collapsible="true">
+                <o:graphicImage value="#{imageBean.getPictureOfTheWeek()}" dataURI="true"
+                                style="max-height: 100%; max-width: 100%"/>
+
+            </b:panel>
+        </b:container>
     </ui:define>
 </ui:composition>
