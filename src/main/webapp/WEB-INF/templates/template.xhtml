@@ -4,19 +4,18 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-    <link rel="stylesheet" type="text/css" href="../css/main.css"/>
     <title>
         <ui:insert name="title">Some title</ui:insert>
     </title>
 </h:head>
 
-<ui:include src="../../header.xhtml"/>
-<ui:include src="../../navbar.xhtml"/>
+<ui:include src="../pages/global/header.xhtml"/>
+<ui:include src="../pages/global/navbar.xhtml"/>
 
 <h:body style="padding-top: 50px; padding-bottom: 20px;">
     <ui:insert name="content" />
 </h:body>
 
-<ui:include src="../../footer.xhtml"/>
+<ui:include src="../pages/global/footer.xhtml"/>
 
 </html>
