@@ -12,7 +12,8 @@
                 <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}"/>
 
                 <b:button value="Abbrechen" look="danger" dismiss="modal"/>
-                <b:commandButton value="Speichern" look="success" dismiss="modal"
+                <b:commandButton value="Speichern" look="success" passthrough:data-dismiss="modal" ajax="true"
+                                 action="index.xhtml" update="@form:announcementListFormId @form:announcementMessagesFormId"
                                  actionListener="#{announcementProcessingBean.saveAnnouncement()}"/>
             </h:form>
         </b:modal>
@@ -23,8 +24,9 @@
                                  value="#{announcementProcessingBean.anncouncement.text}"/>
 
                 <b:button value="Abbrechen" look="danger" dismiss="modal"/>
-                <b:commandButton value="Speichern" look="success" dismiss="modal"
-                                 action="#{announcementProcessingBean.saveEditedAnnouncement()}"/>
+                <b:commandButton value="Speichern" look="success" passthrough:data-dismiss="modal" ajax="true"
+                                 action="index.xhtml" update="@form:announcementListFormId @form:announcementMessagesFormId"
+                                 actionListener="#{announcementProcessingBean.saveEditedAnnouncement()}"/>
             </h:form>
         </b:modal>
         <b:modal id="modalRemoveAccnouncement" title="Ankündigung löschen" styleClass="modalPseudoClass">
@@ -33,8 +35,9 @@
                                  value="#{announcementProcessingBean.anncouncement.text}"/>
 
                 <b:button value="Abbrechen" look="danger" dismiss="modal"/>
-                <b:commandButton value="Löschen" look="success" dismiss="modal"
-                                 action="#{announcementProcessingBean.deleteAnnouncement()}"/>
+                <b:commandButton value="Löschen" look="success" passthrough:data-dismiss="modal" ajax="true"
+                                 action="index.xhtml" update="@form:announcementListFormId @form:announcementMessagesFormId"
+                                 actionListener="#{announcementProcessingBean.deleteAnnouncement()}"/>
             </h:form>
         </b:modal>
 
@@ -49,7 +52,7 @@
                               passthrough:data-target="#modalAddAccnouncement" passthrough:data-toggle="modal"
                               size="sm"/>
                 </b:panel>
-                <h:form>
+                <h:form id="announcementListFormId">
                     <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
                         <b:panel collapsible="false">
                             <h:outputText value="#{announcement.text}"/><br/>

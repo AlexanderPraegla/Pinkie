@@ -5,17 +5,14 @@ import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class AnnouncementProcessingBean implements Serializable {
 
-	@ManagedProperty(value="#{announcementBean}")
-	private AnnouncementBean announcementBean;
 	private AnnouncementService announcementService;
 	private Logger logger;
 	private Announcement anncouncement = new Announcement();
@@ -24,7 +21,6 @@ public class AnnouncementProcessingBean implements Serializable {
 		try {
 			announcementService.updateAnnouncement(anncouncement);
 			FacesMessages.info("Ankündigung erfolgreich aktualisiert");
-			announcementBean.reloadAnncouncements();
 		} catch (Exception e) {
 			logger.error("Error while updating announcement with id={}", anncouncement.getId(), e);
 			FacesMessages.error("Es ist ein Fehler beim Speichern der Ankündigung aufgetreten");
@@ -32,28 +28,24 @@ public class AnnouncementProcessingBean implements Serializable {
 		return "index.xhtml";
 	}
 
-	public String deleteAnnouncement() {
+	public void deleteAnnouncement() {
 		try {
 			announcementService.deleteAnnouncement(anncouncement);
 			FacesMessages.info("Ankündigung erfolgreich gelöscht");
-			announcementBean.reloadAnncouncements();
 		} catch (Exception e) {
 			logger.error("Error while deleting announcement with id={}", anncouncement.getId(), e);
 			FacesMessages.error("Es ist ein Fehler beim löschen der Ankündigung aufgetreten");
 		}
-		return "index.xhtml";
 	}
 
 	public void saveAnnouncement() {
 		try {
  			announcementService.saveAnnouncement(anncouncement);
-			FacesMessages.info("Ankündigung erfolgreich gespeichert");
-			announcementBean.reloadAnncouncements();
+			FacesMessages.info( "Ankündigung erfolgreich gespeichert");
 		} catch (Exception e) {
 			logger.error("Error while saving announcement with id={}", anncouncement.getId(), e);
 			FacesMessages.error("Es ist ein Fehler beim speichern der Ankündigung aufgetreten");
 		}
-//		return "index.xhtml";
 	}
 
 	public Announcement getAnncouncement() {
@@ -74,7 +66,4 @@ public class AnnouncementProcessingBean implements Serializable {
 		this.logger = logger;
 	}
 
-	public void setAnnouncementBean(AnnouncementBean announcementBean) {
-		this.announcementBean = announcementBean;
-	}
 }

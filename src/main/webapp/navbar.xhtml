@@ -31,15 +31,15 @@
                 <b:inputText rendered="#{!loginBean.isLoggedIn}" id="email" value="#{loginBean.email}"
                              placeholder="Email" fieldSize="sm">
                     <f:facet name="prepend">
-                        <b:icon name="user" />
+                        <b:icon name="user"/>
                     </f:facet>
                 </b:inputText>
             </div>
-            <div class="form-group" >
+            <div class="form-group">
                 <b:inputText rendered="#{!loginBean.isLoggedIn}" id="password" value="#{loginBean.password}"
                              placeholder="Passwort" type="password" fieldSize="sm">
                     <f:facet name="prepend">
-                        <b:iconAwesome name="key" />
+                        <b:iconAwesome name="key"/>
                     </f:facet>
                 </b:inputText>
             </div>
@@ -52,7 +52,4 @@
                              iconAlign="right"/>
         </h:form>
     </b:navBar>
-    <h:form id="globalMessageFormId">
-        <b:messages id="test" />
-    </h:form>
 </ui:composition>
