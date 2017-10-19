@@ -5,12 +5,12 @@ import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class AnnouncementProcessingBean implements Serializable {
 
 	private AnnouncementService announcementService;

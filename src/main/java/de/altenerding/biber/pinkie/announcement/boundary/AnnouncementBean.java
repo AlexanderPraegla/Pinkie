@@ -6,13 +6,13 @@ import org.apache.logging.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class AnnouncementBean implements Serializable {
 
 	private AnnouncementService announcementService;
