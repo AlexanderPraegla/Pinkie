@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Announcement.findAll", query = "SELECT a FROM Announcement a ORDER BY a.id DESC"),
+		@NamedQuery(name = "Announcement.findAll", query = "SELECT a FROM Announcement a ORDER BY a.createdOn DESC"),
 		@NamedQuery(name = "Announcement.findById", query = "SELECT a FROM Announcement a where a.id = :id")
 })
 public class Announcement {
@@ -14,8 +14,8 @@ public class Announcement {
 	private long id;
 	@Column(columnDefinition = "VARCHAR")
 	private String text;
-	@Column
-	@Temporal(value = TemporalType.DATE)
+	@Column(name = "created_on")
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
 
 	public long getId() {

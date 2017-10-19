@@ -20,7 +20,7 @@ public class Team {
 	@Column(columnDefinition = "BIGINT DEFAULT -1")
 	private long orderId;
 	@Column(name = "created_on")
-	@Temporal(value = TemporalType.DATE)
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
 
 	public long getId() {

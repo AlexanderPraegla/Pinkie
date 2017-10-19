@@ -38,7 +38,7 @@ public class Member {
 	private boolean isAdmin;
 	@Column
 	private String homepage;
-	@Column
+	@Column(name = "created_on")
 	@Temporal(value = TemporalType.DATE)
 	private Date createdOn;
 
