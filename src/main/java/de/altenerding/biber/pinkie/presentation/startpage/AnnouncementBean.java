@@ -2,6 +2,8 @@ package de.altenerding.biber.pinkie.presentation.startpage;
 
 import de.altenerding.biber.pinkie.business.announcement.boundary.AnnouncementService;
 import de.altenerding.biber.pinkie.business.announcement.entity.Announcement;
+import de.altenerding.biber.pinkie.business.gamereport.boundary.ReportService;
+import de.altenerding.biber.pinkie.business.gamereport.entity.Report;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
@@ -17,12 +19,14 @@ import java.util.List;
 public class AnnouncementBean implements Serializable {
 
 	private AnnouncementService announcementService;
+	private ReportService reportService;
 	private Logger logger;
 	private List<Announcement> announcements;
 
 	@PostConstruct
 	public void init() {
 		try {
+			List<Report> reports = reportService.getGameReports();
 			announcements = announcementService.getAnnouncements();
 		} catch (Exception e) {
 			logger.error("Error while loading announcements", e);
@@ -49,4 +53,8 @@ public class AnnouncementBean implements Serializable {
 		this.logger = logger;
 	}
 
+	@Inject
+	public void setReportService(ReportService reportService) {
+		this.reportService = reportService;
+	}
 }

@@ -1,5 +1,7 @@
 package de.altenerding.biber.pinkie.business.team.entity;
 
+import de.altenerding.biber.pinkie.business.gamereport.entity.Season;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -17,6 +19,9 @@ public class Team {
 	private String name;
 	@Column(columnDefinition = "VARCHAR")
 	private String league;
+	@JoinColumn
+	@OneToOne(fetch = FetchType.EAGER)
+	private Season season;
 	@Column(columnDefinition = "BIGINT DEFAULT -1")
 	private long orderId;
 	@Column(name = "created_on")
@@ -61,5 +66,13 @@ public class Team {
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	public Season getSeason() {
+		return season;
+	}
+
+	public void setSeason(Season season) {
+		this.season = season;
 	}
 }
