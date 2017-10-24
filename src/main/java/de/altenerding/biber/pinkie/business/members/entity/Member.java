@@ -154,4 +154,8 @@ public class Member {
 		this.createdOn = creationDate;
 	}
 
+	public String getFullName() {
+		return firstName + " " + lastName;
+	}
+
 }
