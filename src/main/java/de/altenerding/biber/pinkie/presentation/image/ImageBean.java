@@ -1,4 +1,4 @@
-package de.altenerding.biber.pinkie.business.announcement.boundary;
+package de.altenerding.biber.pinkie.presentation.image;
 
 import org.apache.logging.log4j.Logger;
 
