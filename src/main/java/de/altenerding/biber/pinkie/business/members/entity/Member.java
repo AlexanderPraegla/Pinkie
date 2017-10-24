@@ -1,5 +1,7 @@
 package de.altenerding.biber.pinkie.business.members.entity;
 
+import de.altenerding.biber.pinkie.business.config.ImageFolder;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -41,6 +43,8 @@ public class Member {
 	@Column(name = "created_on")
 	@Temporal(value = TemporalType.DATE)
 	private Date createdOn;
+	@Column(columnDefinition = "varchar")
+	private String profileImageName;
 
     public long getId() {
         return id;
@@ -158,4 +162,15 @@ public class Member {
 		return firstName + " " + lastName;
 	}
 
+	public String getProfileImageName() {
+		return profileImageName;
+	}
+
+	public void setProfileImageName(String profilePicture) {
+		this.profileImageName = profilePicture;
+	}
+
+	public String getFullProfileImagePath() {
+		return ImageFolder.PROFILE_IMAGE.getName() + profileImageName;
+	}
 }

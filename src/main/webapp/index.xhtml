@@ -86,7 +86,7 @@
             </b:panel>
 
             <b:panel title="Bild der Woche" collapsible="true">
-                <h:graphicImage value="file/imageOfWeek/#{announcementBean.imageOfWeek}"
+                <h:graphicImage value="#{announcementBean.getImageOfWeekFullPath()}"
                                 style="max-height: 100%; max-width: 100%"/>
             </b:panel>
         </b:container>

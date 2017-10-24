@@ -6,11 +6,11 @@ INSERT INTO announcement (text, created_on) VALUES ('Dies ist die erste Ankündi
 INSERT INTO announcement (text, created_on) VALUES ('Es liegen nun alle Ergebnisse vom Wochenende vor. Spielberichte sind auch schon einige vorhanden. Einfach unter Top News nachlesen.',now());
 INSERT INTO announcement (text, created_on) VALUES ('Biber-Einlaufkinder beim Bundesligisten HC Erlangen: Am Samstag, 16.12.2017 werden zum Bundesligaspiel des HC Erlangen gegen Ludwigshafen/Friesenheim unsere Biber-Kids mit den Bundesligaspielern des HC Erlangen einlaufen! Wer zum Spiel des „einzigen bayerischen Handball-Bundesligisten“ mitfahren möchte, meldet sich bitte bei Christian (christian.sack@altenerding-biber.de) an. Bei ausreichendem Interesse werden wir wieder einen Bus organisieren. Die Kosten für die ermäßigten Eintrittskarten und die Busfahrt werden bekannt gegeben, sobald verfügbar.',now());
 
-INSERT INTO team (name, league, orderId, season_id, created_on) VALUES ('Herren 1', 'Bezirksoberliga', 1, 3, now());
-INSERT INTO team (name, league, orderId, season_id, created_on) VALUES ('Herren 2', 'Bezirksliga', 2, 3, now());
-INSERT INTO team (name, league, orderId, season_id, created_on) VALUES ('Damen 1', 'Bezirksoberliga', 3, 3, now());
-INSERT INTO team (name, league, orderId, season_id, created_on) VALUES ('Damen 2', 'Bezirksliga', 4, 3, now());
-INSERT INTO team (name, league, orderId, season_id, created_on) VALUES ('Dummy Jugend', 'Dummy Liga', 5, 3, now());
+INSERT INTO team (name, league, orderId, season_id, created_on, imageName) VALUES ('Herren 1', 'Bezirksoberliga', 1, 3, now(), '1505907652_Herren_1_Mannschaftsbild.jpg');
+INSERT INTO team (name, league, orderId, season_id, created_on, imageName) VALUES ('Herren 2', 'Bezirksliga', 2, 3, now(), '1508764389_IMG_7208.jpg');
+INSERT INTO team (name, league, orderId, season_id, created_on, imageName) VALUES ('Damen 1', 'Bezirksoberliga', 3, 3, now(), '1505907872_Damenbild.jpg');
+INSERT INTO team (name, league, orderId, season_id, created_on, imageName) VALUES ('Damen 2', 'Bezirksliga', 4, 3, now(), '1508191520_Spvgg_Altenerding_Handballl_D2_Foto_Naglik_8203.jpg');
+INSERT INTO team (name, league, orderId, season_id, created_on, imageName) VALUES ('Dummy Jugend', 'Dummy Liga', 5, 3, now(), '1494602328_Mannschaftsfoto_wA.jpg');
 
 INSERT INTO member (city, created_on, email, firstname, homepage, lastname, mobilenumber, nickname, password, phonenumber, street, zipcode) VALUES ('Erding', now(), 'max_biber@sva.org', 'Max', '', 'Mustermann', '+49123456789', 'Maxl', '1234', '', 'Biberstraße 8', '85435');
 INSERT INTO member (city, created_on, email, firstname, homepage, lastname, mobilenumber, nickname, password, phonenumber, street, zipcode) VALUES ('Erding', now(), 'eva_biber@sva.org', 'Eva', '', 'Musterfrau', '+49987654321', '', '1234', '', 'Biberstraße 8', '85435');

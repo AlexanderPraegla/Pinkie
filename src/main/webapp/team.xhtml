@@ -1,28 +1,40 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="title">Altenerding Handball</ui:define>
 
     <ui:define name="content">
-        <b:jumbotron>
-            <b:container>
-                <h:outputText value="#{teamBean.team.name}"/>
-                <h:outputText value=" - "/>
-                <h:outputText value="#{teamBean.team.league}"/>
-            </b:container>
-        </b:jumbotron>
-
-        <b:jumbotron>
+        <f:metadata>
+            <f:viewParam name="teamId" value="#{teamBean.teamId}"/>
+            <f:viewAction action="#{teamBean.initTeam()}"/>
+        </f:metadata>
         <b:container>
-            <h:outputText value="Hier ist ein neuer Container"/>
-        </b:container>
-        </b:jumbotron>
+            <b:tabView activeIndex="0">
+                <b:tab title="Info">
+                    <b:panel collapsible="false">
+                        <p>This is the first tab.</p>
+                        <h:outputText value="#{teamBean.team.name}"/>
+                        <h:outputText value=" - "/>
+                        <h:outputText value="#{teamBean.team.league}"/>
+                        <h:graphicImage value="#{teamBean.team.getFullImagePath()}"
+                                        style="max-height: 60%; max-width: 60%"/>
+                    </b:panel>
+                </b:tab>
+                <b:tab title="Spielerprofile">
+                    <p>Hier sollen die Spielerprofile mit Bildern angezeigt werden</p>
+                </b:tab>
+                <b:tab title="Tabelle">
+                    <p>Hier soll die Tabelle aus nuLiga dargestellt werden</p>
+                </b:tab>
+                <!-- The next tab shows tabs aren't limited to text. You can put anything in a tab. -->
+                <b:tab title="Spielplan">
+                    Hier soll der spielplan der saison dargestellt werden (nur Spiele von SVA)
+                </b:tab>
 
-        <b:jumbotron>
-            <b:container>
-                <h:outputText value="Hier ist noch ein neuer Container"/>
-            </b:container>
-        </b:jumbotron>
+            </b:tabView>
+        </b:container>
+
     </ui:define>
 </ui:composition>

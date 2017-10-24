@@ -2,6 +2,7 @@ package de.altenerding.biber.pinkie.presentation.startpage;
 
 import de.altenerding.biber.pinkie.business.announcement.boundary.AnnouncementService;
 import de.altenerding.biber.pinkie.business.announcement.entity.Announcement;
+import de.altenerding.biber.pinkie.business.config.ImageFolder;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
@@ -19,7 +20,6 @@ public class AnnouncementBean implements Serializable {
 	private AnnouncementService announcementService;
 	private Logger logger;
 	private List<Announcement> announcements;
-	private String imageOfWeek = "1508191781_Sportpark_Schollbach_Handball_Altenerding_Foto_Naglik_8207.jpg";
 
 	@PostConstruct
 	public void init() {
@@ -50,7 +50,7 @@ public class AnnouncementBean implements Serializable {
 		this.logger = logger;
 	}
 
-	public String getImageOfWeek() {
-		return imageOfWeek;
+	public String getImageOfWeekFullPath() {
+		return ImageFolder.IMAGE_OF_WEEK + "1508191781_Sportpark_Schollbach_Handball_Altenerding_Foto_Naglik_8207.jpg";
 	}
 }
