@@ -1,11 +1,11 @@
-package de.altenerding.biber.pinkie.business.gamereport.entity;
+package de.altenerding.biber.pinkie.business.report.entity;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Season.findAll", query = "SELECT s from Season s")
+		@NamedQuery(name = "Season.findAll", query = "SELECT s from Season s order by s.createdOn desc")
 })
 public class Season {
 
@@ -32,5 +32,13 @@ public class Season {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
 	}
 }

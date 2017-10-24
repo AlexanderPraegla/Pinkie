@@ -1,4 +1,4 @@
-package de.altenerding.biber.pinkie.business.gamereport.entity;
+package de.altenerding.biber.pinkie.business.report.entity;
 
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
@@ -8,8 +8,8 @@ import java.util.Date;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "GameReport.findAll", query = "SELECT g from Report g"),
-		@NamedQuery(name = "GameReport.findById", query = "SELECT g from Report g where g.id = :id")
+		@NamedQuery(name = "Report.findAll", query = "SELECT g from Report g order by g.createdOn desc"),
+		@NamedQuery(name = "Report.findById", query = "SELECT g from Report g where g.id = :id")
 })
 public class Report {
 
@@ -19,23 +19,30 @@ public class Report {
 	@Column(columnDefinition = "varchar")
 	private String title;
 	@Column(columnDefinition = "varchar")
-	private String subTitle;
+	private String summary;
 	@Column(columnDefinition = "varchar")
 	private String text;
 	@Column(columnDefinition = "varchar")
-	private String type; //TODO Hier würde ich gerne ein Enum verwenden
+	private ReportType type;
 	@JoinColumn
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Member author;
 	@JoinColumn
 	@OneToOne(fetch = FetchType.EAGER)
 	private Season season;
 	@JoinColumn
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Team team;
-	@Column(name = "created_on")
+	@Column(name = "created_on", nullable = false)
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
+
+	@PrePersist
+	protected void onPersist() {
+		if (createdOn == null) {
+			createdOn = new Date();
+		}
+	}
 
 	public long getId() {
 		return id;
@@ -53,12 +60,12 @@ public class Report {
 		this.title = title;
 	}
 
-	public String getSubTitle() {
-		return subTitle;
+	public String getSummary() {
+		return summary;
 	}
 
-	public void setSubTitle(String subTitle) {
-		this.subTitle = subTitle;
+	public void setSummary(String subTitle) {
+		this.summary = subTitle;
 	}
 
 	public String getText() {
@@ -101,11 +108,11 @@ public class Report {
 		this.createdOn = createdOn;
 	}
 
-	public String getType() {
+	public ReportType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(ReportType type) {
 		this.type = type;
 	}
 }

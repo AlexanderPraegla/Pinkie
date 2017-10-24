@@ -1,4 +1,4 @@
-package de.altenerding.biber.pinkie.business.gamereport.entity;
+package de.altenerding.biber.pinkie.business.report.entity;
 
 public enum ReportType {
 	ANNOUNCEMENT("Ankündigung"),
@@ -6,19 +6,19 @@ public enum ReportType {
 	GAMESREPORT("Spielbericht"),
 	OTHER("Sonstiges");
 
-	private final String type;
+	private final String label;
 
-	ReportType(String type) {
-		this.type = type;
+	ReportType(String label) {
+		this.label = label;
 	}
 
-	public String getType() {
-		return type;
+	public String getLabel() {
+		return label;
 	}
 
 	public static ReportType get(String type) {
 		for (ReportType reportType : values()) {
-			if (reportType.getType().equals(type)) {
+			if (reportType.getLabel().equals(type)) {
 				return reportType;
 			}
 		}
