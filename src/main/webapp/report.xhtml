@@ -18,25 +18,29 @@
                         <h:outputText value=" - "/>
                         <h:outputText value="#{report.title}"/>
                     </f:facet>
-                    <h:form>
-                        <b:panelGrid colSpans="10,1,1" size="xs">
+                    <b:row>
+                        <b:column span="10">
                             <h:outputText value="#{report.summary}"/>
-                            <b:button value="Lesen" outcome="reportView.xhtml" look="primary"
-                                      size="sm" includeViewParams="true">
-                                <f:param name="reportId" value="#{report.id}"/>
-                            </b:button>
+                        </b:column>
+                        <b:column span="1" style="margin-top: 5px">
                             <b:button value="Bearbeiten" outcome="editReport.xhtml"
                                       look="default" rendered="#{loginBean.isLoggedIn}"
                                       size="sm" includeViewParams="true">
                                 <f:param name="reportId" value="#{report.id}"/>
                             </b:button>
-                        </b:panelGrid>
-                    </h:form>
+                        </b:column>
+                        <b:column span="1" style="margin-top: 5px">
+                            <b:button value="Lesen" outcome="reportView.xhtml" look="primary"
+                                      size="sm" includeViewParams="true">
+                                <f:param name="reportId" value="#{report.id}"/>
+                            </b:button>
+                        </b:column>
+                    </b:row>
                     <f:facet name="footer">
                         <h:outputText value="#{report.author.getFullName()}"/>
                         <h:outputText value=" - "/>
-                        <h:outputText value="#{report.createdOn}" >
-                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin" />
+                        <h:outputText value="#{report.createdOn}">
+                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
                         </h:outputText>
                     </f:facet>
                 </b:panel>

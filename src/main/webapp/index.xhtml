@@ -58,21 +58,29 @@
                 <h:form id="announcementListFormId">
                     <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
                         <b:panel collapsible="false">
-                            <h:outputText value="#{announcement.text}"/><br/>
-                            <b:commandButton rendered="#{loginBean.isLoggedIn}"
-                                             actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
-                                             size="sm" passthrough:data-target="#modalEditAccnouncement"
-                                             passthrough:data-toggle="modal"
-                                             update="@form:editAccouncmentFormId"
-                                             disabled="false" value="Edit" look="success" icon="pencil"
-                                             iconAlign="right"/>
-                            <b:commandButton rendered="#{loginBean.isLoggedIn}"
-                                             actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
-                                             size="sm" passthrough:data-target="#modalRemoveAccnouncement"
-                                             passthrough:data-toggle="modal"
-                                             update="@form:removeAccouncmentFormId"
-                                             disabled="false" value="Löschen" look="danger" icon="remove"
-                                             iconAlign="right"/>
+                            <b:row style="margin: 0px">
+                                <h:outputText value="#{announcement.text}"/><br/>
+                            </b:row>
+                            <b:row>
+                                <b:column span="2" style="margin-top: 5px">
+                                    <b:commandButton rendered="#{loginBean.isLoggedIn}"
+                                                     actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
+                                                     size="sm" passthrough:data-target="#modalEditAccnouncement"
+                                                     passthrough:data-toggle="modal"
+                                                     update="@form:editAccouncmentFormId"
+                                                     disabled="false" value="Bearbeiten" look="success" icon="pencil"
+                                                     iconAlign="right"/>
+                                </b:column>
+                                <b:column span="2" style="margin-top: 5px">
+                                    <b:commandButton rendered="#{loginBean.isLoggedIn}"
+                                                     actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
+                                                     size="sm" passthrough:data-target="#modalRemoveAccnouncement"
+                                                     passthrough:data-toggle="modal"
+                                                     update="@form:removeAccouncmentFormId"
+                                                     disabled="false" value="Löschen" look="danger" icon="remove"
+                                                     iconAlign="right"/>
+                                </b:column>
+                            </b:row>
                         </b:panel>
                     </ui:repeat>
                 </h:form>
