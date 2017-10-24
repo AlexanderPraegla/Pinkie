@@ -51,6 +51,6 @@ public class AnnouncementBean implements Serializable {
 	}
 
 	public String getImageOfWeekFullPath() {
-		return ImageFolder.IMAGE_OF_WEEK + "1508191781_Sportpark_Schollbach_Handball_Altenerding_Foto_Naglik_8207.jpg";
+		return ImageFolder.IMAGE_OF_WEEK.getName()+ "1508191781_Sportpark_Schollbach_Handball_Altenerding_Foto_Naglik_8207.jpg";
 	}
 }
