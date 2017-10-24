@@ -59,7 +59,7 @@ public class ReportBean {
 		FacesMessages.info(report.getTeam().getName(),"Bericht erstellt");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "reportOverview.xhtml?faces-redirect=true";
+		return "report.xhtml?faces-redirect=true";
 	}
 
 	public String updateReport() {
@@ -73,7 +73,7 @@ public class ReportBean {
 		FacesMessages.info(editReport.getTeam().getName(),"Bericht aktualisiert");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "reportOverview.xhtml?faces-redirect=true";
+		return "report.xhtml?faces-redirect=true";
 	}
 
 	@Inject
