@@ -1,6 +1,6 @@
 package de.altenerding.biber.pinkie.business.team.entity;
 
-import de.altenerding.biber.pinkie.business.gamereport.entity.Season;
+import de.altenerding.biber.pinkie.business.report.entity.Season;
 
 import javax.persistence.*;
 import java.util.Date;

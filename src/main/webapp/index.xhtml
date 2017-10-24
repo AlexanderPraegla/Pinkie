@@ -13,7 +13,8 @@
 
                 <b:button value="Abbrechen" look="danger" dismiss="modal"/>
                 <b:commandButton value="Speichern" look="success" passthrough:data-dismiss="modal" ajax="true"
-                                 action="index.xhtml" update="@form:announcementListFormId @form:announcementMessagesFormId"
+                                 action="index.xhtml"
+                                 update="@form:announcementListFormId @form:announcementMessagesFormId"
                                  actionListener="#{announcementProcessingBean.saveAnnouncement()}"/>
             </h:form>
         </b:modal>
@@ -25,7 +26,8 @@
 
                 <b:button value="Abbrechen" look="danger" dismiss="modal"/>
                 <b:commandButton value="Speichern" look="success" passthrough:data-dismiss="modal" ajax="true"
-                                 action="index.xhtml" update="@form:announcementListFormId @form:announcementMessagesFormId"
+                                 action="index.xhtml"
+                                 update="@form:announcementListFormId @form:announcementMessagesFormId"
                                  actionListener="#{announcementProcessingBean.saveEditedAnnouncement()}"/>
             </h:form>
         </b:modal>
@@ -36,7 +38,8 @@
 
                 <b:button value="Abbrechen" look="danger" dismiss="modal"/>
                 <b:commandButton value="Löschen" look="success" passthrough:data-dismiss="modal" ajax="true"
-                                 action="index.xhtml" update="@form:announcementListFormId @form:announcementMessagesFormId"
+                                 action="index.xhtml"
+                                 update="@form:announcementListFormId @form:announcementMessagesFormId"
                                  actionListener="#{announcementProcessingBean.deleteAnnouncement()}"/>
             </h:form>
         </b:modal>

@@ -43,11 +43,11 @@
                     </f:facet>
                 </b:inputText>
             </div>
-            <!--#{' '}-->
-            <b:commandButton rendered="#{!loginBean.isLoggedIn}" action="#{loginBean.login()}" size="sm"
+
+            <b:commandButton rendered="#{!loginBean.isLoggedIn}" action="#" actionListener="#{loginBean.login()}" size="sm"
                              disabled="false" value="LogIn" look="success" icon="chevron-right"
                              iconAlign="right"/>
-            <b:commandButton rendered="#{loginBean.isLoggedIn}" action="#{loginBean.logout()}" size="sm"
+            <b:commandButton rendered="#{loginBean.isLoggedIn}" action="index.xhtml" actionListener="#{loginBean.logout()}" size="sm"
                              disabled="false" value="LogOut" look="danger" icon="chevron-right"
                              iconAlign="right"/>
         </h:form>

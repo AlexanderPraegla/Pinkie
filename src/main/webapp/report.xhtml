@@ -1,0 +1,64 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">Spielberichte</ui:define>
+
+    <ui:define name="content">
+        <b:container id="reportListingContainerId">
+            <b:panel rendered="#{loginBean.isLoggedIn}">
+                <b:button value="Bericht hinzufügen" look="primary" rendered="#{loginBean.isLoggedIn}"
+                          outcome="addReport.xhtml" size="sm"/>
+            </b:panel>
+            <ui:repeat value="#{reportBean.reports}" var="report">
+                <b:panel collapsible="false">
+                    <f:facet name="heading">
+                        <h:outputText value="#{report.team.name}"/>
+                        <h:outputText value=" - "/>
+                        <h:outputText value="#{report.title}"/>
+                    </f:facet>
+                    <h:form>
+                        <b:panelGrid colSpans="10,1,1" size="xs">
+                            <h:outputText value="#{report.summary}"/>
+                            <b:button value="Lesen" outcome="reportView.xhtml" look="primary"
+                                      size="sm" includeViewParams="true">
+                                <f:param name="reportId" value="#{report.id}"/>
+                            </b:button>
+                            <b:button value="Bearbeiten" outcome="editReport.xhtml"
+                                      look="default" rendered="#{loginBean.isLoggedIn}"
+                                      size="sm" includeViewParams="true">
+                                <f:param name="reportId" value="#{report.id}"/>
+                            </b:button>
+                        </b:panelGrid>
+                    </h:form>
+                    <f:facet name="footer">
+                        <h:outputText value="#{report.author.getFullName()}"/>
+                        <h:outputText value=" - "/>
+                        <h:outputText value="#{report.createdOn}" >
+                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin" />
+                        </h:outputText>
+                    </f:facet>
+                </b:panel>
+
+            </ui:repeat>
+        </b:container>
+
+
+        <!--<b:panel title="Ankündigungen">-->
+        <!--<h:form id="announcementListFormId">-->
+        <!--<ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">-->
+        <!--<b:panel collapsible="false">-->
+        <!--<h:outputText value="#{announcement.text}"/><br/>-->
+        <!--<b:commandButton rendered="#{loginBean.isLoggedIn}" size="sm"-->
+        <!--disabled="false" value="Edit" look="success" icon="pencil"-->
+        <!--iconAlign="right"/>-->
+        <!--<b:commandButton rendered="#{loginBean.isLoggedIn}" size="sm"-->
+        <!--disabled="false" value="Löschen" look="danger" icon="remove"-->
+        <!--iconAlign="right"/>-->
+        <!--</b:panel>-->
+        <!--</ui:repeat>-->
+        <!--</h:form>-->
+        <!--</b:panel>-->
+    </ui:define>
+</ui:composition>

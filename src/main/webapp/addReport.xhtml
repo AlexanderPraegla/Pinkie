@@ -1,0 +1,39 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">Bericht erstellen</ui:define>
+
+    <ui:define name="content">
+        <b:container>
+            <h:form id="addReportFormId">
+                <b:inputText value="#{loginBean.member.getFullName()}" label="Author" disabled="true"/>
+                <b:inputText value="#{reportBean.report.title}" label="Titel" required="true" requiredMessage="Bitte Titel angeben"/>
+                <b:inputText value="#{reportBean.report.summary}" label="Zusammenfassung" required="true" requiredMessage="Bitte Zusammenfassung angeben"/>
+                <b:panelGrid colSpans="4,4,4">
+                    <b:selectOneMenu value="#{reportBean.report.season}" label="Saison">
+                    <f:selectItems value="#{seasonBean.seasons}" var="season" itemValue="#{season}"
+                                   itemLabel="#{season.name}"/>
+                    </b:selectOneMenu>
+
+                    <b:selectOneMenu value="#{reportBean.report.team}" label="Team" required="true" requiredMessage="Bitte Team auswählen" >
+                        <f:selectItem itemLabel="Bitte auswählen" itemValue="" />
+                        <f:selectItems value="#{teamBean.teams}" var="team" itemValue="#{team}"
+                                       itemLabel="#{team.name}"/>
+                    </b:selectOneMenu>
+                    <b:selectOneMenu value="#{reportBean.report.type}" label="Berichtart" required="true" requiredMessage="Bitte Berichttyp auswählen">
+                        <f:selectItem itemLabel="Bitte auswählen" itemValue="" />
+                        <f:selectItems value="#{enumBean.getReportTypes()}" var="type" itemValue="#{type}"
+                                       itemLabel="#{type.label}"/>
+                    </b:selectOneMenu>
+                </b:panelGrid>
+                <b:inputTextarea value="#{reportBean.report.text}"
+                                 label="Text" required="true"
+                                 requiredMessage="Es sind keine leeren Berichte erlaubt"/>
+                <b:commandButton value="Speichern" look="success" size="sm"
+                                 action="#{reportBean.saveReport}"/>
+            </h:form>
+        </b:container>
+    </ui:define>
+</ui:composition>
