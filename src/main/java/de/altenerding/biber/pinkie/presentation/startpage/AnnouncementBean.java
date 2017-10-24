@@ -19,6 +19,7 @@ public class AnnouncementBean implements Serializable {
 	private AnnouncementService announcementService;
 	private Logger logger;
 	private List<Announcement> announcements;
+	private String imageOfWeek = "1508191781_Sportpark_Schollbach_Handball_Altenerding_Foto_Naglik_8207.jpg";
 
 	@PostConstruct
 	public void init() {
@@ -47,5 +48,9 @@ public class AnnouncementBean implements Serializable {
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
+	}
+
+	public String getImageOfWeek() {
+		return imageOfWeek;
 	}
 }

@@ -2,8 +2,7 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
-                xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"
-                xmlns:o="http://omnifaces.org/ui">
+                xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough">
     <ui:define name="title">Altenerding Handball</ui:define>
 
     <ui:define name="content">
@@ -87,9 +86,8 @@
             </b:panel>
 
             <b:panel title="Bild der Woche" collapsible="true">
-                <o:graphicImage value="#{imageBean.getPictureOfTheWeek()}" dataURI="true"
+                <h:graphicImage value="file/imageOfWeek/#{announcementBean.imageOfWeek}"
                                 style="max-height: 100%; max-width: 100%"/>
-
             </b:panel>
         </b:container>
     </ui:define>
