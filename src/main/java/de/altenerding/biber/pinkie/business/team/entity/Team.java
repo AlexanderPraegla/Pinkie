@@ -1,5 +1,6 @@
 package de.altenerding.biber.pinkie.business.team.entity;
 
+import de.altenerding.biber.pinkie.business.config.ImageFolder;
 import de.altenerding.biber.pinkie.business.report.entity.Season;
 
 import javax.persistence.*;
@@ -27,6 +28,8 @@ public class Team {
 	@Column(name = "created_on")
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
+	@Column(columnDefinition = "VARCHAR")
+	private String imageName;
 
 	public long getId() {
 		return id;
@@ -74,5 +77,17 @@ public class Team {
 
 	public void setSeason(Season season) {
 		this.season = season;
+	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public String getFullImagePath() {
+		return ImageFolder.TEAM_IMAGE.getName() + imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}
 }
