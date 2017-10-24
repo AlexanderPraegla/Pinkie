@@ -7,15 +7,17 @@
     <title>
         <ui:insert name="title">Some title</ui:insert>
     </title>
+    <link rel="icon" type="image/png" href="resources/images/logo_biber_ae_16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="resources/images/logo_biber_ae_32x32.png" sizes="32x32"/>
 </h:head>
 
-<ui:include src="../pages/global/header.xhtml"/>
-<ui:include src="../pages/global/navbar.xhtml"/>
+<ui:include src="../../header.xhtml"/>
+<ui:include src="../../navbar.xhtml"/>
 
 <h:body style="padding-top: 50px; padding-bottom: 20px;">
     <ui:insert name="content" />
 </h:body>
 
-<ui:include src="../pages/global/footer.xhtml"/>
+<ui:include src="../../footer.xhtml"/>
 
 </html>
