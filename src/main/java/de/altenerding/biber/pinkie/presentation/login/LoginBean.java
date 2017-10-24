@@ -6,10 +6,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.util.Map;
 
 @ManagedBean
 @SessionScoped
@@ -24,20 +22,14 @@ public class LoginBean implements Serializable {
 	private boolean loggedIn = false;
 
 
-	public String login() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		Map<String, String> params =
-				fc.getExternalContext().getRequestParameterMap();
-		logger.info("Number of params={}", params.size());
-//		FacesMessages.info("TestMesssage");
-
+	public void login() {
+		member = memberService.getMemberById(1);
+		logger.info("Successful login for user with id={}", member.getId());
 		loggedIn = true;
-		return "index.xhtml";
 	}
 
-	public String logout() {
+	public void logout() {
 		loggedIn = false;
-		return "index.xhtml";
 	}
 
 	public Member getMember() {
