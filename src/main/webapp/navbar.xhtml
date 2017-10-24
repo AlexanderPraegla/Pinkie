@@ -10,11 +10,11 @@
                     <b:navLink value="Spielberichte" href="report.xhtml"/>
                 </b:dropMenu>
                 <b:dropMenu value="Teams">
-
                     <ui:repeat var="team" value="#{teamBean.teams}">
-                        <b:navCommandLink value="#{team.name}" action="#{teamBean.getTeamById(team.id)}"/>
+                        <b:navLink value="#{team.name}" outcome="team.xhtml" includeViewParams="true">
+                            <f:param name="teamId" value="#{team.id}"/>
+                        </b:navLink>
                     </ui:repeat>
-
                 </b:dropMenu>
                 <b:navLink value="Verein" href="#"/>
                 <b:navLink value="Gästebuch" href="#" rendered="#{loginBean.isLoggedIn}"/>

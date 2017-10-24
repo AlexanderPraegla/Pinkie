@@ -5,6 +5,7 @@ import de.altenerding.biber.pinkie.business.team.entity.Team;
 import org.apache.logging.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -17,7 +18,14 @@ public class TeamBean implements Serializable {
 	private TeamService teamService;
 	private Logger logger;
 
+	@ManagedProperty(value = "#{param.teamId}")
+	private long teamId;
 	private Team team;
+
+	public void initTeam() {
+		logger.info("Loading team data for id={}", teamId);
+		team = teamService.getTeamById(teamId);
+	}
 
 	public List<Team> getTeams() {
 		logger.info("Loading all teams from database");
@@ -48,4 +56,13 @@ public class TeamBean implements Serializable {
 	public void setLogger(Logger logger) {
 		this.logger = logger;
 	}
+
+	public long getTeamId() {
+		return teamId;
+	}
+
+	public void setTeamId(long teamId) {
+		this.teamId = teamId;
+	}
+
 }
