@@ -2,7 +2,7 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui">
 <h:head>
     <title>
         <ui:insert name="title">Some title</ui:insert>
@@ -10,6 +10,17 @@
     <link rel="icon" type="image/png" href="resources/images/logo_biber_ae_16x16.png" sizes="16x16"/>
     <link rel="icon" type="image/png" href="resources/images/logo_biber_ae_32x32.png" sizes="32x32"/>
 </h:head>
+<style>
+    #scrollUpCustom {
+        background-image: url("#{resource['images:top.png']}");
+        bottom: 65px;
+        right: 18px;
+        width: 38px; /* width of the custom image */
+        height: 38px; /* height of the custom image */
+        outline: none;
+    }
+</style>
+<b:scrollUp distance="200" animation="fade" text="" scrollTitle="false" name="scrollUpCustom" />
 
 <ui:include src="../../header.xhtml"/>
 <ui:include src="../../navbar.xhtml"/>
