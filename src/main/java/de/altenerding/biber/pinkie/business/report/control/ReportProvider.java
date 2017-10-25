@@ -24,6 +24,14 @@ public class ReportProvider {
 		return em.createNamedQuery("Report.findById", Report.class).setParameter("id", reportId).getSingleResult();
 	}
 
+	public List<Report> getReportsForTeam(long teamId, long seasonId) {
+		logger.info("Getting reports for teamId={} and seasonId={}", teamId, seasonId);
+		return em.createNamedQuery("Report.findByTeamIdSeasonID", Report.class)
+				.setParameter("teamId", teamId)
+				.setParameter("seasonId", seasonId)
+				.getResultList();
+	}
+
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;

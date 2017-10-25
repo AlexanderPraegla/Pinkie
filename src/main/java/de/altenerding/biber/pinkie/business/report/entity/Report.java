@@ -9,7 +9,9 @@ import java.util.Date;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "Report.findAll", query = "SELECT g from Report g order by g.createdOn desc"),
-		@NamedQuery(name = "Report.findById", query = "SELECT g from Report g where g.id = :id")
+		@NamedQuery(name = "Report.findById", query = "SELECT g from Report g where g.id = :id"),
+		@NamedQuery(name = "Report.findByTeamIdSeasonID", query = "SELECT g from Report g " +
+				"where g.team.id = :teamId AND g.season.id = :seasonId ORDER BY g.createdOn desc")
 })
 public class Report {
 

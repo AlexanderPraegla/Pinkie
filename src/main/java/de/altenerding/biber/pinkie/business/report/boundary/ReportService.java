@@ -22,6 +22,10 @@ public class ReportService {
 		return reportProvider.getReportById(reportId);
 	}
 
+	public List<Report> getReportsForTeam(long teamId, long seasonId) {
+		return reportProvider.getReportsForTeam(teamId, seasonId);
+	}
+
 	public void createReport(Report report) {
 		reportProcessor.createReport(report);
 	}
