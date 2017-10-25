@@ -38,6 +38,12 @@ public class Team {
 	private String additionalInfo;
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<Member> teamMembers;
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "team_trainer",
+			joinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "member_id", referencedColumnName = "id"))
+	private List<Member> trainers;
 
 	public long getId() {
 		return id;
@@ -121,5 +127,13 @@ public class Team {
 
 	public void setTeamMembers(List<Member> teamMembers) {
 		this.teamMembers = teamMembers;
+	}
+
+	public List<Member> getTrainers() {
+		return trainers;
+	}
+
+	public void setTrainers(List<Member> trainers) {
+		this.trainers = trainers;
 	}
 }

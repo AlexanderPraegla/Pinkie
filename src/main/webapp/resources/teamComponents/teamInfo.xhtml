@@ -3,6 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:b="http://bootsfaces.net/ui">
 
@@ -32,7 +33,41 @@
             </div>
         </b:panel>
         <b:panel title="Trainer">
-            Hier sollen die Trainer aufgelistet werden
+            <ui:repeat value="#{teamBean.team.trainers}" var="trainer">
+                <b:panel collapsible="false">
+                    <b:row style="margin: 0px">
+                        <b:column tinyScreen="4" smallScreen="3" mediumScreen="2" largeScreen="2">
+                            <h:graphicImage value="#{trainer.fullProfileImagePath}" style="max-height: 100%; max-width: 100%"/>
+                        </b:column>
+                        <b:column tinyScreen="8" smallScreen="9" mediumScreen="10" largeScreen="10">
+                            <b:row>
+                                <b:column span="6"><h:outputLabel for="trainerName"
+                                                                  value="Name:"/></b:column>
+                                <b:column span="6"><h:outputText id="trainerName"
+                                                                 value="#{trainer.getFullName()}"/></b:column>
+                            </b:row>
+                            <b:row>
+                                <b:column span="6"><h:outputLabel for="teamMemberEmail"
+                                                                  value="E-Mail Adresse:"/></b:column>
+                                <b:column span="6"><h:outputText id="teamMemberEmail"
+                                                                 value="#{trainer.email}"/></b:column>
+                            </b:row>
+                            <b:row>
+                                <b:column span="6"><h:outputLabel for="trainerMobile"
+                                                                  value="Handynummer:"/></b:column>
+                                <b:column span="6"><h:outputText id="trainerMobile"
+                                                                 value="#{trainer.mobileNumber}"/></b:column>
+                            </b:row>
+                            <b:row>
+                                <b:column span="6"><h:outputLabel for="trainerPhone"
+                                                                  value="Telefonnummer:"/></b:column>
+                                <b:column span="6"><h:outputText id="trainerPhone"
+                                                                 value="#{trainer.phoneNumber}"/></b:column>
+                            </b:row>
+                        </b:column>
+                    </b:row>
+                </b:panel>
+            </ui:repeat>
         </b:panel>
         <b:panel title="Trainingszeiten" style="white-space: pre-wrap">
             <h:outputText value="#{teamBean.team.additionalInfo}" escape="false"/>
