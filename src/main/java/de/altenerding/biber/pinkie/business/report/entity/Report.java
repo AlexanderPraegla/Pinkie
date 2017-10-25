@@ -25,13 +25,13 @@ public class Report {
 	@Column(columnDefinition = "varchar")
 	private ReportType type;
 	@JoinColumn
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	private Member author;
 	@JoinColumn
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	private Season season;
 	@JoinColumn
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	private Team team;
 	@Column(name = "created_on", nullable = false)
 	@Temporal(value = TemporalType.TIMESTAMP)
