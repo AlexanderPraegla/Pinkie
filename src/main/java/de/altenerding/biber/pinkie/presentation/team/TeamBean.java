@@ -32,17 +32,6 @@ public class TeamBean implements Serializable {
 		return teamService.getTeams();
 	}
 
-	public String getTeamById(long id) throws Exception {
-		logger.info("Getting team for id={}", id);
-		if (id > 0) {
-			this.team = teamService.getTeamById(id);
-			return "team.xhtml";
-		} else {
-			logger.error("team id is smaller than 0");
-			throw new Exception("team id is smaller than 0");
-		}
-	}
-
 	@Inject
 	public void setTeamService(TeamService teamService) {
 		this.teamService = teamService;
