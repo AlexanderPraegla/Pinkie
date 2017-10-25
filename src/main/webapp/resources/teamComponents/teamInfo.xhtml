@@ -26,16 +26,16 @@
                     <h:graphicImage value="#{teamBean.team.getFullImagePath()}"
                                     style="max-height: 100%; max-width: 100%"/>
                 </b:row>
-                <b:row>
-                    <h:outputText value="Hier soll die bildbeschriftung stehen. In diesem Bild sind zu sehen:"/>
+                <b:row style="white-space: pre-wrap">
+                    <h:outputText value="#{teamBean.team.imageDescription}" escape="false"/>
                 </b:row>
             </div>
         </b:panel>
         <b:panel title="Trainer">
             Hier sollen die Trainer aufgelistet werden
         </b:panel>
-        <b:panel title="Trainingszeiten">
-            <h:outputText value="20:00 Uhr Semptsporthalle"/>
+        <b:panel title="Trainingszeiten" style="white-space: pre-wrap">
+            <h:outputText value="#{teamBean.team.additionalInfo}" escape="false"/>
         </b:panel>
     </composite:implementation>
 </h:body>
