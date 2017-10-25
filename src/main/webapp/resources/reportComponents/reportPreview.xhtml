@@ -11,6 +11,7 @@
 
     <composite:interface>
         <composite:attribute name="report" />
+        <composite:attribute name="editable" />
     </composite:interface>
 
     <composite:implementation>
@@ -26,7 +27,7 @@
                 </b:column>
                 <b:column span="1" style="margin-top: 5px">
                     <b:button value="Bearbeiten" outcome="editReport.xhtml"
-                              look="default" rendered="#{loginBean.isLoggedIn}"
+                              look="default" rendered="#{loginBean.isLoggedIn and cc.attrs.editable}"
                               size="sm" includeViewParams="true">
                         <f:param name="reportId" value="#{cc.attrs.report.id}"/>
                     </b:button>

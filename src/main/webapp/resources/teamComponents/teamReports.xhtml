@@ -16,6 +16,7 @@
         <ui:repeat value="#{teamBean.teamReports}" var="report">
             <components:reportPreview
                     report="#{report}"
+                    editable="false"
             />
         </ui:repeat>
     </composite:implementation>

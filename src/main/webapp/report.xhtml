@@ -13,6 +13,7 @@
             <ui:repeat value="#{reportBean.reports}" var="report">
                 <components:reportPreview
                     report="#{report}"
+                    editable="true"
                 />
 
             </ui:repeat>
