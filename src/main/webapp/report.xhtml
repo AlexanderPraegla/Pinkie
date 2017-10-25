@@ -1,8 +1,7 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:components="http://java.sun.com/jsf/composite/reportComponents">
     <ui:define name="title">Spielberichte</ui:define>
 
     <ui:define name="content">
@@ -12,38 +11,9 @@
                           outcome="addReport.xhtml" size="sm"/>
             </b:panel>
             <ui:repeat value="#{reportBean.reports}" var="report">
-                <b:panel collapsible="false">
-                    <f:facet name="heading">
-                        <h:outputText value="#{report.team.name}"/>
-                        <h:outputText value=" - "/>
-                        <h:outputText value="#{report.title}"/>
-                    </f:facet>
-                    <b:row>
-                        <b:column span="10">
-                            <h:outputText value="#{report.summary}"/>
-                        </b:column>
-                        <b:column span="1" style="margin-top: 5px">
-                            <b:button value="Bearbeiten" outcome="editReport.xhtml"
-                                      look="default" rendered="#{loginBean.isLoggedIn}"
-                                      size="sm" includeViewParams="true">
-                                <f:param name="reportId" value="#{report.id}"/>
-                            </b:button>
-                        </b:column>
-                        <b:column span="1" style="margin-top: 5px">
-                            <b:button value="Lesen" outcome="reportView.xhtml" look="primary"
-                                      size="sm" includeViewParams="true">
-                                <f:param name="reportId" value="#{report.id}"/>
-                            </b:button>
-                        </b:column>
-                    </b:row>
-                    <f:facet name="footer">
-                        <h:outputText value="#{report.author.getFullName()}"/>
-                        <h:outputText value=" - "/>
-                        <h:outputText value="#{report.createdOn}">
-                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
-                        </h:outputText>
-                    </f:facet>
-                </b:panel>
+                <components:reportPreview
+                    report="#{report}"
+                />
 
             </ui:repeat>
         </b:container>
