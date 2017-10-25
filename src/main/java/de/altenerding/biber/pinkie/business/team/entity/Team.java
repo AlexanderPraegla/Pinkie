@@ -48,6 +48,9 @@ public class Team {
 	private String urlStanding;
 	@Column(name = "url_season_schedule", columnDefinition = "varchar")
 	private String urlSeasonSchedule;
+	@Column(name = "archived_on")
+	@Temporal(value = TemporalType.TIMESTAMP)
+	private Date archivedOn;
 
 	public long getId() {
 		return id;
@@ -155,5 +158,13 @@ public class Team {
 
 	public void setUrlSeasonSchedule(String urlSeasonSchedule) {
 		this.urlSeasonSchedule = urlSeasonSchedule;
+	}
+
+	public Date getArchivedOn() {
+		return archivedOn;
+	}
+
+	public void setArchivedOn(Date archivedOn) {
+		this.archivedOn = archivedOn;
 	}
 }
