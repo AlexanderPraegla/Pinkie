@@ -1,8 +1,8 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:components="http://java.sun.com/jsf/composite/components">
     <ui:define name="title">Altenerding Handball</ui:define>
 
     <ui:define name="content">
@@ -13,17 +13,11 @@
         <b:container>
             <b:tabView activeIndex="0">
                 <b:tab title="Info">
-                    <b:panel collapsible="false">
-                        <p>This is the first tab.</p>
-                        <h:outputText value="#{teamBean.team.name}"/>
-                        <h:outputText value=" - "/>
-                        <h:outputText value="#{teamBean.team.league}"/>
-                        <h:graphicImage value="#{teamBean.team.getFullImagePath()}"
-                                        style="max-height: 60%; max-width: 60%"/>
-                    </b:panel>
+                        <components:teamInfo/>
+
                 </b:tab>
                 <b:tab title="Spielerprofile">
-                    <p>Hier sollen die Spielerprofile mit Bildern angezeigt werden</p>
+                    <components:teamProfiles/>
                 </b:tab>
                 <b:tab title="Tabelle">
                     <p>Hier soll die Tabelle aus nuLiga dargestellt werden</p>

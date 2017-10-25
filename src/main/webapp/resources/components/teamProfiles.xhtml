@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:b="http://bootsfaces.net/ui">
+
+<h:head/>
+<h:body>
+
+    <composite:interface/>
+
+    <composite:implementation>
+        <ui:repeat value="#{teamBean.team.teamMembers}" var="teamMember">
+            <b:panel collapsed="true">
+                <f:facet name="heading">
+                    <h:outputText value="#{teamMember.fullName}"/>
+                </f:facet>
+                <b:row>
+                    <b:column span="5">
+                        <h:graphicImage value="#{teamMember.fullProfileImagePath}"
+                                        style="max-height: 100%; max-width: 100%"/>
+                    </b:column>
+                    <b:column span="7">
+                        <b:row>
+                            <b:column span="6"><h:outputLabel for="teamMemberEmail"
+                                                              value="E-Mail Adresse"/></b:column>
+                            <b:column span="6"><h:outputText id="teamMemberEmail"
+                                                             value="#{teamMember.email}"/></b:column>
+                        </b:row>
+                        <b:row>
+                            <b:column span="6"><h:outputLabel for="teamMemberPreviousClubs"
+                                                              value="Bisherige Vereine"/></b:column>
+                            <b:column span="6"><h:outputText id="teamMemberPreviousClubs"
+                                                             value="Hier stehen die bisherigen Vereine"/></b:column>
+                        </b:row>
+                        <b:row>
+                            <b:column span="6"><h:outputLabel for="teamMemberPosition"
+                                                              value="Position"/></b:column>
+                            <b:column span="6"><h:outputText id="teamMemberPosition"
+                                                             value="Hier soll die Position des Spielers stehen"/></b:column>
+                        </b:row>
+                        <b:row>
+                            <b:column span="6"><h:outputLabel for="teamMemberGoals"
+                                                              value="Ziele #{teamBean.team.season.name}"/></b:column>
+                            <b:column span="6"><h:outputText id="teamMemberGoals"
+                                                             value="Hier sollen die Ziele für die aktuelle Saison stehen"/></b:column>
+                        </b:row>
+                    </b:column>
+                </b:row>
+            </b:panel>
+        </ui:repeat>
+    </composite:implementation>
+</h:body>
+</html>

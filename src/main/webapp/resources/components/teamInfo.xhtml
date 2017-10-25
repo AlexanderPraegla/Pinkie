@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:b="http://bootsfaces.net/ui">
+
+<h:head/>
+<h:body>
+
+    <composite:interface/>
+
+    <composite:implementation>
+        <b:panel title="Mannschaft">
+            <div style="margin-right: 20px; margin-left: 20px">
+                <b:row>
+                    <h3><h:outputText value="#{teamBean.team.name}"/>
+                        <h:outputText value=" - "/>
+                        <h:outputText value="#{teamBean.team.league}"/>
+                        <h:outputText value=" - "/>
+                        <h:outputText value="#{teamBean.team.season.name}"/>
+                    </h3>
+                </b:row>
+                <b:row>
+                    <h:graphicImage value="#{teamBean.team.getFullImagePath()}"
+                                    style="max-height: 100%; max-width: 100%"/>
+                </b:row>
+                <b:row>
+                    <h:outputText value="Hier soll die bildbeschriftung stehen. In diesem Bild sind zu sehen:"/>
+                </b:row>
+            </div>
+        </b:panel>
+        <b:panel title="Trainer">
+            Hier sollen die Trainer aufgelistet werden
+        </b:panel>
+        <b:panel title="Trainingszeiten">
+            <h:outputText value="20:00 Uhr Semptsporthalle"/>
+        </b:panel>
+    </composite:implementation>
+</h:body>
+</html>
