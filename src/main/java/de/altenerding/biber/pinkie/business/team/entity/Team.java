@@ -44,6 +44,10 @@ public class Team {
 			joinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "member_id", referencedColumnName = "id"))
 	private List<Member> trainers;
+	@Column(name = "url_standing", columnDefinition = "varchar")
+	private String urlStanding;
+	@Column(name = "url_season_schedule", columnDefinition = "varchar")
+	private String urlSeasonSchedule;
 
 	public long getId() {
 		return id;
@@ -135,5 +139,21 @@ public class Team {
 
 	public void setTrainers(List<Member> trainers) {
 		this.trainers = trainers;
+	}
+
+	public String getUrlStanding() {
+		return urlStanding;
+	}
+
+	public void setUrlStanding(String urlStanding) {
+		this.urlStanding = urlStanding;
+	}
+
+	public String getUrlSeasonSchedule() {
+		return urlSeasonSchedule;
+	}
+
+	public void setUrlSeasonSchedule(String urlSeasonSchedule) {
+		this.urlSeasonSchedule = urlSeasonSchedule;
 	}
 }
