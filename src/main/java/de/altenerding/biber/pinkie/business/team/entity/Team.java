@@ -1,10 +1,12 @@
 package de.altenerding.biber.pinkie.business.team.entity;
 
 import de.altenerding.biber.pinkie.business.config.ImageFolder;
+import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.report.entity.Season;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @NamedQueries({
@@ -21,7 +23,7 @@ public class Team {
 	@Column(columnDefinition = "VARCHAR")
 	private String league;
 	@JoinColumn
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	private Season season;
 	@Column(columnDefinition = "BIGINT DEFAULT -1")
 	private long orderId;
@@ -30,6 +32,12 @@ public class Team {
 	private Date createdOn;
 	@Column(columnDefinition = "VARCHAR")
 	private String imageName;
+	@Column(columnDefinition = "VARCHAR")
+	private String imageDescription;
+	@Column(columnDefinition = "VARCHAR")
+	private String additionalInfo;
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<Member> teamMembers;
 
 	public long getId() {
 		return id;
@@ -89,5 +97,29 @@ public class Team {
 
 	public void setImageName(String imageName) {
 		this.imageName = imageName;
+	}
+
+	public String getImageDescription() {
+		return imageDescription;
+	}
+
+	public void setImageDescription(String imageDescription) {
+		this.imageDescription = imageDescription;
+	}
+
+	public String getAdditionalInfo() {
+		return additionalInfo;
+	}
+
+	public void setAdditionalInfo(String additionalInfo) {
+		this.additionalInfo = additionalInfo;
+	}
+
+	public List<Member> getTeamMembers() {
+		return teamMembers;
+	}
+
+	public void setTeamMembers(List<Member> teamMembers) {
+		this.teamMembers = teamMembers;
 	}
 }
