@@ -2,7 +2,7 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:components="http://java.sun.com/jsf/composite/components">
+                xmlns:components="http://java.sun.com/jsf/composite/teamComponents">
     <ui:define name="title">Altenerding Handball</ui:define>
 
     <ui:define name="content">
@@ -13,18 +13,16 @@
         <b:container>
             <b:tabView activeIndex="0">
                 <b:tab title="Info">
-                        <components:teamInfo/>
-
+                    <components:teamInfo/>
                 </b:tab>
                 <b:tab title="Spielerprofile">
                     <components:teamProfiles/>
                 </b:tab>
                 <b:tab title="Tabelle">
-                    <p>Hier soll die Tabelle aus nuLiga dargestellt werden</p>
+                    <components:teamStandings/>
                 </b:tab>
-                <!-- The next tab shows tabs aren't limited to text. You can put anything in a tab. -->
                 <b:tab title="Spielplan">
-                    Hier soll der spielplan der saison dargestellt werden (nur Spiele von SVA)
+                    <components:teamSeasonSchedule/>
                 </b:tab>
 
             </b:tabView>
