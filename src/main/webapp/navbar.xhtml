@@ -7,7 +7,8 @@
         <h:form>
             <b:navbarLinks>
                 <b:dropMenu value="Aktuelles">
-                    <b:navLink value="Spielberichte" href="report.xhtml"/>
+                    <b:navLink value="Spielberichte" outcome="report.xhtml"/>
+                    <b:navLink value="Spielplan" outcome="clubSchedule.xhtml"/>
                 </b:dropMenu>
                 <b:dropMenu value="Teams">
                     <ui:repeat var="team" value="#{teamBean.teams}">

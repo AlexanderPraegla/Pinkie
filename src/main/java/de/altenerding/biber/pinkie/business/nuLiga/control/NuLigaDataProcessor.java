@@ -14,16 +14,15 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.IOException;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-public class NuLigaProcessor {
+public class NuLigaDataProcessor {
 
 	private Logger logger;
 	private TeamProvider teamProvider;
@@ -75,19 +74,23 @@ public class NuLigaProcessor {
 					entry.setDay(day);
 				}
 
-				String dateString = cols.get(columnCounter++).text(); //Column 2
-				if (dateString.replace("\u00A0", "").isEmpty()) {
-					entry.setDate(seasonScheduleEntries.get(i - 2).getDate());
-				} else {
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-					LocalDate localDate = LocalDate.parse(dateString, formatter);
-					LocalDateTime localDateTime = localDate.atStartOfDay();
-					Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
-					entry.setDate(Date.from(instant));
+				String matchDate = cols.get(columnCounter++).text(); //Column 2
+				if (matchDate.replace("\u00A0", "").isEmpty()) {
+					//date is the same as previous
+					matchDate = seasonScheduleEntries.get(i - 2).getFormattedMatchDate();
 				}
+				String matchTime = cols.get(columnCounter++)
+						.text()
+						.replace("\u00A0", "")
+						.substring(0, 5) //cut time string
+						.trim(); //Column 3
 
-				String time = cols.get(columnCounter++).text().replace("\u00A0", "").trim(); //Column 3
-				entry.setTime(time);
+				String dateString = matchDate + " " + matchTime;
+
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.GERMANY);
+				LocalDateTime localDate = LocalDateTime.parse(dateString, formatter);
+				entry.setMatchDate(Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant()));
+
 			} else {
 				entry.setInactive(true);
 				String inactiveReason = cols.get(columnCounter++).text(); //Column 1
@@ -99,7 +102,7 @@ public class NuLigaProcessor {
 				ignore Hallennr
 				column index is different depending on case above
 			 */
-			String place = cols.get(columnCounter++).text();
+					String place = cols.get(columnCounter++).text();
 			String matchId = cols.get(columnCounter++).text();
 			entry.setMatchId(Long.parseLong(matchId));
 			String homeTeam = cols.get(columnCounter++).text().replace("\u00A0", "").trim();

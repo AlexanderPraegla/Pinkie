@@ -1,6 +1,6 @@
 package de.altenerding.biber.pinkie.presentation.team;
 
-import de.altenerding.biber.pinkie.business.nuLiga.boundary.NuLigaService;
+import de.altenerding.biber.pinkie.business.nuLiga.boundary.NuLigaDataService;
 import de.altenerding.biber.pinkie.business.nuLiga.entity.StandingEntry;
 import de.altenerding.biber.pinkie.business.nuLiga.entity.TeamScheduleEntry;
 import de.altenerding.biber.pinkie.business.report.boundary.ReportService;
@@ -14,8 +14,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @ManagedBean
@@ -24,7 +22,7 @@ public class TeamBean implements Serializable {
 
 	private TeamService teamService;
 	private ReportService reportService;
-	private NuLigaService nuLigaService;
+	private NuLigaDataService nuLigaDataService;
 	private Logger logger;
 
 	@ManagedProperty(value = "#{param.teamId}")
@@ -40,17 +38,13 @@ public class TeamBean implements Serializable {
 		logger.info("Loading team data for id={}", teamId);
 		team = teamService.getTeamById(teamId);
 		teamReports = reportService.getReportsForTeam(team.getId(), team.getSeason().getId());
-		teamStandings = nuLigaService.getTeamStandings(teamId);
-		teamSchedule = nuLigaService.getTeamSchedule(teamId);
+		teamStandings = nuLigaDataService.getTeamStandings(teamId);
+		teamSchedule = nuLigaDataService.getTeamSchedule(teamId);
 	}
 
 	public List<Team> getTeams() {
 		logger.info("Loading all teams from database");
 		return teamService.getTeams();
-	}
-
-	public String getFormattedMatchDate(Date date) {
-		return new SimpleDateFormat("dd.MM.yyyy").format(date);
 	}
 
 	@Inject
@@ -69,8 +63,8 @@ public class TeamBean implements Serializable {
 	}
 
 	@Inject
-	public void setNuLigaService(NuLigaService nuLigaService) {
-		this.nuLigaService = nuLigaService;
+	public void setNuLigaDataService(NuLigaDataService nuLigaDataService) {
+		this.nuLigaDataService = nuLigaDataService;
 	}
 
 	public Team getTeam() {

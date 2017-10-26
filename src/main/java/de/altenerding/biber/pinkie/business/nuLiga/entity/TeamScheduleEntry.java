@@ -3,13 +3,18 @@ package de.altenerding.biber.pinkie.business.nuLiga.entity;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "TeamScheduleEntry.getAllByTeamId", query = "SELECT e FROM TeamScheduleEntry e " +
 				"where e.team.id = :teamId order by e.id asc"),
-		@NamedQuery(name = "TeamScheduleEntry.deleteAll", query = "DELETE from TeamScheduleEntry")
+		@NamedQuery(name = "TeamScheduleEntry.deleteAll", query = "DELETE from TeamScheduleEntry"),
+		@NamedQuery(name = "TeamScheduleEntry.upcomingGames", query = "SELECT e FROM TeamScheduleEntry e " +
+				"WHERE not e.inactive " +
+				"AND e.result = ''" +
+				"ORDER BY e.matchDate ASC")
 })
 @Table(name = "schedule_team")
 public class TeamScheduleEntry {
@@ -22,10 +27,8 @@ public class TeamScheduleEntry {
 	@Column
 	private String day;
 	@Column(name = "match_date")
-	@Temporal(value = TemporalType.DATE)
-	private Date date;
-	@Column
-	private String time;
+	@Temporal(value = TemporalType.TIMESTAMP)
+	private Date matchDate;
 	@Column
 	private long matchId;
 	@Column(name="home_team", columnDefinition = "varchar")
@@ -73,20 +76,21 @@ public class TeamScheduleEntry {
 		this.day = day;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getMatchDate() {
+		return matchDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+
+	public String getFormattedMatchDate() {
+		return new SimpleDateFormat("dd.MM.yyyy").format(matchDate);
 	}
 
-	public String getTime() {
-		return time;
+	public void setMatchDate(Date date) {
+		this.matchDate = date;
 	}
 
-	public void setTime(String time) {
-		this.time = time;
+	public String getFormattedMatchTime() {
+		return new SimpleDateFormat("HH:mm").format(matchDate);
 	}
 
 	public long getMatchId() {

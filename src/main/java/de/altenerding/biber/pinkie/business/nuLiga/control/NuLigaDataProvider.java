@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-public class NuLigaProvider {
+public class NuLigaDataProvider {
 
 	private Logger logger;
 	@PersistenceContext
@@ -32,5 +32,11 @@ public class NuLigaProvider {
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
+	}
+
+	public List<TeamScheduleEntry> getUpcomingGames() {
+		logger.info("Getting all upcoming games for all teams");
+		return em.createNamedQuery("TeamScheduleEntry.upcomingGames", TeamScheduleEntry.class)
+				.getResultList();
 	}
 }

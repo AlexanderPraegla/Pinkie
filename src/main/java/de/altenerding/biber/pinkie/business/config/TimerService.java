@@ -1,6 +1,6 @@
 package de.altenerding.biber.pinkie.business.config;
 
-import de.altenerding.biber.pinkie.business.nuLiga.control.NuLigaProcessor;
+import de.altenerding.biber.pinkie.business.nuLiga.control.NuLigaDataProcessor;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +17,7 @@ public class TimerService {
 	@Inject
 	private Logger logger;
 	@Inject
-	private NuLigaProcessor nuLigaProcessor;
+	private NuLigaDataProcessor nuLigaDataProcessor;
 
 	@PostConstruct
 	public void init() {
@@ -28,7 +28,7 @@ public class TimerService {
 	public void loadNuLigaData() {
 		logger.info("Scheduler for loading nuLiga data exectued at {}", new Date());
 		try {
-			nuLigaProcessor.loadNuLigaTeamData();
+			nuLigaDataProcessor.loadNuLigaTeamData();
 		} catch (Exception e) {
 			logger.error("Error while loading nuLiga data", e);
 		}
