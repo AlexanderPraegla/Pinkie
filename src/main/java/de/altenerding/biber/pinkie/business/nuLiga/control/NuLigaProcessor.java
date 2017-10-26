@@ -1,7 +1,7 @@
 package de.altenerding.biber.pinkie.business.nuLiga.control;
 
-import de.altenerding.biber.pinkie.business.nuLiga.StandingEntry;
-import de.altenerding.biber.pinkie.business.nuLiga.TeamScheduleEntry;
+import de.altenerding.biber.pinkie.business.nuLiga.entity.StandingEntry;
+import de.altenerding.biber.pinkie.business.nuLiga.entity.TeamScheduleEntry;
 import de.altenerding.biber.pinkie.business.team.control.TeamProvider;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +13,6 @@ import org.jsoup.select.Elements;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +24,8 @@ public class NuLigaProcessor {
 	@PersistenceContext
 	private EntityManager em;
 
-	@Transactional
-	public void loadNuLigaData() throws Exception {
-		emptyData();
+	public void loadNuLigaTeamData() throws Exception {
+		emptyTeamData();
 		List<Team> teams = teamProvider.getTeams();
 
 		for (Team team : teams) {
@@ -38,8 +36,13 @@ public class NuLigaProcessor {
 		}
 	}
 
-	private void emptyData() {
+	private void emptyTeamData() {
+		//Delete old data
 		em.createNamedQuery("TeamScheduleEntry.deleteAll").executeUpdate();
+		em.createNamedQuery("StandingEntry.deleteAll").executeUpdate();
+		//reset sequence to prevent an overflow
+		em.createNativeQuery("ALTER SEQUENCE standing_id_seq RESTART WITH 1").executeUpdate();
+		em.createNativeQuery("ALTER SEQUENCE teamschedule_id_seq RESTART WITH 1").executeUpdate();
 	}
 
 	private void loadTeamSchedule(Team team, Document document) {
@@ -86,7 +89,7 @@ public class NuLigaProcessor {
 				ignore Hallennr
 				column index is different depending on case above
 			 */
-			String col4 = cols.get(columnCounter++).text();
+			String place = cols.get(columnCounter++).text();
 			String matchId = cols.get(columnCounter++).text();
 			entry.setMatchId(Long.parseLong(matchId));
 			String homeTeam = cols.get(columnCounter++).text().replace("\u00A0", "").trim();
