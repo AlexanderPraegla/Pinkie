@@ -14,7 +14,11 @@ import java.util.Date;
 		@NamedQuery(name = "TeamScheduleEntry.upcomingGames", query = "SELECT e FROM TeamScheduleEntry e " +
 				"WHERE not e.inactive " +
 				"AND e.result = ''" +
-				"ORDER BY e.matchDate ASC")
+				"ORDER BY e.matchDate ASC"),
+		@NamedQuery(name = "TeamScheduleEntry.recentResults", query = "SELECT e FROM TeamScheduleEntry e " +
+				"WHERE e.result <> '' " +
+				"AND e.matchDate BETWEEN :startDate AND :endDate " +
+				"ORDER BY e.matchDate desc")
 })
 @Table(name = "schedule_team")
 public class TeamScheduleEntry {

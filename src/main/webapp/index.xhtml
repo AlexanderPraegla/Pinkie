@@ -84,7 +84,19 @@
                     </ui:repeat>
                 </h:form>
             </b:panel>
-
+            <b:panel title="Die letzten Ergebnisse" collapsible="true">
+                <b:dataTable value="#{scheduleBean.getRecentResults()}" searching="false" info="false" paginated="false"
+                             var="match" fixedHeader="true" scrollHorizontally="true">
+                    <b:dataTableColumn label="Team" value="#{match.team.name}" orderable="false"/>
+                    <b:dataTableColumn label="Tag" value="#{match.day}" orderable="false"/>
+                    <b:dataTableColumn label="Datum" value="#{match.getFormattedMatchDate()}" orderable="false"/>
+                    <b:dataTableColumn label="Heim" value="#{match.homeTeam}" orderable="false"
+                                       contentStyle="#{match.homeTeam}"/>
+                    <b:dataTableColumn label="Gast" value="#{match.guestTeam}" orderable="false"
+                                       contentStyle="#{match.guestTeam}"/>
+                    <b:dataTableColumn label="Ergebnis" value="#{match.result}" orderable="false"/>
+                </b:dataTable>
+            </b:panel>
             <b:panel title="Bild der Woche" collapsible="true">
                 <h:graphicImage value="#{announcementBean.getImageOfWeekFullPath()}"
                                 style="max-height: 100%; max-width: 100%"/>

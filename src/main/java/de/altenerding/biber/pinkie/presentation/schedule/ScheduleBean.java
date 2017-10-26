@@ -1,4 +1,4 @@
-package de.altenerding.biber.pinkie.presentation;
+package de.altenerding.biber.pinkie.presentation.schedule;
 
 import de.altenerding.biber.pinkie.business.nuLiga.boundary.NuLigaDataService;
 import de.altenerding.biber.pinkie.business.nuLiga.entity.TeamScheduleEntry;
@@ -17,6 +17,14 @@ public class ScheduleBean {
 
 	public void initSchedule() {
 		teamScheduleEntries = nuLigaDataService.getUpcomingGames();
+	}
+
+	/*
+	Maybe this should be in an applicationScoped bean, which refreshes the data every 5 minutes
+	and the bean is just getting the list. This would avoid db calls for every page load
+	 */
+	public List<TeamScheduleEntry> getRecentResults() {
+		return nuLigaDataService.getRecentResults();
 	}
 
 	@Inject

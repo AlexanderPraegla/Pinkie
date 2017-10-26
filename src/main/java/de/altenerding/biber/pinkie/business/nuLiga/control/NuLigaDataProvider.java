@@ -7,6 +7,9 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 public class NuLigaDataProvider {
@@ -29,14 +32,28 @@ public class NuLigaDataProvider {
 				.getResultList();
 	}
 
-	@Inject
-	public void setLogger(Logger logger) {
-		this.logger = logger;
-	}
-
 	public List<TeamScheduleEntry> getUpcomingGames() {
 		logger.info("Getting all upcoming games for all teams");
 		return em.createNamedQuery("TeamScheduleEntry.upcomingGames", TeamScheduleEntry.class)
 				.getResultList();
+	}
+
+	public List<TeamScheduleEntry> getRecentResults() {
+		logger.info("Getting recent team results for all teams");
+
+		LocalDateTime dateTime = LocalDateTime.now().minusDays(7);
+		Date startDate = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+		Date endDate = new Date();
+		List<TeamScheduleEntry> resultList = em.createNamedQuery("TeamScheduleEntry.recentResults", TeamScheduleEntry.class)
+				.setParameter("startDate", startDate)
+				.setParameter("endDate", endDate)
+				.getResultList();
+
+		return resultList;
+	}
+
+	@Inject
+	public void setLogger(Logger logger) {
+		this.logger = logger;
 	}
 }
