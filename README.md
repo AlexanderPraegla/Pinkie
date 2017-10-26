@@ -44,3 +44,10 @@ jackson-jaxrs-json-provider
 
 #### Addditional Jackson Lib
 jackson-module-jaxb-annotations
+
+#StartUp
+At start up the JVM Option -DresourceFolder=[Path to folder] has to be provided. Inside this folder must exist following folders:
+'imageOfWeek'
+'teamImages'
+'profileImages'
+'documents'

@@ -1,6 +1,6 @@
 package de.altenerding.biber.pinkie.business.team.entity;
 
-import de.altenerding.biber.pinkie.business.config.ImageFolder;
+import de.altenerding.biber.pinkie.business.config.FileFolder;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.report.entity.Season;
 
@@ -105,7 +105,7 @@ public class Team {
 	}
 
 	public String getFullImagePath() {
-		return ImageFolder.TEAM_IMAGE.getName() + imageName;
+		return FileFolder.TEAM_IMAGE.getName() + imageName;
 	}
 
 	public void setImageName(String imageName) {

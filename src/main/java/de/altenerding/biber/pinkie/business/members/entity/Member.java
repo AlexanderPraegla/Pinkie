@@ -1,6 +1,6 @@
 package de.altenerding.biber.pinkie.business.members.entity;
 
-import de.altenerding.biber.pinkie.business.config.ImageFolder;
+import de.altenerding.biber.pinkie.business.config.FileFolder;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -171,6 +171,6 @@ public class Member {
 	}
 
 	public String getFullProfileImagePath() {
-		return ImageFolder.PROFILE_IMAGE.getName() + profileImageName;
+		return FileFolder.PROFILE_IMAGE.getName() + profileImageName;
 	}
 }
