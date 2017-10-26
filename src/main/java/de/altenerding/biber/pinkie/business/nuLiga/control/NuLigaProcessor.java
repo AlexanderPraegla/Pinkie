@@ -42,7 +42,7 @@ public class NuLigaProcessor {
 		em.createNamedQuery("StandingEntry.deleteAll").executeUpdate();
 		//reset sequence to prevent an overflow
 		em.createNativeQuery("ALTER SEQUENCE standing_id_seq RESTART WITH 1").executeUpdate();
-		em.createNativeQuery("ALTER SEQUENCE teamschedule_id_seq RESTART WITH 1").executeUpdate();
+		em.createNativeQuery("ALTER SEQUENCE schedule_team_id_seq RESTART WITH 1").executeUpdate();
 	}
 
 	private void loadTeamSchedule(Team team, Document document) {

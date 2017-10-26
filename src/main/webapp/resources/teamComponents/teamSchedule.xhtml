@@ -3,8 +3,8 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
->
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:b="http://bootsfaces.net/ui">
 
 <h:head/>
 <h:body>
@@ -17,8 +17,10 @@
             <b:dataTableColumn label="Tag" value="#{match.day}" orderable="false"/>
             <b:dataTableColumn label="Datum" value="#{match.date}" orderable="false"/>
             <b:dataTableColumn label="Zeit" value="#{match.time}" orderable="false"/>
-            <b:dataTableColumn label="Heim" value="#{match.homeTeam}" orderable="false"/>
-            <b:dataTableColumn label="Gast" value="#{match.guestTeam}" orderable="false"/>
+            <b:dataTableColumn label="Heim" value="#{match.homeTeam}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyle(match.homeTeam)}"/>
+            <b:dataTableColumn label="Gast" value="#{match.guestTeam}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyle(match.guestTeam)}"/>
             <b:dataTableColumn label="Tore" value="#{match.result}" orderable="false"/>
         </b:dataTable>
     </composite:implementation>
