@@ -22,7 +22,8 @@ public class TeamScheduleEntry {
 	@Column
 	private String day;
 	@Column(name = "match_date")
-	private String date;
+	@Temporal(value = TemporalType.DATE)
+	private Date date;
 	@Column
 	private String time;
 	@Column
@@ -72,11 +73,11 @@ public class TeamScheduleEntry {
 		this.day = day;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

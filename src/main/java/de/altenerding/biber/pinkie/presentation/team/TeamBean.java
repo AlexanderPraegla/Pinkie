@@ -14,6 +14,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @ManagedBean
@@ -45,6 +47,10 @@ public class TeamBean implements Serializable {
 	public List<Team> getTeams() {
 		logger.info("Loading all teams from database");
 		return teamService.getTeams();
+	}
+
+	public String getFormattedMatchDate(Date date) {
+		return new SimpleDateFormat("dd.MM.yyyy").format(date);
 	}
 
 	@Inject

@@ -14,7 +14,13 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class NuLigaProcessor {
@@ -69,11 +75,15 @@ public class NuLigaProcessor {
 					entry.setDay(day);
 				}
 
-				String date = cols.get(columnCounter++).text(); //Column 2
-				if (date.replace("\u00A0", "").isEmpty()) {
+				String dateString = cols.get(columnCounter++).text(); //Column 2
+				if (dateString.replace("\u00A0", "").isEmpty()) {
 					entry.setDate(seasonScheduleEntries.get(i - 2).getDate());
 				} else {
-					entry.setDate(date);
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+					LocalDate localDate = LocalDate.parse(dateString, formatter);
+					LocalDateTime localDateTime = localDate.atStartOfDay();
+					Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
+					entry.setDate(Date.from(instant));
 				}
 
 				String time = cols.get(columnCounter++).text().replace("\u00A0", "").trim(); //Column 3

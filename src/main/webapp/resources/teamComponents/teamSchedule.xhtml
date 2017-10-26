@@ -15,7 +15,7 @@
         <b:dataTable value="#{teamBean.teamSchedule}" searching="false" paginated='false' info="false"
                      var="match" fixedHeader="true" scrollHorizontally="true">
             <b:dataTableColumn label="Tag" value="#{match.day}" orderable="false"/>
-            <b:dataTableColumn label="Datum" value="#{match.date}" orderable="false"/>
+            <b:dataTableColumn label="Datum" value="#{teamBean.getFormattedMatchDate(match.date)}" orderable="false"/>
             <b:dataTableColumn label="Zeit" value="#{match.time}" orderable="false"/>
             <b:dataTableColumn label="Heim" value="#{match.homeTeam}" orderable="false"
                                contentStyle="#{contentStyleBean.svaTeamStyle(match.homeTeam)}"/>
