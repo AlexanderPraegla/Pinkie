@@ -3,7 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
 >
 
 <h:head/>
@@ -12,7 +12,27 @@
     <composite:interface/>
 
     <composite:implementation>
-        <p>Hier soll die Tabelle aus nuLiga dargestellt werden</p>
+        <b:dataTable value="#{teamBean.teamStandings}" searching="false" paginated='false' info="false"
+                     var="standing" fixedHeader="true" scrollHorizontally="true">
+            <b:dataTableColumn label="Rang" value="#{standing.stand}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyleStanding(standing.teamName)}"/>
+            <b:dataTableColumn label="Mannschaft" value="#{standing.teamName}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyleStanding(standing.teamName)}"/>
+            <b:dataTableColumn label="Spiele" value="#{standing.numberOfMatches}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyleStanding(standing.teamName)}"/>
+            <b:dataTableColumn label="S" value="#{standing.numberOfWinnings}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyleStanding(standing.teamName)}"/>
+            <b:dataTableColumn label="U" value="#{standing.numberOfTies}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyleStanding(standing.teamName)}"/>
+            <b:dataTableColumn label="V" value="#{standing.numberOfLoss}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyleStanding(standing.teamName)}"/>
+            <b:dataTableColumn label="Tore" value="#{standing.goals}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyleStanding(standing.teamName)}"/>
+            <b:dataTableColumn label="Differenz" value="#{standing.goalDifference}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyleStanding(standing.teamName)}"/>
+            <b:dataTableColumn label="Punkte" value="#{standing.points}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyleStanding(standing.teamName)}"/>
+        </b:dataTable>
     </composite:implementation>
 </h:body>
 </html>

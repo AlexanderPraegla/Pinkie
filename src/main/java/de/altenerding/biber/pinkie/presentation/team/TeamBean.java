@@ -1,5 +1,8 @@
 package de.altenerding.biber.pinkie.presentation.team;
 
+import de.altenerding.biber.pinkie.business.nuLiga.boundary.NuLigaService;
+import de.altenerding.biber.pinkie.business.nuLiga.entity.StandingEntry;
+import de.altenerding.biber.pinkie.business.nuLiga.entity.TeamScheduleEntry;
 import de.altenerding.biber.pinkie.business.report.boundary.ReportService;
 import de.altenerding.biber.pinkie.business.report.entity.Report;
 import de.altenerding.biber.pinkie.business.team.boundary.TeamService;
@@ -19,6 +22,7 @@ public class TeamBean implements Serializable {
 
 	private TeamService teamService;
 	private ReportService reportService;
+	private NuLigaService nuLigaService;
 	private Logger logger;
 
 	@ManagedProperty(value = "#{param.teamId}")
@@ -27,11 +31,15 @@ public class TeamBean implements Serializable {
 
 	private String test;
 	private List<Report> teamReports;
+	private List<StandingEntry> teamStandings;
+	private List<TeamScheduleEntry> teamSchedule;
 
 	public void initTeam() {
 		logger.info("Loading team data for id={}", teamId);
 		team = teamService.getTeamById(teamId);
 		teamReports = reportService.getReportsForTeam(team.getId(), team.getSeason().getId());
+		teamStandings = nuLigaService.getTeamStandings(teamId);
+		teamSchedule = nuLigaService.getTeamSchedule(teamId);
 	}
 
 	public List<Team> getTeams() {
@@ -52,6 +60,11 @@ public class TeamBean implements Serializable {
 	@Inject
 	public void setReportService(ReportService reportService) {
 		this.reportService = reportService;
+	}
+
+	@Inject
+	public void setNuLigaService(NuLigaService nuLigaService) {
+		this.nuLigaService = nuLigaService;
 	}
 
 	public Team getTeam() {
@@ -80,5 +93,21 @@ public class TeamBean implements Serializable {
 
 	public List<Report> getTeamReports() {
 		return teamReports;
+	}
+
+	public List<StandingEntry> getTeamStandings() {
+		return teamStandings;
+	}
+
+	public void setTeamStandings(List<StandingEntry> teamStandings) {
+		this.teamStandings = teamStandings;
+	}
+
+	public List<TeamScheduleEntry> getTeamSchedule() {
+		return teamSchedule;
+	}
+
+	public void setTeamSchedule(List<TeamScheduleEntry> teamSchedule) {
+		this.teamSchedule = teamSchedule;
 	}
 }

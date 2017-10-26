@@ -1,4 +1,4 @@
-package de.altenerding.biber.pinkie.business.nuLiga;
+package de.altenerding.biber.pinkie.business.nuLiga.entity;
 
 import de.altenerding.biber.pinkie.business.team.entity.Team;
 
@@ -11,7 +11,7 @@ import java.util.Date;
 				"where e.team.id = :teamId order by e.id asc"),
 		@NamedQuery(name = "TeamScheduleEntry.deleteAll", query = "DELETE from TeamScheduleEntry")
 })
-@Table(name = "teamschedule")
+@Table(name = "schedule_team")
 public class TeamScheduleEntry {
 
 	@Id

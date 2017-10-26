@@ -1,4 +1,4 @@
-package de.altenerding.biber.pinkie.business.nuLiga;
+package de.altenerding.biber.pinkie.business.nuLiga.entity;
 
 import de.altenerding.biber.pinkie.business.team.entity.Team;
 
@@ -8,7 +8,8 @@ import java.util.Date;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "StandingEntry.findAllByTeamId", query = "SELECT e FROM StandingEntry e " +
-				"where e.team.id = :teamId order by e.stand asc")
+				"where e.team.id = :teamId order by e.stand asc"),
+		@NamedQuery(name = "StandingEntry.deleteAll", query = "DELETE from StandingEntry")
 })
 @Table(name = "standing")
 public class StandingEntry {
