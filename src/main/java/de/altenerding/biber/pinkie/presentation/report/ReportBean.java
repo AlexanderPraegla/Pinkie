@@ -21,7 +21,7 @@ public class ReportBean {
 	private Logger logger;
 	private ReportService reportService;
 
-	@ManagedProperty(value="#{loginBean}")
+	@ManagedProperty(value = "#{loginBean}")
 	private LoginBean loginBean;
 	@ManagedProperty(value = "#{param.reportId}")
 	private long reportId;
@@ -56,7 +56,7 @@ public class ReportBean {
 		report.setAuthor(loginBean.getMember());
 		reportService.createReport(report);
 
-		FacesMessages.info(report.getTeam().getName(),"Bericht erstellt");
+		FacesMessages.info(report.getTeam().getName(), "Bericht erstellt");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		return "report.xhtml?faces-redirect=true";
@@ -70,7 +70,7 @@ public class ReportBean {
 		editReport.setText(report.getText());
 		reportService.updateReport(editReport);
 
-		FacesMessages.info(editReport.getTeam().getName(),"Bericht aktualisiert");
+		FacesMessages.info(editReport.getTeam().getName(), "Bericht aktualisiert");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		return "report.xhtml?faces-redirect=true";

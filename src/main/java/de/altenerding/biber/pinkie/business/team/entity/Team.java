@@ -48,6 +48,8 @@ public class Team {
 	private String urlStanding;
 	@Column(name = "url_season_schedule", columnDefinition = "varchar")
 	private String urlSeasonSchedule;
+	@Transient
+	private String urlTeamSchedule; //Is set during parsing of nuLiga data. No reason to save this url
 	@Column(name = "archived_on")
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date archivedOn;
@@ -166,5 +168,13 @@ public class Team {
 
 	public void setArchivedOn(Date archivedOn) {
 		this.archivedOn = archivedOn;
+	}
+
+	public String getUrlTeamSchedule() {
+		return urlTeamSchedule;
+	}
+
+	public void setUrlTeamSchedule(String urlTeamSchedule) {
+		this.urlTeamSchedule = urlTeamSchedule;
 	}
 }
