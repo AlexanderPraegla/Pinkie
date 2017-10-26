@@ -28,7 +28,6 @@ INSERT INTO team_member (team_id, teammembers_id) VALUES (2, 5);
 INSERT INTO team_member (team_id, teammembers_id) VALUES (3, 2);
 INSERT INTO team_member (team_id, teammembers_id) VALUES (3, 6);
 INSERT INTO team_member (team_id, teammembers_id) VALUES (4, 1);
-INSERT INTO team_member (team_id, teammembers_id) VALUES (4, 1);
 INSERT INTO team_member (team_id, teammembers_id) VALUES (5, 4);
 INSERT INTO team_member (team_id, teammembers_id) VALUES (5, 3);
 INSERT INTO team_member (team_id, teammembers_id) VALUES (5, 5);
