@@ -1,6 +1,7 @@
 package de.altenerding.biber.pinkie.business.members.bounday;
 
 import de.altenerding.biber.pinkie.business.members.entity.Member;
+import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -18,9 +19,12 @@ public class MemberResource {
 
 	@Inject
     private MemberService memberService;
+	@Inject
+	private Logger logger;
 
     @GET
     public Response getUsers() {
+        logger.info("Loading all members");
         List<Member> users = memberService.getMembers();
         return Response.ok(users).build();
     }
