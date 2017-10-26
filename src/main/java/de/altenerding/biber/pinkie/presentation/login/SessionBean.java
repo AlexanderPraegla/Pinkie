@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @ManagedBean
 @SessionScoped
-public class LoginBean implements Serializable {
+public class SessionBean implements Serializable {
 
 	private MemberService memberService;
 	private Logger logger;
@@ -22,10 +22,11 @@ public class LoginBean implements Serializable {
 	private boolean loggedIn = false;
 
 
-	public void login() {
+	public String login() {
 		member = memberService.getMemberById(1);
 		logger.info("Successful login for user with id={}", member.getId());
 		loggedIn = true;
+		return "profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();
 	}
 
 	public void logout() {

@@ -2,7 +2,7 @@ package de.altenerding.biber.pinkie.presentation.report;
 
 import de.altenerding.biber.pinkie.business.report.boundary.ReportService;
 import de.altenerding.biber.pinkie.business.report.entity.Report;
-import de.altenerding.biber.pinkie.presentation.login.LoginBean;
+import de.altenerding.biber.pinkie.presentation.login.SessionBean;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
@@ -21,8 +21,8 @@ public class ReportBean {
 	private Logger logger;
 	private ReportService reportService;
 
-	@ManagedProperty(value = "#{loginBean}")
-	private LoginBean loginBean;
+	@ManagedProperty(value = "#{sessionBean}")
+	private SessionBean sessionBean;
 	@ManagedProperty(value = "#{param.reportId}")
 	private long reportId;
 
@@ -53,7 +53,7 @@ public class ReportBean {
 	 */
 	public String saveReport() {
 		logger.info("Creating new Report with title={}", report.getTitle());
-		report.setAuthor(loginBean.getMember());
+		report.setAuthor(sessionBean.getMember());
 		reportService.createReport(report);
 
 		FacesMessages.info(report.getTeam().getName(), "Bericht erstellt");
@@ -102,7 +102,7 @@ public class ReportBean {
 		return reports;
 	}
 
-	public void setLoginBean(LoginBean loginBean) {
-		this.loginBean = loginBean;
+	public void setSessionBean(SessionBean sessionBean) {
+		this.sessionBean = sessionBean;
 	}
 }

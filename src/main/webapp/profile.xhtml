@@ -1,0 +1,50 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title"><h:outputText value="#{profileBean.member.getFullName()}" /></ui:define>
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="memberId" value="#{profileBean.memberId}"/>
+            <f:viewAction action="#{profileBean.initMember()}" />
+        </f:metadata>
+        <b:container>
+            <b:panel collapsible="false">
+                <b:row>
+                    <b:column span="5">
+                        <h:graphicImage value="#{profileBean.member.fullProfileImagePath}"
+                                        style="max-height: 100%; max-width: 100%"/>
+                    </b:column>
+                    <b:column span="7">
+                        <b:row>
+                            <b:column span="6"><h:outputLabel for="teamMemberName"
+                                                              value="Name"/></b:column>
+                            <b:column span="6"><h:outputText id="teamMemberName"
+                                                             value="#{profileBean.member.getFullName()}"/></b:column>
+                        </b:row>
+                        <b:row>
+                            <b:column span="6"><h:outputLabel for="teamMemberEmail"
+                                                              value="E-Mail Adresse"/></b:column>
+                            <b:column span="6"><h:outputText id="teamMemberEmail"
+                                                             value="#{profileBean.member.email}"/></b:column>
+                        </b:row>
+                        <b:row>
+                            <b:column span="6"><h:outputLabel for="teamMemberPreviousClubs"
+                                                              value="Bisherige Vereine"/></b:column>
+                            <b:column span="6"><h:outputText id="teamMemberPreviousClubs"
+                                                             value="Hier stehen die bisherigen Vereine"/></b:column>
+                        </b:row>
+                        <b:row>
+                            <b:column span="6"><h:outputLabel for="teamMemberPosition"
+                                                              value="Position"/></b:column>
+                            <b:column span="6"><h:outputText id="teamMemberPosition"
+                                                             value="Hier soll die Position des Spielers stehen"/></b:column>
+                        </b:row>
+                    </b:column>
+                </b:row>
+            </b:panel>
+        </b:container>
+    </ui:define>
+</ui:composition>

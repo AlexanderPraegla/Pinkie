@@ -17,9 +17,11 @@
                     </ui:repeat>
                 </b:dropMenu>
                 <b:navLink value="Verein" href="#"/>
-                <b:navLink value="Gästebuch" href="#" rendered="#{loginBean.isLoggedIn}"/>
-                <b:navLink value="Profil" href="#" rendered="#{loginBean.isLoggedIn}"/>
-                <b:dropMenu value="Admin Bereich" rendered="#{loginBean.isLoggedIn}">
+                <b:navLink value="Gästebuch" href="#" rendered="#{sessionBean.isLoggedIn}"/>
+                <b:navLink value="Profil" outcome="profile.xhtml" rendered="#{sessionBean.isLoggedIn}"  includeViewParams="true">
+                    <f:param name="memberId" value="#{sessionBean.member.id}"/>
+                </b:navLink>
+                <b:dropMenu value="Admin Bereich" rendered="#{sessionBean.isLoggedIn}">
                     <b:navLink value="Team anlegen" href="#"/>
                     <b:navLink value="Mitglied anlegen" href="#"/>
                     <b:navLink value="Mitglieder auflisten" href="#"/>
@@ -28,7 +30,7 @@
         </h:form>
         <h:form id="loginForm" styleClass="navbar-form navbar-right">
             <div class="form-group">
-                <b:inputText rendered="#{!loginBean.isLoggedIn}" id="email" value="#{loginBean.email}"
+                <b:inputText rendered="#{!sessionBean.isLoggedIn}" id="email" value="#{sessionBean.email}"
                              placeholder="Email" fieldSize="sm">
                     <f:facet name="prepend">
                         <b:icon name="user"/>
@@ -36,7 +38,7 @@
                 </b:inputText>
             </div>
             <div class="form-group">
-                <b:inputText rendered="#{!loginBean.isLoggedIn}" id="password" value="#{loginBean.password}"
+                <b:inputText rendered="#{!sessionBean.isLoggedIn}" id="password" value="#{sessionBean.password}"
                              placeholder="Passwort" type="password" fieldSize="sm">
                     <f:facet name="prepend">
                         <b:iconAwesome name="key"/>
@@ -44,10 +46,12 @@
                 </b:inputText>
             </div>
 
-            <b:commandButton rendered="#{!loginBean.isLoggedIn}" action="#" actionListener="#{loginBean.login()}" size="sm"
+            <b:commandButton rendered="#{!sessionBean.isLoggedIn}" action="#{sessionBean.login()}" size="sm"
                              disabled="false" value="LogIn" look="success" icon="chevron-right"
-                             iconAlign="right"/>
-            <b:commandButton rendered="#{loginBean.isLoggedIn}" action="index.xhtml" actionListener="#{loginBean.logout()}" size="sm"
+                             iconAlign="right">
+                <f:param name="memberId" value="#{sessionBean.member.id}"/>
+            </b:commandButton>
+            <b:commandButton rendered="#{sessionBean.isLoggedIn}" action="index.xhtml" actionListener="#{sessionBean.logout()}" size="sm"
                              disabled="false" value="LogOut" look="danger" icon="chevron-right"
                              iconAlign="right"/>
         </h:form>
