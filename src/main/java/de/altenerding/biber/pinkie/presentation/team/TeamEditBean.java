@@ -59,6 +59,7 @@ public class TeamEditBean implements Serializable {
 		try {
 			Team team = teamService.getTeamById(teamId);
 			team.setName(this.team.getName());
+			team.setLeague(this.team.getLeague());
 			team.setUrlStanding(this.team.getUrlStanding());
 			team.setImageDescription(this.team.getImageDescription());
 			team.setAdditionalInfo(this.team.getAdditionalInfo());
