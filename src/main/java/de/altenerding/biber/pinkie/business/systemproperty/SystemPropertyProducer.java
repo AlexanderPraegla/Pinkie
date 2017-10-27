@@ -12,6 +12,9 @@ public class SystemPropertyProducer {
 	public String provideServerProperties(InjectionPoint ip) {
 		//get property name from annotation
 		String propertyName = ip.getAnnotated().getAnnotation(SystemProperty.class).name();
+		if (propertyName.isEmpty()) {
+			throw new RuntimeException("Please provide the VM Option \'-DresourceFolder=\'");
+		}
 		return System.getProperty(propertyName);
 	}
 }
