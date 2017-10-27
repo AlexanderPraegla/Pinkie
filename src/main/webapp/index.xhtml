@@ -1,23 +1,12 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
-                xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="title">Altenerding Handball</ui:define>
 
     <ui:define name="content">
-        <b:modal id="modalAddAccnouncement" title="Ankündigung hinzufügen" styleClass="modalPseudoClass">
-            <h:form id="addAccouncmentFormId">
-                <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}"/>
-
-                <b:button value="Abbrechen" look="danger" dismiss="modal"/>
-                <b:commandButton value="Speichern" look="success" passthrough:data-dismiss="modal" ajax="true"
-                                 action="index.xhtml"
-                                 update="@form:announcementListFormId @form:announcementMessagesFormId"
-                                 actionListener="#{announcementProcessingBean.saveAnnouncement()}"/>
-            </h:form>
-        </b:modal>
-
         <b:modal id="modalEditAccnouncement" title="Ankündigung bearbeiten" styleClass="modalPseudoClass">
             <h:form id="editAccouncmentFormId">
                 <b:inputTextarea id="editAccnouncementText"
@@ -26,7 +15,7 @@
                 <b:button value="Abbrechen" look="danger" dismiss="modal"/>
                 <b:commandButton value="Speichern" look="success" passthrough:data-dismiss="modal" ajax="true"
                                  action="index.xhtml"
-                                 update="@form:announcementListFormId @form:announcementMessagesFormId"
+                                 update="@form:announcementListFormId @form:globalMessagesFormId"
                                  actionListener="#{announcementProcessingBean.saveEditedAnnouncement()}"/>
             </h:form>
         </b:modal>
@@ -38,7 +27,7 @@
                 <b:button value="Abbrechen" look="danger" dismiss="modal"/>
                 <b:commandButton value="Löschen" look="success" passthrough:data-dismiss="modal" ajax="true"
                                  action="index.xhtml"
-                                 update="@form:announcementListFormId @form:announcementMessagesFormId"
+                                 update="@form:announcementListFormId @form:globalMessagesFormId"
                                  actionListener="#{announcementProcessingBean.deleteAnnouncement()}"/>
             </h:form>
         </b:modal>
@@ -48,12 +37,15 @@
                 <p>Willkommen auf der neuen Altenerding Biber Homepage</p>
             </b:jumbotron>
 
+            <b:panel title="Ankündigung hinzufügen" rendered="#{sessionBean.isLoggedIn}">
+                <h:form>
+                    <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}" rows="1"/>
+
+                    <b:commandButton value="Speichern" look="success"
+                                     action="#{announcementProcessingBean.saveAnnouncement()}"/>
+                </h:form>
+            </b:panel>
             <b:panel title="Ankündigungen">
-                <b:panel rendered="#{sessionBean.isLoggedIn}">
-                    <b:button value="Ankündigung hinzufügen" look="primary" rendered="#{sessionBean.isLoggedIn}"
-                              passthrough:data-target="#modalAddAccnouncement" passthrough:data-toggle="modal"
-                              size="sm"/>
-                </b:panel>
                 <h:form id="announcementListFormId">
                     <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
                         <b:panel collapsible="false">
@@ -97,9 +89,62 @@
                     <b:dataTableColumn label="Ergebnis" value="#{match.result}" orderable="false"/>
                 </b:dataTable>
             </b:panel>
-            <b:panel title="Bild der Woche" collapsible="true">
-                <h:graphicImage value="#{announcementBean.getImageOfWeekFullPath()}"
-                                style="max-height: 100%; max-width: 100%"/>
+            <b:panel rendered="#{sessionBean.isLoggedIn}" title="Bild der Woche hinzufügen">
+                <b:form id="addWeeklyImageFormId" enctype="multipart/form-data" inline="true">
+                    <b:inputText id="weeklyImageDescription" value="#{weeklyImageBean.weeklyImage.description}"
+                    required="true" requiredMessage="Bitte Text zum Bild angeben"/>
+                    <h:inputFile id="weeklyImageFile" value="#{weeklyImageBean.file}" styleClass="btn btn-default"
+                                 label="Bild" required="true" requiredMessage="Bitte Bild angeben"/>
+                    <b:commandButton value="Speichern" look="success"
+                                     action="#{weeklyImageBean.saveWeeklyImage()}"/>
+                </b:form>
+            </b:panel>
+            <b:panel title="Bild der Archivieren" collapsible="true" rendered="#{sessionBean.isLoggedIn}">
+                <h:form id="weeklyImageListFormId">
+                    <ui:repeat id="repeatweeklyImageId" value="#{weeklyImageBean.weeklyImages}" var="weeklyImage">
+                        <b:panel collapsible="false">
+                            <b:row>
+                                <b:column colLg="2" colMd="3" colSm="4" colXs="5">
+                                    <h:graphicImage value="#{weeklyImage.getWeeklyImageFullPath()}"
+                                                    style="max-height: 100%; max-width: 100%"/>
+                                </b:column>
+                                <b:column colLg="8" colMd="7" colSm="6" colXs="7">
+                                    <h:outputText value="#{weeklyImage.description}"/><br/>
+
+                                </b:column>
+                                <b:column colLg="2" colMd="2" colSm="2" colXs="12">
+                                    <b:commandButton action="#{weeklyImageBean.archive(weeklyImage.id)}"
+                                                     size="sm"
+                                                     disabled="false" value="Archivieren" look="danger"/>
+                                </b:column>
+                            </b:row>
+                        </b:panel>
+                    </ui:repeat>
+                </h:form>
+            </b:panel>
+            <b:panel title="Bild der Woche" collapsible="true" contentStyle="centered">
+                <b:row>
+                    <b:column colLg="3"/>
+                    <b:column colLg="6">
+                        <b:carousel id="imagesOfWeekCarouselId" showIndicators="false" disabled="true">
+                            <b:carouselItem >
+                                <h:outputText value="#{weeklyImageBean.weeklyImages.get(0).description}"
+                                style="font-size: 20px;display: flex;justify-content: center;"/>
+                                <b:image value="#{weeklyImageBean.weeklyImages.get(0).getWeeklyImageFullPath()}"/>
+                            </b:carouselItem>
+                            <ui:repeat
+                                    value="#{weeklyImageBean.weeklyImages.subList(1,weeklyImageBean.weeklyImages.size())}"
+                                    var="weeklyImage">
+                                <b:carouselItem>
+                                    <h:outputText value="#{weeklyImage.description}"
+                                                  style="font-size: 20px;display: flex;justify-content: center;"/>
+                                    <b:image value="#{weeklyImage.getWeeklyImageFullPath()}"/>
+                                </b:carouselItem>
+                            </ui:repeat>
+                        </b:carousel>
+                    </b:column>
+                    <b:column colLg="3"/>
+                </b:row>
             </b:panel>
         </b:container>
     </ui:define>

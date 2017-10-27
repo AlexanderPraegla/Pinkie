@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.io.Serializable;
 
@@ -21,32 +22,37 @@ public class AnnouncementProcessingBean implements Serializable {
 	public String saveEditedAnnouncement() {
 		try {
 			announcementService.updateAnnouncement(anncouncement);
-			FacesMessages.info("Ankündigung erfolgreich aktualisiert");
+			FacesMessages.info("Ankündigung aktualisiert");
 		} catch (Exception e) {
 			logger.error("Error while updating announcement with id={}", anncouncement.getId(), e);
 			FacesMessages.error("Es ist ein Fehler beim Speichern der Ankündigung aufgetreten");
 		}
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getFlash().setKeepMessages(true);
 		return "index.xhtml";
 	}
 
 	public void deleteAnnouncement() {
 		try {
 			announcementService.deleteAnnouncement(anncouncement);
-			FacesMessages.info("Ankündigung erfolgreich gelöscht");
+			FacesMessages.info("Ankündigung gelöscht");
 		} catch (Exception e) {
 			logger.error("Error while deleting announcement with id={}", anncouncement.getId(), e);
 			FacesMessages.error("Es ist ein Fehler beim löschen der Ankündigung aufgetreten");
 		}
 	}
 
-	public void saveAnnouncement() {
+	public String saveAnnouncement() {
 		try {
  			announcementService.saveAnnouncement(anncouncement);
-			FacesMessages.info( "Ankündigung erfolgreich gespeichert");
+			FacesMessages.info( "Ankündigung gespeichert");
 		} catch (Exception e) {
 			logger.error("Error while saving announcement with id={}", anncouncement.getId(), e);
 			FacesMessages.error("Es ist ein Fehler beim speichern der Ankündigung aufgetreten");
 		}
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getFlash().setKeepMessages(true);
+		return "index.xhtml?faces-redirect=true";
 	}
 
 	public Announcement getAnncouncement() {

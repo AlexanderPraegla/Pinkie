@@ -52,6 +52,13 @@ public class Team {
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date archivedOn;
 
+	@PrePersist
+	protected void onPersist() {
+		if (createdOn == null) {
+			createdOn = new Date();
+		}
+	}
+
 	public long getId() {
 		return id;
 	}

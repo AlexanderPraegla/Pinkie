@@ -19,8 +19,8 @@ public class FileUpload {
 	@SystemProperty(name = "resourceFolder")
 	private String resourceFolder;
 
-	public String upload(Part file) throws Exception {
-		String folder = resourceFolder + FileDirectory.TEAM_IMAGE.getName();
+	public String upload(Part file, FileDirectory directory) throws Exception {
+		String folder = resourceFolder + directory.getName();
 		String fileName = getFileName(file);
 
 			logger.info("Upload File '{}' to {}", fileName, folder);
@@ -29,7 +29,7 @@ public class FileUpload {
 		try (InputStream filecontent = file.getInputStream()) {
 			Files.copy(filecontent, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
 		}
-		logger.info("File upload to {} successful", filePath);
+		logger.info("Upload File '{}' to {} successful", fileName, folder);
 		return fileName;
 	}
 

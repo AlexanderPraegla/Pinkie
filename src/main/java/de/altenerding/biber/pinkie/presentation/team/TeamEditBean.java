@@ -1,6 +1,7 @@
 package de.altenerding.biber.pinkie.presentation.team;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
+import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
 import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.team.boundary.TeamService;
@@ -56,6 +57,7 @@ public class TeamEditBean implements Serializable {
 	}
 
 	public String updateTeam() throws Exception {
+		String result;
 		try {
 			Team team = teamService.getTeamById(teamId);
 			team.setName(this.team.getName());
@@ -65,7 +67,7 @@ public class TeamEditBean implements Serializable {
 			team.setAdditionalInfo(this.team.getAdditionalInfo());
 
 			if (file != null) {
-				String fileName = fileService.upload(file);
+				String fileName = fileService.uploadImage(file, FileDirectory.TEAM_IMAGE);
 				team.setImageName(fileName);
 			}
 
@@ -83,16 +85,16 @@ public class TeamEditBean implements Serializable {
 
 			teamService.updateTeam(team);
 			FacesMessages.info(team.getName(), "Team aktualisiert");
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.getExternalContext().getFlash().setKeepMessages(true);
-			return "team.xhtml?faces-redirect=true&includeViewParams=true&teamId=" + teamId;
+			result = "team.xhtml?faces-redirect=true&includeViewParams=true&teamId=" + teamId;
 		} catch (Exception e) {
-			FacesMessages.info("Es ist beim Fehler beim aktualisieren des Teams aufgetreten");
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.getExternalContext().getFlash().setKeepMessages(true);
+			FacesMessages.info(e.getMessage());
 			logger.error("Error while uploading file", e);
-			return "teamEdit.xhtml?teamId=" + teamId;
+			result = "teamEdit.xhtml?faces-redirect=true&includeViewParams=true&teamId=" + teamId;
 		}
+
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getFlash().setKeepMessages(true);
+		return result;
 	}
 
 	@Inject

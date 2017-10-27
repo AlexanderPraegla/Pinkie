@@ -46,8 +46,18 @@ public class FileService {
 		}
 	}
 
-	public String upload(Part file) throws Exception {
-		return fileUpload.upload(file);
+	public String uploadImage(Part file, FileDirectory directory) throws Exception {
+		validateFileMimeType(file, "image");
+		return fileUpload.upload(file, directory);
+	}
+
+	@SuppressWarnings("SameParameterValue")
+	private void validateFileMimeType(Part file, String fileType) throws Exception {
+		if (file == null || file.getSize() <= 0 || file.getContentType().isEmpty()) {
+			throw new Exception("Bitte ein gültiges Bild");
+		} else if (!file.getContentType().startsWith(fileType)) {
+			throw new Exception("Bitte eine Bilddatei auswählen");
+		}
 	}
 
 	public Path download(String fileName, ServletOutputStream outputStream) throws Exception {

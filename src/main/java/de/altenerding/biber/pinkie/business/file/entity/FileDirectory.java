@@ -1,7 +1,7 @@
 package de.altenerding.biber.pinkie.business.file.entity;
 
 public enum FileDirectory {
-	IMAGE_OF_WEEK("imageOfWeek"),
+	WEEKLY_IMAGE("weeklyImages"),
 	TEAM_IMAGE("teamImages"),
 	PROFILE_IMAGE("profileImages"),
 	DOCUMTENTS("documents");
