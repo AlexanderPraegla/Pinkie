@@ -3,6 +3,7 @@ package de.altenerding.biber.pinkie.business.members.control;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import org.apache.logging.log4j.Logger;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.ForbiddenException;
@@ -28,5 +29,10 @@ public class LoginProvider {
 			logger.error("No user found for email={}", email);
 			throw new ForbiddenException();
 		}
+	}
+
+	@Inject
+	public void setLogger(Logger logger) {
+		this.logger = logger;
 	}
 }

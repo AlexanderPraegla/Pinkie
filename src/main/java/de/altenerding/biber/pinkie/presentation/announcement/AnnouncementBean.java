@@ -2,7 +2,7 @@ package de.altenerding.biber.pinkie.presentation.announcement;
 
 import de.altenerding.biber.pinkie.business.announcement.boundary.AnnouncementService;
 import de.altenerding.biber.pinkie.business.announcement.entity.Announcement;
-import de.altenerding.biber.pinkie.business.config.FileFolder;
+import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
@@ -51,6 +51,6 @@ public class AnnouncementBean implements Serializable {
 	}
 
 	public String getImageOfWeekFullPath() {
-		return FileFolder.IMAGE_OF_WEEK.getName()+ "1508191781_Sportpark_Schollbach_Handball_Altenerding_Foto_Naglik_8207.jpg";
+		return "/file/" + FileDirectory.IMAGE_OF_WEEK.getName()+ "/1508191781_Sportpark_Schollbach_Handball_Altenerding_Foto_Naglik_8207.jpg";
 	}
 }

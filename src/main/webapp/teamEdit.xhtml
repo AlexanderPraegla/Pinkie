@@ -1,0 +1,77 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="title">Altenerding Handball</ui:define>
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="teamId" value="#{teamEditBean.teamId}"/>
+            <f:viewAction action="#{teamEditBean.initTeam()}"/>
+        </f:metadata>
+        <b:container>
+            <b:panel>
+                <h:form enctype="multipart/form-data">
+                    <b:row>
+                        <b:column>
+                            <b:inputText value="#{teamEditBean.team.name}" label="Team Name"/>
+                            <b:inputText value="#{teamEditBean.team.league}" label="Liga"/>
+                            <b:inputText value="#{teamEditBean.team.urlStanding}" label="nuLiga Url Tabelle"/>
+                            <b:inputText value="#{teamEditBean.team.season.name}" label="Saison" disabled="true"/>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column colLg="6" colMd="6" colSm="12" colXs="12">
+                            <h:graphicImage value="#{teamEditBean.team.getFullImagePath()}"
+                                            style="max-height: 100%; max-width: 100%"/>
+                        </b:column>
+                        <b:column colLg="6" colMd="6" colSm="12" colXs="12">
+                            <h:inputFile value="#{teamEditBean.file}" styleClass="btn btn-default"
+                                         label="Mannschaftsbild"/>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column>
+                            <b:inputTextarea value="#{teamEditBean.team.imageDescription}" label="Bild Beschriftung"/>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column >
+                            <b:selectMultiMenu value="#{teamEditBean.memberIndex}" label="Spieler"
+                                               enableFiltering="true"
+                                               colLg="5" colMd="6" colSm="12" colXs="12"
+                                               enableCaseInsensitiveFiltering="true"
+                                               filterPlaceholder="Spielername eintippen">
+                                <f:selectItems value="#{teamEditBean.members}" var="member"
+                                               itemValue="#{teamEditBean.members.indexOf(member)}"
+                                               itemLabel="#{member.getFullName()}"/>
+                            </b:selectMultiMenu>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column >
+                            <b:selectMultiMenu value="#{teamEditBean.trainerIndex}" label="Trainer"
+                                               enableFiltering="true"
+                                               colLg="5" colMd="6" colSm="12" colXs="12"
+                                               enableCaseInsensitiveFiltering="true"
+                                               filterPlaceholder="Spielername eintippen">
+                                <f:selectItems value="#{teamEditBean.members}" var="member"
+                                               itemValue="#{teamEditBean.members.indexOf(member)}"
+                                               itemLabel="#{member.getFullName()}"/>
+                            </b:selectMultiMenu>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column>
+                            <b:inputTextarea value="#{teamEditBean.team.additionalInfo}" label="Trainingszeiten"/>
+
+                            <b:commandButton value="Speichern" look="success"
+                                             action="#{teamEditBean.updateTeam}"/>
+                        </b:column>
+                    </b:row>
+                </h:form>
+            </b:panel>
+        </b:container>
+    </ui:define>
+</ui:composition>

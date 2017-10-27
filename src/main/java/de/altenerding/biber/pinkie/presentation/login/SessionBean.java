@@ -23,7 +23,7 @@ public class SessionBean implements Serializable {
 
 
 	public String login() {
-		member = memberService.getMemberById(1);
+		member = memberService.getMembers().get(0);
 		logger.info("Successful login for user with id={}", member.getId());
 		loggedIn = true;
 		return "profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();

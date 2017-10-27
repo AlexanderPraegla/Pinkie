@@ -1,6 +1,6 @@
 package de.altenerding.biber.pinkie.business.members.entity;
 
-import de.altenerding.biber.pinkie.business.config.FileFolder;
+import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -46,7 +46,22 @@ public class Member {
 	@Column(columnDefinition = "varchar")
 	private String profileImageName;
 
-    public long getId() {
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Member member = (Member) o;
+
+		return id == member.id;
+	}
+
+	@Override
+	public int hashCode() {
+		return (int) (id ^ (id >>> 32));
+	}
+
+	public long getId() {
         return id;
     }
 
@@ -171,6 +186,6 @@ public class Member {
 	}
 
 	public String getFullProfileImagePath() {
-		return FileFolder.PROFILE_IMAGE.getName() + profileImageName;
+		return "/file/" + FileDirectory.PROFILE_IMAGE.getName() + "/" + profileImageName;
 	}
 }

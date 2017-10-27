@@ -11,7 +11,14 @@
             <f:viewAction action="#{teamBean.initTeam()}"/>
         </f:metadata>
         <b:container>
-            <b:tabView activeIndex="0">
+            <b:panel rendered="#{sessionBean.isLoggedIn}">
+                <b:button value="Bearbeiten" outcome="teamEdit.xhtml"
+                          look="primary" rendered="#{sessionBean.isLoggedIn}"
+                          size="sm" includeViewParams="true">
+                    <f:param name="teamId" value="#{teamBean.teamId}"/>
+                </b:button>
+            </b:panel>
+            <b:tabView >
                 <b:tab title="Info">
                     <components:teamInfo/>
                 </b:tab>
