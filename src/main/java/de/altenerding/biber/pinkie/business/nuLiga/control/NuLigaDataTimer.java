@@ -1,6 +1,5 @@
-package de.altenerding.biber.pinkie.business.config;
+package de.altenerding.biber.pinkie.business.nuLiga.control;
 
-import de.altenerding.biber.pinkie.business.nuLiga.control.NuLigaDataProcessor;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +11,7 @@ import java.util.Date;
 
 @Singleton
 @Startup
-public class TimerService {
+public class NuLigaDataTimer {
 
 	@Inject
 	private Logger logger;
