@@ -4,6 +4,7 @@ import de.altenerding.biber.pinkie.business.nuLiga.entity.StandingEntry;
 import de.altenerding.biber.pinkie.business.nuLiga.entity.TeamScheduleEntry;
 import de.altenerding.biber.pinkie.business.team.control.TeamProvider;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -34,6 +35,10 @@ public class NuLigaDataProcessor {
 		List<Team> teams = teamProvider.getTeams();
 
 		for (Team team : teams) {
+			if (StringUtils.isBlank(team.getUrlStanding())) {
+				logger.info("No url for nuLiga data available for team={} with id={}", team.getName(), team.getId());
+				continue;
+			}
 			Document document = Jsoup.connect(team.getUrlStanding()).get();
 			loadTeamStandings(team, document);
 			document = Jsoup.connect(team.getUrlTeamSchedule()).get();
@@ -51,7 +56,7 @@ public class NuLigaDataProcessor {
 	}
 
 	private void loadTeamSchedule(Team team, Document document) {
-		logger.info("Loading season schedule from nuLiga for team={} with id={}", team.getName(), team.getId());
+		logger.info("Loading team schedule from nuLiga for team={} with id={}", team.getName(), team.getId());
 		List<Element> tables = document.select("table");
 		Element standingTable = tables.get(1);
 		Elements rows = standingTable.select("tr");
@@ -122,7 +127,7 @@ public class NuLigaDataProcessor {
 	}
 
 	private void loadTeamStandings(Team team, Document document) throws IOException {
-		logger.info("Updating standings data for team={} with id={}", team.getName(), team.getId());
+		logger.info("Loading standings data for team={} with id={}", team.getName(), team.getId());
 		List<Element> tables = document.select("table");
 		Element standingTable = tables.get(0);
 		Elements rows = standingTable.select("tr");
