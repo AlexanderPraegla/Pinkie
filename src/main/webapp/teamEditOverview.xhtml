@@ -7,7 +7,7 @@
 
     <ui:define name="content">
         <b:container rendered="#{sessionBean.isLoggedIn}">
-            <b:panel title="Mannschaften Saison #{seasonBean.currentSeason.name}">
+            <b:panel title="Mannschaften Saison #{seasonBean.currentSeason.name}" collapsible="false">
                 <b:form>
                     <ui:repeat value="#{teamBean.teams}" var="team">
                         <b:row>
