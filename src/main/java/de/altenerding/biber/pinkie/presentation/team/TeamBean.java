@@ -31,6 +31,7 @@ public class TeamBean implements Serializable {
 
 	private String test;
 	private List<Report> teamReports;
+	private List<Team> teams;
 	private List<StandingEntry> teamStandings;
 	private List<TeamScheduleEntry> teamSchedule;
 
@@ -40,8 +41,22 @@ public class TeamBean implements Serializable {
 	}
 
 	public List<Team> getTeams() {
-		logger.info("Loading all teams from database");
-		return teamService.getTeams();
+		if (teams == null) {
+			logger.info("Loading all teams from database");
+			teams = teamService.getTeams();
+		}
+		return teams;
+	}
+
+	public String updateTeamsOrder() {
+		logger.info("Updating team order");
+		teamService.updateTeams(teams);
+		return "teamEditOverview.xhtml?faces-redirect=true";
+	}
+
+	public String archiveTeam(Team team) {
+		teamService.archiveTeam(team);
+		return "teamEditOverview.xhtml?faces-redirect=true";
 	}
 
 	@Inject

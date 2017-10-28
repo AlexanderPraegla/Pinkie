@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 public class TeamProcessor {
 
@@ -15,7 +16,7 @@ public class TeamProcessor {
 
 
 	public void updateTeam(Team team) {
-		logger.info("Updating team with id={}", team.getId());
+		logger.info("Updating team={} with id={}", team.getName(), team.getId());
 		em.merge(team);
 		em.flush();
 	}
@@ -27,6 +28,18 @@ public class TeamProcessor {
 
 		return team;
 	}
+
+	public void updateTeams(List<Team> teams) {
+		for (Team team : teams) {
+			updateTeam(team);
+		}
+	}
+
+	public void archiveTeam(Team team) {
+		logger.info("Archiving team={} with id={}", team.getName(), team.getId());
+		em.createNamedQuery("Team.archiveTeam").setParameter("id", team.getId()).executeUpdate();
+	}
+
 
 	@Inject
 	public void setLogger(Logger logger) {

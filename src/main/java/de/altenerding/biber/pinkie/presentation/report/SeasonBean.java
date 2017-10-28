@@ -1,7 +1,7 @@
 package de.altenerding.biber.pinkie.presentation.report;
 
-import de.altenerding.biber.pinkie.business.report.boundary.SeasonService;
-import de.altenerding.biber.pinkie.business.report.entity.Season;
+import de.altenerding.biber.pinkie.business.season.boundary.SeasonService;
+import de.altenerding.biber.pinkie.business.season.entity.Season;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
@@ -18,6 +18,7 @@ public class SeasonBean {
 	private Logger logger;
 	private SeasonService seasonService;
 	private List<Season> seasons;
+	private Season currentSeason;
 
 	@PostConstruct
 	public void init() {
@@ -36,6 +37,13 @@ public class SeasonBean {
 	}
 
 
+	public Season getCurrentSeason() {
+		if (currentSeason == null) {
+			currentSeason = seasonService.getCurrentSeason();
+		}
+		return currentSeason;
+	}
+
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
@@ -46,4 +54,7 @@ public class SeasonBean {
 		this.seasonService = seasonService;
 	}
 
+	public void setCurrentSeason(Season currentSeason) {
+		this.currentSeason = currentSeason;
+	}
 }

@@ -26,9 +26,18 @@ public class TeamService {
 		teamProcessor.updateTeam(team);
 	}
 
+	public void updateTeams(List<Team> teams) {
+		teamProcessor.updateTeams(teams);
+	}
+
 	public Team createTeam(Team team) {
 		return teamProcessor.createTeam(team);
 	}
+
+	public void archiveTeam(Team team) {
+		teamProcessor.archiveTeam(team);
+	}
+
 
 	@Inject
 	public void setTeamProvider(TeamProvider teamProvider) {

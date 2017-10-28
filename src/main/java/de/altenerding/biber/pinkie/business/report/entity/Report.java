@@ -1,6 +1,7 @@
 package de.altenerding.biber.pinkie.business.report.entity;
 
 import de.altenerding.biber.pinkie.business.members.entity.Member;
+import de.altenerding.biber.pinkie.business.season.entity.Season;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
 
 import javax.persistence.*;

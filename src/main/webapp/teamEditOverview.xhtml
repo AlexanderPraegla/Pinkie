@@ -1,0 +1,48 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+    <ui:define name="title">Altenerding Handball</ui:define>
+
+    <ui:define name="content">
+        <b:container rendered="#{sessionBean.isLoggedIn}">
+            <b:panel title="Mannschaften Saison #{seasonBean.currentSeason.name}">
+                <b:form>
+                    <ui:repeat value="#{teamBean.teams}" var="team">
+                        <b:row>
+                            <b:column colLg="2" colMd="0" colSm="0" colXs="0"/>
+                            <b:column colLg="3" colMd="3" colSm="4" colXs="12">
+                                <b:inputText value="#{team.name}" disabled="true"/>
+                            </b:column>
+                            <b:column colLg="2" colMd="3" colSm="2" colXs="12">
+                                <b:inputText value="#{team.league}" disabled="true"/>
+                            </b:column>
+                            <b:column colLg="1" colMd="2" colSm="2" colXs="4">
+                                <b:inputText value="#{team.orderId}" mask="integer"/>
+                            </b:column>
+                            <b:column colLg="1" colMd="2" colSm="2" colXs="4">
+                                <b:button value="Bearbeiten" outcome="teamEdit.xhtml"
+                                          look="primary" rendered="#{sessionBean.isLoggedIn}"
+                                          includeViewParams="true">
+                                    <f:param name="teamId" value="#{team.id}"/>
+                                </b:button>
+                            </b:column>
+                            <b:column colLg="1" colMd="2" colSm="2" colXs="4">
+                                <b:commandButton action="#{teamBean.archiveTeam(team)}"
+                                                 value="Archivieren" look="warning"/>
+                            </b:column>
+                        </b:row>
+                    </ui:repeat>
+                    <b:row>
+                        <b:column offsetLg="5" colLg="2" offsetMd="1" colMd="2" offsetSm="1" colSm="2" offsetXs="1"
+                                  colXs="2">
+                            <b:commandButton action="#{teamBean.updateTeamsOrder}"
+                                             value="Reihenfolge Speichern" look="success"/>
+                        </b:column>
+                    </b:row>
+                </b:form>
+            </b:panel>
+        </b:container>
+    </ui:define>
+</ui:composition>

@@ -2,7 +2,7 @@ package de.altenerding.biber.pinkie.business.team.entity;
 
 import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
-import de.altenerding.biber.pinkie.business.report.entity.Season;
+import de.altenerding.biber.pinkie.business.season.entity.Season;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
@@ -11,8 +11,12 @@ import java.util.List;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Team.findAll", query = "SELECT t FROM Team t ORDER BY t.orderId asc"),
-		@NamedQuery(name = "Team.findById", query = "SELECT t FROM Team t where t.id = :id")
+		@NamedQuery(name = "Team.getCurrentTeams", query = "SELECT t FROM Team t " +
+				"WHERE t.archivedOn IS NULL" +
+				" AND t.season.id = :seasonId " +
+				"ORDER BY t.orderId ASC"),
+		@NamedQuery(name = "Team.findById", query = "SELECT t FROM Team t where t.id = :id"),
+		@NamedQuery(name = "Team.archiveTeam", query = "UPDATE Team t SET t.archivedOn = current_timestamp WHERE t.id = :id")
 })
 public class Team {
 
@@ -26,8 +30,8 @@ public class Team {
 	@JoinColumn
 	@OneToOne(fetch = FetchType.LAZY)
 	private Season season;
-	@Column(columnDefinition = "BIGINT DEFAULT -1")
-	private long orderId;
+	@Column
+	private long orderId = -1;
 	@Column(name = "created_on")
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
@@ -88,7 +92,7 @@ public class Team {
 		return orderId;
 	}
 
-	public void setOrderId(int orderId) {
+	public void setOrderId(long orderId) {
 		this.orderId = orderId;
 	}
 
