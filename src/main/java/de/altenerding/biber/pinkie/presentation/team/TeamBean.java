@@ -37,9 +37,6 @@ public class TeamBean implements Serializable {
 	public void initTeam() {
 		logger.info("Loading team data for id={}", teamId);
 		team = teamService.getTeamById(teamId);
-		teamReports = reportService.getReportsForTeam(team.getId(), team.getSeason().getId());
-		teamStandings = nuLigaDataService.getTeamStandings(teamId);
-		teamSchedule = nuLigaDataService.getTeamSchedule(teamId);
 	}
 
 	public List<Team> getTeams() {
@@ -92,10 +89,16 @@ public class TeamBean implements Serializable {
 	}
 
 	public List<Report> getTeamReports() {
+		if (teamReports == null) {
+			teamReports = reportService.getReportsForTeam(team.getId(), team.getSeason().getId());
+		}
 		return teamReports;
 	}
 
 	public List<StandingEntry> getTeamStandings() {
+		if (teamStandings == null) {
+			teamStandings = nuLigaDataService.getTeamStandings(teamId);
+		}
 		return teamStandings;
 	}
 
@@ -104,6 +107,9 @@ public class TeamBean implements Serializable {
 	}
 
 	public List<TeamScheduleEntry> getTeamSchedule() {
+		if (teamSchedule == null) {
+			teamSchedule = nuLigaDataService.getTeamSchedule(teamId);
+		}
 		return teamSchedule;
 	}
 
