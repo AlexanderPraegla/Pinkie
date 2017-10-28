@@ -1,7 +1,7 @@
-package de.altenerding.biber.pinkie.business.report.boundary;
+package de.altenerding.biber.pinkie.business.season.boundary;
 
-import de.altenerding.biber.pinkie.business.report.control.SeasonProvider;
-import de.altenerding.biber.pinkie.business.report.entity.Season;
+import de.altenerding.biber.pinkie.business.season.control.SeasonProvider;
+import de.altenerding.biber.pinkie.business.season.entity.Season;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -15,6 +15,10 @@ public class SeasonService {
 	public List<Season> getSeasons() {
 		return seasonProvider.getSeasons();
 
+	}
+
+	public Season getCurrentSeason() {
+		return seasonProvider.getCurrentSeason();
 	}
 
 	@Inject

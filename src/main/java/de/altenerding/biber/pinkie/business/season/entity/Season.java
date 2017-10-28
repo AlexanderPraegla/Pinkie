@@ -1,4 +1,4 @@
-package de.altenerding.biber.pinkie.business.report.entity;
+package de.altenerding.biber.pinkie.business.season.entity;
 
 import javax.persistence.*;
 import java.util.Date;
