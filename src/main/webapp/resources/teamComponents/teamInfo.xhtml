@@ -23,7 +23,7 @@
                         <h:outputText value="#{teamBean.team.season.name}"/>
                     </h3>
                 </b:row>
-                <b:row>
+                <b:row rendered="#{teamBean.team.getFullImagePath() == null}">
                     <h:graphicImage value="#{teamBean.team.getFullImagePath()}"
                                     style="max-height: 100%; max-width: 100%"/>
                 </b:row>
