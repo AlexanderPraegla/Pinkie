@@ -5,17 +5,18 @@ import de.altenerding.biber.pinkie.business.members.entity.Member;
 import org.apache.logging.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.List;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class MemberBean implements Serializable {
 
 	private MemberService memberService;
 	private Logger logger;
-
+	private List<Member> members;
 	private Member member;
 
 	public Member getMember() {
@@ -30,5 +31,16 @@ public class MemberBean implements Serializable {
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
+	}
+
+	public List<Member> getMembers() {
+		if (members == null) {
+			members = memberService.getMembers();
+		}
+		return members;
+	}
+
+	public void setMembers(List<Member> members) {
+		this.members = members;
 	}
 }

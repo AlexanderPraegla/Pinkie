@@ -26,6 +26,10 @@ public class TeamService {
 		teamProcessor.updateTeam(team);
 	}
 
+	public Team createTeam(Team team) {
+		return teamProcessor.createTeam(team);
+	}
+
 	@Inject
 	public void setTeamProvider(TeamProvider teamProvider) {
 		this.teamProvider = teamProvider;

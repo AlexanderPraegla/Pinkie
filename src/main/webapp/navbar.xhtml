@@ -23,7 +23,8 @@
                     <f:param name="memberId" value="#{sessionBean.member.id}"/>
                 </b:navLink>
                 <b:dropMenu value="Admin Bereich" rendered="#{sessionBean.isLoggedIn}">
-                    <b:navLink value="Team anlegen" href="#"/>
+                    <b:navLink value="Mannschaft anlegen" outcome="teamCreate.xhtml"/>
+                    <b:navLink value="Mannschaftsübersicht" href="#"/>
                     <b:navLink value="Mitglied anlegen" href="#"/>
                     <b:navLink value="Mitglieder auflisten" href="#"/>
                 </b:dropMenu>

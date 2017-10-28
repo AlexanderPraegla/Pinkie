@@ -20,6 +20,14 @@ public class TeamProcessor {
 		em.flush();
 	}
 
+	public Team createTeam(Team team) {
+		logger.info("Creating team \'{}\'", team.getName());
+		em.persist(team);
+		em.flush();
+
+		return team;
+	}
+
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
