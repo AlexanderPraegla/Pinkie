@@ -3,6 +3,7 @@ package de.altenerding.biber.pinkie.business.team.entity;
 import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.report.entity.Season;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -112,7 +113,10 @@ public class Team {
 	}
 
 	public String getFullImagePath() {
-		return "/file/" + FileDirectory.TEAM_IMAGE.getName() + "/" + imageName;
+		if (StringUtils.isNotBlank(imageName)) {
+			return "/file/" + FileDirectory.TEAM_IMAGE.getName() + "/" + imageName;
+		}
+		return null;
 	}
 
 	public void setImageName(String imageName) {
