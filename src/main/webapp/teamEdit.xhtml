@@ -24,10 +24,11 @@
                     <b:row>
                         <b:column colLg="6" colMd="6" colSm="12" colXs="12">
                             <h:graphicImage value="#{teamEditBean.team.getFullImagePath()}"
-                                            style="max-height: 100%; max-width: 100%"/>
+                                            style="max-height: 100%; max-width: 100%;margin-bottom: 15px;"/>
                         </b:column>
                         <b:column colLg="6" colMd="6" colSm="12" colXs="12">
                             <h:inputFile value="#{teamEditBean.file}" styleClass="btn btn-default"
+                                         style="margin-bottom: 15px;"
                                          label="Mannschaftsbild"/>
                         </b:column>
                     </b:row>
@@ -36,31 +37,25 @@
                             <b:inputTextarea value="#{teamEditBean.team.imageDescription}" label="Bild Beschriftung"/>
                         </b:column>
                     </b:row>
-                    <b:row>
-                        <b:column >
-                            <b:selectMultiMenu value="#{teamEditBean.memberIndex}" label="Spieler"
-                                               enableFiltering="true"
-                                               colLg="5" colMd="6" colSm="12" colXs="12"
-                                               enableCaseInsensitiveFiltering="true"
-                                               filterPlaceholder="Spielername eintippen">
-                                <f:selectItems value="#{teamEditBean.members}" var="member"
-                                               itemValue="#{teamEditBean.members.indexOf(member)}"
-                                               itemLabel="#{member.getFullName()}"/>
-                            </b:selectMultiMenu>
-                        </b:column>
-                    </b:row>
-                    <b:row>
-                        <b:column >
-                            <b:selectMultiMenu value="#{teamEditBean.trainerIndex}" label="Trainer"
-                                               enableFiltering="true"
-                                               colLg="5" colMd="6" colSm="12" colXs="12"
-                                               enableCaseInsensitiveFiltering="true"
-                                               filterPlaceholder="Spielername eintippen">
-                                <f:selectItems value="#{teamEditBean.members}" var="member"
-                                               itemValue="#{teamEditBean.members.indexOf(member)}"
-                                               itemLabel="#{member.getFullName()}"/>
-                            </b:selectMultiMenu>
-                        </b:column>
+                    <b:row style="margin-bottom: 15px;">
+                        <b:selectMultiMenu value="#{teamEditBean.memberIndex}" label="Spieler"
+                                           enableFiltering="true"
+                                           colLg="5" colMd="6" colSm="12" colXs="12"
+                                           enableCaseInsensitiveFiltering="true"
+                                           filterPlaceholder="Spielername eintippen">
+                            <f:selectItems value="#{teamEditBean.members}" var="member"
+                                           itemValue="#{teamEditBean.members.indexOf(member)}"
+                                           itemLabel="#{member.getFullName()}"/>
+                        </b:selectMultiMenu>
+                        <b:selectMultiMenu value="#{teamEditBean.trainerIndex}" label="Trainer"
+                                           enableFiltering="true"
+                                           colLg="5" colMd="6" colSm="12" colXs="12"
+                                           enableCaseInsensitiveFiltering="true"
+                                           filterPlaceholder="Spielername eintippen">
+                            <f:selectItems value="#{teamEditBean.members}" var="member"
+                                           itemValue="#{teamEditBean.members.indexOf(member)}"
+                                           itemLabel="#{member.getFullName()}"/>
+                        </b:selectMultiMenu>
                     </b:row>
                     <b:row>
                         <b:column>

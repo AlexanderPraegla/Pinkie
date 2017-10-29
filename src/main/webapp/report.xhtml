@@ -8,7 +8,7 @@
         <b:container id="reportListingContainerId">
             <b:panel rendered="#{sessionBean.isLoggedIn}">
                 <b:button value="Bericht hinzufügen" look="primary" rendered="#{sessionBean.isLoggedIn}"
-                          outcome="reportAdd.xhtml" size="sm"/>
+                          outcome="reportAdd.xhtml"/>
             </b:panel>
             <ui:repeat value="#{reportBean.reports}" var="report">
                 <components:reportPreview

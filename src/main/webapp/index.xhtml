@@ -39,10 +39,14 @@
 
             <b:panel title="Ankündigung hinzufügen" rendered="#{sessionBean.isLoggedIn}">
                 <h:form>
-                    <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}" rows="1"/>
+                    <b:column colLg="10" colMd="10" colSm="10" colXs="12">
+                        <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}" rows="5"/>
+                    </b:column>
+                    <b:column colLg="2" colMd="2" colSm="2" colXs="12">
+                        <b:commandButton value="Speichern" look="success"
+                                         action="#{announcementProcessingBean.saveAnnouncement()}"/>
+                    </b:column>
 
-                    <b:commandButton value="Speichern" look="success"
-                                     action="#{announcementProcessingBean.saveAnnouncement()}"/>
                 </h:form>
             </b:panel>
             <b:panel title="Ankündigungen">
@@ -52,20 +56,19 @@
                             <b:row style="margin: 0px">
                                 <h:outputText value="#{announcement.text}"/><br/>
                             </b:row>
-                            <b:row>
+                            <b:row rendered="#{sessionBean.isLoggedIn}">
                                 <b:column span="2" style="margin-top: 5px">
-                                    <b:commandButton rendered="#{sessionBean.isLoggedIn}"
+                                    <b:commandButton
                                                      actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
-                                                     size="sm" passthrough:data-target="#modalEditAccnouncement"
+                                                     passthrough:data-target="#modalEditAccnouncement"
                                                      passthrough:data-toggle="modal"
                                                      update="@form:editAccouncmentFormId"
                                                      disabled="false" value="Bearbeiten" look="success" icon="pencil"
                                                      iconAlign="right"/>
                                 </b:column>
                                 <b:column span="2" style="margin-top: 5px">
-                                    <b:commandButton rendered="#{sessionBean.isLoggedIn}"
-                                                     actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
-                                                     size="sm" passthrough:data-target="#modalRemoveAccnouncement"
+                                    <b:commandButton actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
+                                                     passthrough:data-target="#modalRemoveAccnouncement"
                                                      passthrough:data-toggle="modal"
                                                      update="@form:removeAccouncmentFormId"
                                                      disabled="false" value="Löschen" look="danger" icon="remove"
@@ -90,13 +93,20 @@
                 </b:dataTable>
             </b:panel>
             <b:panel rendered="#{sessionBean.isLoggedIn}" title="Bild der Woche hinzufügen">
-                <b:form id="addWeeklyImageFormId" enctype="multipart/form-data" inline="true">
-                    <b:inputText id="weeklyImageDescription" value="#{weeklyImageBean.weeklyImage.description}"
-                    required="true" requiredMessage="Bitte Text zum Bild angeben"/>
-                    <h:inputFile id="weeklyImageFile" value="#{weeklyImageBean.file}" styleClass="btn btn-default"
-                                 label="Bild" required="true" requiredMessage="Bitte Bild angeben"/>
-                    <b:commandButton value="Speichern" look="success"
-                                     action="#{weeklyImageBean.saveWeeklyImage()}"/>
+                <b:form id="addWeeklyImageFormId" enctype="multipart/form-data">
+                    <b:column colLg="6" colMd="6" colSm="4" colXs="12">
+                        <b:inputText id="weeklyImageDescription" value="#{weeklyImageBean.weeklyImage.description}"
+                                     required="true" requiredMessage="Bitte Text zum Bild angeben" style="margin-bottom: 15px;"/>
+                    </b:column>
+                    <b:column colLg="4" colMd="4" colSm="6" colXs="12">
+                        <h:inputFile id="weeklyImageFile" value="#{weeklyImageBean.file}" styleClass="btn btn-default"
+                                     style="margin-bottom: 15px;"
+                                     label="Bild" required="true" requiredMessage="Bitte Bild angeben"/>
+                    </b:column>
+                    <b:column colLg="2" colMd="2" colSm="2" colXs="12">
+                        <b:commandButton value="Speichern" look="success"
+                                         action="#{weeklyImageBean.saveWeeklyImage()}"/>
+                    </b:column>
                 </b:form>
             </b:panel>
             <b:panel title="Bild der Archivieren" collapsible="true" rendered="#{sessionBean.isLoggedIn}">
@@ -114,7 +124,6 @@
                                 </b:column>
                                 <b:column colLg="2" colMd="2" colSm="2" colXs="12">
                                     <b:commandButton action="#{weeklyImageBean.archive(weeklyImage.id)}"
-                                                     size="sm"
                                                      disabled="false" value="Archivieren" look="danger"/>
                                 </b:column>
                             </b:row>
