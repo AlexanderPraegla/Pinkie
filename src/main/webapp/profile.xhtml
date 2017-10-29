@@ -13,33 +13,33 @@
         <b:container>
             <b:panel collapsible="false">
                 <b:row>
-                    <b:column span="5">
+                    <b:column colLg="2" colMd="2" colSm="3" colXs="6" styleClass="col-xs-offset-3 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
                         <h:graphicImage value="#{profileBean.member.fullProfileImagePath}"
                                         style="max-height: 100%; max-width: 100%"/>
                     </b:column>
-                    <b:column span="7">
+                    <b:column colLg="10" colMd="10" colSm="9" colXs="12">
                         <b:row>
-                            <b:column span="6"><h:outputLabel for="teamMemberName"
+                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="teamMemberName"
                                                               value="Name"/></b:column>
-                            <b:column span="6"><h:outputText id="teamMemberName"
+                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="teamMemberName"
                                                              value="#{profileBean.member.getFullName()}"/></b:column>
                         </b:row>
                         <b:row>
-                            <b:column span="6"><h:outputLabel for="teamMemberEmail"
+                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="teamMemberEmail"
                                                               value="E-Mail Adresse"/></b:column>
-                            <b:column span="6"><h:outputText id="teamMemberEmail"
+                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="teamMemberEmail"
                                                              value="#{profileBean.member.email}"/></b:column>
                         </b:row>
                         <b:row>
-                            <b:column span="6"><h:outputLabel for="teamMemberPreviousClubs"
+                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="teamMemberPreviousClubs"
                                                               value="Bisherige Vereine"/></b:column>
-                            <b:column span="6"><h:outputText id="teamMemberPreviousClubs"
+                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="teamMemberPreviousClubs"
                                                              value="Hier stehen die bisherigen Vereine"/></b:column>
                         </b:row>
                         <b:row>
-                            <b:column span="6"><h:outputLabel for="teamMemberPosition"
+                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="teamMemberPosition"
                                                               value="Position"/></b:column>
-                            <b:column span="6"><h:outputText id="teamMemberPosition"
+                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="teamMemberPosition"
                                                              value="Hier soll die Position des Spielers stehen"/></b:column>
                         </b:row>
                     </b:column>
