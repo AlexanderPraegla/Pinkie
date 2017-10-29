@@ -18,11 +18,9 @@
                     member="#{teamMember}"
                     profileImagePath="#{teamMember.getFullProfileImagePath()}"
                     panelTitle="#{teamMember.getFullName()}"
-                    showStreet="#{false}"
-                    showCity="#{false}"
-                    showFullName="#{false}"
-                    showPhonenumber="#{false}"
-                    showMobileNumber="#{false}"
+                    showEmail="#{true}"
+                    showPosition="#{true}"
+                    showPreviousClubs="#{true}"
             />
         </ui:repeat>
     </composite:implementation>
