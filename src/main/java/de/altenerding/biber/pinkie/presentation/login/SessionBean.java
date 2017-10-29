@@ -29,8 +29,10 @@ public class SessionBean implements Serializable {
 		return "profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();
 	}
 
-	public void logout() {
+	public String logout() {
 		loggedIn = false;
+		member = null;
+		return "index.xhtml?faces-redirect=true";
 	}
 
 	public Member getMember() {

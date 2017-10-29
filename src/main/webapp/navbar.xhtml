@@ -30,6 +30,9 @@
                     <b:listLinks>
                         <b:navLink value="Vorstand" outcome="deans.xhtml"/>
                         <b:navLink value="Schiedsrichter" outcome="referees.xhtml"/>
+                        <b:navLink value="Handball Infos" href="#"/>
+                        <b:navLink value="Förderverein" href="#"/>
+                        <b:navLink value="Biber-Handballfreunde" href="#"/>
                     </b:listLinks>
                 </b:dropMenu>
 
@@ -69,8 +72,8 @@
                              iconAlign="right">
                 <f:param name="memberId" value="#{sessionBean.member.id}"/>
             </b:commandButton>
-            <b:commandButton rendered="#{sessionBean.isLoggedIn}" action="index.xhtml"
-                             actionListener="#{sessionBean.logout()}" size="sm"
+            <b:commandButton rendered="#{sessionBean.isLoggedIn}"
+                             action="#{sessionBean.logout()}" size="sm"
                              disabled="false" value="LogOut" look="danger" icon="chevron-right"
                              iconAlign="right"/>
         </h:form>
