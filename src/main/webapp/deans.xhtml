@@ -1,0 +1,59 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+>
+    <ui:define name="title">Vorstand</ui:define>
+
+    <ui:define name="content">
+        <b:container>
+            <ui:repeat value="#{deanBean.deans}" var="dean">
+                <b:panel title="#{dean.description}" collapsed="true">
+                    <b:row>
+                        <b:column colLg="2" colMd="2" colSm="3" colXs="6" styleClass="col-xs-offset-3 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
+                            <b:image value="#{dean.getFullImagePath()}" style="max-width: 100%; max-height: 100%"/>
+                        </b:column>
+                        <b:column colLg="10" colMd="10" colSm="9" colXs="12">
+                            <b:row>
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="deanName"
+                                                                  value="Name"/></b:column>
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="deanName"
+                                                                 value="#{dean.member.getFullName()}"/></b:column>
+                            </b:row>
+                            <b:row>
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="deanEmail"
+                                                                  value="E-Mail Adresse"/></b:column>
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="deanEmail"
+                                                                 value="#{dean.member.email}"/></b:column>
+                            </b:row>
+                            <b:row>
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="deanMobile"
+                                                                  value="Handynummer"/></b:column>
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="deanMobile"
+                                                                 value="#{dean.member.mobileNumber}"/></b:column>
+                            </b:row>
+                            <b:row>
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="deanPhonenumber"
+                                                                  value="Telefonnummer"/></b:column>
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="deanPhonenumber"
+                                                                 value="#{dean.member.phoneNumber}"/></b:column>
+                            </b:row>
+                            <b:row>
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="deanCity"
+                                                                  value="Straße"/></b:column>
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="deanCity"
+                                                                 value="#{dean.member.zipcode} #{dean.member.city}"/></b:column>
+                            </b:row>
+                            <b:row>
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="deanStreet"
+                                                                  value="Straße"/></b:column>
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="deanStreet"
+                                                                 value="#{dean.member.street}"/></b:column>
+                            </b:row>
+                        </b:column>
+                    </b:row>
+                </b:panel>
+            </ui:repeat>
+        </b:container>
+    </ui:define>
+</ui:composition>
