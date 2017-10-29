@@ -43,8 +43,8 @@ public class Member {
 	@Column(name = "created_on")
 	@Temporal(value = TemporalType.DATE)
 	private Date createdOn;
-	@Column(columnDefinition = "varchar")
-	private String profileImageName;
+	@Column(name = "profile_image", columnDefinition = "varchar")
+	private String profileImage;
 
 	@Override
 	public boolean equals(Object o) {
@@ -177,15 +177,15 @@ public class Member {
 		return firstName + " " + lastName;
 	}
 
-	public String getProfileImageName() {
-		return profileImageName;
+	public String getProfileImage() {
+		return profileImage;
 	}
 
-	public void setProfileImageName(String profilePicture) {
-		this.profileImageName = profilePicture;
+	public void setProfileImage(String profilePicture) {
+		this.profileImage = profilePicture;
 	}
 
 	public String getFullProfileImagePath() {
-		return "/file/" + FileDirectory.PROFILE_IMAGE.getName() + "/" + profileImageName;
+		return "/file/" + FileDirectory.PROFILE_IMAGE.getName() + "/" + profileImage;
 	}
 }
