@@ -8,22 +8,29 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-public class DeanProvider {
+public class DeanProcessor {
 
 	private Logger logger;
 	@PersistenceContext
 	private EntityManager em;
 
-	public List<Dean> getCurrentDeans() {
-		logger.info("Loading current deans");
-		return em.createNamedQuery("Dean.getCurrentDeans", Dean.class).getResultList();
+	public void updateDean(Dean dean) {
+		logger.info("Updating dean with id={}", dean.getId());
+		em.merge(dean);
+		em.flush();
 	}
 
-	public Dean getDeanById(long deanId) {
-		logger.info("Loading dean with id={}");
-		Dean dean = em.find(Dean.class, deanId);
-		em.detach(dean);
-		return dean;
+	public void updateDeans(List<Dean> deans) {
+		for (Dean dean : deans) {
+			updateDean(dean);
+		}
+	}
+
+	public void createDean(Dean dean) {
+		logger.info("Creating new dean entry");
+		em.persist(dean);
+		em.flush();
+		logger.info("Created new dean with id={}", dean.getId());
 	}
 
 	@Inject

@@ -7,6 +7,16 @@
 
     <ui:define name="content">
         <b:container>
+            <b:panel rendered="#{sessionBean.isLoggedIn}">
+                <b:row>
+                    <b:column colLg="2" colMd="3" colSm="4" colXs="12" style="margin-bottom: 15px;">
+                        <b:button look="primary" value="Vorstandschaft bearbeiten" outcome="deansEdit.xhtml"/>
+                    </b:column>
+                    <b:column colLg="2" colMd="3" colSm="4" colXs="12">
+                        <b:button look="primary" value="Vorstandsmitglied hinzufügen" outcome="deanAdd.xhtml"/>
+                    </b:column>
+                </b:row>
+            </b:panel>
             <ui:repeat value="#{deanBean.deans}" var="dean">
                 <components:profile
                         member="#{dean.member}"

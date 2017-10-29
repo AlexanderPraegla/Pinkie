@@ -1,0 +1,32 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="title">Vorstand bearbeiten</ui:define>
+
+    <ui:define name="content">
+        <b:container>
+            <h:form>
+                <b:panel>
+                    <ui:repeat id="deanRepeat" value="#{deanBean.deans}" var="dean">
+                        <b:row>
+                            <b:column colLg="4" colMd="4" colSm="6" colXs="12">
+                                <b:inputText value="#{dean.member.getFullName()}" disabled="true"/>
+                            </b:column>
+                            <b:column colLg="4" colMd="4" colSm="6" colXs="12">
+                                <b:inputText value="#{dean.orderId}"/>
+                            </b:column>
+                            <b:column colLg="4" colMd="4" colSm="6" colXs="12">
+                                <b:button value="Bearbeiten" look="primary" outcome="deanEdit.xhtml">
+                                    <f:param name="deanId" value="#{dean.id}"/>
+                                </b:button>
+                            </b:column>
+                        </b:row>
+                    </ui:repeat>
+                    <b:commandButton value="Reihenfolge aktualisieren" look="success"
+                                     action="#{deanBean.updateDeansOrder}"/>
+                </b:panel>
+            </h:form>
+        </b:container>
+    </ui:define>
+</ui:composition>
