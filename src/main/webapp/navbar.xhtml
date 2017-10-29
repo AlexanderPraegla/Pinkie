@@ -17,7 +17,7 @@
                         <b:navLink value="Mannschaft bearbeiten" outcome="teamEditOverview.xhtml"
                                    rendered="#{sessionBean.isLoggedIn}"/>
                         <b:navLink value="Mannschaft anlegen" outcome="teamAdd.xhtml"
-                                   rendered="#{sessionBean.isLoggedIn}"/>
+                                    rendered="#{sessionBean.isLoggedIn}"/>
                         <b:navLink rendered="#{sessionBean.isLoggedIn}"/>
                         <ui:repeat var="team" value="#{teamBean.teams}">
                             <b:navLink value="#{team.name}" outcome="team.xhtml" includeViewParams="true">
@@ -28,6 +28,9 @@
                 </b:dropMenu>
                 <b:dropMenu value="Verein">
                     <b:listLinks>
+                        <b:navLink value="Mitglied anlegen" href="#" rendered="#{sessionBean.isLoggedIn}"/>
+                        <b:navLink value="Mitglieder auflisten" href="#" rendered="#{sessionBean.isLoggedIn}"/>
+                        <b:navLink rendered="#{sessionBean.isLoggedIn}"/>
                         <b:navLink value="Vorstand" outcome="deans.xhtml"/>
                         <b:navLink value="Schiedsrichter" outcome="referees.xhtml"/>
                         <b:navLink value="Handball Infos" href="#"/>
@@ -43,8 +46,6 @@
                 </b:navLink>
                 <b:dropMenu value="Admin Bereich" rendered="#{sessionBean.isLoggedIn}">
                     <b:listLinks>
-                        <b:navLink value="Mitglied anlegen" href="#"/>
-                        <b:navLink value="Mitglieder auflisten" href="#"/>
                         <b:navLink value="Bearbeitung aktivieren" href="#"/>
                     </b:listLinks>
                 </b:dropMenu>
