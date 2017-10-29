@@ -123,6 +123,10 @@ public class Team {
 		return null;
 	}
 
+	public boolean hasTeamImage() {
+		return StringUtils.isNotBlank(imageName);
+	}
+
 	public void setImageName(String imageName) {
 		this.imageName = imageName;
 	}
