@@ -36,33 +36,33 @@
             <ui:repeat value="#{teamBean.team.trainers}" var="trainer">
                 <b:panel collapsible="false">
                     <b:row style="margin: 0px">
-                        <b:column tinyScreen="4" smallScreen="3" mediumScreen="2" largeScreen="2">
+                        <b:column colLg="2" colMd="2" colSm="3" colXs="6" styleClass="col-xs-offset-3 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
                             <h:graphicImage value="#{trainer.fullProfileImagePath}"
                                             style="max-height: 100%; max-width: 100%"/>
                         </b:column>
-                        <b:column tinyScreen="8" smallScreen="9" mediumScreen="10" largeScreen="10">
+                        <b:column colLg="10" colMd="10" colSm="9" colXs="12">
                             <b:row>
-                                <b:column span="6"><h:outputLabel for="trainerName"
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="trainerName"
                                                                   value="Name:"/></b:column>
-                                <b:column span="6"><h:outputText id="trainerName"
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="trainerName"
                                                                  value="#{trainer.getFullName()}"/></b:column>
                             </b:row>
                             <b:row>
-                                <b:column span="6"><h:outputLabel for="teamMemberEmail"
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="teamMemberEmail"
                                                                   value="E-Mail Adresse:"/></b:column>
-                                <b:column span="6"><h:outputText id="teamMemberEmail"
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="teamMemberEmail"
                                                                  value="#{trainer.email}"/></b:column>
                             </b:row>
                             <b:row>
-                                <b:column span="6"><h:outputLabel for="trainerMobile"
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="trainerMobile"
                                                                   value="Handynummer:"/></b:column>
-                                <b:column span="6"><h:outputText id="trainerMobile"
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="trainerMobile"
                                                                  value="#{trainer.mobileNumber}"/></b:column>
                             </b:row>
                             <b:row>
-                                <b:column span="6"><h:outputLabel for="trainerPhone"
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="trainerPhone"
                                                                   value="Telefonnummer:"/></b:column>
-                                <b:column span="6"><h:outputText id="trainerPhone"
+                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="trainerPhone"
                                                                  value="#{trainer.phoneNumber}"/></b:column>
                             </b:row>
                         </b:column>
