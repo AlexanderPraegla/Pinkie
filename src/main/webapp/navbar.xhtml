@@ -26,7 +26,13 @@
                         </ui:repeat>
                     </b:listLinks>
                 </b:dropMenu>
-                <b:navLink value="Verein" href="#"/>
+                <b:dropMenu value="Verein">
+                    <b:listLinks>
+                        <b:navLink value="Vorstand" outcome="deans.xhtml"/>
+                        <b:navLink value="Schiedsrichter" outcome="referees.xhtml"/>
+                    </b:listLinks>
+                </b:dropMenu>
+
                 <b:navLink value="Gästebuch" href="#" rendered="#{sessionBean.isLoggedIn}"/>
                 <b:navLink value="Profil" outcome="profile.xhtml" rendered="#{sessionBean.isLoggedIn}"
                            includeViewParams="true">
