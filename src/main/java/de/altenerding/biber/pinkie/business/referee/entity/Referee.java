@@ -18,8 +18,6 @@ public class Referee {
 	private long id;
 	@OneToOne(fetch = FetchType.LAZY)
 	private Member member;
-	@Column(columnDefinition = "varchar")
-	private String description;
 	@Column
 	private int orderId;
 	@Column(columnDefinition = "varchar")
@@ -65,14 +63,6 @@ public class Referee {
 
 	public void setMember(Member member) {
 		this.member = member;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public int getOrderId() {
