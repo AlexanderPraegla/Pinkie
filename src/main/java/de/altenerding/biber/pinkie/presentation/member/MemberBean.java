@@ -5,6 +5,7 @@ import de.altenerding.biber.pinkie.business.members.entity.Member;
 import org.apache.logging.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -14,6 +15,8 @@ import java.util.List;
 @RequestScoped
 public class MemberBean implements Serializable {
 
+	@ManagedProperty(value = "#{param.memberId}")
+	private long memberId;
 	private MemberService memberService;
 	private Logger logger;
 	private List<Member> members;
@@ -21,6 +24,10 @@ public class MemberBean implements Serializable {
 
 	public Member getMember() {
 		return member;
+	}
+
+	public void initMember() {
+		member = memberService.getMemberById(memberId);
 	}
 
 	@Inject
@@ -42,5 +49,9 @@ public class MemberBean implements Serializable {
 
 	public void setMembers(List<Member> members) {
 		this.members = members;
+	}
+
+	public void setMemberId(long memberId) {
+		this.memberId = memberId;
 	}
 }

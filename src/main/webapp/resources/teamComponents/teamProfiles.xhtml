@@ -4,9 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:composite="http://java.sun.com/jsf/composite"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:components="http://java.sun.com/jsf/composite/memberComponents">
 
 <h:head/>
 <h:body>
@@ -15,43 +14,16 @@
 
     <composite:implementation>
         <ui:repeat value="#{teamBean.team.teamMembers}" var="teamMember">
-            <b:panel collapsed="true">
-                <f:facet name="heading">
-                    <h:outputText value="#{teamMember.fullName}"/>
-                </f:facet>
-                <b:row>
-                    <b:column colLg="2" colMd="2" colSm="3" colXs="6" styleClass="col-xs-offset-3 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
-                        <h:graphicImage value="#{teamMember.fullProfileImagePath}"
-                                        style="max-height: 100%; max-width: 100%"/>
-                    </b:column>
-                    <b:column colLg="10" colMd="10" colSm="9" colXs="12">
-                        <b:row>
-                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="teamMemberEmail"
-                                                              value="E-Mail Adresse"/></b:column>
-                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="teamMemberEmail"
-                                                             value="#{teamMember.email}"/></b:column>
-                        </b:row>
-                        <b:row>
-                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="teamMemberPreviousClubs"
-                                                              value="Bisherige Vereine"/></b:column>
-                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="teamMemberPreviousClubs"
-                                                             value="Hier stehen die bisherigen Vereine"/></b:column>
-                        </b:row>
-                        <b:row>
-                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="teamMemberPosition"
-                                                              value="Position"/></b:column>
-                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="teamMemberPosition"
-                                                             value="Hier soll die Position des Spielers stehen"/></b:column>
-                        </b:row>
-                        <b:row>
-                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="teamMemberGoals"
-                                                              value="Ziele Saison #{teamBean.team.season.name}"/></b:column>
-                            <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="teamMemberGoals"
-                                                             value="Hier sollen die Ziele für die aktuelle Saison stehen"/></b:column>
-                        </b:row>
-                    </b:column>
-                </b:row>
-            </b:panel>
+            <components:profile
+                    member="#{teamMember}"
+                    profileImagePath="#{teamMember.getFullProfileImagePath()}"
+                    panelTitle="#{teamMember.getFullName()}"
+                    showStreet="#{false}"
+                    showCity="#{false}"
+                    showFullName="#{false}"
+                    showPhonenumber="#{false}"
+                    showMobileNumber="#{false}"
+            />
         </ui:repeat>
     </composite:implementation>
 </h:body>

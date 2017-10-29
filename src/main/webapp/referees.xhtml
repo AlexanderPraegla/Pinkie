@@ -1,52 +1,20 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:components="http://java.sun.com/jsf/composite/memberComponents"
 >
     <ui:define name="title">Schiedsrichter</ui:define>
 
     <ui:define name="content">
         <b:container>
             <ui:repeat value="#{refereeBean.referees}" var="referee">
-                <b:panel title="#{referee.member.getFullName()}" collapsed="true">
-                    <b:row>
-                        <b:column colLg="2" colMd="2" colSm="3" colXs="6" styleClass="col-xs-offset-3 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
-                            <b:image value="#{referee.getFullImagePath()}" style="max-width: 100%; max-height: 100%"/>
-                        </b:column>
-                        <b:column colLg="10" colMd="10" colSm="9" colXs="12">
-                            <b:row>
-                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="refereeEmail"
-                                                                                                  value="E-Mail Adresse"/></b:column>
-                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="refereeEmail"
-                                                                                                 value="#{referee.member.email}"/></b:column>
-                            </b:row>
-                            <b:row>
-                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="refereeMobile"
-                                                                                                  value="Handynummer"/></b:column>
-                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="refereeMobile"
-                                                                                                 value="#{referee.member.mobileNumber}"/></b:column>
-                            </b:row>
-                            <b:row>
-                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="refereePhonenumber"
-                                                                                                  value="Telefonnummer"/></b:column>
-                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="refereePhonenumber"
-                                                                                                 value="#{referee.member.phoneNumber}"/></b:column>
-                            </b:row>
-                            <b:row>
-                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="refereeCity"
-                                                                                                  value="Straße"/></b:column>
-                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="refereeCity"
-                                                                                                 value="#{referee.member.zipcode} #{referee.member.city}"/></b:column>
-                            </b:row>
-                            <b:row>
-                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="refereeStreet"
-                                                                                                  value="Straße"/></b:column>
-                                <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="refereeStreet"
-                                                                                                 value="#{referee.member.street}"/></b:column>
-                            </b:row>
-                        </b:column>
-                    </b:row>
-                </b:panel>
+                <components:profile
+                        member="#{referee.member}"
+                        profileImagePath="#{referee.getFullImagePath()}"
+                        panelTitle="#{referee.member.getFullName()}"
+                        showPreviousClubs="#{false}"
+                        showPosition="#{false}"
+                />
             </ui:repeat>
         </b:container>
     </ui:define>
