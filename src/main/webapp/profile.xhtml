@@ -15,6 +15,10 @@
             <components:profile
                     member="#{memberBean.member}"
                     profileImagePath="#{memberBean.member.getFullProfileImagePath()}"
+                    panelTitle="#{memberBean.member.getFullName()}"
+                    collapsible="#{false}"
+                    collapsed="#{false}"
+                    showAll="#{true}"
             />
         </b:container>
     </ui:define>

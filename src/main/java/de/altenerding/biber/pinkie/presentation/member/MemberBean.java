@@ -54,4 +54,8 @@ public class MemberBean implements Serializable {
 	public void setMemberId(long memberId) {
 		this.memberId = memberId;
 	}
+
+	public long getMemberId() {
+		return memberId;
+	}
 }

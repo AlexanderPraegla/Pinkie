@@ -38,13 +38,25 @@ public class Member {
 	private String city;
 	@Column(nullable = false, columnDefinition = "boolean default false")
 	private boolean isAdmin;
-	@Column
-	private String homepage;
 	@Column(name = "created_on")
 	@Temporal(value = TemporalType.DATE)
 	private Date createdOn;
 	@Column(name = "profile_image", columnDefinition = "varchar")
 	private String profileImage;
+	@Column(columnDefinition = "varchar")
+	private String previousClubs;
+	@Column(columnDefinition = "varchar")
+	private String position;
+	@Column(columnDefinition = "varchar")
+	private String teamFunction;
+	@Column(columnDefinition = "varchar")
+	private String height;
+	@Column(columnDefinition = "varchar")
+	private String wadlUmfang;
+	@Column(columnDefinition = "varchar")
+	private String throwingHand;
+	@Column(columnDefinition = "varchar")
+	private String additionalInformation;
 
 	@Override
 	public boolean equals(Object o) {
@@ -157,14 +169,6 @@ public class Member {
 		isAdmin = admin;
 	}
 
-	public String getHomepage() {
-		return homepage;
-	}
-
-	public void setHomepage(String homepage) {
-		this.homepage = homepage;
-	}
-
 	public Date getCreatedOn() {
 		return createdOn;
 	}
@@ -187,5 +191,61 @@ public class Member {
 
 	public String getFullProfileImagePath() {
 		return "/file/" + FileDirectory.PROFILE_IMAGE.getName() + "/" + profileImage;
+	}
+
+	public String getPreviousClubs() {
+		return previousClubs;
+	}
+
+	public void setPreviousClubs(String previousClubs) {
+		this.previousClubs = previousClubs;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getTeamFunction() {
+		return teamFunction;
+	}
+
+	public void setTeamFunction(String teamFunction) {
+		this.teamFunction = teamFunction;
+	}
+
+	public String getHeight() {
+		return height;
+	}
+
+	public void setHeight(String height) {
+		this.height = height;
+	}
+
+	public String getWadlUmfang() {
+		return wadlUmfang;
+	}
+
+	public void setWadlUmfang(String wadlUmfang) {
+		this.wadlUmfang = wadlUmfang;
+	}
+
+	public String getAdditionalInformation() {
+		return additionalInformation;
+	}
+
+	public void setAdditionalInformation(String additionalInformation) {
+		this.additionalInformation = additionalInformation;
+	}
+
+	public String getThrowingHand() {
+		return throwingHand;
+	}
+
+	public void setThrowingHand(String throwingHand) {
+		this.throwingHand = throwingHand;
 	}
 }
