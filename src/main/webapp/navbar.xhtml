@@ -16,7 +16,7 @@
                     <b:listLinks>
                         <b:navLink value="Mannschaft bearbeiten" outcome="teamEditOverview.xhtml"
                                    rendered="#{sessionBean.isLoggedIn}"/>
-                        <b:navLink value="Mannschaft anlegen" outcome="teamCreate.xhtml"
+                        <b:navLink value="Mannschaft anlegen" outcome="teamAdd.xhtml"
                                    rendered="#{sessionBean.isLoggedIn}"/>
                         <b:navLink rendered="#{sessionBean.isLoggedIn}"/>
                         <ui:repeat var="team" value="#{teamBean.teams}">

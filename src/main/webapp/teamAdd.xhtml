@@ -1,0 +1,63 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="title">Altenerding Handball</ui:define>
+
+    <ui:define name="content">
+        <b:container rendered="#{sessionBean.isLoggedIn}">
+            <b:panel>
+                <h:form enctype="multipart/form-data">
+                    <b:row>
+                        <b:column>
+                            <b:inputText required="true" requiredMessage="Bitte Mannschaftsnamen angeben"
+                                         value="#{teamCreationBean.team.name}" label="Team Name"/>
+                            <b:inputText required="true" requiredMessage="Bitte Liga auswählen"
+                                         value="#{teamCreationBean.team.league}" label="Liga"/>
+                            <b:inputText value="#{teamCreationBean.team.urlStanding}" label="nuLiga Url Tabelle"/>
+                            <b:selectOneMenu required="true" requiredMessage="Bitte Saison auswählen"
+                                             value="#{teamCreationBean.team.season}" label="Saison">
+                                <f:selectItems value="#{seasonBean.seasons}" var="season" itemValue="#{season}"
+                                               itemLabel="#{season.name}"/>
+                            </b:selectOneMenu>
+
+                            <h:inputFile value="#{teamCreationBean.file}" styleClass="btn btn-default"
+                                         style="margin-bottom: 15px;" label="Mannschaftsbild"/>
+                            <b:inputTextarea value="#{teamCreationBean.team.imageDescription}"
+                                             label="Bild Beschriftung"/>
+                        </b:column>
+                        <b:row style="margin-bottom: 15px;">
+                            <b:column>
+                                <b:selectMultiMenu value="#{teamCreationBean.memberIndex}" label="Spieler"
+                                                   enableFiltering="true"
+                                                   colLg="5" colMd="6" colSm="12" colXs="12"
+                                                   enableCaseInsensitiveFiltering="true"
+                                                   filterPlaceholder="Spielername eintippen">
+                                    <f:selectItems value="#{memberBean.members}" var="member"
+                                                   itemValue="#{memberBean.members.indexOf(member)}"
+                                                   itemLabel="#{member.getFullName()}"/>
+                                </b:selectMultiMenu>
+                                <b:selectMultiMenu value="#{teamCreationBean.trainerIndex}" label="Trainer"
+                                                   enableFiltering="true"
+                                                   colLg="5" colMd="6" colSm="12" colXs="12"
+                                                   enableCaseInsensitiveFiltering="true"
+                                                   filterPlaceholder="Spielername eintippen">
+                                    <f:selectItems value="#{memberBean.members}" var="member"
+                                                   itemValue="#{memberBean.members.indexOf(member)}"
+                                                   itemLabel="#{member.getFullName()}"/>
+                                </b:selectMultiMenu>
+                            </b:column>
+                        </b:row>
+                        <b:column>
+                            <b:inputTextarea value="#{teamCreationBean.team.additionalInfo}" label="Trainingszeiten"/>
+
+                            <b:commandButton value="Speichern" look="success"
+                                             action="#{teamCreationBean.createTeam}"/>
+                        </b:column>
+                    </b:row>
+                </h:form>
+            </b:panel>
+        </b:container>
+    </ui:define>
+</ui:composition>

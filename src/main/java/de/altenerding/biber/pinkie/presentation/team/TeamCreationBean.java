@@ -63,7 +63,7 @@ public class TeamCreationBean implements Serializable {
 		} catch (Exception e) {
 			FacesMessages.info(e.getMessage());
 			logger.error("Error while uploading file", e);
-			result = "teamCreate.xhtml?faces-redirect=true&includeViewParams=true";
+			result = "teamAdd.xhtml?faces-redirect=true&includeViewParams=true";
 		}
 
 		FacesContext context = FacesContext.getCurrentInstance();
