@@ -26,7 +26,7 @@
                     <h:outputText value="#{cc.attrs.report.summary}"/>
                 </b:column>
                 <b:column span="1" style="margin-top: 5px">
-                    <b:button value="Bearbeiten" outcome="editReport.xhtml"
+                    <b:button value="Bearbeiten" outcome="reportEdit.xhtml"
                               look="default" rendered="#{sessionBean.isLoggedIn and cc.attrs.editable}"
                               size="sm" includeViewParams="true">
                         <f:param name="reportId" value="#{cc.attrs.report.id}"/>
