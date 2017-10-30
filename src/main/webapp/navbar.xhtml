@@ -52,32 +52,14 @@
             </b:navbarLinks>
         </h:form>
         <h:form id="loginForm" styleClass="navbar-form navbar-right">
-            <div class="form-group">
-                <b:inputText rendered="#{!sessionBean.isLoggedIn}" id="email" value="#{sessionBean.email}"
-                             placeholder="Email" fieldSize="sm">
-                    <f:facet name="prepend">
-                        <b:icon name="user"/>
-                    </f:facet>
-                </b:inputText>
-            </div>
-            <div class="form-group">
-                <b:inputText rendered="#{!sessionBean.isLoggedIn}" id="password" value="#{sessionBean.password}"
-                             placeholder="Passwort" type="password" fieldSize="sm">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="key"/>
-                    </f:facet>
-                </b:inputText>
-            </div>
-
-            <b:commandButton rendered="#{!sessionBean.isLoggedIn}" action="#{sessionBean.login()}" size="sm"
-                             disabled="false" value="LogIn" look="success" icon="chevron-right"
-                             iconAlign="right">
-                <f:param name="memberId" value="#{sessionBean.member.id}"/>
-            </b:commandButton>
+            <b:button rendered="#{!sessionBean.isLoggedIn}" outcome="login.xhtml" size="sm"
+                             disabled="false" value="LogIn" look="success" icon="log-in"
+                             iconAlign="right"/>
             <b:commandButton rendered="#{sessionBean.isLoggedIn}"
                              action="#{sessionBean.logout()}" size="sm"
-                             disabled="false" value="LogOut" look="danger" icon="chevron-right"
+                             disabled="false" value="LogOut" look="danger" icon="log-out"
                              iconAlign="right"/>
+
         </h:form>
     </b:navBar>
 </ui:composition>

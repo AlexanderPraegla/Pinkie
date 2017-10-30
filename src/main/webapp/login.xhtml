@@ -1,0 +1,28 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="title">Altenerding Handball</ui:define>
+    <ui:define name="content">
+        <b:container rendered="#{!sessionBean.isLoggedIn}">
+            <h:form styleClass="form-signin" prependId="false">
+                <h2 class="form-signin-heading">Please sign in</h2>
+                <b:inputText id="email" placeholder="Email Addresse" value="#{sessionBean.email}">
+                    <f:facet name="prepend">
+                        <b:icon name="user"/>
+                    </f:facet>
+                </b:inputText>
+                <b:inputText id="password" placeholder="Passwort" type="password" value="#{sessionBean.password}">
+                    <f:facet name="prepend">
+                        <b:iconAwesome name="key"/>
+                    </f:facet>
+                </b:inputText>
+                <b:commandButton action="#{sessionBean.login()}"
+                                 disabled="false" value="LogIn" look="primary btn-block" icon="log-in"
+                                 iconAlign="right"/>
+                <b:button outcome="register.xhtml" look="default btn-block" value="Registieren"/>
+            </h:form>
+        </b:container>
+
+    </ui:define>
+</ui:composition>

@@ -7,6 +7,7 @@
     <title>
         <ui:insert name="title">Some title</ui:insert>
     </title>
+    <h:outputStylesheet library="css" name="main.css"  />
     <link rel="icon" type="image/png" href="resources/images/logo_biber_ae_16x16.png" sizes="16x16"/>
     <link rel="icon" type="image/png" href="resources/images/logo_biber_ae_32x32.png" sizes="32x32"/>
 </h:head>
@@ -25,7 +26,7 @@
 <ui:include src="../../header.xhtml"/>
 <ui:include src="../../navbar.xhtml"/>
 
-<h:body style="padding-top: 50px; padding-bottom: 20px;">
+<h:body>
     <ui:insert name="content" />
 </h:body>
 

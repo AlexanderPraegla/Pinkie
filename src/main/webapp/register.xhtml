@@ -1,0 +1,40 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="title">Altenerding Handball</ui:define>
+
+    <ui:define name="content">
+        <b:container rendered="#{!sessionBean.isLoggedIn}" id="registerContainer">
+            <h:form styleClass="form-register" id="registerFormId">
+                <h2 class="form-signin-heading">Registrierung</h2>
+                <b:inputText id="firstname" placeholder="Vorname" value="#{sessionBean.member.firstName}"
+                             rendered="true" requiredMessage="Bitte Vorname angeben" tooltip="Bitte korrekten Vornamen angeben, da die Freischaltung nur für Mitglieder der SpVgg Altenerding erfolgt"
+                             tooltipPosition="right" tooltipDelay="0"/>
+                <b:inputText id="lastname" placeholder="Nachname" value="#{sessionBean.member.lastName}"
+                             tooltip="Bitte korrekten Nachnamen angeben, da die Freischaltung nur für Mitglieder der SpVgg Altenerding erfolgt"
+                             tooltipDelay="0" tooltipPosition="right"
+                             required="true" requiredMessage="Bitte Nachname angeben"/>
+                <b:inputText id="email" placeholder="Email Addresse" value="#{sessionBean.member.email}"
+                             required="true" requiredMessage="Bitte Email Addresse angeben" type="email"
+                             tooltip="Es muss eine gültige E-Mail Addresse sein.
+                             Diese wird nur zum Login und zum Versand von Benarchtigungen benötigt"
+                             tooltip-position="right" tooltip-delay-show="0"/>
+
+                <b:inputText id="password" value="#{sessionBean.member.password}" placeholder="Passwort"
+                             required="true" requiredMessage="Bitte Passwort eingeben" maxlength="128" type="password"/>
+                <h:message for="password"/>
+
+                <b:inputText id="passwordRepeat" maxlength="128" type="password" placeholder="Passwort wiederholen"
+                             required="true" requiredMessage="Bitte Passwort wiederholen">
+                    <f:validator validatorId="retypePasswordValidator"/>
+                    <f:attribute name="password1" value="#{component.parent.parent.clientId}:password"/>
+                </b:inputText>
+                <h:message for="passwordRepeat"/>
+
+                <b:commandButton action="#{sessionBean.register()}"
+                                 disabled="false" value="Registrieren" look="primary btn-block"/>
+            </h:form>
+        </b:container>
+    </ui:define>
+</ui:composition>
