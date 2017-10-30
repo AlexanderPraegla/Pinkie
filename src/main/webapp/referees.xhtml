@@ -7,6 +7,16 @@
 
     <ui:define name="content">
         <b:container>
+            <b:panel rendered="#{sessionBean.isLoggedIn}">
+                <b:row>
+                    <b:column colLg="2" colMd="3" colSm="4" colXs="12" style="margin-bottom: 15px;">
+                        <b:button look="primary" value="Schiedsrichter bearbeiten" outcome="refereesEdit.xhtml"/>
+                    </b:column>
+                    <b:column colLg="2" colMd="3" colSm="4" colXs="12">
+                        <b:button look="primary" value="Schiedsrichter hinzufügen" outcome="refereeAdd.xhtml"/>
+                    </b:column>
+                </b:row>
+            </b:panel>
             <ui:repeat value="#{refereeBean.referees}" var="referee">
                 <components:profile
                         member="#{referee.member}"

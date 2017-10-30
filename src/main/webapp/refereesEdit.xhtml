@@ -2,36 +2,36 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
-    <ui:define name="title">Vorstand bearbeiten</ui:define>
+    <ui:define name="title">Schiedsrichter bearbeiten</ui:define>
 
     <ui:define name="content">
         <b:container>
             <b:form>
-                <b:panel rendered="#{deanBean.deans.size() > 0}">
-                    <ui:repeat id="deanRepeat" value="#{deanBean.deans}" var="dean">
+                <b:panel rendered="#{refereeBean.referees.size() > 0}">
+                    <ui:repeat id="refereeRepeat" value="#{refereeBean.referees}" var="referee">
                         <b:formGroup>
                             <b:row>
                                 <b:column colLg="4" colMd="4" colSm="4" colXs="12">
-                                    <b:inputText value="#{dean.member.getFullName()}" disabled="true"/>
+                                    <b:inputText value="#{referee.member.getFullName()}" disabled="true"/>
                                 </b:column>
                                 <b:column colLg="4" colMd="4" colSm="4" colXs="12">
-                                    <b:inputText value="#{dean.orderId}"/>
+                                    <b:inputText value="#{referee.orderId}"/>
                                 </b:column>
                                 <b:column colLg="2" colMd="2" colSm="2" colXs="6">
-                                    <b:button value="Bearbeiten" look="primary" outcome="deanEdit.xhtml">
-                                        <f:param name="deanId" value="#{dean.id}"/>
+                                    <b:button value="Bearbeiten" look="primary" outcome="refereeEdit.xhtml">
+                                        <f:param name="refereeId" value="#{referee.id}"/>
                                     </b:button>
                                 </b:column>
                                 <b:column colLg="2" colMd="2" colSm="2" colXs="6">
                                     <b:commandButton value="Archivieren" look="primary"
-                                                     action="#{deanBean.archiveDean(dean)}">
+                                                     action="#{refereeBean.archiveReferee(referee)}">
                                     </b:commandButton>
                                 </b:column>
                             </b:row>
                         </b:formGroup>
                     </ui:repeat>
                     <b:commandButton value="Reihenfolge aktualisieren" look="success"
-                                     action="#{deanBean.updateDeansOrder}"/>
+                                     action="#{refereeBean.updateRefereesOrder}"/>
                 </b:panel>
             </b:form>
         </b:container>

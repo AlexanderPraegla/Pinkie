@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Referee.getCurrentDeans", query = "SELECT r from Referee r WHERE r.archivedOn IS NULL ORDER BY r.orderId ASC")
+		@NamedQuery(name = "Referee.getCurrentReferees", query = "SELECT r from Referee r WHERE r.archivedOn IS NULL ORDER BY r.orderId ASC")
 })
 public class Referee {
 

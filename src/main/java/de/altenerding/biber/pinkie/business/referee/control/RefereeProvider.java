@@ -16,7 +16,14 @@ public class RefereeProvider {
 
 	public List<Referee> getCurrentReferees() {
 		logger.info("Loading current referees");
-		return em.createNamedQuery("Referee.getCurrentDeans", Referee.class).getResultList();
+		return em.createNamedQuery("Referee.getCurrentReferees", Referee.class).getResultList();
+	}
+
+	public Referee getRefereeById(long refereeId) {
+		logger.info("Loading referee with id={}");
+		Referee referee = em.find(Referee.class, refereeId);
+		em.detach(referee);
+		return referee;
 	}
 
 	@Inject

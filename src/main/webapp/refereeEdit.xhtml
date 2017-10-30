@@ -1,0 +1,46 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">Schiedsrichter bearbeiten</ui:define>
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="refereeId" value="#{refereeBean.refereeId}"/>
+            <f:viewAction action="#{refereeBean.initReferee()}"/>
+        </f:metadata>
+        <b:container>
+            <h:form enctype="multipart/form-data">
+                <b:panel>
+                    <b:row>
+                        <b:column colLg="2" colMd="2" colSm="3" colXs="4"
+                                  styleClass="col-xs-offset-4 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
+                            <h:graphicImage value="#{refereeBean.referee.getFullImagePath()}"
+                                            style="max-height: 100%; max-width: 100%;margin-bottom: 15px;"/>
+                        </b:column>
+                        <b:column colLg="5" colMd="5" colSm="6" colXs="12">
+                            <b:row>
+                                <b:column>
+                                    <b:selectOneMenu value="#{refereeBean.referee.member}">
+                                        <f:selectItems value="#{memberBean.members}"
+                                                       var="member" itemValue="#{member}"
+                                                       itemLabel="#{member.getFullName()}"/>
+                                    </b:selectOneMenu>
+                                </b:column>
+                                <b:column>
+                                    <h:inputFile value="#{refereeBean.file}" styleClass="btn btn-default"
+                                                 style="margin-bottom: 15px;" label="Schiedsrichterbild"/>
+                                </b:column>
+                                <b:column>
+                                    <b:commandButton value="Aktualisieren" look="primary"
+                                                     action="#{refereeBean.updateReferee()}"/>
+                                </b:column>
+                            </b:row>
+                        </b:column>
+                    </b:row>
+                </b:panel>
+            </h:form>
+        </b:container>
+    </ui:define>
+</ui:composition>
