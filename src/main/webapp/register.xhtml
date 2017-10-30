@@ -9,7 +9,7 @@
             <h:form styleClass="form-register" id="registerFormId">
                 <h2 class="form-signin-heading">Registrierung</h2>
                 <b:inputText id="firstname" placeholder="Vorname" value="#{sessionBean.member.firstName}"
-                             rendered="true" requiredMessage="Bitte Vorname angeben" tooltip="Bitte korrekten Vornamen angeben, da die Freischaltung nur für Mitglieder der SpVgg Altenerding erfolgt"
+                             required="true" requiredMessage="Bitte Vorname angeben" tooltip="Bitte korrekten Vornamen angeben, da die Freischaltung nur für Mitglieder der SpVgg Altenerding erfolgt"
                              tooltipPosition="right" tooltipDelay="0"/>
                 <b:inputText id="lastname" placeholder="Nachname" value="#{sessionBean.member.lastName}"
                              tooltip="Bitte korrekten Nachnamen angeben, da die Freischaltung nur für Mitglieder der SpVgg Altenerding erfolgt"
@@ -23,14 +23,12 @@
 
                 <b:inputText id="password" value="#{sessionBean.member.password}" placeholder="Passwort"
                              required="true" requiredMessage="Bitte Passwort eingeben" maxlength="128" type="password"/>
-                <h:message for="password"/>
 
                 <b:inputText id="passwordRepeat" maxlength="128" type="password" placeholder="Passwort wiederholen"
-                             required="true" requiredMessage="Bitte Passwort wiederholen">
+                             requiredMessage="Bitte Passwort wiederholen">
                     <f:validator validatorId="retypePasswordValidator"/>
                     <f:attribute name="password1" value="#{component.parent.parent.clientId}:password"/>
                 </b:inputText>
-                <h:message for="passwordRepeat"/>
 
                 <b:commandButton action="#{sessionBean.register()}"
                                  disabled="false" value="Registrieren" look="primary btn-block"/>

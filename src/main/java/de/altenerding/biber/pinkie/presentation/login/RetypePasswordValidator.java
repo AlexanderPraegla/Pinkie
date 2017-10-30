@@ -1,5 +1,7 @@
 package de.altenerding.biber.pinkie.presentation.login;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -23,14 +25,13 @@ public class RetypePasswordValidator implements Validator {
 		if (textInput == null)
 			throw new IllegalArgumentException(String.format("Unable to find component with id %s",field1Id));
 		// Get its value, the entered text of the first field.
-		String field1 = (String) textInput.getValue();
+		String passwordRepeated = (String) textInput.getValue();
 
 		// Cast the value of the entered text of the second field back to String.
 		String confirm = (String) value;
 
-		// Check if the first text is actually entered and compare it with second text.
-		if (field1 != null && field1.length() != 0 && !field1.equals(confirm)) {
-			FacesMessage message = new FacesMessage("Passwords are not equal.");
+		if (StringUtils.equals(confirm, passwordRepeated)) {
+			FacesMessage message = new FacesMessage("Das Passwort stimmt nicht überein");
 			message.setSeverity(FacesMessage.SEVERITY_ERROR);
 			throw new ValidatorException(message);
 		}

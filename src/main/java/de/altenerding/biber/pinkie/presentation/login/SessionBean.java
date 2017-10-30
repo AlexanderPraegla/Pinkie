@@ -49,6 +49,10 @@ public class SessionBean implements Serializable {
 		return member;
 	}
 
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
