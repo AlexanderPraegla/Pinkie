@@ -14,6 +14,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.Part;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @ManagedBean
@@ -79,6 +80,16 @@ public class DeanBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		return "deans.xhtml?faces-redirect=true";
+	}
+
+	public String archiveDean(Dean dean) {
+		logger.info("Archiving dean");
+		dean.setArchivedOn(new Date());
+		deanService.updateDean(dean);
+		FacesMessages.info(dean.getDescription(), "Archiviert");
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getFlash().setKeepMessages(true);
+		return "deansEdit.xhtml?faces-redirect=true";
 	}
 
 	@Inject
