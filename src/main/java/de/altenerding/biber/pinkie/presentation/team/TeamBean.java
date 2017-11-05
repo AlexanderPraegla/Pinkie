@@ -29,7 +29,6 @@ public class TeamBean implements Serializable {
 	private long teamId;
 	private Team team;
 
-	private String test;
 	private List<Report> teamReports;
 	private List<Team> teams;
 	private List<StandingEntry> teamStandings;
@@ -91,20 +90,12 @@ public class TeamBean implements Serializable {
 		this.teamId = teamId;
 	}
 
-	public String getTest() {
-		return test;
-	}
-
-	public void setTest(String test) {
-		this.test = test;
-	}
-
 	public void setTeamReports(List<Report> teamReports) {
 		this.teamReports = teamReports;
 	}
 
 	public List<Report> getTeamReports() {
-		if (teamReports == null) {
+		if (teamReports == null && team != null) {
 			teamReports = reportService.getReportsForTeam(team.getId(), team.getSeason().getId());
 		}
 		return teamReports;

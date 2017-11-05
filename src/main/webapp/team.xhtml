@@ -11,20 +11,25 @@
             <f:viewAction action="#{teamBean.initTeam()}"/>
         </f:metadata>
         <b:container>
-            <b:tabView style="margin-bottom: 15px;">
-                <b:tab title="Info">
+            <b:tabView style="margin-bottom: 15px;" activeIndex="#{tabBean.tabIndex}" id="tabView" >
+                <b:tab title="Info" ajax="true" >
+                    <f:ajax event="click" listener="#{tabBean.setTabIndex('0')}" render="@none"/>
                     <components:teamInfo/>
                 </b:tab>
                 <b:tab title="Spielerprofile">
+                    <f:ajax event="click" listener="#{tabBean.setTabIndex('1')}" render="@none"/>
                     <components:teamProfiles/>
                 </b:tab>
                 <b:tab title="Tabelle">
+                    <f:ajax event="click" listener="#{tabBean.setTabIndex('2')}"/>
                     <components:teamStandings/>
                 </b:tab>
                 <b:tab title="Spielplan">
+                    <f:ajax event="click" listener="#{tabBean.setTabIndex('3')}"/>
                     <components:teamSchedule/>
                 </b:tab>
                 <b:tab title="Spielberichte">
+                    <f:ajax event="click" listener="#{tabBean.setTabIndex('4')}" render="@none"/>
                     <components:teamReports/>
                 </b:tab>
 
