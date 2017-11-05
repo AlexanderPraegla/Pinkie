@@ -4,7 +4,8 @@ public enum FileDirectory {
 	WEEKLY_IMAGE("weeklyImages"),
 	TEAM_IMAGE("teamImages"),
 	PROFILE_IMAGE("profileImages"),
-	DOCUMTENTS("documents");
+	DOCUMTENTS("documents"),
+	IMAGES("images");
 
 	private final String name;
 

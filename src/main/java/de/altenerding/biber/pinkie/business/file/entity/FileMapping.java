@@ -17,7 +17,7 @@ public class FileMapping {
 	@Column(columnDefinition = "varchar", unique = true)
 	private String key;
 	@Column(columnDefinition = "varchar")
-	private String value;
+	private String filePath;
 	@Column(name = "created_on")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdOn;
@@ -45,12 +45,12 @@ public class FileMapping {
 		this.key = key;
 	}
 
-	public String getValue() {
-		return value;
+	public String getFilePath() {
+		return filePath;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setFilePath(String value) {
+		this.filePath = value;
 	}
 
 	public Date getCreatedOn() {
@@ -59,5 +59,17 @@ public class FileMapping {
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	public void setDocumentFilePath(String fileName) {
+		filePath = FileDirectory.DOCUMTENTS + "/" + fileName;
+	}
+
+	public void setImageFilePath(String fileName) {
+		filePath = FileDirectory.IMAGES + "/" + fileName;
+	}
+
+	public String getFileDownloadPath() {
+		return "/file/" + filePath;
 	}
 }
