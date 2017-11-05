@@ -11,12 +11,6 @@
                 <b:panel>
                     <b:row>
                         <b:column>
-                            <b:inputText value="#{refereeBean.referee.description}" label="Beschreibung"
-                            required="true" requiredMessage="Bitte Beschreibung ausfüllen"/>
-                        </b:column>
-                    </b:row>
-                    <b:row>
-                        <b:column>
                             <b:selectOneMenu value="#{refereeBean.referee.member}" label="Mitglied">
                                 <f:selectItems value="#{memberBean.members}"
                                                var="member" itemValue="#{member}" itemLabel="#{member.getFullName()}"/>
