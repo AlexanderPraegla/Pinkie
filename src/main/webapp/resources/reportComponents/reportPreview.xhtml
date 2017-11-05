@@ -17,8 +17,8 @@
     <composite:implementation>
         <b:panel collapsible="false">
             <f:facet name="heading">
-                <h:outputText value="#{cc.attrs.report.team.name}"/>
-                <h:outputText value=" - "/>
+                <h:outputText value="#{cc.attrs.report.team.name}" rendered="#{cc.attrs.report.team != null}"/>
+                <h:outputText value=" - " rendered="#{cc.attrs.report.team != null}"/>
                 <h:outputText value="#{cc.attrs.report.title}"/>
             </f:facet>
             <b:row>
