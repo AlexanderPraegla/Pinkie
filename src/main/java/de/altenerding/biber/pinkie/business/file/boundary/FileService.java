@@ -49,6 +49,10 @@ public class FileService {
 		}
 	}
 
+	public String uploadFile(Part file, FileDirectory directory) throws Exception {
+		return fileUpload.upload(file, directory);
+	}
+
 	public String uploadImage(Part file, FileDirectory directory) throws Exception {
 		validateFileMimeType(file, "image");
 		return fileUpload.upload(file, directory);

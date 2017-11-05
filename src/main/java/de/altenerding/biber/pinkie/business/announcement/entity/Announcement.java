@@ -1,5 +1,8 @@
 package de.altenerding.biber.pinkie.business.announcement.entity;
 
+import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import org.apache.commons.lang3.StringUtils;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -17,6 +20,10 @@ public class Announcement {
 	@Column(name = "created_on")
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
+	@Column(columnDefinition = "varchar")
+	private String announcementDocument;
+	@Column(columnDefinition = "varchar")
+	private String documentDisplayedName;
 
 	@PrePersist
 	protected void onPersist() {
@@ -47,5 +54,29 @@ public class Announcement {
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	public String getAnnouncementDocument() {
+		return announcementDocument;
+	}
+
+	public void setAnnouncementDocument(String announcementDocument) {
+		this.announcementDocument = announcementDocument;
+	}
+
+	public String getFullAnnouncementDocumentPath() {
+		return "file/" + FileDirectory.ANNOUNCEMENT_DOCUMENTS.getName() + "/" + announcementDocument;
+	}
+
+	public boolean hasReportImage() {
+		return StringUtils.isNotBlank(announcementDocument);
+	}
+
+	public String getDocumentDisplayedName() {
+		return documentDisplayedName;
+	}
+
+	public void setDocumentDisplayedName(String announcementDocumentName) {
+		this.documentDisplayedName = announcementDocumentName;
 	}
 }

@@ -2,13 +2,17 @@ package de.altenerding.biber.pinkie.presentation.announcement;
 
 import de.altenerding.biber.pinkie.business.announcement.boundary.AnnouncementService;
 import de.altenerding.biber.pinkie.business.announcement.entity.Announcement;
+import de.altenerding.biber.pinkie.business.file.boundary.FileService;
+import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
 import net.bootsfaces.utils.FacesMessages;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.Part;
 import java.io.Serializable;
 
 @ManagedBean
@@ -16,8 +20,11 @@ import java.io.Serializable;
 public class AnnouncementProcessingBean implements Serializable {
 
 	private AnnouncementService announcementService;
+	private FileService fileService;
 	private Logger logger;
 	private Announcement anncouncement = new Announcement();
+	private Part file;
+	private String documentDisplayedName;
 
 	public String saveEditedAnnouncement() {
 		try {
@@ -44,6 +51,13 @@ public class AnnouncementProcessingBean implements Serializable {
 
 	public String saveAnnouncement() {
 		try {
+			if (file != null) {
+				String fileName = fileService.uploadFile(file, FileDirectory.ANNOUNCEMENT_DOCUMENTS);
+				anncouncement.setAnnouncementDocument(fileName);
+				fileName = StringUtils.isBlank(documentDisplayedName) ? fileName : documentDisplayedName;
+				anncouncement.setDocumentDisplayedName(fileName);
+			}
+
  			announcementService.saveAnnouncement(anncouncement);
 			FacesMessages.info( "Ankündigung gespeichert");
 		} catch (Exception e) {
@@ -69,8 +83,28 @@ public class AnnouncementProcessingBean implements Serializable {
 	}
 
 	@Inject
+	public void setFileService(FileService fileService) {
+		this.fileService = fileService;
+	}
+
+	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
 	}
 
+	public Part getFile() {
+		return file;
+	}
+
+	public void setFile(Part file) {
+		this.file = file;
+	}
+
+	public String getDocumentDisplayedName() {
+		return documentDisplayedName;
+	}
+
+	public void setDocumentDisplayedName(String documentDisplayedName) {
+		this.documentDisplayedName = documentDisplayedName;
+	}
 }

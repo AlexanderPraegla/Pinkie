@@ -38,13 +38,19 @@
             </b:jumbotron>
 
             <b:panel title="Ankündigung hinzufügen" rendered="#{sessionBean.isLoggedIn}">
-                <h:form>
+                <h:form enctype="multipart/form-data">
                     <b:column colLg="10" colMd="10" colSm="10" colXs="12">
                         <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}" rows="5"/>
                     </b:column>
                     <b:column colLg="2" colMd="2" colSm="2" colXs="12">
                         <b:commandButton value="Speichern" look="success"
                                          action="#{announcementProcessingBean.saveAnnouncement()}"/>
+                    </b:column>
+                    <b:column>
+                        <h:inputFile value="#{announcementProcessingBean.file}" styleClass="btn btn-default"
+                                     style="margin-bottom: 15px;"/>
+                        <b:inputText value="#{announcementProcessingBean.documentDisplayedName}"
+                                     label="Angezeigter Dokumentenname"/>
                     </b:column>
 
                 </h:form>
@@ -53,26 +59,36 @@
                 <h:form id="announcementListFormId">
                     <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
                         <b:panel collapsible="false">
-                            <b:row style="margin: 0px">
-                                <h:outputText value="#{announcement.text}"/><br/>
+                            <b:row>
+                                <b:column>
+                                    <h:outputText value="#{announcement.text}"/><br/>
+                                </b:column>
+                            </b:row>
+                            <b:row rendered="#{announcement.hasReportImage()}">
+                                <b:column>
+                                    <b:button href="#{announcement.getFullAnnouncementDocumentPath()}" style="margin-top: 15px"
+                                              look="info"
+                                              target="blank" value="#{announcement.documentDisplayedName}" icon="download" />
+                                </b:column>
                             </b:row>
                             <b:row rendered="#{sessionBean.isLoggedIn}">
                                 <b:column span="2" style="margin-top: 5px">
                                     <b:commandButton
-                                                     actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
-                                                     passthrough:data-target="#modalEditAccnouncement"
-                                                     passthrough:data-toggle="modal"
-                                                     update="@form:editAccouncmentFormId"
-                                                     disabled="false" value="Bearbeiten" look="success" icon="pencil"
-                                                     iconAlign="right"/>
+                                            actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
+                                            passthrough:data-target="#modalEditAccnouncement"
+                                            passthrough:data-toggle="modal"
+                                            update="@form:editAccouncmentFormId"
+                                            disabled="false" value="Bearbeiten" look="success" icon="pencil"
+                                            iconAlign="right"/>
                                 </b:column>
                                 <b:column span="2" style="margin-top: 5px">
-                                    <b:commandButton actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
-                                                     passthrough:data-target="#modalRemoveAccnouncement"
-                                                     passthrough:data-toggle="modal"
-                                                     update="@form:removeAccouncmentFormId"
-                                                     disabled="false" value="Löschen" look="danger" icon="remove"
-                                                     iconAlign="right"/>
+                                    <b:commandButton
+                                            actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
+                                            passthrough:data-target="#modalRemoveAccnouncement"
+                                            passthrough:data-toggle="modal"
+                                            update="@form:removeAccouncmentFormId"
+                                            disabled="false" value="Löschen" look="danger" icon="remove"
+                                            iconAlign="right"/>
                                 </b:column>
                             </b:row>
                         </b:panel>
@@ -96,7 +112,8 @@
                 <b:form id="addWeeklyImageFormId" enctype="multipart/form-data">
                     <b:column colLg="6" colMd="6" colSm="4" colXs="12">
                         <b:inputText id="weeklyImageDescription" value="#{weeklyImageBean.weeklyImage.description}"
-                                     required="true" requiredMessage="Bitte Text zum Bild angeben" style="margin-bottom: 15px;"/>
+                                     required="true" requiredMessage="Bitte Text zum Bild angeben"
+                                     style="margin-bottom: 15px;"/>
                     </b:column>
                     <b:column colLg="4" colMd="4" colSm="6" colXs="12">
                         <h:inputFile id="weeklyImageFile" value="#{weeklyImageBean.file}" styleClass="btn btn-default"
@@ -136,9 +153,9 @@
                     <b:column colLg="3"/>
                     <b:column colLg="6">
                         <b:carousel id="imagesOfWeekCarouselId" showIndicators="false" disabled="true">
-                            <b:carouselItem >
+                            <b:carouselItem>
                                 <h:outputText value="#{weeklyImageBean.weeklyImages.get(0).description}"
-                                style="font-size: 20px;display: flex;justify-content: center;"/>
+                                              style="font-size: 20px;display: flex;justify-content: center;"/>
                                 <b:image value="#{weeklyImageBean.weeklyImages.get(0).getWeeklyImageFullPath()}"/>
                             </b:carouselItem>
                             <ui:repeat
