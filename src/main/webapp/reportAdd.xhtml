@@ -17,7 +17,7 @@
                                    itemLabel="#{season.name}"/>
                     </b:selectOneMenu>
 
-                    <b:selectOneMenu value="#{reportBean.report.team}" label="Team" required="true" requiredMessage="Bitte Team auswählen" >
+                    <b:selectOneMenu value="#{reportBean.report.team}" label="Team">
                         <f:selectItem itemLabel="Bitte auswählen" itemValue="" />
                         <f:selectItems value="#{teamBean.teams}" var="team" itemValue="#{team}"
                                        itemLabel="#{team.name}"/>
