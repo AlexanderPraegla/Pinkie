@@ -71,8 +71,12 @@ public class FileService {
 		return fileMappingControl.getFileMappingbyKeyPage(page, key);
 	}
 
-	public void createFileMapping(FileMapping fileMapping) {
-		fileMappingControl.createFileMapping(fileMapping);
+	public void replaceFileMapping(FileMapping fileMapping) {
+		fileMappingControl.replaceFileMapping(fileMapping);
+	}
+
+	public void addFileMapping(FileMapping fileMapping) {
+		fileMappingControl.replaceFileMapping(fileMapping);
 	}
 
 	@Inject

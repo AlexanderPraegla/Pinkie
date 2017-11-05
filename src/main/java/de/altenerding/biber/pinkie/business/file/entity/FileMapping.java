@@ -4,23 +4,31 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@IdClass(FileMappingId.class)
 @NamedQueries({
-		@NamedQuery(name = "FileMapping.getByPageKey", query = "SELECT f FROM FileMapping f WHERE f.page = :page AND f.key = :key")
+		@NamedQuery(name = "FileMapping.getByPageKey", query = "SELECT f FROM FileMapping f " +
+				"WHERE f.page = :page AND f.key = :key AND f.archivedOn IS NULL"),
+		@NamedQuery(name = "FileMapping.updateArchivedOn", query = "UPDATE FileMapping f SET f.archivedOn = current_timestamp " +
+				"WHERE f.page = :page AND f.key = :key AND f.archivedOn IS NULL")
 })
 public class FileMapping {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	@Column(columnDefinition = "varchar")
 	private String page;
-	@Id
-	@Column(columnDefinition = "varchar", unique = true)
+	@Column(columnDefinition = "varchar")
 	private String key;
 	@Column(columnDefinition = "varchar")
 	private String filePath;
+	@Column(columnDefinition = "varchar")
+	private String description;
 	@Column(name = "created_on")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdOn;
+	@Column(name = "archived_on")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date archivedOn;
 
 	@PrePersist
 	public void onPrePersist() {
@@ -62,14 +70,38 @@ public class FileMapping {
 	}
 
 	public void setDocumentFilePath(String fileName) {
-		filePath = FileDirectory.DOCUMTENTS + "/" + fileName;
+		filePath = FileDirectory.DOCUMTENTS.getName() + "/" + fileName;
 	}
 
 	public void setImageFilePath(String fileName) {
-		filePath = FileDirectory.IMAGES + "/" + fileName;
+		filePath = FileDirectory.IMAGES.getName() + "/" + fileName;
 	}
 
 	public String getFileDownloadPath() {
 		return "/file/" + filePath;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getArchivedOn() {
+		return archivedOn;
+	}
+
+	public void setArchivedOn(Date archivedOn) {
+		this.archivedOn = archivedOn;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }

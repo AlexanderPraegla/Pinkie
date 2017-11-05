@@ -21,8 +21,22 @@ public class FileMappingControl {
 				.getSingleResult();
 	}
 
-	public void createFileMapping(FileMapping fileMapping) {
+	public void replaceFileMapping(FileMapping fileMapping) {
+		logger.info("Archive old file mapping for page={} and key={} befor creating new entry", fileMapping.getPage(), fileMapping.getKey());
+
+		em.createNamedQuery("FileMapping.updateArchivedOn")
+				.setParameter("page", fileMapping.getPage())
+				.setParameter("key", fileMapping.getKey())
+				.executeUpdate();
+
 		logger.info("Creating file mapping for page={} and key={}", fileMapping.getPage(), fileMapping.getKey());
+		em.persist(fileMapping);
+		em.flush();
+	}
+
+	public void addFileMapping(FileMapping fileMapping) {
+		logger.info("Creating file mapping for page={} and key={}", fileMapping.getPage(), fileMapping.getKey());
+
 		em.persist(fileMapping);
 		em.flush();
 	}
