@@ -1,8 +1,10 @@
 package de.altenerding.biber.pinkie.business.report.entity;
 
+import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.season.entity.Season;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -39,6 +41,8 @@ public class Report {
 	@Column(name = "created_on", nullable = false)
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
+	@Column(columnDefinition = "varchar")
+	private String reportImage;
 
 	@PrePersist
 	protected void onPersist() {
@@ -117,5 +121,21 @@ public class Report {
 
 	public void setType(ReportType type) {
 		this.type = type;
+	}
+
+	public String getReportImage() {
+		return reportImage;
+	}
+
+	public void setReportImage(String reportImage) {
+		this.reportImage = reportImage;
+	}
+
+	public String getFullReportImagePath() {
+		return "/file/" + FileDirectory.REPORT_IMAGE.getName() + "/" + reportImage;
+	}
+
+	public boolean hasReportImage() {
+		return StringUtils.isNotBlank(reportImage);
 	}
 }

@@ -5,7 +5,9 @@ public enum FileDirectory {
 	TEAM_IMAGE("teamImages"),
 	PROFILE_IMAGE("profileImages"),
 	DOCUMTENTS("documents"),
-	IMAGES("images");
+	IMAGES("images"),
+	REPORT_IMAGE("images/reports"),
+	ANNOUNCEMENT_DOCUMENTS("documents/announcement");
 
 	private final String name;
 

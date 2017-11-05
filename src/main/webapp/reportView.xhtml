@@ -8,14 +8,25 @@
     <ui:define name="content">
         <f:metadata>
             <f:viewParam name="reportId" value="#{reportBean.reportId}"/>
-            <f:viewAction action="#{reportBean.initReport()}" />
+            <f:viewAction action="#{reportBean.initReport()}"/>
         </f:metadata>
         <b:container>
             <b:panel collapsible="false" style="white-space: pre-wrap">
                 <f:facet name="heading">
                     <h:outputText value="#{reportBean.report.title}"/>
                 </f:facet>
-                <h:outputText value="#{reportBean.report.text}" escape="false"/>
+                <b:row>
+                    <b:column>
+                        <h:outputText value="#{reportBean.report.text}" escape="false"/>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column>
+                        <b:image value="#{reportBean.report.getFullReportImagePath()}"
+                                 rendered="#{reportBean.report.hasReportImage()}"
+                                 style="max-width: 100%; max-height: 100%"/>
+                    </b:column>
+                </b:row>
             </b:panel>
         </b:container>
     </ui:define>

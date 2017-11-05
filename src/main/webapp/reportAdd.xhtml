@@ -1,13 +1,12 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="title">Bericht erstellen</ui:define>
 
     <ui:define name="content">
         <b:container rendered="#{sessionBean.isLoggedIn}">
-            <h:form id="addReportFormId">
+            <h:form id="addReportFormId" enctype="multipart/form-data">
                 <b:inputText value="#{sessionBean.member.getFullName()}" label="Author" disabled="true"/>
                 <b:inputText value="#{reportBean.report.title}" label="Titel" required="true" requiredMessage="Bitte Titel angeben"/>
                 <b:inputText value="#{reportBean.report.summary}" label="Zusammenfassung" required="true" requiredMessage="Bitte Zusammenfassung angeben"/>
@@ -31,6 +30,8 @@
                 <b:inputTextarea value="#{reportBean.report.text}"
                                  label="Text" required="true"
                                  requiredMessage="Es sind keine leeren Berichte erlaubt"/>
+                <h:inputFile value="#{reportBean.file}" styleClass="btn btn-default"
+                             style="margin-bottom: 15px;" label="Bild zum Bericht"/>
                 <b:commandButton value="Speichern" look="success"
                                  action="#{reportBean.saveReport}"/>
             </h:form>
