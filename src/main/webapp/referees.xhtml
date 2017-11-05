@@ -2,11 +2,12 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:components="http://java.sun.com/jsf/composite/memberComponents"
->
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="title">Schiedsrichter</ui:define>
 
     <ui:define name="content">
         <b:container>
+            <h2>Unsere Schiedsrichter</h2>
             <b:panel rendered="#{sessionBean.isLoggedIn}">
                 <b:row>
                     <b:column colLg="2" colMd="3" colSm="4" colXs="12" style="margin-bottom: 15px;">
@@ -15,6 +16,30 @@
                     <b:column colLg="2" colMd="3" colSm="4" colXs="12">
                         <b:button look="primary" value="Schiedsrichter hinzufügen" outcome="refereeAdd.xhtml"/>
                     </b:column>
+                </b:row>
+            </b:panel>
+            <b:panel>
+                <b:row>
+                    <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
+                    <b:column colLg="8" colMd="8" colSm="12" colXs="12">
+                        <b:image value="#{refereeBean.fileMapping.getFileDownloadPath()}"
+                                 style="max-width: 100%; max-height: 100%"/>
+                    </b:column>
+                    <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
+                </b:row>
+                <b:row rendered="#{sessionBean.isLoggedIn}">
+                    <h:form enctype="multipart/form-data">
+                        <b:column>
+                            <h:inputFile id="refereeGroupImageUpload" value="#{refereeBean.file}"
+                                         styleClass="btn btn-default"
+                                         style="margin-bottom: 15px;margin-top: 15px;" required="true"
+                                         requiredMessage="Bitte Bild auswählen"/>
+                        </b:column>
+                        <b:column colLg="6" colMd="6" colSm="12" colXs="12">
+                            <b:commandButton value="Bild hochladen" look="primary"
+                                             action="#{refereeBean.uploadRefereeGroupImage()}"/>
+                        </b:column>
+                    </h:form>
                 </b:row>
             </b:panel>
             <ui:repeat value="#{refereeBean.referees}" var="referee">

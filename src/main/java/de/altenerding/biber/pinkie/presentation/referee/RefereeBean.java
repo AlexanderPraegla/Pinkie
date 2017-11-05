@@ -2,6 +2,7 @@ package de.altenerding.biber.pinkie.presentation.referee;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
 import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.FileMapping;
 import de.altenerding.biber.pinkie.business.referee.boundary.RefereeService;
 import de.altenerding.biber.pinkie.business.referee.entity.Referee;
 import net.bootsfaces.utils.FacesMessages;
@@ -21,6 +22,8 @@ import java.util.List;
 @RequestScoped
 public class RefereeBean implements Serializable {
 
+	private static final String REFEREE_IMAGE_GROUP_PICTURE_KEY = "referees.group.picture";
+	private static final String REFEREES_PAGE_NAME = "referees.xhtml";
 	@ManagedProperty(value = "#{param.refereeId}")
 	private long refereeId;
 	private Logger logger;
@@ -29,6 +32,7 @@ public class RefereeBean implements Serializable {
 	private List<Referee> referees;
 	private Referee referee = new Referee();
 	private Part file;
+	private FileMapping fileMapping;
 
 	public void initReferee() {
 		logger.info("Initializing referee");
@@ -91,6 +95,16 @@ public class RefereeBean implements Serializable {
 		return "refereesEdit.xhtml?faces-redirect=true";
 	}
 
+	public void uploadRefereeGroupImage() throws Exception {
+		logger.info("Uploading new group image for referees");
+		String fileName = fileService.uploadImage(file, FileDirectory.IMAGES);
+		FileMapping fileMapping = new FileMapping();
+		fileMapping.setImageFilePath(fileName);
+		fileMapping.setKey(REFEREE_IMAGE_GROUP_PICTURE_KEY);
+		fileMapping.setPage(REFEREES_PAGE_NAME);
+		fileService.replaceFileMapping(fileMapping);
+	}
+
 	@Inject
 	public void setRefereeService(RefereeService refereeService) {
 		this.refereeService = refereeService;
@@ -139,5 +153,17 @@ public class RefereeBean implements Serializable {
 
 	public void setReferee(Referee referee) {
 		this.referee = referee;
+	}
+
+	public void setFileMapping(FileMapping fileMapping) {
+		this.fileMapping = fileMapping;
+	}
+
+	public FileMapping getFileMapping() {
+		if (fileMapping == null) {
+			fileMapping = fileService.getFileMappingbyKeyPage(REFEREES_PAGE_NAME, REFEREE_IMAGE_GROUP_PICTURE_KEY);
+		}
+
+		return fileMapping;
 	}
 }
