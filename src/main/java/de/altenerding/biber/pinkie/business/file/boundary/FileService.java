@@ -1,8 +1,10 @@
 package de.altenerding.biber.pinkie.business.file.boundary;
 
 import de.altenerding.biber.pinkie.business.file.control.FileDownload;
+import de.altenerding.biber.pinkie.business.file.control.FileMappingControl;
 import de.altenerding.biber.pinkie.business.file.control.FileUpload;
 import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.FileMapping;
 import de.altenerding.biber.pinkie.business.systemproperty.SystemProperty;
 import org.apache.logging.log4j.Logger;
 
@@ -22,6 +24,7 @@ public class FileService {
 	private Logger logger;
 	private FileUpload fileUpload;
 	private FileDownload fileDownload;
+	private FileMappingControl fileMappingControl;
 	@Inject
 	@SystemProperty(name = "resourceFolder")
 	private String resourceFolder;
@@ -64,6 +67,14 @@ public class FileService {
 		return fileDownload.download(fileName, outputStream);
 	}
 
+	public FileMapping getFileMappingbyKeyPage(String page, String key) {
+		return fileMappingControl.getFileMappingbyKeyPage(page, key);
+	}
+
+	public void createFileMapping(FileMapping fileMapping) {
+		fileMappingControl.createFileMapping(fileMapping);
+	}
+
 	@Inject
 	public void setFileUpload(FileUpload fileUpload) {
 		this.fileUpload = fileUpload;
@@ -77,5 +88,10 @@ public class FileService {
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
+	}
+
+	@Inject
+	public void setFileMappingControl(FileMappingControl fileMappingControl) {
+		this.fileMappingControl = fileMappingControl;
 	}
 }
