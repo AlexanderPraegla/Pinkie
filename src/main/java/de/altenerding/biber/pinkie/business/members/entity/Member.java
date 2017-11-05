@@ -57,6 +57,9 @@ public class Member {
 	private String throwingHand;
 	@Column(columnDefinition = "varchar")
 	private String additionalInformation;
+	@Column
+	@Temporal(TemporalType.DATE)
+	private Date birthday;
 
 	@Override
 	public boolean equals(Object o) {
@@ -247,5 +250,13 @@ public class Member {
 
 	public void setThrowingHand(String throwingHand) {
 		this.throwingHand = throwingHand;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 }

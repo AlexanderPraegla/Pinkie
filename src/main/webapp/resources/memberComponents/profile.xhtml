@@ -17,6 +17,7 @@
         <composite:attribute type="java.lang.Boolean" default="#{true}" name="collapsed"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showFullName"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showNickname"/>
+        <composite:attribute type="java.util.Date" default="#{false}" name="showBirthday"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showEmail"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showMobileNumber"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showPhonenumber"/>
@@ -56,6 +57,14 @@
                                                                                           value="Spitzname"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberNickname"
                                                                                          value="#{cc.attrs.member.nickName}"/></b:column>
+                    </b:row>
+                    <b:row rendered="#{cc.attrs.showAll or cc.attrs.showNickname}">
+                        <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberBirthday"
+                                                                                          value="Geburtstag"/></b:column>
+                        <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberBirthday"
+                                                                                         value="#{cc.attrs.member.birthday}">
+                            <f:convertDateTime pattern="dd.MM.yyyy" timeZone="Europe/Berlin"/>
+                        </h:outputText></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showEmail}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberEmail"
