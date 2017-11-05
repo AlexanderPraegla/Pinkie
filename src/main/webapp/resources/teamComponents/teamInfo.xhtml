@@ -23,6 +23,7 @@
                         <h:outputText value=" - "/>
                         <h:outputText value="#{teamBean.team.season.name}"/>
                     </h3>
+                    <a href="#{teamBean.team.urlStanding}" target="_blank">Zur NuLiga</a>
                 </b:row>
                 <b:row rendered="#{teamBean.team.hasTeamImage()}">
                     <h:graphicImage value="#{teamBean.team.getFullImagePath()}"
