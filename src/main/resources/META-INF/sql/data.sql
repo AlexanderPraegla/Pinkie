@@ -136,3 +136,4 @@ ALTER SEQUENCE report_id_seq RESTART WITH 1000;
 
 INSERT INTO filemapping (page, key, filePath) VALUES ('referees.xhtml', 'referees.group.picture', 'images/Schiedsrichter_2016.jpg');
 INSERT INTO filemapping (page, key, filePath, description) VALUES ('trainers.xhtml', 'trainers.group.picture', 'images/1474658667_Trainer_16-17.jpg', 'Auf dem Bild sind zu sehen....');
+INSERT INTO filemapping (page, key, filePath) VALUES ('index.xhtml', 'startpage.video', 'videos/b1-1.mov');

@@ -7,7 +7,8 @@ public enum FileDirectory {
 	DOCUMTENTS("documents"),
 	IMAGES("images"),
 	REPORT_IMAGE("images/reports"),
-	ANNOUNCEMENT_DOCUMENTS("documents/announcement");
+	ANNOUNCEMENT_DOCUMENTS("documents/announcement"),
+	VIDEOS("videos");
 
 	private final String name;
 

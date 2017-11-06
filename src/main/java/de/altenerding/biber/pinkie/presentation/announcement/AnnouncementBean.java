@@ -2,6 +2,8 @@ package de.altenerding.biber.pinkie.presentation.announcement;
 
 import de.altenerding.biber.pinkie.business.announcement.boundary.AnnouncementService;
 import de.altenerding.biber.pinkie.business.announcement.entity.Announcement;
+import de.altenerding.biber.pinkie.business.file.boundary.FileService;
+import de.altenerding.biber.pinkie.business.file.entity.FileMapping;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
@@ -16,9 +18,13 @@ import java.util.List;
 @ViewScoped
 public class AnnouncementBean implements Serializable {
 
+	private static final String START_PAGE_VIDEO_KEY = "startpage.video";
+	private static final String START_PAGE_NAME = "index.xhtml";
 	private AnnouncementService announcementService;
+	private FileService fileService;
 	private Logger logger;
 	private List<Announcement> announcements;
+	private FileMapping fileMapping;
 
 	@PostConstruct
 	public void init() {
@@ -45,8 +51,24 @@ public class AnnouncementBean implements Serializable {
 	}
 
 	@Inject
+	public void setFileService(FileService fileService) {
+		this.fileService = fileService;
+	}
+
+	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
 	}
 
+	public FileMapping getFileMapping() {
+		if (fileMapping == null) {
+			fileMapping = fileService.getFileMappingbyKeyPage(START_PAGE_NAME, START_PAGE_VIDEO_KEY);
+		}
+
+		return fileMapping;
+	}
+
+	public void setFileMapping(FileMapping fileMapping) {
+		this.fileMapping = fileMapping;
+	}
 }

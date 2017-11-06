@@ -66,9 +66,11 @@
                             </b:row>
                             <b:row rendered="#{announcement.hasReportImage()}">
                                 <b:column>
-                                    <b:button href="#{announcement.getFullAnnouncementDocumentPath()}" style="margin-top: 15px"
+                                    <b:button href="#{announcement.getFullAnnouncementDocumentPath()}"
+                                              style="margin-top: 15px"
                                               look="info"
-                                              target="blank" value="#{announcement.documentDisplayedName}" icon="download" />
+                                              target="blank" value="#{announcement.documentDisplayedName}"
+                                              icon="download"/>
                                 </b:column>
                             </b:row>
                             <b:row rendered="#{sessionBean.isLoggedIn}">
@@ -107,6 +109,14 @@
                                        contentStyle="#{match.guestTeam}"/>
                     <b:dataTableColumn label="Ergebnis" value="#{match.result}" orderable="false"/>
                 </b:dataTable>
+            </b:panel>
+            <b:panel title="Biber Filmchen">
+                <b:row>
+                    <b:column>
+                        <b:video src="/pinkie#{announcementBean.fileMapping.getFileDownloadPath()}"
+                                 style="width: 100%"/>
+                    </b:column>
+                </b:row>
             </b:panel>
             <b:panel rendered="#{sessionBean.isLoggedIn}" title="Bild der Woche hinzufügen">
                 <b:form id="addWeeklyImageFormId" enctype="multipart/form-data">
