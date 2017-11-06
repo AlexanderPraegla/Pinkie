@@ -5,8 +5,6 @@ import de.altenerding.biber.pinkie.business.members.control.MemberProvider;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -46,11 +44,8 @@ public class LoginControl {
 			return null;
 		}
 
-		byte[] salt = new BASE64Decoder().decodeBuffer(login.getSalt());
+		byte[] salt = Base64.getDecoder().decode(login.getSalt());
 		String hashedPassword = hashPassword(password.toCharArray(), salt);
-
-		logger.info("Saved hashed password=\'{}\'", login.getPassword());
-		logger.info("Send hashed password=\'{}\'", hashedPassword);
 
 		if (StringUtils.equals(login.getPassword(), hashedPassword)) {
 			login.setLoginCount(0);
@@ -73,8 +68,7 @@ public class LoginControl {
 
 			Login login = new Login();
 			login.setAlias(alias);
-			Base64.Encoder encoder = Base64.getEncoder();
-			login.setSalt(encoder.encodeToString(salt));
+			login.setSalt(Base64.getEncoder().encodeToString(salt));
 			login.setPassword(hashPassword(password.toCharArray(), salt));
 
 			em.persist(login);
@@ -92,7 +86,7 @@ public class LoginControl {
 			PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
 			SecretKey key = skf.generateSecret(spec);
 			byte[] hashedPassword = key.getEncoded();
-			return new BASE64Encoder().encode(hashedPassword);
+			return Base64.getEncoder().encodeToString(hashedPassword);
 
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 			throw new RuntimeException(e);
