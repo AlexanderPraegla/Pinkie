@@ -1,5 +1,6 @@
 package de.altenerding.biber.pinkie.business.team.boundary;
 
+import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.team.control.TeamProcessor;
 import de.altenerding.biber.pinkie.business.team.control.TeamProvider;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
@@ -38,6 +39,10 @@ public class TeamService {
 		teamProcessor.archiveTeam(team);
 	}
 
+
+	public List<Member> getAllTrainers() {
+		return teamProvider.getAllTrainers();
+	}
 
 	@Inject
 	public void setTeamProvider(TeamProvider teamProvider) {

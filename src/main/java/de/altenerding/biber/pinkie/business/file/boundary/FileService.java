@@ -79,6 +79,10 @@ public class FileService {
 		fileMappingControl.replaceFileMapping(fileMapping);
 	}
 
+	public void updateFileMapping(FileMapping fileMapping) {
+		fileMappingControl.updateFileMapping(fileMapping);
+	}
+
 	public void addFileMapping(FileMapping fileMapping) {
 		fileMappingControl.replaceFileMapping(fileMapping);
 	}

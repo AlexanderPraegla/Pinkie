@@ -1,0 +1,51 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:components="http://java.sun.com/jsf/composite/memberComponents"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+>
+    <ui:define name="title">Vorstand</ui:define>
+
+    <ui:define name="content">
+        <b:container>
+            <h2>Unsere Trainer</h2>
+            <b:panel>
+                <b:row style="white-space: pre-wrap">
+                    <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
+                    <b:column colLg="8" colMd="8" colSm="12" colXs="12">
+                        <b:image value="#{trainerBean.fileMapping.getFileDownloadPath()}"
+                                 style="max-width: 100%; max-height: 100%"/>
+                        <h:outputText value="#{trainerBean.fileMapping.description}"/>
+                    </b:column>
+                    <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
+                </b:row>
+                <b:row rendered="#{sessionBean.isLoggedIn}">
+                    <h:form enctype="multipart/form-data">
+                        <b:column>
+                            <h:inputFile id="refereeGroupImageUpload" value="#{trainerBean.file}"
+                                         styleClass="btn btn-default"
+                                         style="margin-bottom: 15px;margin-top: 15px;"/>
+                        </b:column>
+                        <b:column>
+                            <b:inputTextarea value="#{trainerBean.fileMapping.description}"/>
+                        </b:column>
+                        <b:column colLg="6" colMd="6" colSm="12" colXs="12">
+                            <b:commandButton value="Aktualisieren" look="primary"
+                                             action="#{trainerBean.uploadTrainerGroupImage()}"/>
+                        </b:column>
+                    </h:form>
+                </b:row>
+            </b:panel>
+            <ui:repeat value="#{trainerBean.trainers}" var="trainer">
+                <components:profile
+                        member="#{trainer}"
+                        profileImagePath="#{trainer.getFullProfileImagePath()}"
+                        panelTitle="#{trainer.getFullName()}"
+                        showMobileNumber="#{true}"
+                        showPhonenumber="#{true}"
+                        showEmail="#{true}"
+                />
+            </ui:repeat>
+        </b:container>
+    </ui:define>
+</ui:composition>

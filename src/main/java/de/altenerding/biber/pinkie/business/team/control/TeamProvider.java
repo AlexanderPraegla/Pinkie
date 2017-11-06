@@ -1,5 +1,6 @@
 package de.altenerding.biber.pinkie.business.team.control;
 
+import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.season.control.SeasonProvider;
 import de.altenerding.biber.pinkie.business.season.entity.Season;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
@@ -28,6 +29,12 @@ public class TeamProvider {
 	public Team getTeamById(long id) {
 		logger.info("Loading team with id={}", id);
 		return em.createNamedQuery("Team.findById", Team.class).setParameter("id", id).getSingleResult();
+	}
+
+	public List<Member> getAllTrainers() {
+		List<Member> trainers = em.createNamedQuery("Team.allTrainer", Member.class).getResultList();
+		logger.info("Found {} trainers", trainers.size());
+		return trainers;
 	}
 
 	@Inject

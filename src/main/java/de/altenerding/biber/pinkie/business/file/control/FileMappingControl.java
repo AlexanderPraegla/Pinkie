@@ -41,6 +41,12 @@ public class FileMappingControl {
 		em.flush();
 	}
 
+	public void updateFileMapping(FileMapping fileMapping) {
+		logger.info("Updating fileMapping with id={}", fileMapping.getId());
+		em.merge(fileMapping);
+		em.flush();
+	}
+
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
