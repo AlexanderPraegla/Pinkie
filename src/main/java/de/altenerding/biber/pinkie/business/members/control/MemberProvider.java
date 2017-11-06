@@ -15,7 +15,12 @@ public class MemberProvider {
 		return em.createNamedQuery("member.findById", Member.class).setParameter("id", id).getSingleResult();
 	}
 
+	public Member getMemberByEmail(String email) {
+		return em.createNamedQuery("member.findByEmail", Member.class).setParameter("email", email).getSingleResult();
+	}
+
 	public List<Member> getMembers() {
 		return em.createNamedQuery("member.findAll", Member.class).getResultList();
 	}
+
 }

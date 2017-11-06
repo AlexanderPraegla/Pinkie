@@ -25,8 +25,6 @@ public class Member {
 	@Column(unique = true)
 	private String email;
 	@Column
-	private String password;
-	@Column
 	private String street;
 	@Column
 	private String mobileNumber;
@@ -114,14 +112,6 @@ public class Member {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getStreet() {

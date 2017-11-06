@@ -1,19 +1,22 @@
 package de.altenerding.biber.pinkie.presentation.login;
 
-import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
+import de.altenerding.biber.pinkie.business.login.boundary.LoginService;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
+import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import java.io.IOException;
 import java.io.Serializable;
 
 @ManagedBean
 @SessionScoped
 public class SessionBean implements Serializable {
 
-	private MemberService memberService;
+	private LoginService loginService;
 	private Logger logger;
 
 	private Member member = new Member();
@@ -22,9 +25,18 @@ public class SessionBean implements Serializable {
 	private boolean loggedIn = false;
 
 
-	public String login() {
-		member = memberService.getMembers().get(0);
-		logger.info("Successful login for user with id={}", member.getId());
+	public String login() throws IOException {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getFlash().setKeepMessages(true);
+
+		member = loginService.login(email, password);
+		if (member == null) {
+			FacesMessages.error("Login fehlgeschlagen");
+			return "login.xhtml?faces-redirect=true";
+		} else {
+			logger.info("Login successfull for member email={}", member.getEmail());
+		}
+
 		loggedIn = true;
 		return "profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();
 	}
@@ -68,12 +80,12 @@ public class SessionBean implements Serializable {
 	}
 
 	@Inject
-	public void setMemberService(MemberService memberService) {
-		this.memberService = memberService;
+	public void setLogger(Logger logger) {
+		this.logger = logger;
 	}
 
 	@Inject
-	public void setLogger(Logger logger) {
-		this.logger = logger;
+	public void setLoginService(LoginService loginService) {
+		this.loginService = loginService;
 	}
 }

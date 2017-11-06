@@ -1,6 +1,5 @@
 package de.altenerding.biber.pinkie.business.members.bounday;
 
-import de.altenerding.biber.pinkie.business.members.control.LoginProvider;
 import de.altenerding.biber.pinkie.business.members.control.MemberProvider;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 
@@ -12,7 +11,6 @@ import java.util.List;
 public class MemberService {
 
 	private MemberProvider memberProvider;
-	private LoginProvider loginProvider;
 
 	public List<Member> getMembers() {
 		return memberProvider.getMembers();
@@ -22,17 +20,8 @@ public class MemberService {
 		return memberProvider.getMemberById(id);
 	}
 
-	public Member login(String email, String password) {
-		return loginProvider.login(email, password);
-	}
-
     @Inject
 	public void setMemberProvider(MemberProvider memberProvider) {
 		this.memberProvider = memberProvider;
-	}
-
-	@Inject
-	public void setLoginProvider(LoginProvider loginProvider) {
-		this.loginProvider = loginProvider;
 	}
 }
