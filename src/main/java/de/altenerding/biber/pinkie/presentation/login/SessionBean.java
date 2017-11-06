@@ -2,12 +2,10 @@ package de.altenerding.biber.pinkie.presentation.login;
 
 import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
-import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.io.Serializable;
 
@@ -36,14 +34,6 @@ public class SessionBean implements Serializable {
 		member = null;
 		return "index.xhtml?faces-redirect=true";
 	}
-
-	public String register() {
-		FacesMessages.info("Registrierung erfolgreich", "Es kann einige Zeit dauern bis du von den Admins freigeschaltet wird");
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "index.xhtml?faces-redirect=true";
-	}
-
 
 	public Member getMember() {
 		return member;
