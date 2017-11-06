@@ -136,7 +136,7 @@ ALTER SEQUENCE report_id_seq RESTART WITH 1000;
 
 INSERT INTO filemapping (page, key, filePath) VALUES ('referees.xhtml', 'referees.group.picture', 'images/Schiedsrichter_2016.jpg');
 INSERT INTO filemapping (page, key, filePath, description) VALUES ('trainers.xhtml', 'trainers.group.picture', 'images/1474658667_Trainer_16-17.jpg', 'Auf dem Bild sind zu sehen....');
-INSERT INTO filemapping (page, key, filePath) VALUES ('index.xhtml', 'startpage.video', 'videos/b1-1.mov');
+INSERT INTO filemapping (page, key, filePath) VALUES ('index.xhtml', 'startpage.video', 'videos/SampleVideo_1280x720_10mb.mp4');
 
 INSERT INTO public.login (alias, created_on, inactivereason, logincount, password, salt) VALUES ('alexander.praegla@altenerding-biber.de', '2017-11-06 21:19:47.164000', null, 0, 'oFpvjMZ42Q13ynLowxKziGinTZPPFGu4C7aAiolQxBg=', 'Kp92eDJ8A/HSAlrOAJHc8gA2EjUHngQPTC33hu1wOrTLcxQfnl9Le7X8VCKQSQ0fhRLAfgnFO0verVlOsum0HQ==');
 INSERT INTO public.login (alias, created_on, inactivereason, logincount, password, salt) VALUES ('daniel.sagert@altenerding-biber.de', '2017-11-06 21:20:17.889000', null, 0, 'Tr2a0nkj5gv44zxiipyZwMj58I8+LKmtDkVxKtCua6o=', 'p7T0u5UC2cQpG/LbzHJzSN0QPb2L26tWr5U52h+xEaqXwgx/rNh57eJHiiFY01sCyJU+pWgVTN9m8y9tYCZttA==');

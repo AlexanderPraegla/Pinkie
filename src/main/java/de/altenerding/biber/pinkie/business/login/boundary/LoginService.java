@@ -16,6 +16,7 @@ public class LoginService {
 		return loginControl.login(alias, password);
 	}
 
+	//Will be used later to set password for members
 	public void createLogin(String alias, String password) throws Exception {
 		loginControl.createLogin(alias, password);
 	}
