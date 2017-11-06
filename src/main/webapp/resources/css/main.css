@@ -4,11 +4,6 @@ body {
 }
 .form-signin {
     margin: 0 auto;
-    max-width: 330px;
-    padding: 15px;
-}
-.form-register {
-    margin: 0 auto;
-    max-width: 400px;
+    max-width: 430px;
     padding: 15px;
 }
