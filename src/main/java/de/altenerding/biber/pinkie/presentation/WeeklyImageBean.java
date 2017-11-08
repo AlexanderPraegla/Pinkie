@@ -2,6 +2,8 @@ package de.altenerding.biber.pinkie.presentation;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
 import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.members.entity.Access;
+import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.weeklyimage.boundary.WeeklyImageService;
 import de.altenerding.biber.pinkie.business.weeklyimage.entity.WeeklyImage;
 import net.bootsfaces.utils.FacesMessages;
@@ -25,7 +27,7 @@ public class WeeklyImageBean {
 	private FileService fileService;
 	private WeeklyImageService weeklyImageService;
 
-
+	@Access(role = Role.PRESS)
 	public String saveWeeklyImage() {
 		try {
 			String fileName = fileService.uploadImage(file, FileDirectory.WEEKLY_IMAGE);
@@ -41,6 +43,7 @@ public class WeeklyImageBean {
 		return "index.xhtml?faces-redirect=true";
 	}
 
+	@Access(role = Role.PRESS)
 	public String archive(long imageId) {
 		weeklyImageService.archiveWeeklyImage(imageId);
 		FacesMessages.info( "Bild archiviert");

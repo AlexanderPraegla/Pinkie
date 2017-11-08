@@ -1,5 +1,7 @@
 package de.altenerding.biber.pinkie.presentation.team;
 
+import de.altenerding.biber.pinkie.business.members.entity.Access;
+import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.nuLiga.boundary.NuLigaDataService;
 import de.altenerding.biber.pinkie.business.nuLiga.entity.StandingEntry;
 import de.altenerding.biber.pinkie.business.nuLiga.entity.TeamScheduleEntry;
@@ -47,12 +49,14 @@ public class TeamBean implements Serializable {
 		return teams;
 	}
 
+	@Access(role = Role.ADMIN)
 	public String updateTeamsOrder() {
 		logger.info("Updating team order");
 		teamService.updateTeams(teams);
 		return "teamEditOverview.xhtml?faces-redirect=true";
 	}
 
+	@Access(role = Role.ADMIN)
 	public String archiveTeam(Team team) {
 		teamService.archiveTeam(team);
 		return "teamEditOverview.xhtml?faces-redirect=true";

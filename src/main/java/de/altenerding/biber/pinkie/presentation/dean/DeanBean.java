@@ -4,6 +4,8 @@ import de.altenerding.biber.pinkie.business.dean.boundary.DeanService;
 import de.altenerding.biber.pinkie.business.dean.entity.Dean;
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
 import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.members.entity.Access;
+import de.altenerding.biber.pinkie.business.members.entity.Role;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
@@ -35,6 +37,7 @@ public class DeanBean implements Serializable {
 		dean = deanService.getDeanById(deanId);
 	}
 
+	@Access(role = Role.ADMIN)
 	public String updateDean() {
 		logger.info("Updating dean");
 		String result;
@@ -65,6 +68,7 @@ public class DeanBean implements Serializable {
 		return result;
 	}
 
+	@Access(role = Role.ADMIN)
 	public String createDean() {
 		deanService.createDean(this.dean);
 		FacesMessages.info(dean.getDescription(), "Erstellt");
@@ -73,6 +77,7 @@ public class DeanBean implements Serializable {
 		return "deans.xhtml?faces-redirect=true";
 	}
 
+	@Access(role = Role.ADMIN)
 	public String updateDeansOrder() {
 		logger.info("Updating deans order");
 		deanService.updateDeans(deans);
@@ -82,6 +87,7 @@ public class DeanBean implements Serializable {
 		return "deans.xhtml?faces-redirect=true";
 	}
 
+	@Access(role = Role.ADMIN)
 	public String archiveDean(Dean dean) {
 		logger.info("Archiving dean");
 		dean.setArchivedOn(new Date());

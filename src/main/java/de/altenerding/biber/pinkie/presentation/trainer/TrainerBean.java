@@ -1,9 +1,11 @@
-package de.altenerding.biber.pinkie.presentation.team;
+package de.altenerding.biber.pinkie.presentation.trainer;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
 import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
 import de.altenerding.biber.pinkie.business.file.entity.FileMapping;
+import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
+import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.team.boundary.TeamService;
 import org.apache.logging.log4j.Logger;
 
@@ -29,6 +31,7 @@ public class TrainerBean {
 	private String fileDescription;
 	private Part file;
 
+	@Access(role = Role.PRESS)
 	public String uploadTrainerGroupImage() throws Exception {
 		logger.info("Uploading new group image for trainers");
 		if (file != null) {

@@ -2,7 +2,9 @@ package de.altenerding.biber.pinkie.presentation.login;
 
 import de.altenerding.biber.pinkie.business.login.boundary.LoginService;
 import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
+import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
+import de.altenerding.biber.pinkie.business.members.entity.Role;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
@@ -44,6 +46,7 @@ public class SessionBean implements Serializable {
 
 	}
 
+	@Access(role = Role.MEMBER)
 	public String logout() {
 		loggedIn = false;
 		member = null;

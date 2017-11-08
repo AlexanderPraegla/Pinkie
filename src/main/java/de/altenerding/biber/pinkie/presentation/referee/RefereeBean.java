@@ -3,6 +3,8 @@ package de.altenerding.biber.pinkie.presentation.referee;
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
 import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
 import de.altenerding.biber.pinkie.business.file.entity.FileMapping;
+import de.altenerding.biber.pinkie.business.members.entity.Access;
+import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.referee.boundary.RefereeService;
 import de.altenerding.biber.pinkie.business.referee.entity.Referee;
 import net.bootsfaces.utils.FacesMessages;
@@ -39,6 +41,7 @@ public class RefereeBean implements Serializable {
 		referee = refereeService.getRefereeById(refereeId);
 	}
 
+	@Access(role = Role.ADMIN)
 	public String updateReferee() {
 		logger.info("Updating referee");
 		String result;
@@ -68,6 +71,7 @@ public class RefereeBean implements Serializable {
 		return result;
 	}
 
+	@Access(role = Role.ADMIN)
 	public String createReferee() {
 		refereeService.createReferee(this.referee);
 		FacesMessages.info("Schiedsrichter erstellt");
@@ -76,6 +80,7 @@ public class RefereeBean implements Serializable {
 		return "referees.xhtml?faces-redirect=true";
 	}
 
+	@Access(role = Role.ADMIN)
 	public String updateRefereesOrder() {
 		logger.info("Updating referees order");
 		refereeService.updateReferees(referees);
@@ -85,6 +90,7 @@ public class RefereeBean implements Serializable {
 		return "referees.xhtml?faces-redirect=true";
 	}
 
+	@Access(role = Role.ADMIN)
 	public String archiveReferee(Referee referee) {
 		logger.info("Archiving referee");
 		referee.setArchivedOn(new Date());
@@ -95,6 +101,7 @@ public class RefereeBean implements Serializable {
 		return "refereesEdit.xhtml?faces-redirect=true";
 	}
 
+	@Access(role = Role.PRESS)
 	public void uploadRefereeGroupImage() throws Exception {
 		logger.info("Uploading new group image for referees");
 		String fileName = fileService.uploadImage(file, FileDirectory.IMAGES);

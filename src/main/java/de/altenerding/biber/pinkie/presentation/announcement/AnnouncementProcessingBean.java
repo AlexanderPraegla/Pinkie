@@ -28,6 +28,7 @@ public class AnnouncementProcessingBean implements Serializable {
 	private Part file;
 	private String documentDisplayedName;
 
+	@Access(role = Role.PRESS)
 	public String saveEditedAnnouncement() {
 		try {
 			announcementService.updateAnnouncement(anncouncement);
@@ -41,6 +42,7 @@ public class AnnouncementProcessingBean implements Serializable {
 		return "index.xhtml";
 	}
 
+	@Access(role = Role.PRESS)
 	public void deleteAnnouncement() {
 		try {
 			announcementService.deleteAnnouncement(anncouncement);
@@ -51,7 +53,7 @@ public class AnnouncementProcessingBean implements Serializable {
 		}
 	}
 
-	@Access(role = Role.ADMIN)
+	@Access(role = Role.PRESS)
 	public String saveAnnouncement() {
 		try {
 			if (file != null) {

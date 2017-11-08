@@ -3,7 +3,9 @@ package de.altenerding.biber.pinkie.presentation.team;
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
 import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
 import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
+import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
+import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.team.boundary.TeamService;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
 import net.bootsfaces.utils.FacesMessages;
@@ -56,6 +58,7 @@ public class TeamEditBean implements Serializable {
 		memberIndex = StringUtils.join(selectedTeamMemberIds, ",");
 	}
 
+	@Access(role = Role.PRESS)
 	public String updateTeam() throws Exception {
 		String result;
 		try {

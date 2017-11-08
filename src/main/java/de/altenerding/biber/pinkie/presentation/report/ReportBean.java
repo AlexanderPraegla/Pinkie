@@ -2,6 +2,8 @@ package de.altenerding.biber.pinkie.presentation.report;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
 import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.members.entity.Access;
+import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.report.boundary.ReportService;
 import de.altenerding.biber.pinkie.business.report.entity.Report;
 import de.altenerding.biber.pinkie.presentation.login.SessionBean;
@@ -56,6 +58,7 @@ public class ReportBean {
 	This is prevented by 'faces-redirect=true' but with this, the info message is not displayed.
 	The workaround for this is the option 'context.getExternalContext().getFlash().setKeepMessages(true);'
 	 */
+	@Access(role = Role.PRESS)
 	public String saveReport() {
 		logger.info("Creating new Report with title={}", report.getTitle());
 		String result;
@@ -81,6 +84,7 @@ public class ReportBean {
 		return result;
 	}
 
+	@Access(role = Role.PRESS)
 	public String updateReport() {
 		logger.info("Updating report with id={}", report.getId());
 		Report editReport = reportService.getReportById(report.getId());
