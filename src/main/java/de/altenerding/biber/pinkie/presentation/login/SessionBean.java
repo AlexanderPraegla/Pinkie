@@ -1,6 +1,7 @@
 package de.altenerding.biber.pinkie.presentation.login;
 
 import de.altenerding.biber.pinkie.business.login.boundary.LoginService;
+import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
@@ -23,22 +24,23 @@ public class SessionBean implements Serializable {
 	private String email;
 	private String password;
 	private boolean loggedIn = false;
+	private MemberService memberService;
 
 
 	public String login() throws IOException {
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 
-		member = loginService.login(email, password);
-		if (member == null) {
+		if (loginService.login(email, password)) {
+			member = memberService.getMemberByEmail(email);
+			logger.info("Login successfull for member email={}", member.getEmail());
+			loggedIn = true;
+			return "profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();
+		} else {
 			FacesMessages.error("Login fehlgeschlagen");
 			return "login.xhtml?faces-redirect=true";
-		} else {
-			logger.info("Login successfull for member email={}", member.getEmail());
 		}
 
-		loggedIn = true;
-		return "profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();
 	}
 
 	public String logout() {
@@ -87,5 +89,10 @@ public class SessionBean implements Serializable {
 	@Inject
 	public void setLoginService(LoginService loginService) {
 		this.loginService = loginService;
+	}
+
+	@Inject
+	public void setMemberService(MemberService memberService) {
+		this.memberService = memberService;
 	}
 }

@@ -20,6 +20,10 @@ public class MemberService {
 		return memberProvider.getMemberById(id);
 	}
 
+	public Member getMemberByEmail(String email) {
+		return memberProvider.getMemberByEmail(email);
+	}
+
     @Inject
 	public void setMemberProvider(MemberProvider memberProvider) {
 		this.memberProvider = memberProvider;

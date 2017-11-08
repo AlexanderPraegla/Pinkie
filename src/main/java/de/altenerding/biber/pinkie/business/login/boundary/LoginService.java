@@ -1,7 +1,7 @@
 package de.altenerding.biber.pinkie.business.login.boundary;
 
-import de.altenerding.biber.pinkie.business.login.control.LoginControl;
-import de.altenerding.biber.pinkie.business.members.entity.Member;
+import de.altenerding.biber.pinkie.business.login.control.Authenticator;
+import de.altenerding.biber.pinkie.business.login.control.LoginCreator;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -10,19 +10,25 @@ import java.io.IOException;
 @Stateless
 public class LoginService {
 
-	private LoginControl loginControl;
+	private Authenticator authenticator;
+	private LoginCreator loginCreator;
 
-	public Member login(String alias, String password) throws IOException {
-		return loginControl.login(alias, password);
+	public boolean login(String alias, String password) throws IOException {
+		return authenticator.login(alias, password);
 	}
 
-	//Will be used later to set password for members
+	//Will be used later to set and create password for members
 	public void createLogin(String alias, String password) throws Exception {
-		loginControl.createLogin(alias, password);
+		loginCreator.createLogin(alias, password);
 	}
 
 	@Inject
-	public void setLoginControl(LoginControl loginControl) {
-		this.loginControl = loginControl;
+	public void setAuthenticator(Authenticator authenticator) {
+		this.authenticator = authenticator;
+	}
+
+	@Inject
+	public void setLoginCreator(LoginCreator loginCreator) {
+		this.loginCreator = loginCreator;
 	}
 }
