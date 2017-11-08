@@ -18,7 +18,7 @@
                             <b:column colLg="2" colMd="3" colSm="2" colXs="12">
                                 <b:inputText value="#{team.league}" disabled="true"/>
                             </b:column>
-                            <b:column colLg="1" colMd="2" colSm="2" colXs="4">
+                            <b:column colLg="1" colMd="2" colSm="2" colXs="4" tooltip="Position der Mannschaft im Menü">
                                 <b:inputText value="#{team.orderId}" mask="integer" disabled="#{!sessionBean.isUserInRole('ADMIN')}"/>
                             </b:column>
                             <b:column colLg="1" colMd="2" colSm="2" colXs="4">
