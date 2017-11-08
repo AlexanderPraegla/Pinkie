@@ -25,7 +25,6 @@ public class SessionBean implements Serializable {
 	private Member member = null;
 	private String email;
 	private String password;
-	private boolean loggedIn = false;
 	private MemberService memberService;
 
 
@@ -36,7 +35,6 @@ public class SessionBean implements Serializable {
 		if (authenticateService.login(email, password)) {
 			member = memberService.getMemberByEmail(email);
 			logger.info("Login successful for member alias={}", member.getEmail());
-			loggedIn = true;
 			return "profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();
 		} else {
 			logger.error("Login NOT successful for alias={}", email);
@@ -48,7 +46,6 @@ public class SessionBean implements Serializable {
 
 	@Access(role = Role.MEMBER)
 	public String logout() {
-		loggedIn = false;
 		member = null;
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -79,14 +76,6 @@ public class SessionBean implements Serializable {
 
 	public String getPassword() {
 		return password;
-	}
-
-	public void setLoggedIn(boolean loggedIn) {
-		this.loggedIn = loggedIn;
-	}
-
-	public boolean getIsLoggedIn() {
-		return loggedIn;
 	}
 
 	@SuppressWarnings("CdiUnproxyableBeanTypesInspection")
