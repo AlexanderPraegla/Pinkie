@@ -34,11 +34,8 @@ public class Member {
 	private String zipcode;
 	@Column
 	private String city;
-	@Column(nullable = false, columnDefinition = "boolean default false")
-	private boolean isAdmin;
-	@Column(name = "created_on")
-	@Temporal(value = TemporalType.DATE)
-	private Date createdOn;
+	@Column
+	private Role role;
 	@Column(name = "profile_image", columnDefinition = "varchar")
 	private String profileImage;
 	@Column(columnDefinition = "varchar")
@@ -58,6 +55,20 @@ public class Member {
 	@Column
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
+	@Column(name = "created_on")
+	@Temporal(TemporalType.DATE)
+	private Date createdOn;
+
+	@PrePersist
+	protected void onPersist() {
+		if (createdOn == null) {
+			createdOn = new Date();
+		}
+
+		if (role == null) {
+			role = Role.MEMBER;
+		}
+	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -154,20 +165,20 @@ public class Member {
 		this.city = city;
 	}
 
-	public boolean isAdmin() {
-		return isAdmin;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setAdmin(boolean admin) {
-		isAdmin = admin;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public Date getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(Date creationDate) {
-		this.createdOn = creationDate;
+	public void setCreatedOn(Date createdOd) {
+		this.createdOn = createdOd;
 	}
 
 	public String getFullName() {
