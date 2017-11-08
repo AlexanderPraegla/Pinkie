@@ -1,11 +1,12 @@
 package de.altenerding.biber.pinkie.presentation;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+import java.io.Serializable;
 
-@ManagedBean
+@Named
 @SessionScoped
-public class TabBean {
+public class TabBean implements Serializable {
 	private String tabIndex = "0";
 
 	public String getTabIndex() {

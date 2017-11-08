@@ -8,13 +8,13 @@ import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class AnnouncementBean implements Serializable {
 

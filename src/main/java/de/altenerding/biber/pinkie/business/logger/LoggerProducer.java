@@ -5,8 +5,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
+import java.io.Serializable;
 
-public class LoggerProducer {
+public class LoggerProducer implements Serializable {
 	/**
 	 * @param injectionPoint
 	 * @return logger

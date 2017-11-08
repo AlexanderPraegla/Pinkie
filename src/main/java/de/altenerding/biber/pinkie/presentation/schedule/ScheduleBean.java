@@ -3,12 +3,12 @@ package de.altenerding.biber.pinkie.presentation.schedule;
 import de.altenerding.biber.pinkie.business.nuLiga.boundary.NuLigaDataService;
 import de.altenerding.biber.pinkie.business.nuLiga.entity.TeamScheduleEntry;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.List;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class ScheduleBean {
 

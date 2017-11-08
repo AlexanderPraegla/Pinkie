@@ -6,9 +6,10 @@ import de.altenerding.biber.pinkie.business.login.control.LoginCreator;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.io.IOException;
+import java.io.Serializable;
 
 @Stateless
-public class LoginService {
+public class LoginService implements Serializable {
 
 	private Authenticator authenticator;
 	private LoginCreator loginCreator;

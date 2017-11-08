@@ -7,13 +7,14 @@ import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.team.boundary.TeamService;
 import org.apache.logging.log4j.Logger;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.Part;
 import java.util.List;
 
-@ManagedBean
+
+@Named
 @RequestScoped
 public class TrainerBean {
 

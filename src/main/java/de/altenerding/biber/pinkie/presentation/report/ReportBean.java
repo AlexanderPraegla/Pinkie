@@ -9,22 +9,22 @@ import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.Part;
 import java.util.List;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class ReportBean {
 
 	private Logger logger;
 	private ReportService reportService;
 
-	@ManagedProperty(value = "#{sessionBean}")
+	@Inject
 	private SessionBean sessionBean;
 	@ManagedProperty(value = "#{param.reportId}")
 	private long reportId;

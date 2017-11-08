@@ -4,15 +4,14 @@ import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import org.apache.logging.log4j.Logger;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-@ManagedBean
-@RequestScoped
+@Named
+@javax.enterprise.context.RequestScoped
 public class MemberBean implements Serializable {
 
 	@ManagedProperty(value = "#{param.memberId}")

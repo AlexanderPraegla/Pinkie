@@ -9,14 +9,14 @@ import de.altenerding.biber.pinkie.business.team.boundary.TeamService;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
 import org.apache.logging.log4j.Logger;
 
-import javax.faces.bean.ManagedBean;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class TeamBean implements Serializable {
 

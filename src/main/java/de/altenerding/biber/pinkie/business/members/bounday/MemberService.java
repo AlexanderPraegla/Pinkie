@@ -5,10 +5,11 @@ import de.altenerding.biber.pinkie.business.members.entity.Member;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.List;
 
 @Stateless
-public class MemberService {
+public class MemberService implements Serializable {
 
 	private MemberProvider memberProvider;
 

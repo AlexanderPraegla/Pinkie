@@ -6,14 +6,14 @@ import de.altenerding.biber.pinkie.business.members.entity.Member;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
 
-@ManagedBean
+@Named
 @SessionScoped
 public class SessionBean implements Serializable {
 
@@ -33,10 +33,11 @@ public class SessionBean implements Serializable {
 
 		if (loginService.login(email, password)) {
 			member = memberService.getMemberByEmail(email);
-			logger.info("Login successfull for member email={}", member.getEmail());
+			logger.info("Login successful for member alias={}", member.getEmail());
 			loggedIn = true;
 			return "profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();
 		} else {
+			logger.error("Login NOT successful for alias={}", email);
 			FacesMessages.error("Login fehlgeschlagen");
 			return "login.xhtml?faces-redirect=true";
 		}
@@ -81,6 +82,7 @@ public class SessionBean implements Serializable {
 		return loggedIn;
 	}
 
+	@SuppressWarnings("CdiUnproxyableBeanTypesInspection")
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;

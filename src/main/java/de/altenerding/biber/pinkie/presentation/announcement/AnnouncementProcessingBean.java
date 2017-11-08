@@ -8,14 +8,14 @@ import net.bootsfaces.utils.FacesMessages;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.Part;
 import java.io.Serializable;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class AnnouncementProcessingBean implements Serializable {
 

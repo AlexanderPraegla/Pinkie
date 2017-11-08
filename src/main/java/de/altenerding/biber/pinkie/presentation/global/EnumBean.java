@@ -2,9 +2,11 @@ package de.altenerding.biber.pinkie.presentation.global;
 
 import de.altenerding.biber.pinkie.business.report.entity.ReportType;
 
-import javax.faces.bean.ManagedBean;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 
-@ManagedBean
+@Named
+@RequestScoped
 public class EnumBean {
 
 	public ReportType[] getReportTypes() {
