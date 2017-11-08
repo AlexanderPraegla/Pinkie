@@ -4,6 +4,8 @@ import de.altenerding.biber.pinkie.business.announcement.boundary.AnnouncementSe
 import de.altenerding.biber.pinkie.business.announcement.entity.Announcement;
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
 import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.members.entity.Access;
+import de.altenerding.biber.pinkie.business.members.entity.Role;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
@@ -49,6 +51,7 @@ public class AnnouncementProcessingBean implements Serializable {
 		}
 	}
 
+	@Access(role = Role.ADMIN)
 	public String saveAnnouncement() {
 		try {
 			if (file != null) {
