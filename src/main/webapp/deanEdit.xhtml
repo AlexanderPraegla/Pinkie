@@ -10,7 +10,7 @@
             <f:viewParam name="deanId" value="#{deanBean.deanId}"/>
             <f:viewAction action="#{deanBean.initDean()}"/>
         </f:metadata>
-        <b:container>
+        <b:container rendered="#{sessionBean.isUserInRole('ADMIN')}">
             <h:form enctype="multipart/form-data">
                 <b:panel>
                     <b:row>

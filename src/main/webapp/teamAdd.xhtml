@@ -6,7 +6,7 @@
     <ui:define name="title">Altenerding Handball</ui:define>
 
     <ui:define name="content">
-        <b:container rendered="#{sessionBean.isLoggedIn}">
+        <b:container rendered="#{sessionBean.isUserInRole('ADMIN')}">
             <b:panel>
                 <h:form enctype="multipart/form-data">
                     <b:row>

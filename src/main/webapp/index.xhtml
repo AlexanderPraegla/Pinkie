@@ -37,7 +37,7 @@
                 <p>Willkommen auf der neuen Altenerding Biber Homepage</p>
             </b:jumbotron>
 
-            <b:panel title="Ankündigung hinzufügen" rendered="#{sessionBean.isLoggedIn}">
+            <b:panel title="Ankündigung hinzufügen" rendered="#{sessionBean.isUserInRole('PRESS')}">
                 <h:form enctype="multipart/form-data">
                     <b:column colLg="10" colMd="10" colSm="10" colXs="12">
                         <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}" rows="5"/>
@@ -73,7 +73,7 @@
                                               icon="download"/>
                                 </b:column>
                             </b:row>
-                            <b:row rendered="#{sessionBean.isLoggedIn}">
+                            <b:row rendered="#{sessionBean.isUserInRole('PRESS')}">
                                 <b:column span="2" style="margin-top: 5px">
                                     <b:commandButton
                                             actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
@@ -118,7 +118,7 @@
                     </b:column>
                 </b:row>
             </b:panel>
-            <b:panel rendered="#{sessionBean.isLoggedIn}" title="Bild der Woche hinzufügen">
+            <b:panel rendered="#{sessionBean.isUserInRole('PRESS')}" title="Bild der Woche hinzufügen">
                 <b:form id="addWeeklyImageFormId" enctype="multipart/form-data">
                     <b:column colLg="6" colMd="6" colSm="4" colXs="12">
                         <b:inputText id="weeklyImageDescription" value="#{weeklyImageBean.weeklyImage.description}"
@@ -136,7 +136,7 @@
                     </b:column>
                 </b:form>
             </b:panel>
-            <b:panel title="Bild der Archivieren" collapsible="true" rendered="#{sessionBean.isLoggedIn}">
+            <b:panel title="Bild der Archivieren" collapsible="true" rendered="#{sessionBean.isUserInRole('PRESS')}">
                 <h:form id="weeklyImageListFormId">
                     <ui:repeat id="repeatweeklyImageId" value="#{weeklyImageBean.weeklyImages}" var="weeklyImage">
                         <b:panel collapsible="false">

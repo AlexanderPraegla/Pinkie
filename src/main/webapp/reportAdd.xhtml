@@ -5,7 +5,7 @@
     <ui:define name="title">Bericht erstellen</ui:define>
 
     <ui:define name="content">
-        <b:container rendered="#{sessionBean.isLoggedIn}">
+        <b:container rendered="#{sessionBean.isUserInRole('PRESS')}">
             <h:form id="addReportFormId" enctype="multipart/form-data">
                 <b:inputText value="#{sessionBean.member.getFullName()}" label="Author" disabled="true"/>
                 <b:inputText value="#{reportBean.report.title}" label="Titel" required="true" requiredMessage="Bitte Titel angeben"/>

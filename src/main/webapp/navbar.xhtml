@@ -15,11 +15,11 @@
                 </b:dropMenu>
                 <b:dropMenu value="Teams">
                     <b:listLinks>
-                        <b:navLink value="Mannschaft bearbeiten" outcome="teamEditOverview.xhtml"
-                                   rendered="#{sessionBean.isLoggedIn}"/>
+                        <b:navLink value="Mannschaften bearbeiten" outcome="teamEditOverview.xhtml"
+                                   rendered="#{sessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink value="Mannschaft anlegen" outcome="teamAdd.xhtml"
-                                    rendered="#{sessionBean.isLoggedIn}"/>
-                        <b:navLink rendered="#{sessionBean.isLoggedIn}"/>
+                                    rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
+                        <b:navLink rendered="#{sessionBean.isUserInRole('PRESS')}"/>
                         <ui:repeat var="team" value="#{teamBean.teams}">
                             <b:navLink value="#{team.name}" outcome="team.xhtml" includeViewParams="true">
                                 <f:param name="teamId" value="#{team.id}"/>
@@ -29,9 +29,9 @@
                 </b:dropMenu>
                 <b:dropMenu value="Verein">
                     <b:listLinks>
-                        <b:navLink value="Mitglied anlegen" href="#" rendered="#{sessionBean.isLoggedIn}"/>
-                        <b:navLink value="Mitglieder auflisten" href="#" rendered="#{sessionBean.isLoggedIn}"/>
-                        <b:navLink rendered="#{sessionBean.isLoggedIn}"/>
+                        <b:navLink value="Mitglied anlegen" href="#" rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
+                        <b:navLink value="Mitglieder auflisten" href="#" rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
+                        <b:navLink rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
                         <b:navLink value="Vorstand" outcome="deans.xhtml"/>
                         <b:navLink value="Schiedsrichter" outcome="referees.xhtml"/>
                         <b:navLink value="Trainer" outcome="trainers.xhtml"/>
@@ -49,12 +49,12 @@
                     </b:listLinks>
                 </b:dropMenu>
 
-                <b:navLink value="Biber Forum" href="#" rendered="#{sessionBean.isLoggedIn}"/>
-                <b:navLink value="Profil" outcome="profile.xhtml" rendered="#{sessionBean.isLoggedIn}"
+                <b:navLink value="Biber Forum" href="#" rendered="#{sessionBean.isUserInRole('MEMBER')}"/>
+                <b:navLink value="Profil" outcome="profile.xhtml" rendered="#{sessionBean.isUserInRole('MEMBER')}"
                            includeViewParams="true">
                     <f:param name="memberId" value="#{sessionBean.member.id}"/>
                 </b:navLink>
-                <b:dropMenu value="Admin Bereich" rendered="#{sessionBean.isLoggedIn}">
+                <b:dropMenu value="Admin Bereich" rendered="#{sessionBean.isUserInRole('ADMIN')}">
                     <b:listLinks>
                         <b:navLink value="Bearbeitung aktivieren" href="#"/>
                     </b:listLinks>
@@ -62,10 +62,10 @@
             </b:navbarLinks>
         </h:form>
         <h:form id="loginForm" styleClass="navbar-form navbar-right">
-            <b:button rendered="#{!sessionBean.isLoggedIn}" outcome="login.xhtml" size="sm"
+            <b:button rendered="#{sessionBean.member == null}" outcome="login.xhtml" size="sm"
                              disabled="false" value="LogIn" look="success" icon="log-in"
                              iconAlign="right"/>
-            <b:commandButton rendered="#{sessionBean.isLoggedIn}"
+            <b:commandButton rendered="#{sessionBean.member != null}"
                              action="#{sessionBean.logout()}" size="sm"
                              disabled="false" value="LogOut" look="danger" icon="log-out"
                              iconAlign="right"/>

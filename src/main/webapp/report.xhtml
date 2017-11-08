@@ -6,8 +6,8 @@
 
     <ui:define name="content">
         <b:container id="reportListingContainerId">
-            <b:panel rendered="#{sessionBean.isLoggedIn}">
-                <b:button value="Bericht hinzufügen" look="primary" rendered="#{sessionBean.isLoggedIn}"
+            <b:panel rendered="#{sessionBean.isUserInRole('PRESS')}">
+                <b:button value="Bericht hinzufügen" look="primary"
                           outcome="reportAdd.xhtml"/>
             </b:panel>
             <ui:repeat value="#{reportBean.reports}" var="report">

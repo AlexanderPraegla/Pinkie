@@ -6,7 +6,7 @@
     <ui:define name="title">Schiedsrichter bearbeiten</ui:define>
 
     <ui:define name="content">
-        <b:container>
+        <b:container rendered="#{sessionBean.isUserInRole('ADMIN')}">
             <h:form enctype="multipart/form-data">
                 <b:panel>
                     <b:row>

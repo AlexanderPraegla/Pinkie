@@ -36,7 +36,7 @@ public class TeamCreationBean implements Serializable {
 	private String memberIndex = "";
 	private String trainerIndex = "";
 
-	@Access(role = Role.PRESS)
+	@Access(role = Role.ADMIN)
 	public String createTeam() throws Exception {
 		String result;
 		try {

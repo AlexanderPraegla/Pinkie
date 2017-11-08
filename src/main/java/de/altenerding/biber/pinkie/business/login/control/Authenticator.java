@@ -51,8 +51,8 @@ public class Authenticator implements Serializable{
 		}
 	}
 
-	public boolean authenticateRole(Role role) throws Exception{
-		if (!sessionBean.getIsLoggedIn()) {
+	public boolean authenticateRole(Role role) {
+		if (sessionBean.getMember() == null) {
 			return false;
 		}
 

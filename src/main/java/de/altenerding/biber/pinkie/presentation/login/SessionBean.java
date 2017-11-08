@@ -1,6 +1,6 @@
 package de.altenerding.biber.pinkie.presentation.login;
 
-import de.altenerding.biber.pinkie.business.login.boundary.LoginService;
+import de.altenerding.biber.pinkie.business.login.boundary.AuthenticateService;
 import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
@@ -19,10 +19,10 @@ import java.io.Serializable;
 @SessionScoped
 public class SessionBean implements Serializable {
 
-	private LoginService loginService;
+	private AuthenticateService authenticateService;
 	private Logger logger;
 
-	private Member member = new Member();
+	private Member member = null;
 	private String email;
 	private String password;
 	private boolean loggedIn = false;
@@ -33,7 +33,7 @@ public class SessionBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 
-		if (loginService.login(email, password)) {
+		if (authenticateService.login(email, password)) {
 			member = memberService.getMemberByEmail(email);
 			logger.info("Login successful for member alias={}", member.getEmail());
 			loggedIn = true;
@@ -51,6 +51,10 @@ public class SessionBean implements Serializable {
 		loggedIn = false;
 		member = null;
 		return "index.xhtml?faces-redirect=true";
+	}
+
+	public boolean isUserInRole(Role role) {
+		return authenticateService.authenticateRole(role);
 	}
 
 	public Member getMember() {
@@ -92,8 +96,8 @@ public class SessionBean implements Serializable {
 	}
 
 	@Inject
-	public void setLoginService(LoginService loginService) {
-		this.loginService = loginService;
+	public void setAuthenticateService(AuthenticateService authenticateService) {
+		this.authenticateService = authenticateService;
 	}
 
 	@Inject

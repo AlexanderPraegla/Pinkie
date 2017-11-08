@@ -7,7 +7,7 @@
 
     <ui:define name="content">
         <b:container>
-            <b:panel rendered="#{sessionBean.isLoggedIn}">
+            <b:panel rendered="#{sessionBean.isUserInRole('ADMIN')}">
                 <b:row>
                     <b:column colLg="2" colMd="3" colSm="4" colXs="12" style="margin-bottom: 15px;">
                         <b:button look="primary" value="Vorstandschaft bearbeiten" outcome="deansEdit.xhtml"/>

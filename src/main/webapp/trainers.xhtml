@@ -19,7 +19,7 @@
                     </b:column>
                     <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
                 </b:row>
-                <b:row rendered="#{sessionBean.isLoggedIn}">
+                <b:row rendered="#{sessionBean.isUserInRole('PRESS')}">
                     <h:form enctype="multipart/form-data">
                         <b:column>
                             <h:inputFile id="refereeGroupImageUpload" value="#{trainerBean.file}"

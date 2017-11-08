@@ -5,7 +5,7 @@
     <ui:define name="title">Vorstand bearbeiten</ui:define>
 
     <ui:define name="content">
-        <b:container>
+        <b:container rendered="#{sessionBean.isUserInRole('ADMIN')}">
             <b:form>
                 <b:panel rendered="#{deanBean.deans.size() > 0}">
                     <ui:repeat id="deanRepeat" value="#{deanBean.deans}" var="dean">

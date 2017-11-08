@@ -10,7 +10,7 @@
             <f:viewParam name="teamId" value="#{teamEditBean.teamId}"/>
             <f:viewAction action="#{teamEditBean.initTeam()}"/>
         </f:metadata>
-        <b:container rendered="#{sessionBean.isLoggedIn}">
+        <b:container rendered="#{sessionBean.isUserInRole('PRESS')}">
             <b:panel>
                 <h:form enctype="multipart/form-data">
                     <b:row>
