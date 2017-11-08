@@ -1,4 +1,4 @@
-package de.altenerding.biber.pinkie.presentation;
+package de.altenerding.biber.pinkie.presentation.announcement;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
 import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
