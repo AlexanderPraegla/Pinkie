@@ -8,14 +8,14 @@ import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
 @Named
-@ViewScoped
+@RequestScoped
 public class AnnouncementBean implements Serializable {
 
 	private static final String START_PAGE_VIDEO_KEY = "startpage.video";
@@ -60,7 +60,7 @@ public class AnnouncementBean implements Serializable {
 		this.logger = logger;
 	}
 
-	public FileMapping getFileMapping() {
+	public FileMapping getFileMapping() throws Exception {
 		if (fileMapping == null) {
 			fileMapping = fileService.getFileMappingbyKeyPage(START_PAGE_NAME, START_PAGE_VIDEO_KEY);
 		}

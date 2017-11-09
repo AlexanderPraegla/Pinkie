@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+
+<h:head/>
+<h:body>
+
+    <composite:interface/>
+
+    <composite:implementation>
+        <b:panel title="Ankündigungen bearbeiten" collapsed="true">
+            <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
+                    <div style="margin-bottom: 10px">
+                        <h:form id="announcementListFormId" enctype="multipart/form-data">
+                        <b:row>
+                            <b:column colLg="8" colMd="12" colSm="12" colXs="12">
+                                <b:inputTextarea value="#{announcement.text}"/>
+                                <b:row>
+                                    <b:column rendered="#{announcement.hasAttachment()}" styleClass="form-group">
+                                        <b:button
+                                                href="#{request.contextPath}#{announcement.getFullAnnouncementDocumentPath()}"
+                                                look="info"
+                                                target="blank" value="#{announcement.documentDisplayedName}"
+                                                icon="download"/>
+                                    </b:column>
+                                </b:row>
+                            </b:column>
+
+                            <b:column colLg="2" colMd="2" colSm="2" colXs="6">
+                                <b:commandButton
+                                        action="#{announcementProcessingBean.saveEditedAnnouncement(announcement)}"
+                                        disabled="false" value="Speichern" look="success" icon="pencil"
+                                        iconAlign="right"/>
+                            </b:column>
+                            <b:column colLg="2" colMd="2" colSm="2" colXs="6">
+                                <b:commandButton
+                                        action="#{announcementProcessingBean.archiveAnnouncement(announcement)}"
+                                        disabled="false" value="Archivieren" look="danger" icon="remove"
+                                        iconAlign="right"/>
+                            </b:column>
+                        </b:row>
+                    </h:form>
+                    </div>
+            </ui:repeat>
+        </b:panel>
+    </composite:implementation>
+</h:body>
+</html>

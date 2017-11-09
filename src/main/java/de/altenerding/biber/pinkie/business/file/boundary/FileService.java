@@ -71,7 +71,7 @@ public class FileService {
 		return fileDownload.download(fileName, outputStream);
 	}
 
-	public FileMapping getFileMappingbyKeyPage(String page, String key) {
+	public FileMapping getFileMappingbyKeyPage(String page, String key) throws Exception {
 		return fileMappingControl.getFileMappingbyKeyPage(page, key);
 	}
 
@@ -81,10 +81,6 @@ public class FileService {
 
 	public void updateFileMapping(FileMapping fileMapping) {
 		fileMappingControl.updateFileMapping(fileMapping);
-	}
-
-	public void addFileMapping(FileMapping fileMapping) {
-		fileMappingControl.replaceFileMapping(fileMapping);
 	}
 
 	@Inject

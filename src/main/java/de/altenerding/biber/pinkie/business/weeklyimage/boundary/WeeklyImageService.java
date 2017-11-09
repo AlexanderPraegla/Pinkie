@@ -27,6 +27,10 @@ public class WeeklyImageService {
 		weeklyImageProcessor.saveWeeklyImage(weeklyImage);
 	}
 
+	public void updateText(WeeklyImage weeklyImage) {
+		weeklyImageProcessor.updateText(weeklyImage);
+	}
+
 	@Inject
 	public void setWeeklyImageProvider(WeeklyImageProvider weeklyImageProvider) {
 		this.weeklyImageProvider = weeklyImageProvider;

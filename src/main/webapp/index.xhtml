@@ -2,186 +2,42 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:mainpageComponent="http://java.sun.com/jsf/composite/mainpageComponents">
     <ui:define name="title">Altenerding Handball</ui:define>
 
     <ui:define name="content">
-        <b:modal id="modalEditAccnouncement" title="Ankündigung bearbeiten" styleClass="modalPseudoClass">
-            <h:form id="editAccouncmentFormId">
-                <b:inputTextarea id="editAccnouncementText"
-                                 value="#{announcementProcessingBean.anncouncement.text}"/>
 
-                <b:button value="Abbrechen" look="danger" dismiss="modal"/>
-                <b:commandButton value="Speichern" look="success" passthrough:data-dismiss="modal" ajax="true"
-                                 action="index.xhtml"
-                                 update="@form:announcementListFormId @form:globalMessagesFormId"
-                                 actionListener="#{announcementProcessingBean.saveEditedAnnouncement()}"/>
-            </h:form>
-        </b:modal>
-        <b:modal id="modalRemoveAccnouncement" title="Ankündigung löschen" styleClass="modalPseudoClass">
-            <h:form id="removeAccouncmentFormId">
-                <b:inputTextarea id="removeAccnouncementText" disabled="true"
-                                 value="#{announcementProcessingBean.anncouncement.text}"/>
-
-                <b:button value="Abbrechen" look="danger" dismiss="modal"/>
-                <b:commandButton value="Löschen" look="success" passthrough:data-dismiss="modal" ajax="true"
-                                 action="index.xhtml"
-                                 update="@form:announcementListFormId @form:globalMessagesFormId"
-                                 actionListener="#{announcementProcessingBean.deleteAnnouncement()}"/>
-            </h:form>
-        </b:modal>
 
         <b:container>
             <b:jumbotron>
                 <p>Willkommen auf der neuen Altenerding Biber Homepage</p>
             </b:jumbotron>
 
-            <b:panel title="Ankündigung hinzufügen" rendered="#{sessionBean.isUserInRole('PRESS')}">
-                <h:form enctype="multipart/form-data">
-                    <b:column colLg="10" colMd="10" colSm="10" colXs="12">
-                        <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}" rows="5"/>
-                    </b:column>
-                    <b:column colLg="2" colMd="2" colSm="2" colXs="12">
-                        <b:commandButton value="Speichern" look="success"
-                                         action="#{announcementProcessingBean.saveAnnouncement()}"/>
-                    </b:column>
-                    <b:column>
-                        <h:inputFile value="#{announcementProcessingBean.file}" styleClass="btn btn-default"
-                                     style="margin-bottom: 15px;"/>
-                        <b:inputText value="#{announcementProcessingBean.documentDisplayedName}"
-                                     label="Angezeigter Dokumentenname"/>
-                    </b:column>
 
-                </h:form>
-            </b:panel>
-            <b:panel title="Ankündigungen">
-                <h:form id="announcementListFormId">
-                    <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
-                        <b:panel collapsible="false">
-                            <b:row>
-                                <b:column>
-                                    <h:outputText value="#{announcement.text}"/><br/>
-                                </b:column>
-                            </b:row>
-                            <b:row rendered="#{announcement.hasReportImage()}">
-                                <b:column>
-                                    <b:button href="#{announcement.getFullAnnouncementDocumentPath()}"
-                                              style="margin-top: 15px"
-                                              look="info"
-                                              target="blank" value="#{announcement.documentDisplayedName}"
-                                              icon="download"/>
-                                </b:column>
-                            </b:row>
-                            <b:row rendered="#{sessionBean.isUserInRole('PRESS')}">
-                                <b:column span="2" style="margin-top: 5px">
-                                    <b:commandButton
-                                            actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
-                                            passthrough:data-target="#modalEditAccnouncement"
-                                            passthrough:data-toggle="modal"
-                                            update="@form:editAccouncmentFormId"
-                                            disabled="false" value="Bearbeiten" look="success" icon="pencil"
-                                            iconAlign="right"/>
-                                </b:column>
-                                <b:column span="2" style="margin-top: 5px">
-                                    <b:commandButton
-                                            actionListener="#{announcementProcessingBean.setAnncouncement(announcement)}"
-                                            passthrough:data-target="#modalRemoveAccnouncement"
-                                            passthrough:data-toggle="modal"
-                                            update="@form:removeAccouncmentFormId"
-                                            disabled="false" value="Löschen" look="danger" icon="remove"
-                                            iconAlign="right"/>
-                                </b:column>
-                            </b:row>
-                        </b:panel>
-                    </ui:repeat>
-                </h:form>
-            </b:panel>
-            <b:panel title="Die letzten Ergebnisse" collapsible="true">
-                <b:dataTable value="#{scheduleBean.getRecentResults()}" searching="false" info="false" paginated="false"
-                             var="match" fixedHeader="true" scrollHorizontally="true">
-                    <b:dataTableColumn label="Team" value="#{match.team.name}" orderable="false"/>
-                    <b:dataTableColumn label="Tag" value="#{match.day}" orderable="false"/>
-                    <b:dataTableColumn label="Datum" value="#{match.getFormattedMatchDate()}" orderable="false"/>
-                    <b:dataTableColumn label="Heim" value="#{match.homeTeam}" orderable="false"
-                                       contentStyle="#{match.homeTeam}"/>
-                    <b:dataTableColumn label="Gast" value="#{match.guestTeam}" orderable="false"
-                                       contentStyle="#{match.guestTeam}"/>
-                    <b:dataTableColumn label="Ergebnis" value="#{match.result}" orderable="false"/>
-                </b:dataTable>
-            </b:panel>
-            <b:panel title="Biber Filmchen">
-                <b:row>
-                    <b:column>
-                        <b:video src="/pinkie#{announcementBean.fileMapping.getFileDownloadPath()}"
-                                 style="width: 100%"/>
-                    </b:column>
-                </b:row>
-            </b:panel>
-            <b:panel rendered="#{sessionBean.isUserInRole('PRESS')}" title="Bild der Woche hinzufügen">
-                <b:form id="addWeeklyImageFormId" enctype="multipart/form-data">
-                    <b:column colLg="6" colMd="6" colSm="4" colXs="12">
-                        <b:inputText id="weeklyImageDescription" value="#{weeklyImageBean.weeklyImage.description}"
-                                     required="true" requiredMessage="Bitte Text zum Bild angeben"
-                                     style="margin-bottom: 15px;"/>
-                    </b:column>
-                    <b:column colLg="4" colMd="4" colSm="6" colXs="12">
-                        <h:inputFile id="weeklyImageFile" value="#{weeklyImageBean.file}" styleClass="btn btn-default"
-                                     style="margin-bottom: 15px;"
-                                     label="Bild" required="true" requiredMessage="Bitte Bild angeben"/>
-                    </b:column>
-                    <b:column colLg="2" colMd="2" colSm="2" colXs="12">
-                        <b:commandButton value="Speichern" look="success"
-                                         action="#{weeklyImageBean.saveWeeklyImage()}"/>
-                    </b:column>
-                </b:form>
-            </b:panel>
-            <b:panel title="Bild der Archivieren" collapsible="true" rendered="#{sessionBean.isUserInRole('PRESS')}">
-                <h:form id="weeklyImageListFormId">
-                    <ui:repeat id="repeatweeklyImageId" value="#{weeklyImageBean.weeklyImages}" var="weeklyImage">
-                        <b:panel collapsible="false">
-                            <b:row>
-                                <b:column colLg="2" colMd="3" colSm="4" colXs="5">
-                                    <h:graphicImage value="#{weeklyImage.getWeeklyImageFullPath()}"
-                                                    style="max-height: 100%; max-width: 100%"/>
-                                </b:column>
-                                <b:column colLg="8" colMd="7" colSm="6" colXs="7">
-                                    <h:outputText value="#{weeklyImage.description}"/><br/>
+            <mainpageComponent:announcement/>
+            <mainpageComponent:lastResults/>
 
-                                </b:column>
-                                <b:column colLg="2" colMd="2" colSm="2" colXs="12">
-                                    <b:commandButton action="#{weeklyImageBean.archive(weeklyImage.id)}"
-                                                     disabled="false" value="Archivieren" look="danger"/>
-                                </b:column>
-                            </b:row>
-                        </b:panel>
-                    </ui:repeat>
-                </h:form>
-            </b:panel>
-            <b:panel title="Bild der Woche" collapsible="true" contentStyle="centered">
-                <b:row>
-                    <b:column colLg="3"/>
-                    <b:column colLg="6">
-                        <b:carousel id="imagesOfWeekCarouselId" showIndicators="false" disabled="true">
-                            <b:carouselItem>
-                                <h:outputText value="#{weeklyImageBean.weeklyImages.get(0).description}"
-                                              style="font-size: 20px;display: flex;justify-content: center;"/>
-                                <b:image value="#{weeklyImageBean.weeklyImages.get(0).getWeeklyImageFullPath()}"/>
-                            </b:carouselItem>
-                            <ui:repeat
-                                    value="#{weeklyImageBean.weeklyImages.subList(1,weeklyImageBean.weeklyImages.size())}"
-                                    var="weeklyImage">
-                                <b:carouselItem>
-                                    <h:outputText value="#{weeklyImage.description}"
-                                                  style="font-size: 20px;display: flex;justify-content: center;"/>
-                                    <b:image value="#{weeklyImage.getWeeklyImageFullPath()}"/>
-                                </b:carouselItem>
-                            </ui:repeat>
-                        </b:carousel>
-                    </b:column>
-                    <b:column colLg="3"/>
-                </b:row>
-            </b:panel>
+            <b:row rendered="#{videoBean.fileMapping != null and weeklyImageBean.weeklyImages.size() > 0}">
+                <b:column colLg="6">
+                    <mainpageComponent:weeklyImages/>
+                </b:column>
+                <b:column colLg="6">
+                    <mainpageComponent:video/>
+                </b:column>
+            </b:row>
+            <b:row rendered="#{weeklyImageBean.weeklyImages.size() > 0 and videoBean.fileMapping == null}">
+                <b:column>
+                    <mainpageComponent:weeklyImages/>
+                </b:column>
+            </b:row>
+            <b:row rendered="#{videoBean.fileMapping != null and weeklyImageBean.weeklyImages.size() == 0}">
+                <b:column colLg="3"/>
+                <b:column colLg="6">
+                    <mainpageComponent:video/>
+                </b:column>
+                <b:column colLg="3"/>
+            </b:row>
+
         </b:container>
     </ui:define>
 </ui:composition>

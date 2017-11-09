@@ -168,7 +168,7 @@ public class RefereeBean implements Serializable {
 		this.fileMapping = fileMapping;
 	}
 
-	public FileMapping getFileMapping() {
+	public FileMapping getFileMapping() throws Exception {
 		if (fileMapping == null) {
 			fileMapping = fileService.getFileMappingbyKeyPage(REFEREES_PAGE_NAME, REFEREE_IMAGE_GROUP_PICTURE_KEY);
 		}

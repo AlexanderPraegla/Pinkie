@@ -8,6 +8,9 @@
             <b:navbarLinks>
                 <b:dropMenu value="Aktuelles">
                     <b:listLinks>
+                        <b:navLink  rendered="#{sessionBean.isUserInRole('PRESS')}" value="Startseite bearbeiten"
+                        outcome="/secure/mainpage/editMainpage.xhtml"/>
+                        <b:navLink  rendered="#{sessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink value="Berichte" outcome="/public/news/report.xhtml"/>
                         <b:navLink value="Spielplan" outcome="/public/news/clubSchedule.xhtml"/>
                         <b:navLink value="Bilder" outcome="/index.xhtml"/>

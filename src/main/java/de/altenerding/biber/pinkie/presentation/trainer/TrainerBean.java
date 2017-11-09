@@ -33,14 +33,15 @@ public class TrainerBean {
 
 	@Access(role = Role.PRESS)
 	public String uploadTrainerGroupImage() throws Exception {
-		logger.info("Uploading new group image for trainers");
 		if (file != null) {
+		logger.info("Replacing trainers group image with new one");
 			String fileName = fileService.uploadImage(file, FileDirectory.IMAGES);
 			fileMapping.setImageFilePath(fileName);
 			fileMapping.setKey(TRAINER_GROUP_PICTURE_KEY);
 			fileMapping.setPage(TRAINERS_PAGE_NAME);
 			fileService.replaceFileMapping(fileMapping);
 		} else {
+			logger.info("Updating trainers group image description");
 			fileService.updateFileMapping(fileMapping);
 		}
 
@@ -73,7 +74,7 @@ public class TrainerBean {
 		this.trainers = trainers;
 	}
 
-	public FileMapping getFileMapping() {
+	public FileMapping getFileMapping() throws Exception {
 		if (fileMapping == null) {
 			fileMapping = fileService.getFileMappingbyKeyPage(TRAINERS_PAGE_NAME, TRAINER_GROUP_PICTURE_KEY);
 		}

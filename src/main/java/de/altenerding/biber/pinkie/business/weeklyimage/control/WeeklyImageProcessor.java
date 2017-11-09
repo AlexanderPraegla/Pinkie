@@ -26,6 +26,12 @@ public class WeeklyImageProcessor {
 		em.flush();
 	}
 
+	public void updateText(WeeklyImage weeklyImage) {
+		logger.info("Updating text for weekly image with id={}", weeklyImage.getId());
+		em.merge(weeklyImage);
+		em.flush();
+	}
+
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;

@@ -10,15 +10,15 @@ import net.bootsfaces.utils.FacesMessages;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 import java.io.Serializable;
 
 @Named
-@ViewScoped
+@RequestScoped
 public class AnnouncementProcessingBean implements Serializable {
 
 	private AnnouncementService announcementService;
@@ -29,41 +29,39 @@ public class AnnouncementProcessingBean implements Serializable {
 	private String documentDisplayedName;
 
 	@Access(role = Role.PRESS)
-	public String saveEditedAnnouncement() {
+	public String saveEditedAnnouncement(Announcement announcement) {
 		try {
-			announcementService.updateAnnouncement(anncouncement);
+			uploadAnnouncementAttachment(announcement);
+
+			announcementService.updateAnnouncement(announcement);
 			FacesMessages.info("Ankündigung aktualisiert");
 		} catch (Exception e) {
-			logger.error("Error while updating announcement with id={}", anncouncement.getId(), e);
+			logger.error("Error while updating announcement with id={}", announcement.getId(), e);
 			FacesMessages.error("Es ist ein Fehler beim Speichern der Ankündigung aufgetreten");
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "index.xhtml";
+		return "editMainpage.xhtml?faces-redirect=true";
 	}
 
 	@Access(role = Role.PRESS)
-	public void archiveAnnouncement() {
+	public String archiveAnnouncement(Announcement anncouncement) {
 		try {
 			announcementService.archiveAnnouncement(anncouncement);
-			FacesMessages.info("Ankündigung gelöscht");
+			FacesMessages.info("Ankündigung archiviert");
 		} catch (Exception e) {
 			logger.error("Error while deleting announcement with id={}", anncouncement.getId(), e);
 			FacesMessages.error("Es ist ein Fehler beim löschen der Ankündigung aufgetreten");
 		}
+		return "editMainpage.xhtml?faces-redirect=true";
 	}
 
 	@Access(role = Role.PRESS)
 	public String saveAnnouncement() {
 		try {
-			if (file != null) {
-				String fileName = fileService.uploadFile(file, FileDirectory.ANNOUNCEMENT_DOCUMENTS);
-				anncouncement.setAnnouncementDocument(fileName);
-				fileName = StringUtils.isBlank(documentDisplayedName) ? fileName : documentDisplayedName;
-				anncouncement.setDocumentDisplayedName(fileName);
-			}
+			uploadAnnouncementAttachment(anncouncement);
 
- 			announcementService.saveAnnouncement(anncouncement);
+			announcementService.saveAnnouncement(anncouncement);
 			FacesMessages.info( "Ankündigung gespeichert");
 		} catch (Exception e) {
 			logger.error("Error while saving announcement with id={}", anncouncement.getId(), e);
@@ -71,7 +69,16 @@ public class AnnouncementProcessingBean implements Serializable {
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "index.xhtml?faces-redirect=true";
+		return "editMainpage.xhtml?faces-redirect=true";
+	}
+
+	private void uploadAnnouncementAttachment(Announcement anncouncement) throws Exception {
+		if (file != null) {
+			String fileName = fileService.uploadFile(file, FileDirectory.ANNOUNCEMENT_DOCUMENTS);
+			anncouncement.setAnnouncementDocument(fileName);
+			fileName = StringUtils.isBlank(documentDisplayedName) ? fileName : documentDisplayedName;
+			anncouncement.setDocumentDisplayedName(fileName);
+		}
 	}
 
 	public Announcement getAnncouncement() {

@@ -77,6 +77,10 @@ public class FileMapping {
 		filePath = FileDirectory.IMAGES.getName() + "/" + fileName;
 	}
 
+	public void setVideoFilePath(String fileName) {
+		filePath = FileDirectory.VIDEOS.getName() + "/" + fileName;
+	}
+
 	public String getFileDownloadPath() {
 		return "/file/" + filePath;
 	}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
+>
+
+<h:head/>
+<h:body>
+
+    <composite:interface/>
+
+    <composite:implementation>
+        <b:panel rendered="#{sessionBean.isUserInRole('PRESS')}" title="Bild der Woche hinzufügen">
+            <b:form id="addWeeklyImageFormId" enctype="multipart/form-data">
+                <b:column colLg="6" colMd="6" colSm="4" colXs="12">
+                    <b:inputText id="weeklyImageDescription" value="#{weeklyImageBean.weeklyImage.description}"
+                                 required="true" requiredMessage="Bitte Text zum Bild angeben"
+                                 style="margin-bottom: 15px;"/>
+                </b:column>
+                <b:column colLg="4" colMd="4" colSm="6" colXs="12">
+                    <h:inputFile id="weeklyImageFile" value="#{weeklyImageBean.file}" styleClass="btn btn-default"
+                                 style="margin-bottom: 15px;"
+                                 label="Bild" required="true" requiredMessage="Bitte Bild angeben"/>
+                </b:column>
+                <b:column colLg="2" colMd="2" colSm="2" colXs="12">
+                    <b:commandButton value="Speichern" look="success"
+                                     action="#{weeklyImageBean.saveWeeklyImage()}"/>
+                </b:column>
+            </b:form>
+        </b:panel>
+    </composite:implementation>
+</h:body>
+</html>

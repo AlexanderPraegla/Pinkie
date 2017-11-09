@@ -40,7 +40,7 @@ public class WeeklyImageBean {
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "index.xhtml?faces-redirect=true";
+		return "editMainpage.xhtml?faces-redirect=true";
 	}
 
 	@Access(role = Role.PRESS)
@@ -49,7 +49,16 @@ public class WeeklyImageBean {
 		FacesMessages.info( "Bild archiviert");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "index.xhtml?faces-redirect=true";
+		return "editMainpage.xhtml?faces-redirect=true";
+	}
+
+	@Access(role = Role.PRESS)
+	public String updateText(WeeklyImage weeklyImage) {
+		weeklyImageService.updateText(weeklyImage);
+		FacesMessages.info( "Text zum Bild aktualisiert");
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getFlash().setKeepMessages(true);
+		return "editMainpage.xhtml?faces-redirect=true";
 	}
 
 	@Inject

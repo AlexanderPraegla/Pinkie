@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+
+<h:head/>
+<h:body>
+
+    <composite:interface/>
+
+    <composite:implementation>
+        <b:panel title="Bild der Woche Bearbeiten" collapsed="true" rendered="#{sessionBean.isUserInRole('PRESS')}">
+            <ui:repeat id="repeatweeklyImageId" value="#{weeklyImageBean.weeklyImages}" var="weeklyImage">
+                <h:form id="weeklyImageListFormId">
+                    <div style="margin-bottom: 15px">
+                        <b:row>
+                            <b:column colLg="12" colMd="12" colSm="12" colXs="12" >
+                                <b:inputText value="#{weeklyImage.description}"/>
+                            </b:column>
+                            <b:column colLg="2" colMd="3" colSm="4" colXs="12">
+                                <h:graphicImage value="#{weeklyImage.getWeeklyImageFullPath()}"
+                                                style="max-height: 100%; max-width: 100%"/>
+                            </b:column>
+                            <b:column colLg="2" colMd="2" colSm="4" colXs="12">
+                                <b:commandButton action="#{weeklyImageBean.updateText(weeklyImage)}"
+                                                 disabled="false" value="Text aktualisieren" look="success"/>
+                            </b:column>
+                            <b:column colLg="2" colMd="2" colSm="4" colXs="12">
+                                <b:commandButton action="#{weeklyImageBean.archive(weeklyImage.id)}"
+                                                 disabled="false" value="Archivieren" look="danger"/>
+                            </b:column>
+                        </b:row>
+                    </div>
+                </h:form>
+            </ui:repeat>
+        </b:panel>
+    </composite:implementation>
+</h:body>
+</html>

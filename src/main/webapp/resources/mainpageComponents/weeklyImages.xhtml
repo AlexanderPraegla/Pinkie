@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+>
+
+<h:head/>
+<h:body>
+
+    <composite:interface/>
+
+    <composite:implementation>
+        <b:panel title="Bild der Woche" collapsible="true">
+                    <b:carousel id="carousel" >
+                        <c:forEach items="#{weeklyImageBean.weeklyImages}" var="weeklyImage">
+                            <b:carouselItem>
+                                <h:outputText value="#{weeklyImage.description}"
+                                              style="font-size: 20px;display: flex;justify-content: center;"/>
+                                <b:image value="#{weeklyImage.getWeeklyImageFullPath()}"/>
+                            </b:carouselItem>
+                        </c:forEach>
+                    </b:carousel>
+        </b:panel>
+    </composite:implementation>
+</h:body>
+</html>

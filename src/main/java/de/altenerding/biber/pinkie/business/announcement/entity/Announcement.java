@@ -68,10 +68,10 @@ public class Announcement {
 	}
 
 	public String getFullAnnouncementDocumentPath() {
-		return "file/" + FileDirectory.ANNOUNCEMENT_DOCUMENTS.getName() + "/" + announcementDocument;
+		return "/file/" + FileDirectory.ANNOUNCEMENT_DOCUMENTS.getName() + "/" + announcementDocument;
 	}
 
-	public boolean hasReportImage() {
+	public boolean hasAttachment() {
 		return StringUtils.isNotBlank(announcementDocument);
 	}
 

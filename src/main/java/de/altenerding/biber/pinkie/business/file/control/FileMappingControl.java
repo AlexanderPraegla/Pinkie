@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 public class FileMappingControl {
 
@@ -13,12 +14,21 @@ public class FileMappingControl {
 	@PersistenceContext
 	private EntityManager em;
 
-	public FileMapping getFileMappingbyKeyPage(String page, String key) {
+	public FileMapping getFileMappingbyKeyPage(String page, String key) throws Exception {
 		logger.info("Getting file for page={} and key={}", page, key);
-		return em.createNamedQuery("FileMapping.getByPageKey", FileMapping.class)
+		List<FileMapping> fileMappings = em.createNamedQuery("FileMapping.getByPageKey", FileMapping.class)
 				.setParameter("page", page)
 				.setParameter("key", key)
-				.getSingleResult();
+				.getResultList();
+
+		if (fileMappings.size() == 0) {
+			return null;
+		} else if (fileMappings.size() > 1) {
+			logger.error("There is more than one mapping for page={} and key={}", page, key);
+			throw new Exception("There is more than one mapping for one key");
+		}
+
+		return fileMappings.get(0);
 	}
 
 	public void replaceFileMapping(FileMapping fileMapping) {
