@@ -57,11 +57,11 @@ public class DeanBean implements Serializable {
 
 			deanService.updateDean(dean);
 			FacesMessages.info(dean.getDescription(), "Aktualisieret");
-			result = "deans.xhtml?faces-redirect=true";
+			result = "/public/club/deans.xhtml?faces-redirect=true";
 		} catch (Exception e) {
 			logger.error("Error while updating dean", e);
 			FacesMessages.error("Es ist ein Fehler beim aktualisieren aufgetreten");
-			result = "deanEdit?faces-redirect=true&includeViewParams=true&deanId=" + deanId;
+			result = "/secure/dean/deanEdit?faces-redirect=true&includeViewParams=true&deanId=" + deanId;
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
@@ -74,7 +74,7 @@ public class DeanBean implements Serializable {
 		FacesMessages.info(dean.getDescription(), "Erstellt");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "deans.xhtml?faces-redirect=true";
+		return "/public/club/deans.xhtml?faces-redirect=true";
 	}
 
 	@Access(role = Role.ADMIN)
@@ -84,7 +84,7 @@ public class DeanBean implements Serializable {
 		FacesMessages.info("Reihenfolge aktualisiert");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "deans.xhtml?faces-redirect=true";
+		return "/public/club/deans.xhtml?faces-redirect=true";
 	}
 
 	@Access(role = Role.ADMIN)
@@ -95,7 +95,7 @@ public class DeanBean implements Serializable {
 		FacesMessages.info(dean.getDescription(), "Archiviert");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "deansEdit.xhtml?faces-redirect=true";
+		return "/secure/dean/deansEdit.xhtml?faces-redirect=true";
 	}
 
 	@Inject

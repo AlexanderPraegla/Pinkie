@@ -88,11 +88,11 @@ public class TeamEditBean implements Serializable {
 
 			teamService.updateTeam(team);
 			FacesMessages.info(team.getName(), "Team aktualisiert");
-			result = "team.xhtml?faces-redirect=true&includeViewParams=true&teamId=" + teamId;
+			result = "/public/team/team.xhtml?faces-redirect=true&includeViewParams=true&teamId=" + teamId;
 		} catch (Exception e) {
 			FacesMessages.info(e.getMessage());
 			logger.error("Error while uploading file", e);
-			result = "teamEdit.xhtml?faces-redirect=true&includeViewParams=true&teamId=" + teamId;
+			result = "/secure/team/teamEdit.xhtml?faces-redirect=true&includeViewParams=true&teamId=" + teamId;
 		}
 
 		FacesContext context = FacesContext.getCurrentInstance();

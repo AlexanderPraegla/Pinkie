@@ -73,11 +73,11 @@ public class ReportBean {
 			reportService.createReport(report);
 
 			FacesMessages.info(report.getType().getLabel(), "Erstellt");
-			result = "report.xhtml?faces-redirect=true";
+			result = "/public/news/report.xhtml?faces-redirect=true";
 		} catch (Exception e) {
 			logger.info("Error while creating report", e);
 			FacesMessages.error("Fehler beim speichern");
-			result = "reportAdd.xhtml?faces-redirect=true";
+			result = "/secure/report/reportAdd.xhtml?faces-redirect=true";
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
@@ -96,7 +96,7 @@ public class ReportBean {
 		FacesMessages.info(report.getType().getLabel(), "Aktualisiert");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "report.xhtml?faces-redirect=true";
+		return "/public/news/report.xhtml?faces-redirect=true";
 	}
 
 	@Inject

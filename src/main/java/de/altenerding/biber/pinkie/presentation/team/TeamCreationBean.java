@@ -61,11 +61,11 @@ public class TeamCreationBean implements Serializable {
 
 			Team team = teamService.createTeam(this.team);
 			FacesMessages.info(this.team.getName(), "Mannschaft erstellt");
-			result = "team.xhtml?faces-redirect=true&includeViewParams=true&teamId=" + team.getId();
+			result = "/public/team/team.xhtml?faces-redirect=true&includeViewParams=true&teamId=" + team.getId();
 		} catch (Exception e) {
 			FacesMessages.info(e.getMessage());
 			logger.error("Error while uploading file", e);
-			result = "teamAdd.xhtml?faces-redirect=true&includeViewParams=true";
+			result = "/secure/team/teamAdd.xhtml?faces-redirect=true&includeViewParams=true";
 		}
 
 		FacesContext context = FacesContext.getCurrentInstance();

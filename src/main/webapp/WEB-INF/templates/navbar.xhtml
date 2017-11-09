@@ -3,25 +3,25 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:b="http://bootsfaces.net/ui">
 
-    <b:navBar brand="Startseite" brandHref="index.xhtml" inverse="true" fixed="top">
+    <b:navBar brand="Startseite" brandHref="#{request.contextPath}/index.xhtml" inverse="true" fixed="top">
         <h:form>
             <b:navbarLinks>
                 <b:dropMenu value="Aktuelles">
                     <b:listLinks>
-                        <b:navLink value="Spielberichte" outcome="report.xhtml"/>
-                        <b:navLink value="Spielplan" outcome="clubSchedule.xhtml"/>
-                        <b:navLink value="Bilder" outcome="index.xhtml"/>
+                        <b:navLink value="Berichte" outcome="/public/news/report.xhtml"/>
+                        <b:navLink value="Spielplan" outcome="/public/news/clubSchedule.xhtml"/>
+                        <b:navLink value="Bilder" outcome="/index.xhtml"/>
                     </b:listLinks>
                 </b:dropMenu>
                 <b:dropMenu value="Teams">
                     <b:listLinks>
-                        <b:navLink value="Mannschaften bearbeiten" outcome="teamEditOverview.xhtml"
+                        <b:navLink value="Mannschaften bearbeiten" outcome="/secure/team/teamEditOverview.xhtml"
                                    rendered="#{sessionBean.isUserInRole('PRESS')}"/>
-                        <b:navLink value="Mannschaft anlegen" outcome="teamAdd.xhtml"
+                        <b:navLink value="Mannschaft anlegen" outcome="/secure/team/teamAdd.xhtml"
                                     rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
                         <b:navLink rendered="#{sessionBean.isUserInRole('PRESS')}"/>
                         <ui:repeat var="team" value="#{teamBean.teams}">
-                            <b:navLink value="#{team.name}" outcome="team.xhtml" includeViewParams="true">
+                            <b:navLink value="#{team.name}" outcome="/public/team/team.xhtml" includeViewParams="true">
                                 <f:param name="teamId" value="#{team.id}"/>
                             </b:navLink>
                         </ui:repeat>
@@ -32,9 +32,9 @@
                         <b:navLink value="Mitglied anlegen" href="#" rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
                         <b:navLink value="Mitglieder auflisten" href="#" rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
                         <b:navLink rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
-                        <b:navLink value="Vorstand" outcome="deans.xhtml"/>
-                        <b:navLink value="Schiedsrichter" outcome="referees.xhtml"/>
-                        <b:navLink value="Trainer" outcome="trainers.xhtml"/>
+                        <b:navLink value="Vorstand" outcome="/public/club/deans.xhtml"/>
+                        <b:navLink value="Schiedsrichter" outcome="/public/club/referees.xhtml"/>
+                        <b:navLink value="Trainer" outcome="/public/club/trainers.xhtml"/>
                         <b:navLink value="Handball Infos" href="#"/>
                         <b:navLink value="Förderverein" href="#"/>
                         <b:navLink value="Biber-Handballfreunde" href="#"/>
@@ -43,14 +43,14 @@
                 </b:dropMenu>
                 <b:dropMenu value="Über uns">
                     <b:listLinks>
-                        <b:navLink value="Geschichte" outcome="index.xhtml"/>
-                        <b:navLink value="Kontakt" outcome="index.xhtml"/>
-                        <b:navLink value="Anfahrt" outcome="index.xhtml"/>
+                        <b:navLink value="Geschichte" outcome="/index.xhtml"/>
+                        <b:navLink value="Kontakt" outcome="/index.xhtml"/>
+                        <b:navLink value="Anfahrt" outcome="/index.xhtml"/>
                     </b:listLinks>
                 </b:dropMenu>
 
                 <b:navLink value="Biber Forum" href="#" rendered="#{sessionBean.isUserInRole('MEMBER')}"/>
-                <b:navLink value="Profil" outcome="profile.xhtml" rendered="#{sessionBean.isUserInRole('MEMBER')}"
+                <b:navLink value="Profil" outcome="/secure/profile/profile.xhtml" rendered="#{sessionBean.isUserInRole('MEMBER')}"
                            includeViewParams="true">
                     <f:param name="memberId" value="#{sessionBean.member.id}"/>
                 </b:navLink>
@@ -62,7 +62,7 @@
             </b:navbarLinks>
         </h:form>
         <h:form id="loginForm" styleClass="navbar-form navbar-right">
-            <b:button rendered="#{sessionBean.member == null}" outcome="login.xhtml" size="sm"
+            <b:button rendered="#{sessionBean.member == null}" outcome="/public/login/login.xhtml" size="sm"
                              disabled="false" value="LogIn" look="success" icon="log-in"
                              iconAlign="right"/>
             <b:commandButton rendered="#{sessionBean.member != null}"

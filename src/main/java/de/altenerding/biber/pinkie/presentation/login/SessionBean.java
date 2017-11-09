@@ -35,11 +35,11 @@ public class SessionBean implements Serializable {
 		if (authenticateService.login(email, password)) {
 			member = memberService.getMemberByEmail(email);
 			logger.info("Login successful for member alias={}", member.getEmail());
-			return "profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();
+			return "/secure/profile/profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();
 		} else {
 			logger.error("Login NOT successful for alias={}", email);
 			FacesMessages.error("Login fehlgeschlagen");
-			return "login.xhtml?faces-redirect=true";
+			return "/public/login/login.xhtml?faces-redirect=true";
 		}
 
 	}
@@ -47,7 +47,7 @@ public class SessionBean implements Serializable {
 	@Access(role = Role.MEMBER)
 	public String logout() {
 		member = null;
-		return "index.xhtml?faces-redirect=true";
+		return "/index.xhtml?faces-redirect=true";
 	}
 
 	public boolean isUserInRole(Role role) {

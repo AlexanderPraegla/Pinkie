@@ -53,13 +53,13 @@ public class TeamBean implements Serializable {
 	public String updateTeamsOrder() {
 		logger.info("Updating team order");
 		teamService.updateTeams(teams);
-		return "teamEditOverview.xhtml?faces-redirect=true";
+		return "/secure/team/teamEditOverview.xhtml?faces-redirect=true";
 	}
 
 	@Access(role = Role.ADMIN)
 	public String archiveTeam(Team team) {
 		teamService.archiveTeam(team);
-		return "teamEditOverview.xhtml?faces-redirect=true";
+		return "/secure/team/teamEditOverview.xhtml?faces-redirect=true";
 	}
 
 	@Inject

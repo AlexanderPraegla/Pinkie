@@ -44,7 +44,7 @@ public class TrainerBean {
 			fileService.updateFileMapping(fileMapping);
 		}
 
-		return "trainers.xhtml?faces-redirect=true";
+		return "/public/club/trainers.xhtml?faces-redirect=true";
 	}
 
 	@Inject

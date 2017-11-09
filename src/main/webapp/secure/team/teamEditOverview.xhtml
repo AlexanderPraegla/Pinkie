@@ -19,17 +19,19 @@
                                 <b:inputText value="#{team.league}" disabled="true"/>
                             </b:column>
                             <b:column colLg="1" colMd="2" colSm="2" colXs="4" tooltip="Position der Mannschaft im Menü">
-                                <b:inputText value="#{team.orderId}" mask="integer" disabled="#{!sessionBean.isUserInRole('ADMIN')}"/>
+                                <b:inputText value="#{team.orderId}" mask="integer"
+                                             disabled="#{!sessionBean.isUserInRole('ADMIN')}"/>
                             </b:column>
                             <b:column colLg="1" colMd="2" colSm="2" colXs="4">
-                                <b:button value="Bearbeiten" outcome="teamEdit.xhtml"
+                                <b:button value="Bearbeiten" outcome="/secure/team/teamEdit.xhtml"
                                           look="primary"
                                           includeViewParams="true">
                                     <f:param name="teamId" value="#{team.id}"/>
                                 </b:button>
                             </b:column>
                             <b:column colLg="1" colMd="2" colSm="2" colXs="4">
-                                <b:commandButton action="#{teamBean.archiveTeam(team)}" disabled="#{!sessionBean.isUserInRole('ADMIN')}"
+                                <b:commandButton action="#{teamBean.archiveTeam(team)}"
+                                                 disabled="#{!sessionBean.isUserInRole('ADMIN')}"
                                                  value="Archivieren" look="warning"/>
                             </b:column>
                         </b:row>
@@ -37,7 +39,8 @@
                     <b:row>
                         <b:column offsetLg="5" colLg="2" offsetMd="1" colMd="2" offsetSm="1" colSm="2" offsetXs="1"
                                   colXs="2">
-                            <b:commandButton action="#{teamBean.updateTeamsOrder}" disabled="#{!sessionBean.isUserInRole('ADMIN')}"
+                            <b:commandButton action="#{teamBean.updateTeamsOrder}"
+                                             disabled="#{!sessionBean.isUserInRole('ADMIN')}"
                                              value="Reihenfolge Speichern" look="success"/>
                         </b:column>
                     </b:row>

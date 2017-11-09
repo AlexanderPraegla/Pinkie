@@ -26,14 +26,14 @@
                     <h:outputText value="#{cc.attrs.report.summary}"/>
                 </b:column>
                 <b:column span="1" style="margin-top: 5px">
-                    <b:button value="Bearbeiten" outcome="reportEdit.xhtml"
+                    <b:button value="Bearbeiten" outcome="/secure/report/reportEdit.xhtml"
                               look="default" rendered="#{sessionBean.isUserInRole('PRESS') and cc.attrs.editable}"
                               includeViewParams="true">
                         <f:param name="reportId" value="#{cc.attrs.report.id}"/>
                     </b:button>
                 </b:column>
                 <b:column span="1" style="margin-top: 5px">
-                    <b:button value="Lesen" outcome="reportView.xhtml" look="primary"
+                    <b:button value="Lesen" outcome="/public/news/reportView.xhtml" look="primary"
                               includeViewParams="true">
                         <f:param name="reportId" value="#{cc.attrs.report.id}"/>
                     </b:button>

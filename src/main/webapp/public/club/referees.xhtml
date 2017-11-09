@@ -11,10 +11,10 @@
             <b:panel rendered="#{sessionBean.isUserInRole('ADMIN')}">
                 <b:row>
                     <b:column colLg="2" colMd="3" colSm="4" colXs="12" style="margin-bottom: 15px;">
-                        <b:button look="primary" value="Schiedsrichter bearbeiten" outcome="refereesEdit.xhtml"/>
+                        <b:button look="primary" value="Schiedsrichter bearbeiten" outcome="/secure/referee/refereesEdit.xhtml"/>
                     </b:column>
                     <b:column colLg="2" colMd="3" colSm="4" colXs="12">
-                        <b:button look="primary" value="Schiedsrichter hinzufügen" outcome="refereeAdd.xhtml"/>
+                        <b:button look="primary" value="Schiedsrichter hinzufügen" outcome="/secure/referee/refereeAdd.xhtml"/>
                     </b:column>
                 </b:row>
             </b:panel>

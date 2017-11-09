@@ -60,11 +60,11 @@ public class RefereeBean implements Serializable {
 
 			refereeService.updateReferee(referee);
 			FacesMessages.info("Schiedsrichter aktualisieret");
-			result = "referees.xhtml?faces-redirect=true";
+			result = "/public/club/referees.xhtml?faces-redirect=true";
 		} catch (Exception e) {
 			logger.error("Error while updating referee", e);
 			FacesMessages.error("Es ist ein Fehler beim aktualisieren aufgetreten");
-			result = "refereeEdit?faces-redirect=true&includeViewParams=true&refereeId=" + refereeId;
+			result = "/secure/referee/refereeEdit?faces-redirect=true&includeViewParams=true&refereeId=" + refereeId;
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
@@ -77,7 +77,7 @@ public class RefereeBean implements Serializable {
 		FacesMessages.info("Schiedsrichter erstellt");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "referees.xhtml?faces-redirect=true";
+		return "/public/club/referees.xhtml?faces-redirect=true";
 	}
 
 	@Access(role = Role.ADMIN)
@@ -87,7 +87,7 @@ public class RefereeBean implements Serializable {
 		FacesMessages.info("Reihenfolge aktualisiert");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "referees.xhtml?faces-redirect=true";
+		return "/public/club/referees.xhtml?faces-redirect=true";
 	}
 
 	@Access(role = Role.ADMIN)
@@ -98,11 +98,11 @@ public class RefereeBean implements Serializable {
 		FacesMessages.info("Schiedsrichter archiviert");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "refereesEdit.xhtml?faces-redirect=true";
+		return "/secure/referee/refereesEdit.xhtml?faces-redirect=true";
 	}
 
 	@Access(role = Role.PRESS)
-	public void uploadRefereeGroupImage() throws Exception {
+	public String uploadRefereeGroupImage() throws Exception {
 		logger.info("Uploading new group image for referees");
 		String fileName = fileService.uploadImage(file, FileDirectory.IMAGES);
 		FileMapping fileMapping = new FileMapping();
@@ -110,6 +110,8 @@ public class RefereeBean implements Serializable {
 		fileMapping.setKey(REFEREE_IMAGE_GROUP_PICTURE_KEY);
 		fileMapping.setPage(REFEREES_PAGE_NAME);
 		fileService.replaceFileMapping(fileMapping);
+
+		return "/public/club/referees.xhtml?faces-redirect=true";
 	}
 
 	@Inject

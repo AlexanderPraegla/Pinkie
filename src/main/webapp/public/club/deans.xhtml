@@ -10,10 +10,10 @@
             <b:panel rendered="#{sessionBean.isUserInRole('ADMIN')}">
                 <b:row>
                     <b:column colLg="2" colMd="3" colSm="4" colXs="12" style="margin-bottom: 15px;">
-                        <b:button look="primary" value="Vorstandschaft bearbeiten" outcome="deansEdit.xhtml"/>
+                        <b:button look="primary" value="Vorstandschaft bearbeiten" outcome="/secure/dean/deansEdit.xhtml"/>
                     </b:column>
                     <b:column colLg="2" colMd="3" colSm="4" colXs="12">
-                        <b:button look="primary" value="Vorstandsmitglied hinzufügen" outcome="deanAdd.xhtml"/>
+                        <b:button look="primary" value="Vorstandsmitglied hinzufügen" outcome="/secure/dean/deanAdd.xhtml"/>
                     </b:column>
                 </b:row>
             </b:panel>
