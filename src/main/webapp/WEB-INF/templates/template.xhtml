@@ -7,7 +7,8 @@
     <title>
         <ui:insert name="title">Some title</ui:insert>
     </title>
-    <h:outputStylesheet library="css" name="main.css"  />
+    <h:outputStylesheet library="css" name="main.css"/>
+    <h:outputStylesheet library="css" name="error.css"/>
     <link rel="icon" type="image/png" href="#{resource['images/logo_biber_ae_16x16.png']}" sizes="16x16"/>
     <link rel="icon" type="image/png" href="#{resource['images/logo_biber_ae_32x32.png']}" sizes="32x32"/>
 </h:head>
@@ -21,16 +22,16 @@
         outline: none;
     }
 </style>
-<b:scrollUp distance="200" animation="fade" text="" scrollTitle="false" name="scrollUpCustom" />
-
-<ui:include src="header.xhtml"/>
-
-<ui:include src="navbar.xhtml"/>
+<b:scrollUp distance="200" animation="fade" text="" scrollTitle="false" name="scrollUpCustom"/>
 
 <h:body>
-    <ui:insert name="content" />
-</h:body>
+    <ui:include src="header.xhtml"/>
 
-<ui:include src="footer.xhtml"/>
+    <ui:include src="navbar.xhtml"/>
+
+    <ui:insert name="content"/>
+
+    <ui:include src="footer.xhtml"/>
+</h:body>
 
 </html>

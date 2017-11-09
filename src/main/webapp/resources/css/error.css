@@ -1,0 +1,36 @@
+.errorBackground {
+    background-color: #0000FF !important;
+}
+
+.errorPanel {
+    color: #FFFFFF !important;
+    font-family: Lucida Console, Lucida Sans Typewriter, monaco, Bitstream Vera Sans Mono, monospace;
+    background-color: #0000FF !important;
+    border-color: #0000FF !important;
+}
+
+.errorCode {
+    background: #FFFFFF;
+    color: #0000FF;
+    font-size: 40px;
+    margin-bottom: 30px;
+    padding: 5px 10px;
+}
+
+.errorText {
+    font-size: 20px;
+    line-height: 2;
+    padding-bottom: 40px;
+}
+
+.errorLink {
+    color: #FFFFFF !important;
+    position: relative;
+    font-size: 20px;
+    text-decoration: underline !important;
+}
+.errorLinks {
+    width: inherit;
+    margin-top: 50px;
+    text-align: right;
+}

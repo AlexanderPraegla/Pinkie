@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui">
+<h:head>
+    <title>
+        <ui:insert name="title">Some title</ui:insert>
+    </title>
+    <h:outputStylesheet library="css" name="main.css"/>
+    <h:outputStylesheet library="css" name="error.css"/>
+    <link rel="icon" type="image/png" href="#{resource['images/logo_biber_ae_16x16.png']}" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="#{resource['images/logo_biber_ae_32x32.png']}" sizes="32x32"/>
+</h:head>
+
+<h:body styleClass="errorBackground">
+    <b:container>
+        <b:panel styleClass="errorPanel">
+            <b:row style="margin-bottom: 30px">
+                <b:column colLg="6" colMd="8" colSm="10" colXs="12" offsetLg="6" offsetMd="4" offsetSm="2" offsetXs="0">
+                    <h:outputText
+                            value="Error #{requestScope['javax.servlet.error.status_code']} - #{requestScope['javax.servlet.error.message']}"
+                            styleClass="errorCode"/>
+                </b:column>
+            </b:row>
+            <ui:insert name="error"/>
+            <b:row styleClass="errorLinks">
+                <b:column>
+                    <ui:insert name="errorLinks"/>
+                </b:column>
+            </b:row>
+        </b:panel>
+    </b:container>
+</h:body>
+
+</html>
