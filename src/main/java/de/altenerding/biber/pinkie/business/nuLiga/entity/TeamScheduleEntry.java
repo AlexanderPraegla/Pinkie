@@ -86,7 +86,11 @@ public class TeamScheduleEntry {
 
 
 	public String getFormattedMatchDate() {
-		return new SimpleDateFormat("dd.MM.yyyy").format(matchDate);
+		if (matchDate != null) {
+			return new SimpleDateFormat("dd.MM.yyyy").format(matchDate);
+		}
+
+		return inactiveReason;
 	}
 
 	public void setMatchDate(Date date) {
@@ -94,7 +98,11 @@ public class TeamScheduleEntry {
 	}
 
 	public String getFormattedMatchTime() {
-		return new SimpleDateFormat("HH:mm").format(matchDate);
+		if (matchDate != null) {
+			return new SimpleDateFormat("HH:mm").format(matchDate);
+		}
+
+		return "";
 	}
 
 	public long getMatchId() {
