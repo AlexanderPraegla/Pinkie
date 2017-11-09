@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/secure/report/*", "/secure/team/*"}, filterName = "PressFilter")
+@WebFilter(urlPatterns = {"/secure/report/*", "/secure/team/*", "/secure/mainpage/*"}, filterName = "PressFilter")
 public class PressFilter implements Filter{
 
 	@Inject

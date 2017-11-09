@@ -32,9 +32,8 @@
                 </b:dropMenu>
                 <b:dropMenu value="Verein">
                     <b:listLinks>
-                        <b:navLink value="Mitglied anlegen" href="#" rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
-                        <b:navLink value="Mitglieder auflisten" href="#" rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
-                        <b:navLink rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
+                        <b:navLink value="Vereinsseiten bearbeiten" href="#" rendered="#{sessionBean.isUserInRole('PRESS')}"/>
+                        <b:navLink rendered="#{sessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink value="Vorstand" outcome="/public/club/deans.xhtml"/>
                         <b:navLink value="Schiedsrichter" outcome="/public/club/referees.xhtml"/>
                         <b:navLink value="Trainer" outcome="/public/club/trainers.xhtml"/>
@@ -46,6 +45,8 @@
                 </b:dropMenu>
                 <b:dropMenu value="Über uns">
                     <b:listLinks>
+                        <b:navLink value="Über uns bearbeiten" href="#" rendered="#{sessionBean.isUserInRole('PRESS')}"/>
+                        <b:navLink rendered="#{sessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink value="Geschichte" outcome="/index.xhtml"/>
                         <b:navLink value="Kontakt" outcome="/index.xhtml"/>
                         <b:navLink value="Anfahrt" outcome="/index.xhtml"/>
@@ -59,7 +60,8 @@
                 </b:navLink>
                 <b:dropMenu value="Admin Bereich" rendered="#{sessionBean.isUserInRole('ADMIN')}">
                     <b:listLinks>
-                        <b:navLink value="Bearbeitung aktivieren" href="#"/>
+                        <b:navLink value="Mitglied anlegen" href="#" rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
+                        <b:navLink value="Mitglieder auflisten" href="#" rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
                     </b:listLinks>
                 </b:dropMenu>
             </b:navbarLinks>

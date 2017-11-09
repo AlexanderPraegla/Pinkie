@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/secure/dean/*", "/secure/referee/*"}, filterName = "AdminFilter")
+@WebFilter(urlPatterns = {"/secure/dean/*", "/secure/referee/*", "/secure/admin/*"}, filterName = "AdminFilter")
 public class AdminFilter implements Filter{
 
 	@Inject
