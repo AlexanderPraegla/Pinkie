@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Date;
 
 public class AnnouncementProcessor {
 
@@ -27,10 +28,10 @@ public class AnnouncementProcessor {
 		em.flush();
 	}
 
-	public void deleteAnnouncement(Announcement announcement) throws Exception {
+	public void archiveAnnouncement(Announcement announcement) throws Exception {
 		logger.info("Deleting announcement with id={}", announcement.getId());
-		announcement = em.merge(announcement);
-		em.remove(announcement);
+		announcement.setArchivedOn(new Date());
+		em.merge(announcement);
 		em.flush();
 	}
 

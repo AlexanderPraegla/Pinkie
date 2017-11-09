@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Announcement.findAll", query = "SELECT a FROM Announcement a ORDER BY a.createdOn DESC"),
+		@NamedQuery(name = "Announcement.findAll", query = "SELECT a FROM Announcement a WHERE a.archivedOn IS NULL ORDER BY a.createdOn DESC"),
 		@NamedQuery(name = "Announcement.findById", query = "SELECT a FROM Announcement a where a.id = :id")
 })
 public class Announcement {
@@ -24,6 +24,9 @@ public class Announcement {
 	private String announcementDocument;
 	@Column(columnDefinition = "varchar")
 	private String documentDisplayedName;
+	@Column(name = "archived_on")
+	@Temporal(value = TemporalType.TIMESTAMP)
+	private Date archivedOn;
 
 	@PrePersist
 	protected void onPersist() {
@@ -78,5 +81,13 @@ public class Announcement {
 
 	public void setDocumentDisplayedName(String announcementDocumentName) {
 		this.documentDisplayedName = announcementDocumentName;
+	}
+
+	public Date getArchivedOn() {
+		return archivedOn;
+	}
+
+	public void setArchivedOn(Date archivedOn) {
+		this.archivedOn = archivedOn;
 	}
 }

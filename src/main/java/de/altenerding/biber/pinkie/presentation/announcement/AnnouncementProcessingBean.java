@@ -43,9 +43,9 @@ public class AnnouncementProcessingBean implements Serializable {
 	}
 
 	@Access(role = Role.PRESS)
-	public void deleteAnnouncement() {
+	public void archiveAnnouncement() {
 		try {
-			announcementService.deleteAnnouncement(anncouncement);
+			announcementService.archiveAnnouncement(anncouncement);
 			FacesMessages.info("Ankündigung gelöscht");
 		} catch (Exception e) {
 			logger.error("Error while deleting announcement with id={}", anncouncement.getId(), e);

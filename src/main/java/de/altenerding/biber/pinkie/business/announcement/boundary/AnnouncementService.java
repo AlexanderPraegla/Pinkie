@@ -27,8 +27,8 @@ public class AnnouncementService {
 		announcementProcessor.updateAnnouncement(announcement);
 	}
 
-	public void deleteAnnouncement(Announcement announcement) throws Exception {
-		announcementProcessor.deleteAnnouncement(announcement);
+	public void archiveAnnouncement(Announcement announcement) throws Exception {
+		announcementProcessor.archiveAnnouncement(announcement);
 	}
 
 	@Inject
