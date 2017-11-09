@@ -14,7 +14,6 @@ import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-@SuppressWarnings("Duplicates")
 @WebServlet(name = "DownloadServlet", urlPatterns = {"/file/*"})
 public class DownloadServlet extends HttpServlet {
 
