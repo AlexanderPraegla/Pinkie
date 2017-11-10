@@ -32,7 +32,7 @@ public class SessionBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 
-		if (authenticateService.login(email, password)) {
+		if (authenticateService.validate(email, password)) {
 			member = memberService.getMemberByEmail(email);
 			logger.info("Login successful for member alias={}", member.getEmail());
 			return "/secure/profile/profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();

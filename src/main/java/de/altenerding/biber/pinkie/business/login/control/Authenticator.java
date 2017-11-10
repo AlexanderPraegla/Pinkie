@@ -8,31 +8,21 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Base64;
-import java.util.List;
 
 public class Authenticator implements Serializable{
 
 	private SessionBean sessionBean;
 	private SecurityProvider securityProvider;
+	private LoginProvider loginProvider;
 	private Logger logger;
-	@PersistenceContext
-	private EntityManager em;
 
-	public boolean login(String alias, String password) throws IOException {
+	public boolean validate(String alias, String password) throws IOException {
 		logger.info("Checking login credentials for alias={}", alias);
-		List<Login> logins = em.createNamedQuery("Login.getByAlias", Login.class).setParameter("alias", alias).getResultList();
 
-		if (logins.size() < 1) {
-			logger.error("No login credentials found for alias={}", alias);
-			return false;
-		}
-
-		Login login = logins.get(0);
+		Login login = loginProvider.getLoginByAlias(alias);
 
 		if (login.getLoginCount() >= 3) {
 			logger.error("Login tries already at {}", login.getLoginCount());
@@ -84,5 +74,10 @@ public class Authenticator implements Serializable{
 	@Inject
 	public void setSessionBean(SessionBean sessionBean) {
 		this.sessionBean = sessionBean;
+	}
+
+	@Inject
+	public void setLoginProvider(LoginProvider loginProvider) {
+		this.loginProvider = loginProvider;
 	}
 }

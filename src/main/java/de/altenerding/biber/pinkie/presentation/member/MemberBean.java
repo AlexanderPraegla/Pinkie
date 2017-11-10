@@ -9,6 +9,7 @@ import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import org.apache.logging.log4j.Logger;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Named
-@javax.enterprise.context.RequestScoped
+@RequestScoped
 public class MemberBean implements Serializable {
 
 	private long memberId;
@@ -62,7 +63,7 @@ public class MemberBean implements Serializable {
 
 		memberService.updateMember(member);
 
-		return "/secure/admin/listMembers.xhtml";
+		return "/secure/admin/listMembers.xhtml?faces-redirect=true";
 	}
 
 	@Access(role = Role.ADMIN)

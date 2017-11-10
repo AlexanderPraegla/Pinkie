@@ -18,7 +18,7 @@ public class LoginCreator {
 	private SecurityProvider securityProvider;
 
 	public void createLogin(String alias, String password) throws Exception {
-		logger.info("Creating login for alias={}", alias);
+		logger.info("Creating new login for alias={}", alias);
 		try {
 			byte[] salt = new byte[64];
 			SecureRandom.getInstanceStrong().nextBytes(salt);
