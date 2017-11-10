@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,7 +30,6 @@ public class TeamEditBean implements Serializable {
 	private MemberService memberService;
 	private Logger logger;
 
-	@ManagedProperty(value = "#{param.teamId}")
 	private long teamId;
 	private Team team = new Team();
 	private Part file;

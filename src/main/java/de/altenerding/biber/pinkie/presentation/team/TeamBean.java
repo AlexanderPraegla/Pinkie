@@ -12,7 +12,6 @@ import de.altenerding.biber.pinkie.business.team.entity.Team;
 import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -27,7 +26,6 @@ public class TeamBean implements Serializable {
 	private NuLigaDataService nuLigaDataService;
 	private Logger logger;
 
-	@ManagedProperty(value = "#{param.teamId}")
 	private long teamId;
 	private Team team;
 

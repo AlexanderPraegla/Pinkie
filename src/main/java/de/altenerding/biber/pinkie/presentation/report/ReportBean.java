@@ -12,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,7 +27,6 @@ public class ReportBean {
 
 	@Inject
 	private SessionBean sessionBean;
-	@ManagedProperty(value = "#{param.reportId}")
 	private long reportId;
 	private Part file;
 

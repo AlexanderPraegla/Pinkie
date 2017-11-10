@@ -11,7 +11,6 @@ import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -26,7 +25,6 @@ public class RefereeBean implements Serializable {
 
 	private static final String REFEREE_IMAGE_GROUP_PICTURE_KEY = "referees.group.picture";
 	private static final String REFEREES_PAGE_NAME = "referees.xhtml";
-	@ManagedProperty(value = "#{param.refereeId}")
 	private long refereeId;
 	private Logger logger;
 	private RefereeService refereeService;

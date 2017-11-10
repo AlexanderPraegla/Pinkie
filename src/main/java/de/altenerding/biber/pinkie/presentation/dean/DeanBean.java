@@ -10,7 +10,6 @@ import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,7 +22,6 @@ import java.util.List;
 @RequestScoped
 public class DeanBean implements Serializable {
 
-	@ManagedProperty(value = "#{param.deanId}")
 	private long deanId;
 	private Logger logger;
 	private DeanService deanService;
