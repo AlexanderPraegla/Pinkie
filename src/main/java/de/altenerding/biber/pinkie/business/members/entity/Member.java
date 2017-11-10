@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "member.findAll", query = "SELECT u FROM Member u"),
+		@NamedQuery(name = "member.findAll", query = "SELECT u FROM Member u ORDER BY u.firstName ASC"),
 		@NamedQuery(name = "member.findById", query = "SELECT u FROM Member u where u.id = :id"),
 		@NamedQuery(name = "member.findByEmail", query = "SELECT u FROM Member u where u.email = :email")
 })
@@ -35,11 +35,13 @@ public class Member {
 	@Column
 	private String city;
 	@Column
-	private Role role;
+	private Role role = Role.MEMBER;
 	@Column(name = "profile_image", columnDefinition = "varchar")
 	private String profileImage;
 	@Column(columnDefinition = "varchar")
 	private String previousClubs;
+	@Column
+	private String shirtNumber;
 	@Column(columnDefinition = "varchar")
 	private String position;
 	@Column(columnDefinition = "varchar")
@@ -259,5 +261,13 @@ public class Member {
 
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
+	}
+
+	public String getShirtNumber() {
+		return shirtNumber;
+	}
+
+	public void setShirtNumber(String shirtNumber) {
+		this.shirtNumber = shirtNumber;
 	}
 }

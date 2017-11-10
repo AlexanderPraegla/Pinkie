@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:memberComponents="http://java.sun.com/jsf/composite/memberComponents"
+
+>
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+    <ui:insert name="title">Template Member Title</ui:insert>
+    <ui:define name="content">
+        <b:container rendered="#{sessionBean.isUserInRole('ADMIN')}">
+            <h2><ui:insert name="title">Template Member Title</ui:insert></h2>
+            <b:form enctype="multipart/form-data">
+                <b:panel title="Pflichtfelder" collapsible="false">
+                    <b:formGroup>
+                        <h:inputHidden value="#{memberBean.member.id}"/>
+                    </b:formGroup>
+                    <b:formGroup>
+                        <b:inputText value="#{memberBean.member.firstName}" label="Vorname"
+                                     placeholder="Vorname"
+                                     required="true" requiredMessage="Bitte Vorname ausfüllen"/>
+                    </b:formGroup>
+                    <b:formGroup>
+                        <b:inputText value="#{memberBean.member.lastName}" label="Nachname"
+                                     placeholder="Nachname"
+                                     required="true" requiredMessage="Bitte Nachname ausfüllen"/>
+                    </b:formGroup>
+                    <b:formGroup>
+                        <b:inputText value="#{memberBean.member.email}" label="E-Mail Adresse" type="email"
+                                     tooltip="Wird automatisch nach dem Format vorname.nachname@altenerding-biber.de erzeugt wenn leer"
+                                     placeholder="E-Mail Adresse"/>
+                    </b:formGroup>
+                    <b:formGroup>
+                        <b:selectOneMenu value="#{memberBean.member.role}" label="Berechtigung" required="true"
+                                         requiredMessage="Bitte Berechtigung auswählen">
+                            <f:selectItems value="#{enumBean.getAssignableRoles()}" var="role" itemValue="#{role}"
+                                           itemLabel="#{role.getLabel()}"/>
+                        </b:selectOneMenu>
+                    </b:formGroup>
+                </b:panel>
+
+                <memberComponents:editPersonalProfile/>
+                <memberComponents:editPlayersProfile/>
+
+
+                <b:formGroup>
+                    <ui:insert name="sumbitButton"/>
+                </b:formGroup>
+            </b:form>
+        </b:container>
+    </ui:define>
+</ui:composition>
+</html>

@@ -60,8 +60,8 @@
                 </b:navLink>
                 <b:dropMenu value="Admin Bereich" rendered="#{sessionBean.isUserInRole('ADMIN')}">
                     <b:listLinks>
-                        <b:navLink value="Mitglied anlegen" href="#" rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
-                        <b:navLink value="Mitglieder auflisten" href="#" rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
+                        <b:navLink value="Mitglied anlegen" outcome="/secure/admin/createMember.xhtml" rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
+                        <b:navLink value="Mitglieder auflisten" outcome="/secure/admin/listMembers.xhtml" rendered="#{sessionBean.isUserInRole('ADMIN')}"/>
                     </b:listLinks>
                 </b:dropMenu>
             </b:navbarLinks>

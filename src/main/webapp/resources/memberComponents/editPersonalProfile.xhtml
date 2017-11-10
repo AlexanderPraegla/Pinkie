@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+<h:head/>
+<h:body>
+
+    <composite:interface>
+        <composite:attribute type="java.lang.Boolean" default="#{false}" name="showAll"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <b:panel title="Persönliches" collapsed="false">
+            <b:formGroup rendered="#{memberBean.member.profileImage != null}">
+                <b:row>
+                    <b:column colLg="2" colMd="2" colSm="3" colXs="6"
+                              styleClass="col-xs-offset-3 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
+                        <b:image value="#{memberBean.member.getFullProfileImagePath()}"
+                                 style="max-width: 100%; max-height: 100%"/>
+                    </b:column>
+                </b:row>
+            </b:formGroup>
+            <b:formGroup>
+                <h:outputLabel value="Profilbild">
+                    <h:inputFile value="#{memberBean.file}" styleClass="btn btn-default"/>
+                </h:outputLabel>
+            </b:formGroup>
+
+            <b:formGroup>
+                <h:inputHidden value="#{memberBean.member.profileImage}"/>
+            </b:formGroup>
+            <b:formGroup>
+                <b:inputText value="#{memberBean.member.nickName}" label="Spitzname(n)"
+                             placeholder="Spitzname(n)"/>
+            </b:formGroup>
+            <b:formGroup>
+                <b:inputText value="#{memberBean.member.birthday}" label="Geburtstag"
+                             placeholder="Geburtstag" mask="dd.mm.yyyy">
+                    <f:convertDateTime pattern="dd.MM.yyyy" timeZone="Europe/Berlin"/>
+                </b:inputText>
+            </b:formGroup>
+            <b:formGroup>
+                <b:inputText value="#{memberBean.member.height}" label="Größe"
+                             placeholder="Größe in cm" mask="999 cm"/>
+            </b:formGroup>
+            <b:formGroup>
+                <b:inputText value="#{memberBean.member.mobileNumber}" label="Handynummber"
+                             placeholder="Handynummer"/>
+            </b:formGroup>
+            <b:formGroup>
+                <b:inputText value="#{memberBean.member.phoneNumber}" label="Telefonnummer"
+                             placeholder="Telefonnummer"/>
+            </b:formGroup>
+            <b:formGroup>
+                <b:inputText value="#{memberBean.member.street}" label="Straße"
+                             placeholder="Straße und Hausnummer"/>
+            </b:formGroup>
+            <b:formGroup>
+                <b:inputText value="#{memberBean.member.zipcode}" label="Postleitzahl"
+                             mask="99999"
+                             placeholder="Postleitzahl"/>
+            </b:formGroup>
+            <b:formGroup>
+                <b:inputText value="#{memberBean.member.city}" label="Stadt"
+                             placeholder="Stadt"/>
+            </b:formGroup>
+        </b:panel>
+    </composite:implementation>
+</h:body>
+</html>

@@ -24,6 +24,7 @@
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showCity"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showStreet"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showPreviousClubs"/>
+        <composite:attribute type="java.lang.Boolean" default="#{false}" name="showShirtNumber"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showPosition"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showThrowingHand"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showHeight"/>
@@ -41,7 +42,7 @@
             <b:row>
                 <b:column colLg="2" colMd="2" colSm="3" colXs="6"
                           styleClass="col-xs-offset-3 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
-                    <a href="profile.xhtml?memberId=#{cc.attrs.member.id}">
+                    <a href="#{request.contextPath}/secure/profile/profile.xhtml?memberId=#{cc.attrs.member.id}">
                         <b:image value="#{cc.attrs.profileImagePath}" style="max-width: 100%; max-height: 100%"/>
                     </a>
                 </b:column>
@@ -101,6 +102,12 @@
                                                                                           value="Bisherige Vereine"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberPreviousClubs"
                                                                                          value="#{cc.attrs.member.previousClubs}"/></b:column>
+                    </b:row>
+                    <b:row rendered="#{cc.attrs.showAll or cc.attrs.showShirtNumber}">
+                        <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberShirtNumber"
+                                                                                          value="Trikotnummer"/></b:column>
+                        <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberShirtNumber"
+                                                                                         value="#{cc.attrs.member.shirtNumber}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showPosition}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberPosition"
