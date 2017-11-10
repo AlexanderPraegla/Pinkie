@@ -9,26 +9,26 @@
             <b:form>
                 <b:panel rendered="#{refereeBean.referees.size() > 0}">
                     <ui:repeat id="refereeRepeat" value="#{refereeBean.referees}" var="referee">
-                        <b:formGroup>
                             <b:row>
-                                <b:column colLg="4" colMd="4" colSm="4" colXs="12">
+                                <b:column colLg="2" colMd="1" colSm="1" colXs="0"/>
+                                <b:column colLg="3" colMd="4" colSm="4" colXs="12">
                                     <b:inputText value="#{referee.member.getFullName()}" disabled="true"/>
                                 </b:column>
-                                <b:column colLg="4" colMd="4" colSm="4" colXs="12">
+                                <b:column colLg="1" colMd="2" colSm="2" colXs="4" tooltip="Position der Mannschaft im Menü">
                                     <b:inputText value="#{referee.orderId}"/>
                                 </b:column>
-                                <b:column colLg="2" colMd="2" colSm="2" colXs="6">
-                                    <b:button value="Bearbeiten" look="primary" outcome="/secure/referee/refereeEdit.xhtml">
+                                <b:column colLg="2" colMd="2" colSm="2" colXs="4">
+                                    <b:button value="Bearbeiten" look="default btn-block" outcome="/secure/referee/refereeEdit.xhtml">
                                         <f:param name="refereeId" value="#{referee.id}"/>
                                     </b:button>
                                 </b:column>
-                                <b:column colLg="2" colMd="2" colSm="2" colXs="6">
-                                    <b:commandButton value="Archivieren" look="primary"
+                                <b:column colLg="2" colMd="2" colSm="2" colXs="4">
+                                    <b:commandButton value="Archivieren" look="danger btn-block"
                                                      action="#{refereeBean.archiveReferee(referee)}">
                                     </b:commandButton>
                                 </b:column>
+                                <b:column colLg="2" colMd="1" colSm="1" colXs="0"/>
                             </b:row>
-                        </b:formGroup>
                     </ui:repeat>
                     <b:commandButton value="Reihenfolge aktualisieren" look="success"
                                      action="#{refereeBean.updateRefereesOrder}"/>

@@ -9,26 +9,27 @@
             <b:form>
                 <b:panel rendered="#{deanBean.deans.size() > 0}">
                     <ui:repeat id="deanRepeat" value="#{deanBean.deans}" var="dean">
-                        <b:formGroup>
                             <b:row>
-                                <b:column colLg="4" colMd="4" colSm="4" colXs="12">
+                                <b:column colLg="4" colMd="4" colSm="3" colXs="12">
                                     <b:inputText value="#{dean.member.getFullName()}" disabled="true"/>
                                 </b:column>
-                                <b:column colLg="4" colMd="4" colSm="4" colXs="12">
-                                    <b:inputText value="#{dean.orderId}"/>
+                                <b:column colLg="3" colMd="3" colSm="3" colXs="12">
+                                    <b:inputText value="#{dean.description}" disabled="true"/>
                                 </b:column>
-                                <b:column colLg="2" colMd="2" colSm="2" colXs="6">
-                                    <b:button value="Bearbeiten" look="primary" outcome="/secure/dean/deanEdit.xhtml">
+                                <b:column colLg="1" colMd="1" colSm="2" colXs="4" tooltip="Reihnfolge in der Vorstandsansicht">
+                                    <b:inputText value="#{dean.orderId}" mask="integer"/>
+                                </b:column>
+                                <b:column colLg="2" colMd="2" colSm="2" colXs="4">
+                                    <b:button value="Bearbeiten" look="default btn-block" outcome="/secure/dean/deanEdit.xhtml">
                                         <f:param name="deanId" value="#{dean.id}"/>
                                     </b:button>
                                 </b:column>
-                                <b:column colLg="2" colMd="2" colSm="2" colXs="6">
-                                    <b:commandButton value="Archivieren" look="primary"
+                                <b:column colLg="2" colMd="2" colSm="2" colXs="4">
+                                    <b:commandButton value="Archivieren" look="danger btn-block"
                                                      action="#{deanBean.archiveDean(dean)}">
                                     </b:commandButton>
                                 </b:column>
                             </b:row>
-                        </b:formGroup>
                     </ui:repeat>
                     <b:commandButton value="Reihenfolge aktualisieren" look="success"
                                      action="#{deanBean.updateDeansOrder}"/>
