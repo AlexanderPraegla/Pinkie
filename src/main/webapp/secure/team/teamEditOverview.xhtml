@@ -11,7 +11,7 @@
                 <b:form>
                     <ui:repeat value="#{teamBean.teams}" var="team">
                         <b:row>
-                            <b:column colLg="2" colMd="0" colSm="0" colXs="0"/>
+                            <b:column colLg="1" colMd="0" colSm="0" colXs="0"/>
                             <b:column colLg="3" colMd="3" colSm="4" colXs="12">
                                 <b:inputText value="#{team.name}" disabled="true"/>
                             </b:column>
@@ -22,18 +22,19 @@
                                 <b:inputText value="#{team.orderId}" mask="integer"
                                              disabled="#{!sessionBean.isUserInRole('ADMIN')}"/>
                             </b:column>
-                            <b:column colLg="1" colMd="2" colSm="2" colXs="4">
+                            <b:column colLg="2" colMd="2" colSm="2" colXs="4">
                                 <b:button value="Bearbeiten" outcome="/secure/team/teamEdit.xhtml"
-                                          look="primary"
+                                          look="primary btn-block"
                                           includeViewParams="true">
                                     <f:param name="teamId" value="#{team.id}"/>
                                 </b:button>
                             </b:column>
-                            <b:column colLg="1" colMd="2" colSm="2" colXs="4">
+                            <b:column colLg="2" colMd="2" colSm="2" colXs="4">
                                 <b:commandButton action="#{teamBean.archiveTeam(team)}"
                                                  disabled="#{!sessionBean.isUserInRole('ADMIN')}"
-                                                 value="Archivieren" look="warning"/>
+                                                 value="Archivieren" look="warning btn-block"/>
                             </b:column>
+                            <b:column colLg="1" colMd="0" colSm="0" colXs="0"/>
                         </b:row>
                     </ui:repeat>
                     <b:row>
