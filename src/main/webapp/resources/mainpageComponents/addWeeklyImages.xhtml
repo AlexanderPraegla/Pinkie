@@ -12,7 +12,7 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel rendered="#{sessionBean.isUserInRole('PRESS')}" title="Bild der Woche hinzufügen">
+        <b:panel rendered="#{userSessionBean.isUserInRole('PRESS')}" title="Bild der Woche hinzufügen">
             <b:form id="addWeeklyImageFormId" enctype="multipart/form-data">
                 <b:column colLg="6" colMd="6" colSm="4" colXs="12">
                     <b:inputText id="weeklyImageDescription" value="#{weeklyImageBean.weeklyImage.description}"

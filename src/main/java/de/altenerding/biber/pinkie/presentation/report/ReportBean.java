@@ -6,7 +6,7 @@ import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.report.boundary.ReportService;
 import de.altenerding.biber.pinkie.business.report.entity.Report;
-import de.altenerding.biber.pinkie.presentation.login.SessionBean;
+import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
@@ -26,7 +26,7 @@ public class ReportBean {
 	private ReportService reportService;
 
 	@Inject
-	private SessionBean sessionBean;
+	private UserSessionBean userSessionBean;
 	private long reportId;
 	private Part file;
 
@@ -61,7 +61,7 @@ public class ReportBean {
 		logger.info("Creating new Report with title={}", report.getTitle());
 		String result;
 		try {
-			report.setAuthor(sessionBean.getMember());
+			report.setAuthor(userSessionBean.getMember());
 
 			if (file != null) {
 				String fileName = fileService.uploadImage(file, FileDirectory.REPORT_IMAGE);
@@ -128,8 +128,8 @@ public class ReportBean {
 		return reports;
 	}
 
-	public void setSessionBean(SessionBean sessionBean) {
-		this.sessionBean = sessionBean;
+	public void setUserSessionBean(UserSessionBean userSessionBean) {
+		this.userSessionBean = userSessionBean;
 	}
 
 	public void setFile(Part file) {

@@ -6,7 +6,7 @@
     <ui:define name="title">Mannschaftsübersicht</ui:define>
 
     <ui:define name="content">
-        <b:container rendered="#{sessionBean.isUserInRole('PRESS')}">
+        <b:container rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <b:panel title="Mannschaften Saison #{seasonBean.currentSeason.name}" collapsible="false">
                 <b:form>
                     <ui:repeat value="#{teamBean.teams}" var="team">
@@ -20,7 +20,7 @@
                             </b:column>
                             <b:column colLg="1" colMd="2" colSm="2" colXs="4" tooltip="Position der Mannschaft im Menü">
                                 <b:inputText value="#{team.orderId}" mask="integer"
-                                             disabled="#{!sessionBean.isUserInRole('ADMIN')}"/>
+                                             disabled="#{!userSessionBean.isUserInRole('ADMIN')}"/>
                             </b:column>
                             <b:column colLg="2" colMd="2" colSm="2" colXs="4">
                                 <b:button value="Bearbeiten" outcome="/secure/team/teamEdit.xhtml"
@@ -31,7 +31,7 @@
                             </b:column>
                             <b:column colLg="2" colMd="2" colSm="2" colXs="4">
                                 <b:commandButton action="#{teamBean.archiveTeam(team)}"
-                                                 disabled="#{!sessionBean.isUserInRole('ADMIN')}"
+                                                 disabled="#{!userSessionBean.isUserInRole('ADMIN')}"
                                                  value="Archivieren" look="warning btn-block"/>
                             </b:column>
                             <b:column colLg="1" colMd="0" colSm="0" colXs="0"/>
@@ -41,7 +41,7 @@
                         <b:column offsetLg="5" colLg="2" offsetMd="1" colMd="2" offsetSm="1" colSm="2" offsetXs="1"
                                   colXs="2">
                             <b:commandButton action="#{teamBean.updateTeamsOrder}"
-                                             disabled="#{!sessionBean.isUserInRole('ADMIN')}"
+                                             disabled="#{!userSessionBean.isUserInRole('ADMIN')}"
                                              value="Reihenfolge Speichern" look="success"/>
                         </b:column>
                     </b:row>

@@ -12,7 +12,7 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="Ankündigung hinzufügen" rendered="#{sessionBean.isUserInRole('PRESS')}">
+        <b:panel title="Ankündigung hinzufügen" rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <h:form enctype="multipart/form-data">
                 <b:column colLg="10" colMd="10" colSm="10" colXs="12">
                     <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}" rows="5"/>

@@ -8,7 +8,7 @@
     <ui:define name="content">
         <b:container>
             <h2>Unsere Schiedsrichter</h2>
-            <b:panel rendered="#{sessionBean.isUserInRole('ADMIN')}">
+            <b:panel rendered="#{userSessionBean.isUserInRole('ADMIN')}">
                 <b:row>
                     <b:column colLg="2" colMd="3" colSm="4" colXs="12" style="margin-bottom: 15px;">
                         <b:button look="primary" value="Schiedsrichter bearbeiten" outcome="/secure/referee/refereesEdit.xhtml"/>
@@ -27,7 +27,7 @@
                     </b:column>
                     <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
                 </b:row>
-                <b:row rendered="#{sessionBean.isUserInRole('PRESS')}">
+                <b:row rendered="#{userSessionBean.isUserInRole('PRESS')}">
                     <h:form enctype="multipart/form-data">
                         <b:column>
                             <h:inputFile id="refereeGroupImageUpload" value="#{refereeBean.file}"

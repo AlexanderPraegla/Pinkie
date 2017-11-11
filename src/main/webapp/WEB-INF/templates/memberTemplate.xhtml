@@ -10,7 +10,7 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml">
     <ui:insert name="title">Template Member Title</ui:insert>
     <ui:define name="content">
-        <b:container rendered="#{sessionBean.isUserInRole('ADMIN')}">
+        <b:container rendered="#{userSessionBean.isUserInRole('ADMIN')}">
             <h2><ui:insert name="title">Template Member Title</ui:insert></h2>
             <b:form enctype="multipart/form-data">
                 <b:panel title="Pflichtfelder" collapsible="false">

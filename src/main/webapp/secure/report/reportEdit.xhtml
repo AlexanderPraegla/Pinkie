@@ -10,7 +10,7 @@
             <f:viewParam name="reportId" value="#{reportBean.reportId}"/>
             <f:viewAction action="#{reportBean.initReport()}" />
         </f:metadata>
-        <b:container rendered="#{sessionBean.isUserInRole('PRESS')}">
+        <b:container rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <h:form id="editReportFormId">
                 <b:inputText value="#{reportBean.report.author.getFullName()}" label="Author" disabled="true"/>
                 <b:inputText value="#{reportBean.report.title}" label="Titel" required="true" requiredMessage="Bitte Titel angeben"/>

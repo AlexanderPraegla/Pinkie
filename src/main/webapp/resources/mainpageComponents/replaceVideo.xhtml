@@ -12,7 +12,7 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel rendered="#{sessionBean.isUserInRole('PRESS')}" title="Video bearbeiten">
+        <b:panel rendered="#{userSessionBean.isUserInRole('PRESS')}" title="Video bearbeiten">
             <h:form id="addVideoFormId" enctype="multipart/form-data">
                 <b:column colLg="6" colMd="6" colSm="4" colXs="12">
                     <b:inputText value="#{videoBean.videoDescription}"

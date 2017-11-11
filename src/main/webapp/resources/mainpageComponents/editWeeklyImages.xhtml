@@ -13,7 +13,7 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="Bild der Woche Bearbeiten" collapsed="true" rendered="#{sessionBean.isUserInRole('PRESS')}">
+        <b:panel title="Bild der Woche Bearbeiten" collapsed="true" rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <ui:repeat id="repeatweeklyImageId" value="#{weeklyImageBean.weeklyImages}" var="weeklyImage">
                 <h:form id="weeklyImageListFormId">
                     <div style="margin-bottom: 15px">

@@ -4,20 +4,20 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="title">Login</ui:define>
     <ui:define name="content">
-        <b:container rendered="#{sessionBean.member == null}">
+        <b:container rendered="#{userSessionBean.member == null}">
             <h:form styleClass="form-signin" prependId="false">
                 <h2 class="form-signin-heading">Bitte anmelden</h2>
-                <b:inputText id="email" placeholder="Email Addresse" value="#{sessionBean.email}">
+                <b:inputText id="email" placeholder="Email Addresse" value="#{loginBean.email}">
                     <f:facet name="prepend">
                         <b:icon name="user"/>
                     </f:facet>
                 </b:inputText>
-                <b:inputText id="password" placeholder="Passwort" type="password" value="#{sessionBean.password}">
+                <b:inputText id="password" placeholder="Passwort" type="password" value="#{loginBean.password}">
                     <f:facet name="prepend">
                         <b:iconAwesome name="key"/>
                     </f:facet>
                 </b:inputText>
-                <b:commandButton action="#{sessionBean.login()}"
+                <b:commandButton action="#{loginBean.login()}"
                                  disabled="false" value="LogIn" look="primary btn-block" icon="log-in"
                                  iconAlign="right"/>
             </h:form>

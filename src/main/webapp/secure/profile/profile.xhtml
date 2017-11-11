@@ -11,7 +11,7 @@
             <f:viewParam name="memberId" value="#{memberBean.memberId}"/>
             <f:viewAction action="#{memberBean.initMember()}" />
         </f:metadata>
-        <b:container rendered="#{sessionBean.isUserInRole('MEMBER')}">
+        <b:container rendered="#{userSessionBean.isUserInRole('MEMBER')}">
             <components:profile
                     member="#{memberBean.member}"
                     profileImagePath="#{memberBean.member.getFullProfileImagePath()}"

@@ -3,7 +3,7 @@ package de.altenerding.biber.pinkie.business.login.control;
 import de.altenerding.biber.pinkie.business.login.entity.Login;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
-import de.altenerding.biber.pinkie.presentation.login.SessionBean;
+import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +14,7 @@ import java.util.Base64;
 
 public class Authenticator implements Serializable{
 
-	private SessionBean sessionBean;
+	private UserSessionBean userSessionBean;
 	private SecurityProvider securityProvider;
 	private LoginProvider loginProvider;
 	private Logger logger;
@@ -42,11 +42,11 @@ public class Authenticator implements Serializable{
 	}
 
 	public boolean authenticateRole(Role role) {
-		if (sessionBean.getMember() == null) {
+		if (userSessionBean.getMember() == null) {
 			return false;
 		}
 
-		Member member = sessionBean.getMember();
+		Member member = userSessionBean.getMember();
 
 		if (member.getRole() == Role.ADMIN) {
 			return true;
@@ -72,8 +72,8 @@ public class Authenticator implements Serializable{
 	}
 
 	@Inject
-	public void setSessionBean(SessionBean sessionBean) {
-		this.sessionBean = sessionBean;
+	public void setUserSessionBean(UserSessionBean userSessionBean) {
+		this.userSessionBean = userSessionBean;
 	}
 
 	@Inject
