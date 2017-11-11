@@ -25,6 +25,8 @@ public class Member {
 	@Column(unique = true)
 	private String email;
 	@Column
+	private String privateEmail;
+	@Column
 	private String street;
 	@Column
 	private String mobileNumber;
@@ -269,5 +271,13 @@ public class Member {
 
 	public void setShirtNumber(String shirtNumber) {
 		this.shirtNumber = shirtNumber;
+	}
+
+	public String getPrivateEmail() {
+		return privateEmail;
+	}
+
+	public void setPrivateEmail(String privateEmail) {
+		this.privateEmail = privateEmail;
 	}
 }

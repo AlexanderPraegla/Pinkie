@@ -4,6 +4,7 @@ import de.altenerding.biber.pinkie.business.login.boundary.AuthenticateService;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
+import de.altenerding.biber.pinkie.business.notification.NotificationService;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
@@ -18,6 +19,7 @@ import java.io.Serializable;
 public class PasswordBean implements Serializable {
 
 	private AuthenticateService authenticateService;
+	private NotificationService notificationService;
 	private MemberBean memberBean;
 	private Logger logger;
 	private String password;
@@ -30,6 +32,9 @@ public class PasswordBean implements Serializable {
 		logger.info("Resetting password for alias={}", alias);
 		authenticateService.resetPassword(alias, password);
 
+		//Dummy method. Later there has to be an email sender to send the password
+		notificationService.sendResettedPassword(member.getPrivateEmail(), password);
+
 		FacesMessages.info(member.getFullName(), "Passwort neu gesetzt");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
@@ -39,6 +44,11 @@ public class PasswordBean implements Serializable {
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
+	}
+
+	@Inject
+	public void setNotificationService(NotificationService notificationService) {
+		this.notificationService = notificationService;
 	}
 
 	@Inject
