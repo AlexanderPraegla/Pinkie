@@ -6,10 +6,6 @@
 
     <ui:define name="content">
         <b:container id="reportListingContainerId">
-            <b:panel rendered="#{userSessionBean.isUserInRole('PRESS')}">
-                <b:button value="Bericht hinzufügen" look="primary"
-                          outcome="/secure/report/reportAdd.xhtml"/>
-            </b:panel>
             <ui:repeat value="#{reportBean.reports}" var="report">
                 <components:reportPreview
                     report="#{report}"

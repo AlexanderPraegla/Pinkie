@@ -11,6 +11,8 @@
                         <b:navLink header="Bearbeiten" rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}" value="Startseite bearbeiten"
                                    outcome="/secure/mainpage/editMainpage.xhtml"/>
+                        <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}" value="Bericht hinzufügen"
+                                   outcome="/secure/report/reportAdd.xhtml"/>
                         <b:navLink  rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink value="Berichte" outcome="/public/news/report.xhtml"/>
                         <b:navLink value="Spielplan" outcome="/public/news/clubSchedule.xhtml"/>
