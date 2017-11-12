@@ -11,13 +11,13 @@
                 <b:panel>
                     <b:row>
                         <b:column>
-                            <b:inputText value="#{deanBean.dean.description}" label="Beschreibung"
+                            <b:inputText value="#{deanBean.dean.description}" label="#{label['description']}"
                             required="true" requiredMessage="Bitte Beschreibung ausfüllen"/>
                         </b:column>
                     </b:row>
                     <b:row>
                         <b:column>
-                            <b:selectOneMenu value="#{deanBean.dean.member}" label="Mitglied">
+                            <b:selectOneMenu value="#{deanBean.dean.member}" label="#{label['member']}">
                                 <f:selectItems value="#{memberBean.members}"
                                                var="member" itemValue="#{member}" itemLabel="#{member.getFullName()}"/>
                             </b:selectOneMenu>
@@ -25,7 +25,7 @@
                     </b:row>
                     <b:row>
                         <b:column>
-                            <h:outputLabel for="deanImageUpload" value="Vorstandsbild"/>
+                            <h:outputLabel for="deanImageUpload" value="#{label['club.deans.deanImage']}"/>
                             <h:inputFile id="deanImageUpload" value="#{deanBean.file}" styleClass="btn btn-default"
                                          style="margin-bottom: 15px;"
                                         title="Wenn kein Bild ausgewählt wird, wird das Profil vom Mitgliedsprofil angezeigt"/>

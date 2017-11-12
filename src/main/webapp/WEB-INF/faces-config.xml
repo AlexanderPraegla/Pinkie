@@ -3,5 +3,18 @@
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-
+    <application>
+        <resource-bundle>
+            <base-name>text.label</base-name>
+            <var>label</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>text.pageLabels</base-name>
+            <var>pageLabel</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>text.menu</base-name>
+            <var>menu</var>
+        </resource-bundle>
+    </application>
 </faces-config>

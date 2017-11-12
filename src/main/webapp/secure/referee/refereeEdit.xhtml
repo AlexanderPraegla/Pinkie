@@ -30,10 +30,10 @@
                                 </b:column>
                                 <b:column>
                                     <h:inputFile value="#{refereeBean.file}" styleClass="btn btn-default"
-                                                 style="margin-bottom: 15px;" label="Schiedsrichterbild"/>
+                                                 style="margin-bottom: 15px;" label="#{pageLabel['club.referees.refereesImage']}"/>
                                 </b:column>
                                 <b:column>
-                                    <b:commandButton value="Aktualisieren" look="primary"
+                                    <b:commandButton value="#{label['button.upload.image']}" look="primary"
                                                      action="#{refereeBean.updateReferee()}"/>
                                 </b:column>
                             </b:row>

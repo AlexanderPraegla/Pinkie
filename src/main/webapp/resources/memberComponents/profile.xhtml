@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite" xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui">
 
@@ -49,19 +48,19 @@
                 <b:column colLg="10" colMd="10" colSm="9" colXs="12">
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showFullName}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberFullname"
-                                                                                          value="Name"/></b:column>
+                                                                                          value="#{label['fullName']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberFullname"
                                                                                          value="#{cc.attrs.member.getFullName()}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showNickname}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberNickname"
-                                                                                          value="Spitzname"/></b:column>
+                                                                                          value="#{label['nickName']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberNickname"
                                                                                          value="#{cc.attrs.member.nickName}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showNickname}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberBirthday"
-                                                                                          value="Geburtstag"/></b:column>
+                                                                                          value="#{label['birthday']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberBirthday"
                                                                                          value="#{cc.attrs.member.birthday}">
                             <f:convertDateTime pattern="dd.MM.yyyy" timeZone="Europe/Berlin"/>
@@ -69,79 +68,79 @@
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showEmail}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberEmail"
-                                                                                          value="E-Mail Adresse"/></b:column>
+                                                                                          value="#{label['eMail']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberEmail"
                                                                                          value="#{cc.attrs.member.email}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showMobileNumber}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberMobile"
-                                                                                          value="Handynummer"/></b:column>
+                                                                                          value="#{label['mobileNumber']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberMobile"
                                                                                          value="#{cc.attrs.member.mobileNumber}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showPhonenumber}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberPhonenumber"
-                                                                                          value="Telefonnummer"/></b:column>
+                                                                                          value="#{label['phoneNumber']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberPhonenumber"
                                                                                          value="#{cc.attrs.member.phoneNumber}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showCity}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberCity"
-                                                                                          value="Ort"/></b:column>
+                                                                                          value="#{label['city']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberCity"
                                                                                          value="#{cc.attrs.member.zipcode} #{cc.attrs.member.city}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showStreet}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberStreet"
-                                                                                          value="Straße"/></b:column>
+                                                                                          value="#{label['street']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberStreet"
                                                                                          value="#{cc.attrs.member.street}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showPreviousClubs}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberPreviousClubs"
-                                                                                          value="Bisherige Vereine"/></b:column>
+                                                                                          value="#{label['previousClubs']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberPreviousClubs"
                                                                                          value="#{cc.attrs.member.previousClubs}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showShirtNumber}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberShirtNumber"
-                                                                                          value="Trikotnummer"/></b:column>
+                                                                                          value="#{label['shirtNumber']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberShirtNumber"
                                                                                          value="#{cc.attrs.member.shirtNumber}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showPosition}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberPosition"
-                                                                                          value="Position"/></b:column>
+                                                                                          value="#{label['position']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberPosition"
                                                                                          value="#{cc.attrs.member.position}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showThrowingHand}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberThrowingHand"
-                                                                                          value="Wurfhand"/></b:column>
+                                                                                          value="#{label['throwingHand']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberThrowingHand"
                                                                                          value="#{cc.attrs.member.throwingHand}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showTeamFunction}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberTeamFunction"
-                                                                                          value="Aufgabe in der Mannschaft"/></b:column>
+                                                                                          value="#{label['teamFunction']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberTeamFunction"
                                                                                          value="#{cc.attrs.member.teamFunction}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showHeight}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberHeight"
-                                                                                          value="Größe"/></b:column>
+                                                                                          value="#{label['height']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberHeight"
                                                                                          value="#{cc.attrs.member.height}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showWadlUmfang}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberWadlUmfang"
-                                                                                          value="Wadl Umfang"/></b:column>
+                                                                                          value="#{label['wadlUmfang']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberWadlUmfang"
                                                                                          value="#{cc.attrs.member.wadlUmfang}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showAdditionalInformation}">
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberAdditionalInformation"
-                                                                                          value="Zusätzliche Informationen"/></b:column>
+                                                                                          value="#{label['additionalInformation']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberAdditionalInformation"
                                                                                          value="#{cc.attrs.member.additionalInformation}"/></b:column>
                     </b:row>

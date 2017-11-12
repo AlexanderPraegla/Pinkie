@@ -13,23 +13,23 @@
         </f:metadata>
         <b:container>
             <b:tabView style="margin-bottom: 15px;" activeIndex="#{tabBean.tabIndex}" id="tabView" >
-                <b:tab title="Info" ajax="true" >
+                <b:tab title="#{pageLabel['team.tab.info']}" ajax="true" >
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('0')}" render="@none"/>
                     <components:teamInfo/>
                 </b:tab>
-                <b:tab title="Spielerprofile">
+                <b:tab title="#{pageLabel['team.tab.playerProfiles']}">
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('1')}" render="@none"/>
                     <components:teamProfiles/>
                 </b:tab>
-                <b:tab title="Tabelle">
+                <b:tab title="#{pageLabel['team.tab.standing']}">
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('2')}"/>
                     <components:teamStandings/>
                 </b:tab>
-                <b:tab title="Spielplan">
+                <b:tab title="#{pageLabel['team.tab.schedule']}">
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('3')}"/>
                     <components:teamSchedule/>
                 </b:tab>
-                <b:tab title="Spielberichte">
+                <b:tab title="#{pageLabel['team.tab.reports']}">
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('4')}" render="@none"/>
                     <components:teamReports/>
                 </b:tab>

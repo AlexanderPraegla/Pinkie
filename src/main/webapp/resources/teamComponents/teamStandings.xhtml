@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
->
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui">
 
 <h:head/>
 <h:body>
@@ -14,23 +12,23 @@
     <composite:implementation>
         <b:dataTable value="#{teamBean.teamStandings}" searching="false" paginated='false' info="false"
                      var="standing" fixedHeader="true" scrollHorizontally="true">
-            <b:dataTableColumn label="Rang" value="#{standing.stand}" orderable="false"
+            <b:dataTableColumn label="#{label['standing.stand']}" value="#{standing.stand}" orderable="false"
                                contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="Mannschaft" value="#{standing.teamName}" orderable="false"
+            <b:dataTableColumn label="#{label['standing.teamName']}" value="#{standing.teamName}" orderable="false"
                                contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="Spiele" value="#{standing.numberOfMatches}" orderable="false"
+            <b:dataTableColumn label="#{label['standing.numberOfMatches']}" value="#{standing.numberOfMatches}" orderable="false"
                                contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="S" value="#{standing.numberOfWinnings}" orderable="false"
+            <b:dataTableColumn label="#{label['standing.numberOfWinnings']}" value="#{standing.numberOfWinnings}" orderable="false"
                                contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="U" value="#{standing.numberOfTies}" orderable="false"
+            <b:dataTableColumn label="#{label['standing.numberOfTies']}" value="#{standing.numberOfTies}" orderable="false"
                                contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="V" value="#{standing.numberOfLoss}" orderable="false"
+            <b:dataTableColumn label="#{label['standing.numberOfLoss']}" value="#{standing.numberOfLoss}" orderable="false"
                                contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="Tore" value="#{standing.goals}" orderable="false"
+            <b:dataTableColumn label="#{label['standing.goals']}" value="#{standing.goals}" orderable="false"
                                contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="Differenz" value="#{standing.goalDifference}" orderable="false"
+            <b:dataTableColumn label="#{label['standing.goalDifference']}" value="#{standing.goalDifference}" orderable="false"
                                contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="Punkte" value="#{standing.points}" orderable="false"
+            <b:dataTableColumn label="#{label['standing.points']}" value="#{standing.points}" orderable="false"
                                contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
         </b:dataTable>
     </composite:implementation>

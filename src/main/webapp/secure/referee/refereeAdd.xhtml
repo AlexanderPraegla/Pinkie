@@ -11,7 +11,7 @@
                 <b:panel>
                     <b:row>
                         <b:column>
-                            <b:selectOneMenu value="#{refereeBean.referee.member}" label="Mitglied">
+                            <b:selectOneMenu value="#{refereeBean.referee.member}" label="#{label['member']}">
                                 <f:selectItems value="#{memberBean.members}"
                                                var="member" itemValue="#{member}" itemLabel="#{member.getFullName()}"/>
                             </b:selectOneMenu>
@@ -19,7 +19,7 @@
                     </b:row>
                     <b:row>
                         <b:column>
-                            <h:outputLabel for="refereeImageUpload" value="Schiedsrichterbild"/>
+                            <h:outputLabel for="refereeImageUpload" value="#{pageLabel['club.referees.refereesImage']}"/>
                             <h:inputFile id="refereeImageUpload" value="#{refereeBean.file}" styleClass="btn btn-default"
                                          style="margin-bottom: 15px;"
                                         title="Wenn kein Bild ausgewählt wird, wird das Profil vom Mitgliedsprofil angezeigt"/>

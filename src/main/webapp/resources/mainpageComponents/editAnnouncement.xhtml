@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
->
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head/>
 <h:body>
@@ -13,7 +11,7 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="Ankündigungen bearbeiten" collapsed="true">
+        <b:panel title="#{pageLabel['mainpage.announcement.edit']}" collapsed="true">
             <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
                     <div style="margin-bottom: 10px">
                         <h:form id="announcementListFormId" enctype="multipart/form-data">
@@ -34,13 +32,13 @@
                             <b:column colLg="2" colMd="2" colSm="2" colXs="6">
                                 <b:commandButton
                                         action="#{announcementProcessingBean.saveEditedAnnouncement(announcement)}"
-                                        disabled="false" value="Speichern" look="success" icon="pencil"
+                                        disabled="false" value="#{label['button.save']}" look="success"
                                         iconAlign="right"/>
                             </b:column>
                             <b:column colLg="2" colMd="2" colSm="2" colXs="6">
                                 <b:commandButton
                                         action="#{announcementProcessingBean.archiveAnnouncement(announcement)}"
-                                        disabled="false" value="Archivieren" look="danger" icon="remove"
+                                        disabled="false" value="#{label['button.archive']}" look="danger"
                                         iconAlign="right"/>
                             </b:column>
                         </b:row>

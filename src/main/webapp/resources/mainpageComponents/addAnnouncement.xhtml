@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
->
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui">
 
 <h:head/>
 <h:body>
@@ -12,20 +10,20 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="Ankündigung hinzufügen" rendered="#{userSessionBean.isUserInRole('PRESS')}">
+        <b:panel title="#{pageLabel['mainpage.announcement.add']}" rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <h:form enctype="multipart/form-data">
                 <b:column colLg="10" colMd="10" colSm="10" colXs="12">
                     <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}" rows="5"/>
                 </b:column>
                 <b:column colLg="2" colMd="2" colSm="2" colXs="12">
-                    <b:commandButton value="Speichern" look="success"
+                    <b:commandButton value="#{label['button.save']}" look="success"
                                      action="#{announcementProcessingBean.saveAnnouncement()}"/>
                 </b:column>
                 <b:column>
                     <h:inputFile value="#{announcementProcessingBean.file}" styleClass="btn btn-default"
                                  style="margin-bottom: 15px;"/>
                     <b:inputText value="#{announcementProcessingBean.documentDisplayedName}"
-                                 label="Angezeigter Dokumentenname"/>
+                                 label="#{label['document.displayedName']}"/>
                 </b:column>
 
             </h:form>

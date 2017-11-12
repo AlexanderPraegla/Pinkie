@@ -3,7 +3,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <ui:define name="title">Mannschaft bearbeiten</ui:define>
+    <ui:define name="title"><h:outputText value="#{pageLabel['team.edit.title']}"/> </ui:define>
 
     <ui:define name="content">
         <f:metadata>
@@ -15,10 +15,10 @@
                 <h:form enctype="multipart/form-data">
                     <b:row>
                         <b:column>
-                            <b:inputText value="#{teamEditBean.team.name}" label="Team Name"/>
-                            <b:inputText value="#{teamEditBean.team.league}" label="Liga"/>
-                            <b:inputText value="#{teamEditBean.team.urlStanding}" label="nuLiga Url Tabelle"/>
-                            <b:inputText value="#{teamEditBean.team.season.name}" label="Saison" disabled="true"/>
+                            <b:inputText value="#{teamEditBean.team.name}" label="#{pageLabel['team.teamName']}"/>
+                            <b:inputText value="#{teamEditBean.team.league}" label="#{pageLabel['team.league']}"/>
+                            <b:inputText value="#{teamEditBean.team.urlStanding}" label="#{pageLabel['team.nuLigaUrl']}"/>
+                            <b:inputText value="#{teamEditBean.team.season.name}" label="#{pageLabel['team.season']}" disabled="true"/>
                         </b:column>
                     </b:row>
                     <b:row>
@@ -28,17 +28,16 @@
                         </b:column>
                         <b:column colLg="6" colMd="6" colSm="12" colXs="12">
                             <h:inputFile value="#{teamEditBean.file}" styleClass="btn btn-default"
-                                         style="margin-bottom: 15px;"
-                                         label="Mannschaftsbild"/>
+                                         style="margin-bottom: 15px;"/>
                         </b:column>
                     </b:row>
                     <b:row>
                         <b:column>
-                            <b:inputTextarea value="#{teamEditBean.team.imageDescription}" label="Bild Beschriftung"/>
+                            <b:inputTextarea value="#{teamEditBean.team.imageDescription}" label="#{label['description']}"/>
                         </b:column>
                     </b:row>
                     <b:row style="margin-bottom: 15px;">
-                        <b:selectMultiMenu value="#{teamEditBean.memberIndex}" label="Spieler"
+                        <b:selectMultiMenu value="#{teamEditBean.memberIndex}" label="#{pageLabel['team.players']}"
                                            enableFiltering="true"
                                            colLg="5" colMd="6" colSm="12" colXs="12"
                                            enableCaseInsensitiveFiltering="true"
@@ -47,11 +46,11 @@
                                            itemValue="#{teamEditBean.members.indexOf(member)}"
                                            itemLabel="#{member.getFullName()}"/>
                         </b:selectMultiMenu>
-                        <b:selectMultiMenu value="#{teamEditBean.trainerIndex}" label="Trainer"
+                        <b:selectMultiMenu value="#{teamEditBean.trainerIndex}" label="#{pageLabel['team.trainers']}"
                                            enableFiltering="true"
                                            colLg="5" colMd="6" colSm="12" colXs="12"
                                            enableCaseInsensitiveFiltering="true"
-                                           filterPlaceholder="Spielername eintippen">
+                                           filterPlaceholder="Trainername eintippen">
                             <f:selectItems value="#{teamEditBean.members}" var="member"
                                            itemValue="#{teamEditBean.members.indexOf(member)}"
                                            itemLabel="#{member.getFullName()}"/>
@@ -59,9 +58,9 @@
                     </b:row>
                     <b:row>
                         <b:column>
-                            <b:inputTextarea value="#{teamEditBean.team.additionalInfo}" label="Trainingszeiten"/>
+                            <b:inputTextarea value="#{teamEditBean.team.additionalInfo}" label="#{pageLabel['team.info.practiceTime']}"/>
 
-                            <b:commandButton value="Speichern" look="success"
+                            <b:commandButton value="#{label['button.save']}" look="success"
                                              action="#{teamEditBean.updateTeam}"/>
                         </b:column>
                     </b:row>

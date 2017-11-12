@@ -33,10 +33,10 @@
                                 </b:column>
                                 <b:column>
                                     <h:inputFile value="#{deanBean.file}" styleClass="btn btn-default"
-                                                 style="margin-bottom: 15px;" label="Vorstandsbild"/>
+                                                 style="margin-bottom: 15px;" label="#{label['club.deans.deanImage']}"/>
                                 </b:column>
                                 <b:column>
-                                    <b:commandButton value="Aktualisieren" look="primary"
+                                    <b:commandButton value="#{label['button.upload.image']}" look="primary"
                                                      action="#{deanBean.updateDean()}"/>
                                 </b:column>
                             </b:row>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
->
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:b="http://bootsfaces.net/ui">
 
 <h:head/>
 <h:body>
@@ -12,17 +11,17 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="Die letzten Ergebnisse" collapsible="true">
+        <b:panel title="#{pageLabel['mainpage.lastResults.title']}" collapsible="true">
             <b:dataTable value="#{scheduleBean.getRecentResults()}" searching="false" info="false" paginated="false"
                          var="match" fixedHeader="true" scrollHorizontally="true">
-                <b:dataTableColumn label="Team" value="#{match.team.name}" orderable="false"/>
-                <b:dataTableColumn label="Tag" value="#{match.day}" orderable="false"/>
-                <b:dataTableColumn label="Datum" value="#{match.getFormattedMatchDate()}" orderable="false"/>
-                <b:dataTableColumn label="Heim" value="#{match.homeTeam}" orderable="false"
+                <b:dataTableColumn label="#{label['table.team']}" value="#{match.team.name}" orderable="false"/>
+                <b:dataTableColumn label="#{label['table.day']}" value="#{match.day}" orderable="false"/>
+                <b:dataTableColumn label="#{label['table.date']}" value="#{match.getFormattedMatchDate()}" orderable="false"/>
+                <b:dataTableColumn label="#{label['table.homeTeam']}" value="#{match.homeTeam}" orderable="false"
                                    contentStyle="#{match.homeTeam}"/>
-                <b:dataTableColumn label="Gast" value="#{match.guestTeam}" orderable="false"
+                <b:dataTableColumn label="#{label['table.guestTeam']}" value="#{match.guestTeam}" orderable="false"
                                    contentStyle="#{match.guestTeam}"/>
-                <b:dataTableColumn label="Ergebnis" value="#{match.result}" orderable="false"/>
+                <b:dataTableColumn label="#{label['table.result']}" value="#{match.result}" orderable="false"/>
             </b:dataTable>
         </b:panel>
     </composite:implementation>

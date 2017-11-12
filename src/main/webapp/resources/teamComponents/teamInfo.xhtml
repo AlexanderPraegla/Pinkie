@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:b="http://bootsfaces.net/ui"
@@ -14,7 +13,7 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="Mannschaft">
+        <b:panel title="#{pageLabel['team.info.team']}">
             <div style="margin-right: 20px; margin-left: 20px">
                 <b:row>
                     <h3><h:outputText value="#{teamBean.team.name}"/>
@@ -34,7 +33,7 @@
                 </b:row>
             </div>
         </b:panel>
-        <b:panel title="Trainer">
+        <b:panel title="#{pageLabel['team.trainers']}">
             <ui:repeat value="#{teamBean.team.trainers}" var="trainer">
                 <components:profile
                         member="#{trainer}"
@@ -45,7 +44,7 @@
                         showEmail="#{true}"/>
             </ui:repeat>
         </b:panel>
-        <b:panel title="Trainingszeiten" style="white-space: pre-wrap">
+        <b:panel title="#{pageLabel['team.info.practiceTime']}" style="white-space: pre-wrap">
             <h:outputText value="#{teamBean.team.additionalInfo}" escape="false"/>
         </b:panel>
     </composite:implementation>

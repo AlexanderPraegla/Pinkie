@@ -3,7 +3,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <ui:define name="title">Bericht bearbeiten</ui:define>
+    <ui:define name="title"><h:outputText value="#{pageLabel['report.edit']}"/> </ui:define>
 
     <ui:define name="content">
         <f:metadata>
@@ -12,19 +12,19 @@
         </f:metadata>
         <b:container rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <h:form id="editReportFormId">
-                <b:inputText value="#{reportBean.report.author.getFullName()}" label="Author" disabled="true"/>
-                <b:inputText value="#{reportBean.report.title}" label="Titel" required="true" requiredMessage="Bitte Titel angeben"/>
-                <b:inputText value="#{reportBean.report.summary}" label="Zusammenfassung" required="true" requiredMessage="Bitte Zusammenfassung angeben"/>
+                <b:inputText value="#{reportBean.report.author.getFullName()}" label="#{pageLabel['report.author']}" disabled="true"/>
+                <b:inputText value="#{reportBean.report.title}" label="#{pageLabel['report.reportTitle']}" required="true" requiredMessage="Bitte Titel angeben"/>
+                <b:inputText value="#{reportBean.report.summary}" label="#{pageLabel['report.summary']}" required="true" requiredMessage="Bitte Zusammenfassung angeben"/>
                 <b:panelGrid colSpans="4,4,4">
-                    <b:inputText value="#{reportBean.report.season.name}" label="Saison" disabled="true"/>
-                    <b:inputText value="#{reportBean.report.team.name}" label="Team" disabled="true"/>
-                    <b:inputText value="#{reportBean.report.type.label}" label="Berichtart" disabled="true"/>
+                    <b:inputText value="#{reportBean.report.season.name}" label="#{pageLabel['report.season']}" disabled="true"/>
+                    <b:inputText value="#{reportBean.report.team.name}" label="#{pageLabel['report.team']}" disabled="true"/>
+                    <b:inputText value="#{reportBean.report.type.label}" label="#{pageLabel['report.reportType']}" disabled="true"/>
                 </b:panelGrid>
                 <b:inputTextarea value="#{reportBean.report.text}" rows="20"
-                                 label="Text" required="true"
+                                 label="#{pageLabel['report.text']}" required="true"
                                  requiredMessage="Es sind keine leeren Berichte erlaubt"/>
                 <h:inputHidden value="#{reportBean.report.id}"/>
-                <b:commandButton value="Speichern" look="success"
+                <b:commandButton value="#{label['button.save']}" look="success"
                                  action="#{reportBean.updateReport}"/>
             </h:form>
         </b:container>

@@ -4,7 +4,7 @@
                 xmlns:components="http://java.sun.com/jsf/composite/memberComponents"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
 >
-    <ui:define name="title">Vorstand</ui:define>
+    <ui:define name="title"><h:outputText value="#{pageLabel['club.trainers.title']}" /></ui:define>
 
     <ui:define name="content">
         <b:container>
@@ -30,7 +30,7 @@
                             <b:inputTextarea value="#{trainerBean.fileMapping.description}"/>
                         </b:column>
                         <b:column colLg="6" colMd="6" colSm="12" colXs="12">
-                            <b:commandButton value="Aktualisieren" look="primary"
+                            <b:commandButton value="#{label['button.upload.image']}" look="primary"
                                              action="#{trainerBean.uploadTrainerGroupImage()}"/>
                         </b:column>
                     </h:form>

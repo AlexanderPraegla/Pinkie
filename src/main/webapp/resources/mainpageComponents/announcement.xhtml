@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
->
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head/>
 <h:body>
@@ -13,7 +11,7 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="Ankündigungen">
+        <b:panel title="#{pageLabel['mainpage.announcement.title']}">
             <h:form id="announcementListFormId">
                 <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
                     <b:panel collapsible="false">

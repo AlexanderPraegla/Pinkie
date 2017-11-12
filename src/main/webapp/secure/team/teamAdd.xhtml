@@ -3,7 +3,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <ui:define name="title">Mannschaft anlegen</ui:define>
+    <ui:define name="title"><h:outputText value="#{pageLabel['team.add.title']}"/> </ui:define>
 
     <ui:define name="content">
         <b:container rendered="#{userSessionBean.isUserInRole('ADMIN')}">
@@ -12,24 +12,24 @@
                     <b:row>
                         <b:column>
                             <b:inputText required="true" requiredMessage="Bitte Mannschaftsnamen angeben"
-                                         value="#{teamCreationBean.team.name}" label="Team Name"/>
-                            <b:inputText required="true" requiredMessage="Bitte Liga auswählen"
-                                         value="#{teamCreationBean.team.league}" label="Liga"/>
-                            <b:inputText value="#{teamCreationBean.team.urlStanding}" label="nuLiga Url Tabelle"/>
+                                         value="#{teamCreationBean.team.name}" label="#{pageLabel['team.teamName']}"/>
+                            <b:inputText required="true" requiredMessage="Bitte Liga ausfüllen"
+                                         value="#{teamCreationBean.team.league}" label="#{pageLabel['team.league']}"/>
+                            <b:inputText value="#{teamCreationBean.team.urlStanding}" label="#{pageLabel['team.nuLigaUrl']}"/>
                             <b:selectOneMenu required="true" requiredMessage="Bitte Saison auswählen"
-                                             value="#{teamCreationBean.team.season}" label="Saison">
+                                             value="#{teamCreationBean.team.season}" label="#{pageLabel['team.season']}">
                                 <f:selectItems value="#{seasonBean.seasons}" var="season" itemValue="#{season}"
                                                itemLabel="#{season.name}"/>
                             </b:selectOneMenu>
 
                             <h:inputFile value="#{teamCreationBean.file}" styleClass="btn btn-default"
-                                         style="margin-bottom: 15px;" label="Mannschaftsbild"/>
+                                         style="margin-bottom: 15px;" />
                             <b:inputTextarea value="#{teamCreationBean.team.imageDescription}"
-                                             label="Bild Beschriftung"/>
+                                             label="#{label['description']}"/>
                         </b:column>
                         <b:row style="margin-bottom: 15px;">
                             <b:column>
-                                <b:selectMultiMenu value="#{teamCreationBean.memberIndex}" label="Spieler"
+                                <b:selectMultiMenu value="#{teamCreationBean.memberIndex}" label="#{pageLabel['team.players']}"
                                                    enableFiltering="true"
                                                    colLg="5" colMd="6" colSm="12" colXs="12"
                                                    enableCaseInsensitiveFiltering="true"
@@ -38,11 +38,11 @@
                                                    itemValue="#{memberBean.members.indexOf(member)}"
                                                    itemLabel="#{member.getFullName()}"/>
                                 </b:selectMultiMenu>
-                                <b:selectMultiMenu value="#{teamCreationBean.trainerIndex}" label="Trainer"
+                                <b:selectMultiMenu value="#{teamCreationBean.trainerIndex}" label="#{pageLabel['team.trainers']}"
                                                    enableFiltering="true"
                                                    colLg="5" colMd="6" colSm="12" colXs="12"
                                                    enableCaseInsensitiveFiltering="true"
-                                                   filterPlaceholder="Spielername eintippen">
+                                                   filterPlaceholder="Trainername eintippen">
                                     <f:selectItems value="#{memberBean.members}" var="member"
                                                    itemValue="#{memberBean.members.indexOf(member)}"
                                                    itemLabel="#{member.getFullName()}"/>
@@ -50,9 +50,9 @@
                             </b:column>
                         </b:row>
                         <b:column>
-                            <b:inputTextarea value="#{teamCreationBean.team.additionalInfo}" label="Trainingszeiten"/>
+                            <b:inputTextarea value="#{teamCreationBean.team.additionalInfo}" label="#{pageLabel['team.info.practiceTime']}"/>
 
-                            <b:commandButton value="Speichern" look="success"
+                            <b:commandButton value="#{label['button.save']}" look="success"
                                              action="#{teamCreationBean.createTeam}"/>
                         </b:column>
                     </b:row>

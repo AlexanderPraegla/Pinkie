@@ -22,19 +22,19 @@
                     <h:inputHidden value="#{memberBean.member.privateEmail}"/>
                 </b:formGroup>
                 <b:formGroup>
-                    <b:inputText value="#{memberBean.member.firstName}" label="Vorname"
-                                 placeholder="Vorname" disabled="true"/>
+                    <b:inputText value="#{memberBean.member.firstName}" label="#{label['firstName']}"
+                                 placeholder="#{label['firstName']}" disabled="true"/>
                 </b:formGroup>
                 <b:formGroup>
-                    <b:inputText value="#{memberBean.member.lastName}" label="Nachname"
-                                 placeholder="Nachname" disabled="true"/>
+                    <b:inputText value="#{memberBean.member.lastName}" label="#{label['lastName']}"
+                                 placeholder="#{label['lastName']}" disabled="true"/>
                 </b:formGroup>
                 <b:formGroup>
-                    <b:inputText value="#{memberBean.member.email}" label="E-Mail Adresse" disabled="true"/>
+                    <b:inputText value="#{memberBean.member.email}" label="#{label['eMail']}" disabled="true"/>
                 </b:formGroup>
                 <memberComponents:editPersonalProfile/>
                 <memberComponents:editPlayersProfile/>
-                <b:commandButton action="#{memberBean.updatProfile}" value="Speichern">
+                <b:commandButton action="#{memberBean.updatProfile}" value="#{label['button.save']}">
                     <f:param value="#{memberBean.memberId}" name="memberId"/>
                 </b:commandButton>
             </b:form>

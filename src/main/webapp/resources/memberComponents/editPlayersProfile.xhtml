@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:b="http://bootsfaces.net/ui">
 
@@ -14,37 +13,37 @@
     </composite:interface>
 
     <composite:implementation>
-        <b:panel title="Sportliches" collapsed="false">
+        <b:panel title="#{pageLabel['member.edit.playersProfile']}" collapsed="false">
             <b:formGroup>
-                <b:inputText value="#{memberBean.member.position}" label="Position"
-                             placeholder="Position"/>
+                <b:inputText value="#{memberBean.member.position}" label="#{label['position']}"
+                             placeholder="#{label['position']}"/>
             </b:formGroup>
             <b:formGroup>
-                <b:inputText value="#{memberBean.member.shirtNumber}" label="Trikotnummer" mask="99"
-                             placeholder="Trikotnummer"/>
+                <b:inputText value="#{memberBean.member.shirtNumber}" label="#{label['shirtNumber']}" mask="99"
+                             placeholder="#{label['shirtNumber']}"/>
             </b:formGroup>
             <b:formGroup>
-                <b:inputText value="#{memberBean.member.throwingHand}" label="Wurfhand"
-                             placeholder="Wurfhand"/>
+                <b:inputText value="#{memberBean.member.throwingHand}" label="#{label['throwingHand']}"
+                             placeholder="#{label['throwingHand']}"/>
             </b:formGroup>
             <b:formGroup>
-                <b:inputText value="#{memberBean.member.previousClubs}" label="Bisherige Vereine"
-                             placeholder="Bisherige Vereine"/>
+                <b:inputText value="#{memberBean.member.previousClubs}" label="#{label['previousClubs']}"
+                             placeholder="#{label['previousClubs']}"/>
             </b:formGroup>
             <b:formGroup>
-                <b:inputText value="#{memberBean.member.teamFunction}" label="Mannschaftsaufgabe"
+                <b:inputText value="#{memberBean.member.teamFunction}" label="#{label['teamFunction']}"
                              placeholder="z.B. Hallendienst-/Eventbeauftragter"/>
             </b:formGroup>
             <b:formGroup>
-                <b:inputText value="#{memberBean.member.wadlUmfang}" label="Wadlumfang"
+                <b:inputText value="#{memberBean.member.wadlUmfang}" label="#{label['wadlUmfang']}"
                              mask="999 cm"
-                             placeholder="In cm"/>
+                             placeholder="Wadlumfang in cm"/>
             </b:formGroup>
             <b:formGroup>
                 <b:inputTextarea value="#{memberBean.member.additionalInformation}"
-                                 label="Zusätzliche Informationen"
+                                 label="#{label['additionalInformation']}"
                                  rows="5"
-                                 placeholder="Zusätzliche Informationen"/>
+                                 placeholder="#{label['additionalInformation']}"/>
             </b:formGroup>
         </b:panel>
     </composite:implementation>

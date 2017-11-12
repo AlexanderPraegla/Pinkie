@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
->
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head/>
 <h:body>
@@ -13,7 +11,7 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="Bild der Woche Bearbeiten" collapsed="true" rendered="#{userSessionBean.isUserInRole('PRESS')}">
+        <b:panel title="#{pageLabel['mainpage.weeklyImage.edit']}" collapsed="true" rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <ui:repeat id="repeatweeklyImageId" value="#{weeklyImageBean.weeklyImages}" var="weeklyImage">
                 <h:form id="weeklyImageListFormId">
                     <div style="margin-bottom: 15px">
@@ -27,11 +25,11 @@
                             </b:column>
                             <b:column colLg="2" colMd="2" colSm="4" colXs="12">
                                 <b:commandButton action="#{weeklyImageBean.updateText(weeklyImage)}"
-                                                 disabled="false" value="Text aktualisieren" look="success"/>
+                                                 disabled="false" value="#{pageLabel['mainpage.weeklyImage.refreshText']}" look="success"/>
                             </b:column>
                             <b:column colLg="2" colMd="2" colSm="4" colXs="12">
                                 <b:commandButton action="#{weeklyImageBean.archive(weeklyImage.id)}"
-                                                 disabled="false" value="Archivieren" look="danger"/>
+                                                 disabled="false" value="#{label['button.archive']}" look="danger"/>
                             </b:column>
                         </b:row>
                     </div>

@@ -20,12 +20,12 @@
                                     <b:inputText value="#{dean.orderId}" mask="integer"/>
                                 </b:column>
                                 <b:column colLg="2" colMd="2" colSm="2" colXs="4">
-                                    <b:button value="Bearbeiten" look="default btn-block" outcome="/secure/dean/deanEdit.xhtml">
+                                    <b:button value="#{label['button.edit']}" look="default btn-block" outcome="/secure/dean/deanEdit.xhtml">
                                         <f:param name="deanId" value="#{dean.id}"/>
                                     </b:button>
                                 </b:column>
                                 <b:column colLg="2" colMd="2" colSm="2" colXs="4">
-                                    <b:commandButton value="Archivieren" look="danger btn-block"
+                                    <b:commandButton value="#{label['button.archive']}" look="danger btn-block"
                                                      action="#{deanBean.archiveDean(dean)}">
                                     </b:commandButton>
                                 </b:column>
