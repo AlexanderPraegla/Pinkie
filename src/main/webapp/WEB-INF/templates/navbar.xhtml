@@ -80,7 +80,10 @@
                 <b:dropMenu value="#{userSessionBean.member.email}" rendered="#{userSessionBean.member != null}">
                     <b:listLinks>
                         <b:navLink value="Profil bearbeiten" href="#"/>
-                        <b:navLink value="Password ändern" href="#"/>
+                        <b:navLink value="Password ändern" outcome="/secure/profile/changePassword.xhtml"
+                                   includeViewParams="true">
+                            <f:param name="memberId" value="#{userSessionBean.member.id}"/>
+                        </b:navLink>
                         <b:navCommandLink action="#{loginBean.logout()}"
                                           disabled="false" value="Logout" icon="log-out"
                                           iconAlign="right"/>

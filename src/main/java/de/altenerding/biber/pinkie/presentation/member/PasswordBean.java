@@ -29,6 +29,7 @@ public class PasswordBean implements Serializable {
 	private String password;
 	private String passwordRetype;
 	private String passwordOld;
+	private String passwordNew;
 
 	public void initMember() {
 		member = memberService.getMemberById(memberId);
@@ -36,10 +37,7 @@ public class PasswordBean implements Serializable {
 
 	@Access(role = Role.ADMIN)
 	public String resetPassword() {
-		if (!StringUtils.equals(password, passwordRetype)) {
-			FacesMessages.error("Die eingegebenen Passwörter stimmen nicht überein!");
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.getExternalContext().getFlash().setKeepMessages(true);
+		if (validateRetypePassword()) {
 			return "/secure/admin/editMemberPassword.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
 		}
 
@@ -55,6 +53,43 @@ public class PasswordBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		return "/secure/admin/listMembers.xhtml?faces-redirect=true";
+	}
+
+	@Access(role = Role.MEMBER)
+	public String changePassword() {
+		String result;
+
+		if (validateRetypePassword()) {
+			result = "/secure/profile/changePassword.xhtml?" +
+					"faces-redirect=true&includeViewParams=true&memberId=" + memberId;
+		} else {
+			try {
+				Member member = memberService.getMemberById(memberId);
+				String alias = member.getEmail();
+				logger.info("Changing password for alias={}", alias);
+				authenticateService.changePassword(alias, passwordOld, passwordNew);
+
+				FacesMessages.info(member.getFullName(), "Passwort geändert");
+
+				result = "/secure/profile/profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
+			} catch (Exception e) {
+				logger.error("Error while changing password", e);
+				result = "/secure/profile/changePassword.xhtml?" +
+						"faces-redirect=true&includeViewParams=true&memberId=" + memberId;
+			}
+
+		}
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getFlash().setKeepMessages(true);
+		return result;
+	}
+
+	private boolean validateRetypePassword() {
+		if (!StringUtils.equals(passwordNew, passwordRetype)) {
+			FacesMessages.error("Die eingegebenen Passwörter stimmen nicht überein!");
+			return false;
+		}
+		return false;
 	}
 
 	@Inject
@@ -115,5 +150,13 @@ public class PasswordBean implements Serializable {
 
 	public void setMember(Member member) {
 		this.member = member;
+	}
+
+	public void setPasswordNew(String passwordNew) {
+		this.passwordNew = passwordNew;
+	}
+
+	public String getPasswordNew() {
+		return passwordNew;
 	}
 }

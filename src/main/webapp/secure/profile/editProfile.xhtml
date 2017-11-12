@@ -1,0 +1,24 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:components="http://java.sun.com/jsf/composite/memberComponents">
+    <ui:define name="title">Profil bearbeiten</ui:define>
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="memberId" value="#{memberBean.memberId}"/>
+            <f:viewAction action="#{memberBean.initMember()}" />
+        </f:metadata>
+        <b:container rendered="#{userSessionBean.isUserInRole('MEMBER')}">
+            <components:profile
+                    member="#{memberBean.member}"
+                    profileImagePath="#{memberBean.member.getFullProfileImagePath()}"
+                    panelTitle="#{memberBean.member.getFullName()}"
+                    collapsible="#{false}"
+                    collapsed="#{false}"
+                    showAll="#{true}"
+            />
+        </b:container>
+    </ui:define>
+</ui:composition>
