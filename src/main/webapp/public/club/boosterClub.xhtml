@@ -1,10 +1,76 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="title">Förderverein</ui:define>
 
     <ui:define name="content">
         <b:container>
+            <b:row>
+                <b:column colLg="2" colMd="2" colSm="3" colXs="6"
+                          styleClass="col-xs-offset-3 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
+                    <b:image value="http://www.altenerding-biber.de/images/logos/fverein.jpg"/>
+                </b:column>
+                <b:column colLg="10" colMd="10" colSm="9" colXs="12">
+                    <h2>Werden auch Sie Mitglied im Förderverein der SpVgg Altenerding e.V.
+
+                        Mit Ihrer Mitgliedschaft können Sie uns direkt unterstützen</h2>
+                </b:column>
+            </b:row>
+            <b:panel title="Unsere Hauptziele">
+                <h:outputText value="Zweckorientierte Verwendung der vom Förderverein der SpVgg Altenerding in die Handballabteilung gespendeten Mitgliedsbeiträge und sonstige Spenden
+Förderung des Potentials der Abteilung Handball
+Unterstützung der Handballmannschaften in allen Belangen/ Bereichen"/>
+            </b:panel>
+            <b:panel title="Wichtige Dokumente">
+                <b:row>
+                    <b:column>
+                        <b:button
+                                href="http://www.altenerding-biber.de/files/uploads/boosterclub/1263558600_Anschreiben_Foerderverein_mit_Bildern_und_Antwortzettel.pdf"
+                                style="margin-top: 15px"
+                                look="info"
+                                target="blank" value="Wir brauchen Ihre Unterstützung!"
+                                icon="download"/>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column>
+                        <b:button
+                                href="http://www.altenerding-biber.de/files/uploads/boosterclub/1246261167_MitgliedsantragFoerdervereinNeu.pdf"
+                                style="margin-top: 15px"
+                                look="info"
+                                target="blank" value="Neuer Mitglieds-Antrag"
+                                icon="download"/>
+                    </b:column>
+                </b:row>
+            </b:panel>
+            <b:panel title="Spendenkonto">
+                <table>
+                    <tr>
+                        <td><b>Bank</b></td>
+                        <td>Raiffeisenbank Erding eG</td>
+                    </tr>
+                    <tr>
+                        <td><b>Kontonummer</b></td>
+                        <td>DE37701693560200022934</td>
+                    </tr>
+                    <tr>
+                        <td><b>Bankleitzahl</b></td>
+                        <td>70169356</td>
+                    </tr>
+                    <tr>
+                        <td><b>Verwendungszweck</b></td>
+                        <td>Handball: Jugend oder Erwachsene oder allgemein
+                        </td>
+                    </tr>
+                </table>
+            </b:panel>
+            <b:panel title="Vorstand">
+                <h:outputText value="1. Vorsitzender Benny Hoigt (Handball)"/><br/>
+                <h:outputText value="Stellvertretende Vorsitzende: Peter Kugler (Fußball) Tel.: "/><br/>
+                <h:outputText value="Kassier: Pia Schlecht (vorübergehend) (Handball) Tel.:"/><br/>
+                <h:outputText value="Schriftführerin: ´Diethard Binder (Turnen) "/>
+            </b:panel>
         </b:container>
     </ui:define>
 </ui:composition>

@@ -1,10 +1,53 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://java.sun.com/jsf/html">
     <ui:define name="title">Biber Handballfreunde</ui:define>
 
     <ui:define name="content">
         <b:container>
+            <h2>Biber Handballfreunde</h2>
+            <b:panel>
+                <b:row>
+                    <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
+                    <b:column colLg="8" colMd="8" colSm="12" colXs="12">
+                        <b:image value="http://www.altenerding-biber.de/files/uploads/fckeditor/image/BHF1.JPG"
+                                 style="max-width: 100%; max-height: 100%"/>
+                    </b:column>
+                    <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
+                </b:row>
+                <b:row>
+                    <b:column>
+                        <h:outputText value="Wir sind ein neu gegründeter Verein mit dem Namen Biber-Handballfreunde e.V. (21.06. gegründet) und wir unterstützen die Handballabteilung der Spvgg Altenerding mit persönlichen, sachlichen und finanziellen Mitteln. Wir kümmern uns um alles was in den Bereich Kiosk fällt, außer der Kioskdienst selbst, der wird weiterhin durch die Spieler / Eltern der entsprechenden Mannschaften abgedeckt. Es ist angedacht und versprochen dass zu jedem Heimspieltag mindestens ein Mitglied unseres Vereines in der Halle vertreten ist um bei Problemen oder Fragen helfen zu können. Der gesamte Erlös des Kioskverkaufes geht als Spende an die Abteilung Handball der Spvgg Altenerding.
+
+                                                                                           Mithelfen! Unterstützen! Dabei sein!                                                                                                                           Selbstverständlich kann man auch Mitglied in diesem neuen Verein werden und wir würden uns freuen wenn möglichst viele unserem Verein beitreten würden. Der Jahresbeitrag von 10€ ist minimal und geht ebenfalls vollständig zurück an die Abteilung Handball. Aufnahmeanträge werden im Kioskbereich ausgelegt, können aber auch jederzeit gerne unter der E-Mail: Biberhandballfreunde@gmx.de angefordert oder auf der Biberhomepage runtergeladen werden. Die Biber-Handballfreunde wünschen den Handballern und Handballerinnen der Biber eine erfolgreiche Saison und wir hoffen auf eine gute Zusammenarbeit
+
+Die Vorstandschaft der Biber Handballfreunde von links nach rechts: 1. Vorsitzende Tina Fricke, 2. Vorsitzende Manuela Becker, Beisitzer Claudia Graf, Schriftführer Sabine Obermair, Kassier Andreas Mittemeier, Beisitzer Thomas Steininger, Kassenprüferin Christine Saalborn und Beisitzer Werner Lauer. Es fehlt Kassenprüferin Petra Hoehl"/>
+                    </b:column>
+                </b:row>
+            </b:panel>
+            <b:panel title="Dokumente">
+                <b:row>
+                    <b:column>
+                        <b:button
+                                href="http://www.altenerding-biber.de/files/uploads/handballfreunde/1487413084_Zwischenbericht_der_Biber_Handballfreunde.pdf"
+                                style="margin-top: 15px"
+                                look="info"
+                                target="blank" value="Was wurde bisher geleistet	"
+                                icon="download"/>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column>
+                        <b:button
+                                href="http://www.altenerding-biber.de/files/uploads/handballfreunde/1474383769_Aufnahmeantrag_neu.pdf"
+                                style="margin-top: 15px"
+                                look="info"
+                                target="blank" value="Aufnahmeantrag"
+                                icon="download"/>
+                    </b:column>
+                </b:row>
+            </b:panel>
         </b:container>
     </ui:define>
 </ui:composition>

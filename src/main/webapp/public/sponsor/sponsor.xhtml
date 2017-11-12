@@ -1,10 +1,78 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="title">Sponsoren</ui:define>
 
     <ui:define name="content">
         <b:container>
+            <b:panel title="Premium Sponsoren" collapsible="false">
+                <b:panelGrid colSpans="6,6" size="xs">
+                    <b:panel>
+                        <h:outputLabel value="Raiffeisenbank Erding eG"/>
+                        <b:image
+                                value="http://www.altenerding-biber.de/files/uploads/sponsor/1473935771_Raiffeisenbank_ED.JPG"
+                                style="max-width: 100%; max-height: 100%"/>
+                    </b:panel>
+                    <b:panel>
+                        <h:outputLabel value="Auto Hausmann"/>
+                        <b:image
+                                value="http://www.altenerding-biber.de/files/uploads/sponsor/1469107915_Hausmann_neu.JPG"
+                                style="max-width: 100%; max-height: 100%"/>
+                    </b:panel>
+                    <b:panel>
+                        <h:outputLabel value="Salat Service GmbH"/>
+                        <b:image value="http://www.altenerding-biber.de//files/uploads/sponsor/1473603811_SSG_Salat.JPG"
+                                 style="max-width: 100%; max-height: 100%"/>
+                    </b:panel>
+                    <b:panel>
+                        <h:outputLabel value="Erdinger Weißbräu"/>
+                        <b:image
+                                value="http://www.altenerding-biber.de//files/uploads/sponsor/1453991649_Weissbr_ED_2016.JPG"
+                                style="max-width: 100%; max-height: 100%"/>
+                    </b:panel>
+                </b:panelGrid>
+            </b:panel>
+            <b:panel title="Weitere Sponsoren" collapsed="true">
+                <b:panelGrid colSpans="4,4,4" size="xs">
+                <b:panel>
+                    <h:outputLabel value="Erdgas Erding"/>
+                    <b:image
+                            value="http://www.altenerding-biber.de/utils/thumbnail/phpThumb.php?src=/./files/uploads/sponsor/1407913523_EGE_Himmel.jpg"
+                            style="max-width: 100%; max-height: 100%"/>
+                </b:panel>
+                <b:panel>
+                    <h:outputLabel value="Flughafen Muenchen"/>
+                    <b:image
+                            value="http://www.altenerding-biber.de/utils/thumbnail/phpThumb.php?src=/./files/uploads/sponsor/1456785026_Flughafen_Mchn.JPG"
+                            style="max-width: 100%; max-height: 100%"/>
+                </b:panel>
+                <b:panel>
+                    <h:outputLabel value="Sportpark Schollbach"/>
+                    <b:image
+                            value="http://www.altenerding-biber.de/utils/thumbnail/phpThumb.php?src=/./files/uploads/sponsor/1478540027_Schollbach.JPG"
+                            style="max-width: 100%; max-height: 100%"/>
+                </b:panel>
+                <b:panel>
+                    <h:outputLabel value="Die Schwenninger Krankenkasse"/>
+                    <b:image
+                            value="http://www.altenerding-biber.de/utils/thumbnail/phpThumb.php?src=/./files/uploads/sponsor/1406829646_Unbenannt2.JPG"
+                            style="max-width: 100%; max-height: 100%"/>
+                </b:panel>
+                <b:panel>
+                    <h:outputLabel value="Feneberg Erding"/>
+                    <b:image
+                            value="http://www.altenerding-biber.de/utils/thumbnail/phpThumb.php?src=/./files/uploads/sponsor/1458048732_Feneberg.JPG"
+                            style="max-width: 100%; max-height: 100%"/>
+                </b:panel>
+                <b:panel>
+                    <h:outputLabel value="Stadtwerke (Überlandwerk)"/>
+                    <b:image
+                            value="http://www.altenerding-biber.de/utils/thumbnail/phpThumb.php?src=/./files/uploads/sponsor/1418745153_Ueberlandwerke_ED_neu.JPG"
+                            style="max-width: 100%; max-height: 100%"/>
+                </b:panel>
+                </b:panelGrid>
+            </b:panel>
         </b:container>
     </ui:define>
 </ui:composition>
