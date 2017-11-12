@@ -23,6 +23,7 @@ public class LoginModifier {
 		byte[] salt = Base64.getDecoder().decode(login.getSalt());
 		login.setSalt(Base64.getEncoder().encodeToString(salt));
 		login.setOnetimePassword(isOnetimePassword);
+		login.setLoginCount(0);
 		login.setPassword(securityProvider.hashPassword(passwordNew.toCharArray(), salt));
 
 		em.merge(login);
