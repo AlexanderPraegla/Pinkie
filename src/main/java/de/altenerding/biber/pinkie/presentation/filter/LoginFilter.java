@@ -26,6 +26,7 @@ public class LoginFilter implements Filter{
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		if (authenticateService.authenticateRole(Role.MEMBER)) {
+			//TODO hier muss ich checken ob er ein einmal passwort hat und auf die passwort ändern seite redirecten
 			chain.doFilter(request, response);
 		} else {
 			String contextPath = request.getContextPath();
