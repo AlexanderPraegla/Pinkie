@@ -83,12 +83,12 @@
                                    includeViewParams="true">
                             <f:param name="memberId" value="#{userSessionBean.member.id}"/>
                         </b:navLink>
-                        <b:navLink value="#{menu['changePassword']}" outcome="/secure/profile/changePassword.xhtml"
+                        <b:navLink value="#{label['changePassword']}" outcome="/secure/profile/changePassword.xhtml"
                                    includeViewParams="true">
                             <f:param name="memberId" value="#{userSessionBean.member.id}"/>
                         </b:navLink>
                         <b:navCommandLink action="#{loginBean.logout()}"
-                                          disabled="false" value="#{menu['button.logout']}" icon="log-out"
+                                          disabled="false" value="#{label['button.logout']}" icon="log-out"
                                           iconAlign="right"/>
                     </b:listLinks>
                 </b:dropMenu>

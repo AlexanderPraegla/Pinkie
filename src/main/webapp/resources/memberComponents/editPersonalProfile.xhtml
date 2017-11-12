@@ -37,6 +37,10 @@
                              placeholder="#{label['nickName']}"/>
             </b:formGroup>
             <b:formGroup>
+                <b:inputText value="#{memberBean.member.privateEmail}" label="#{label['privateEmail']}"
+                             type="email" placeholder="#{label['privateEmail']}"/>
+            </b:formGroup>
+            <b:formGroup>
                 <b:inputText value="#{memberBean.member.birthday}" label="#{label['birthday']}"
                              placeholder="#{label['birthday']}" mask="dd.mm.yyyy">
                     <f:convertDateTime pattern="dd.MM.yyyy" timeZone="Europe/Berlin"/>
