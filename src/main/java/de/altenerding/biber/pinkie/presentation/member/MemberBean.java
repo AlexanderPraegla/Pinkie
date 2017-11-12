@@ -66,6 +66,20 @@ public class MemberBean implements Serializable {
 		return "/secure/admin/listMembers.xhtml?faces-redirect=true";
 	}
 
+	@Access(role = Role.MEMBER)
+	public String updatProfile() throws Exception {
+		logger.info("Updating profile for name={}", member.getFullName());
+
+		if (file != null) {
+			String fileName = fileService.uploadImage(file, FileDirectory.PROFILE_IMAGE);
+			member.setProfileImage(fileName);
+		}
+
+		memberService.updateMember(member);
+
+		return "/secure/profile/profile.xhtml?faces-redirect=true&memberId=" + memberId;
+	}
+
 	@Access(role = Role.ADMIN)
 	public List<Member> getMembers() {
 		if (members == null) {

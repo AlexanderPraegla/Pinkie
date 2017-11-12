@@ -2,23 +2,42 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:components="http://java.sun.com/jsf/composite/memberComponents">
+                xmlns:memberComponents="http://java.sun.com/jsf/composite/memberComponents"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="title">Profil bearbeiten</ui:define>
 
     <ui:define name="content">
         <f:metadata>
             <f:viewParam name="memberId" value="#{memberBean.memberId}"/>
-            <f:viewAction action="#{memberBean.initMember()}" />
+            <f:viewAction action="#{memberBean.initMember()}"/>
         </f:metadata>
         <b:container rendered="#{userSessionBean.isUserInRole('MEMBER')}">
-            <components:profile
-                    member="#{memberBean.member}"
-                    profileImagePath="#{memberBean.member.getFullProfileImagePath()}"
-                    panelTitle="#{memberBean.member.getFullName()}"
-                    collapsible="#{false}"
-                    collapsed="#{false}"
-                    showAll="#{true}"
-            />
+            <b:form enctype="multipart/form-data">
+                <b:formGroup>
+                    <h:inputHidden value="#{memberBean.member.id}"/>
+                    <h:inputHidden value="#{memberBean.member.role}"/>
+                    <h:inputHidden value="#{memberBean.member.firstName}"/>
+                    <h:inputHidden value="#{memberBean.member.lastName}"/>
+                    <h:inputHidden value="#{memberBean.member.email}"/>
+                    <h:inputHidden value="#{memberBean.member.privateEmail}"/>
+                </b:formGroup>
+                <b:formGroup>
+                    <b:inputText value="#{memberBean.member.firstName}" label="Vorname"
+                                 placeholder="Vorname" disabled="true"/>
+                </b:formGroup>
+                <b:formGroup>
+                    <b:inputText value="#{memberBean.member.lastName}" label="Nachname"
+                                 placeholder="Nachname" disabled="true"/>
+                </b:formGroup>
+                <b:formGroup>
+                    <b:inputText value="#{memberBean.member.email}" label="E-Mail Adresse" disabled="true"/>
+                </b:formGroup>
+                <memberComponents:editPersonalProfile/>
+                <memberComponents:editPlayersProfile/>
+                <b:commandButton action="#{memberBean.updatProfile}" value="Speichern">
+                    <f:param value="#{memberBean.memberId}" name="memberId"/>
+                </b:commandButton>
+            </b:form>
         </b:container>
     </ui:define>
 </ui:composition>
