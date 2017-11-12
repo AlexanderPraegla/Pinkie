@@ -13,7 +13,7 @@
                                    outcome="/secure/mainpage/editMainpage.xhtml"/>
                         <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}" value="Bericht hinzufügen"
                                    outcome="/secure/report/reportAdd.xhtml"/>
-                        <b:navLink  rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
+                        <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink value="Berichte" outcome="/public/news/report.xhtml"/>
                         <b:navLink value="Spielplan" outcome="/public/news/clubSchedule.xhtml"/>
                         <b:navLink value="Bilder" outcome="/index.xhtml"/>
@@ -25,7 +25,7 @@
                         <b:navLink value="Mannschaften bearbeiten" outcome="/secure/team/teamEditOverview.xhtml"
                                    rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink value="Mannschaft anlegen" outcome="/secure/team/teamAdd.xhtml"
-                                    rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
+                                   rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
                         <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
                         <ui:repeat var="team" value="#{teamBean.teams}">
                             <b:navLink value="#{team.name}" outcome="/public/team/team.xhtml" includeViewParams="true">
@@ -37,7 +37,8 @@
                 <b:dropMenu value="Verein">
                     <b:listLinks>
                         <b:navLink header="Bearbeiten" rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
-                        <b:navLink value="Vereinsseiten bearbeiten" href="#" rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
+                        <b:navLink value="Vereinsseiten bearbeiten" href="#"
+                                   rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink value="Vorstand" outcome="/public/club/deans.xhtml"/>
                         <b:navLink value="Schiedsrichter" outcome="/public/club/referees.xhtml"/>
@@ -51,7 +52,8 @@
                 <b:dropMenu value="Über uns">
                     <b:listLinks>
                         <b:navLink header="Bearbeiten" rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
-                        <b:navLink value="Über uns bearbeiten" href="#" rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
+                        <b:navLink value="Über uns bearbeiten" href="#"
+                                   rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink value="Geschichte" outcome="/index.xhtml"/>
                         <b:navLink value="Kontakt" outcome="/index.xhtml"/>
@@ -60,27 +62,36 @@
                 </b:dropMenu>
 
                 <b:navLink value="Biber Forum" href="#" rendered="#{userSessionBean.isUserInRole('MEMBER')}"/>
-                <b:navLink value="Profil" outcome="/secure/profile/profile.xhtml" rendered="#{userSessionBean.isUserInRole('MEMBER')}"
+                <b:navLink value="Profil" outcome="/secure/profile/profile.xhtml"
+                           rendered="#{userSessionBean.isUserInRole('MEMBER')}"
                            includeViewParams="true">
                     <f:param name="memberId" value="#{userSessionBean.member.id}"/>
                 </b:navLink>
                 <b:dropMenu value="Admin Bereich" rendered="#{userSessionBean.isUserInRole('ADMIN')}">
                     <b:listLinks>
-                        <b:navLink value="Mitglied anlegen" outcome="/secure/admin/createMember.xhtml" rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
-                        <b:navLink value="Mitglieder auflisten" outcome="/secure/admin/listMembers.xhtml" rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
+                        <b:navLink value="Mitglied anlegen" outcome="/secure/admin/createMember.xhtml"
+                                   rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
+                        <b:navLink value="Mitglieder auflisten" outcome="/secure/admin/listMembers.xhtml"
+                                   rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
+                    </b:listLinks>
+                </b:dropMenu>
+            </b:navbarLinks>
+            <b:navbarLinks pull="right">
+                <b:dropMenu value="#{userSessionBean.member.email}" rendered="#{userSessionBean.member != null}">
+                    <b:listLinks>
+                        <b:navLink value="Profil bearbeiten" href="#"/>
+                        <b:navLink value="Password ändern" href="#"/>
+                        <b:navCommandLink action="#{loginBean.logout()}"
+                                          disabled="false" value="Logout" icon="log-out"
+                                          iconAlign="right"/>
                     </b:listLinks>
                 </b:dropMenu>
             </b:navbarLinks>
         </h:form>
-        <h:form id="loginForm" styleClass="navbar-form navbar-right">
-            <b:button rendered="#{userSessionBean.member == null}" outcome="/public/login/login.xhtml" size="sm"
+        <h:form id="loginForm" styleClass="navbar-form navbar-right" rendered="#{userSessionBean.member == null}">
+            <b:button outcome="/public/login/login.xhtml" size="sm"
                       disabled="false" value="LogIn" look="success" icon="log-in"
                       iconAlign="right"/>
-            <b:commandButton rendered="#{userSessionBean.member != null}"
-                             action="#{loginBean.logout()}" size="sm"
-                             disabled="false" value="LogOut" look="danger" icon="log-out"
-                             iconAlign="right"/>
-
         </h:form>
     </b:navBar>
 </ui:composition>
