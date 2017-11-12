@@ -16,6 +16,8 @@ public class Login {
 	private String alias;
 	@Column(columnDefinition = "varchar")
 	private String password;
+	@Column(name = "is_onetime_password")
+	private boolean isOnetimePassword;
 	@Column(columnDefinition = "varchar")
 	private String salt;
 	@Column(columnDefinition = "INTEGER default 0")
@@ -87,5 +89,13 @@ public class Login {
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	public boolean isOnetimePassword() {
+		return isOnetimePassword;
+	}
+
+	public void setOnetimePassword(boolean onetimePassword) {
+		isOnetimePassword = onetimePassword;
 	}
 }

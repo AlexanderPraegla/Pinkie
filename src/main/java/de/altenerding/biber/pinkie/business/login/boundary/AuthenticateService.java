@@ -35,17 +35,16 @@ public class AuthenticateService implements Serializable {
 		updating an existing password without providing to old one should only be possible for admins
 	 */
 	@Access(role = Role.ADMIN)
-	public void resetPassword(String alias, String passwordNew) {
-		loginModifier.resetPassword(alias, passwordNew);
+	public void setOnetimePassword(String alias, String passwordNew) {
+		loginModifier.savePassword(alias, passwordNew, true);
 	}
 
-
-	public void resetPassword(String alias, String passwordNew, String passwordOld) throws Exception {
+	public void changePassword(String alias, String passwordOld, String passwordNew) throws Exception {
 		if (!validate(alias, passwordOld)) {
 			throw new Exception("Invalid password");
 		}
 
-		loginModifier.resetPassword(alias, passwordNew);
+		loginModifier.savePassword(alias, passwordNew, false);
 	}
 
 	@Inject

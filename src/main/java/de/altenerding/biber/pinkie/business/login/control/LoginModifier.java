@@ -16,12 +16,13 @@ public class LoginModifier {
 	private SecurityProvider securityProvider;
 	private LoginProvider loginProvider;
 
-	public void resetPassword(String alias, String passwordNew) {
+	public void savePassword(String alias, String passwordNew, boolean isOnetimePassword) {
 		logger.info("Setting new password for login for alias={}", alias);
 
 		Login login = loginProvider.getLoginByAlias(alias);
 		byte[] salt = Base64.getDecoder().decode(login.getSalt());
 		login.setSalt(Base64.getEncoder().encodeToString(salt));
+		login.setOnetimePassword(isOnetimePassword);
 		login.setPassword(securityProvider.hashPassword(passwordNew.toCharArray(), salt));
 
 		em.merge(login);

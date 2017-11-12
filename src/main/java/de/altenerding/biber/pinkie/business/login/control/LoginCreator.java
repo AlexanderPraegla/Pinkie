@@ -26,6 +26,7 @@ public class LoginCreator {
 			Login login = new Login();
 			login.setAlias(alias);
 			login.setSalt(Base64.getEncoder().encodeToString(salt));
+			login.setOnetimePassword(true);
 			login.setPassword(securityProvider.hashPassword(password.toCharArray(), salt));
 
 			em.persist(login);
