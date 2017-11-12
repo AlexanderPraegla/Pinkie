@@ -3,6 +3,7 @@ package de.altenerding.biber.pinkie.business.login.boundary;
 import de.altenerding.biber.pinkie.business.login.control.Authenticator;
 import de.altenerding.biber.pinkie.business.login.control.LoginCreator;
 import de.altenerding.biber.pinkie.business.login.control.LoginModifier;
+import de.altenerding.biber.pinkie.business.login.control.LoginProvider;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 
@@ -17,6 +18,7 @@ public class AuthenticateService implements Serializable {
 	private Authenticator authenticator;
 	private LoginCreator loginCreator;
 	private LoginModifier loginModifier;
+	private LoginProvider loginProvider;
 
 	public boolean validate(String alias, String password) throws IOException {
 		return authenticator.validate(alias, password);
@@ -24,6 +26,10 @@ public class AuthenticateService implements Serializable {
 
 	public boolean authenticateRole(Role role) {
 		return authenticator.authenticateRole(role);
+	}
+
+	public boolean hasMemberOnetimePasswort() {
+		return loginProvider.hasMemberOnetimePasswort();
 	}
 
 	//Will be used later to set and create password for members
@@ -60,5 +66,10 @@ public class AuthenticateService implements Serializable {
 	@Inject
 	public void setLoginModifier(LoginModifier loginModifier) {
 		this.loginModifier = loginModifier;
+	}
+
+	@Inject
+	public void setLoginProvider(LoginProvider loginProvider) {
+		this.loginProvider = loginProvider;
 	}
 }

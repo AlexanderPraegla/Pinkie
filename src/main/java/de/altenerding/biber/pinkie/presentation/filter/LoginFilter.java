@@ -2,6 +2,7 @@ package de.altenerding.biber.pinkie.presentation.filter;
 
 import de.altenerding.biber.pinkie.business.login.boundary.AuthenticateService;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
+import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 
 import javax.inject.Inject;
 import javax.servlet.*;
@@ -15,6 +16,8 @@ public class LoginFilter implements Filter{
 
 	@Inject
 	private AuthenticateService authenticateService;
+	@Inject
+	private UserSessionBean userSessionBean;
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -26,7 +29,16 @@ public class LoginFilter implements Filter{
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		if (authenticateService.authenticateRole(Role.MEMBER)) {
-			//TODO hier muss ich checken ob er ein einmal passwort hat und auf die passwort ändern seite redirecten
+			//Check if user has an onetime password and force him to change it before he can use any logged in site
+			if (authenticateService.hasMemberOnetimePasswort()) {
+				long memberId = userSessionBean.getMember().getId();
+				String contextPath = request.getContextPath();
+				request.getServletContext()
+						.getRequestDispatcher("/secure/profile/changePassword.xhtml?faces-redirect=true&memberId=" + memberId)
+						.forward(req, res);
+				return;
+			}
+
 			chain.doFilter(request, response);
 		} else {
 			String contextPath = request.getContextPath();

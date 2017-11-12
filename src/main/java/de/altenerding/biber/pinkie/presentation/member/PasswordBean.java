@@ -26,7 +26,6 @@ public class PasswordBean implements Serializable {
 	private Logger logger;
 	private long memberId;
 	private Member member;
-	private String password;
 	private String passwordRetype;
 	private String passwordOld;
 	private String passwordNew;
@@ -44,10 +43,10 @@ public class PasswordBean implements Serializable {
 		Member member = memberService.getMemberById(memberId);
 		String alias = member.getEmail();
 		logger.info("Resetting password for alias={}", alias);
-		authenticateService.setOnetimePassword(alias, password);
+		authenticateService.setOnetimePassword(alias, passwordNew);
 
 		//Dummy method. Later there has to be an email sender to send the password
-		notificationService.sendResettedPassword(member.getPrivateEmail(), password);
+		notificationService.sendResettedPassword(member.getPrivateEmail(), passwordNew);
 
 		FacesMessages.info(member.getFullName(), "Passwort neu gesetzt");
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -110,14 +109,6 @@ public class PasswordBean implements Serializable {
 	@Inject
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getPasswordOld() {
