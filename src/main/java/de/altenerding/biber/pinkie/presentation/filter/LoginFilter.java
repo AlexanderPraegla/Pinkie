@@ -30,13 +30,16 @@ public class LoginFilter implements Filter{
 		HttpServletResponse response = (HttpServletResponse) res;
 		if (authenticateService.authenticateRole(Role.MEMBER)) {
 			//Check if user has an onetime password and force him to change it before he can use any logged in site
-			if (authenticateService.hasMemberOnetimePasswort()) {
-				long memberId = userSessionBean.getMember().getId();
-				String contextPath = request.getContextPath();
-				request.getServletContext()
-						.getRequestDispatcher("/secure/profile/changePassword.xhtml?faces-redirect=true&memberId=" + memberId)
-						.forward(req, res);
-				return;
+			try {
+				if (authenticateService.hasMemberOnetimePasswort()) {
+					long memberId = userSessionBean.getMember().getId();
+					request.getServletContext()
+							.getRequestDispatcher("/secure/profile/changePassword.xhtml?faces-redirect=true&memberId=" + memberId)
+							.forward(req, res);
+					return;
+				}
+			} catch (Exception e) {
+				throw new ServletException(e.getMessage(), e.getCause());
 			}
 
 			chain.doFilter(request, response);

@@ -36,22 +36,30 @@ public class PasswordBean implements Serializable {
 
 	@Access(role = Role.ADMIN)
 	public String resetPassword() {
-		if (validateRetypePassword()) {
-			return "/secure/admin/editMemberPassword.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
-		}
-
-		Member member = memberService.getMemberById(memberId);
-		String alias = member.getEmail();
-		logger.info("Resetting password for alias={}", alias);
-		authenticateService.setOnetimePassword(alias, passwordNew);
-
-		//Dummy method. Later there has to be an email sender to send the password
-		notificationService.sendResettedPassword(member.getPrivateEmail(), passwordNew);
-
-		FacesMessages.info(member.getFullName(), "Passwort neu gesetzt");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "/secure/admin/listMembers.xhtml?faces-redirect=true";
+
+		try {
+			if (validateRetypePassword()) {
+				return "/secure/admin/editMemberPassword.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
+			}
+
+			Member member = memberService.getMemberById(memberId);
+			String alias = member.getEmail();
+			logger.info("Resetting password for alias={}", alias);
+			authenticateService.setOnetimePassword(alias, passwordNew);
+
+			//Dummy method. Later there has to be an email sender to send the password to the private email address of the member
+			notificationService.sendResettedPassword(member.getPrivateEmail(), passwordNew);
+
+			FacesMessages.info(member.getFullName(), "Passwort neu gesetzt");
+
+			return "/secure/admin/listMembers.xhtml?faces-redirect=true";
+		} catch (Exception e) {
+			logger.info("Error while resetting password", e);
+			FacesMessages.error("Es ist ein Fehler beim Setzten des Passworts aufgetreten");
+			return "/secure/admin/editMemberPassword.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
+		}
 	}
 
 	@Access(role = Role.MEMBER)
@@ -76,7 +84,6 @@ public class PasswordBean implements Serializable {
 				result = "/secure/profile/changePassword.xhtml?" +
 						"faces-redirect=true&includeViewParams=true&memberId=" + memberId;
 			}
-
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);

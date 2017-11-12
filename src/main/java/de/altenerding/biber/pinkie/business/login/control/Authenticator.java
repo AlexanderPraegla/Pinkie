@@ -8,7 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Base64;
 
@@ -19,7 +18,7 @@ public class Authenticator implements Serializable{
 	private LoginProvider loginProvider;
 	private Logger logger;
 
-	public boolean validate(String alias, String password) throws IOException {
+	public boolean validate(String alias, String password) throws Exception {
 		logger.info("Checking login credentials for alias={}", alias);
 
 		Login login = loginProvider.getLoginByAlias(alias);

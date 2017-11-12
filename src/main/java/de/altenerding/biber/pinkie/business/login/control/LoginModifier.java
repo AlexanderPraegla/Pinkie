@@ -16,7 +16,7 @@ public class LoginModifier {
 	private SecurityProvider securityProvider;
 	private LoginProvider loginProvider;
 
-	public void savePassword(String alias, String passwordNew, boolean isOnetimePassword) {
+	public void savePassword(String alias, String passwordNew, boolean isOnetimePassword) throws Exception {
 		logger.info("Setting new password for login for alias={}", alias);
 
 		Login login = loginProvider.getLoginByAlias(alias);

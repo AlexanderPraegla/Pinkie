@@ -17,22 +17,24 @@ public class LoginProvider {
 	@PersistenceContext
 	private EntityManager em;
 
-	Login getLoginByAlias(String alias) {
+	Login getLoginByAlias(String alias) throws Exception {
 		logger.info("Getting login credentials for alias={}", alias);
 		List<Login> logins = em.createNamedQuery("Login.getByAlias", Login.class).setParameter("alias", alias).getResultList();
 
 		if (logins.size() < 1) {
 			logger.error("No login credentials found for alias={}", alias);
-			return null;
+			throw new Exception("No login credentials found");
 		}
 
 		return logins.get(0);
 	}
 
-	public boolean hasMemberOnetimePasswort() {
+	public boolean hasMemberOnetimePasswort() throws Exception {
 		Member member = userSessionBean.getMember();
+		String alias = member.getEmail();
+		logger.info("Checking if user with alias={}  has onetime password", alias);
 
-		Login login = getLoginByAlias(member.getEmail());
+		Login login = getLoginByAlias(alias);
 
 		return login.isOnetimePassword();
 	}

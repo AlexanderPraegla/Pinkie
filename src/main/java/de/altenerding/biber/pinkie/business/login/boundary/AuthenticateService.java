@@ -9,7 +9,6 @@ import de.altenerding.biber.pinkie.business.members.entity.Role;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.io.IOException;
 import java.io.Serializable;
 
 @Stateless
@@ -20,7 +19,7 @@ public class AuthenticateService implements Serializable {
 	private LoginModifier loginModifier;
 	private LoginProvider loginProvider;
 
-	public boolean validate(String alias, String password) throws IOException {
+	public boolean validate(String alias, String password) throws Exception {
 		return authenticator.validate(alias, password);
 	}
 
@@ -28,7 +27,7 @@ public class AuthenticateService implements Serializable {
 		return authenticator.authenticateRole(role);
 	}
 
-	public boolean hasMemberOnetimePasswort() {
+	public boolean hasMemberOnetimePasswort() throws Exception {
 		return loginProvider.hasMemberOnetimePasswort();
 	}
 
@@ -41,7 +40,7 @@ public class AuthenticateService implements Serializable {
 		updating an existing password without providing to old one should only be possible for admins
 	 */
 	@Access(role = Role.ADMIN)
-	public void setOnetimePassword(String alias, String passwordNew) {
+	public void setOnetimePassword(String alias, String passwordNew) throws Exception {
 		loginModifier.savePassword(alias, passwordNew, true);
 	}
 

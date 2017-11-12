@@ -31,17 +31,25 @@ public class LoginBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 
-		if (authenticateService.validate(email, password)) {
-			Member member = memberService.getMemberByEmail(email);
-			userSessionBean.setMember(member);
-			logger.info("Login successful for member alias={}", member.getEmail());
-			return "/secure/profile/profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();
-		} else {
-			logger.error("Login NOT successful for alias={}", email);
-			FacesMessages.error("Login fehlgeschlagen");
-			return "/public/login/login.xhtml?faces-redirect=true";
+		String result;
+		try {
+			if (authenticateService.validate(email, password)) {
+				Member member = memberService.getMemberByEmail(email);
+				userSessionBean.setMember(member);
+				logger.info("Login successful for member alias={}", member.getEmail());
+				result = "/secure/profile/profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();
+			} else {
+				logger.error("Login NOT successful for alias={}", email);
+				FacesMessages.error("Login fehlgeschlagen");
+				result = "/public/login/login.xhtml?faces-redirect=true";
+			}
+		} catch (Exception e) {
+			logger.info("Error while validating login", e);
+			result = "/public/login/login.xhtml?faces-redirect=true";
+			FacesMessages.error("Es ist ein Fehler beim Login aufgetreten");
 		}
 
+		return result;
 	}
 
 	@Access(role = Role.MEMBER)

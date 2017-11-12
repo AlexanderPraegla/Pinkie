@@ -14,7 +14,7 @@
 
     <composite:implementation>
         <b:panel title="#{pageLabel['member.edit.personal']}" collapsed="false">
-            <b:formGroup rendered="#{memberBean.member.profileImage != null}">
+            <b:formGroup rendered="#{memberBean.member.profileImage != null and not memberBean.member.profileImage.equals('')}">
                 <b:row>
                     <b:column colLg="2" colMd="2" colSm="3" colXs="6"
                               styleClass="col-xs-offset-3 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
