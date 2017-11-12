@@ -37,31 +37,31 @@
                 <b:dropMenu value="Verein">
                     <b:listLinks>
                         <b:navLink header="Bearbeiten" rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
-                        <b:navLink value="Vereinsseiten bearbeiten" href="#"
+                        <b:navLink value="Vereinsseiten bearbeiten" outcome="/secure/club/editClubPages.xhtml"
                                    rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink value="Vorstand" outcome="/public/club/deans.xhtml"/>
                         <b:navLink value="Schiedsrichter" outcome="/public/club/referees.xhtml"/>
                         <b:navLink value="Trainer" outcome="/public/club/trainers.xhtml"/>
-                        <b:navLink value="Handball Infos" href="#"/>
-                        <b:navLink value="Förderverein" href="#"/>
-                        <b:navLink value="Biber-Handballfreunde" href="#"/>
-                        <b:navLink value="Archiv" href="#"/>
+                        <b:navLink value="Handball Infos" outcome="/public/club/infos.xhtml"/>
+                        <b:navLink value="Förderverein" outcome="/public/club/boosterClub.xhtml"/>
+                        <b:navLink value="Biber-Handballfreunde" outcome="/public/club/biberFriends.xhtml"/>
+                        <b:navLink value="Archiv" outcome="/public/club/archive.xhtml"/>
                     </b:listLinks>
                 </b:dropMenu>
                 <b:dropMenu value="Über uns">
                     <b:listLinks>
                         <b:navLink header="Bearbeiten" rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
-                        <b:navLink value="Über uns bearbeiten" href="#"
+                        <b:navLink value="Über uns bearbeiten" outcome="/secure/about/editAboutPages.xhtml"
                                    rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
-                        <b:navLink value="Geschichte" outcome="/index.xhtml"/>
-                        <b:navLink value="Kontakt" outcome="/index.xhtml"/>
-                        <b:navLink value="Anfahrt" outcome="/index.xhtml"/>
+                        <b:navLink value="Geschichte" outcome="/public/about/history.xhtml"/>
+                        <b:navLink value="Kontakt" outcome="/public/about/contact.xhtml"/>
+                        <b:navLink value="Anfahrt" outcome="/public/about/journey.xhtml"/>
                     </b:listLinks>
                 </b:dropMenu>
-
-                <b:navLink value="Biber Forum" href="#" rendered="#{userSessionBean.isUserInRole('MEMBER')}"/>
+                <b:navLink value="Sponsoren" outcome="/public/sponsor/sponsor.xhtml" rendered="#{userSessionBean.member == null}"/>
+                <b:navLink value="Biber Forum" outcome="/secure/forum/forum.xhtml" rendered="#{userSessionBean.isUserInRole('MEMBER')}"/>
                 <b:navLink value="Profil" outcome="/secure/profile/profile.xhtml"
                            rendered="#{userSessionBean.isUserInRole('MEMBER')}"
                            includeViewParams="true">
