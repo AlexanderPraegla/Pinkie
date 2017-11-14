@@ -36,7 +36,7 @@ public class Member {
 	private String zipcode;
 	@Column
 	private String city;
-	@Column
+	@Enumerated(EnumType.STRING)
 	private Role role = Role.MEMBER;
 	@Column(name = "profile_image", columnDefinition = "varchar")
 	private String profileImage;

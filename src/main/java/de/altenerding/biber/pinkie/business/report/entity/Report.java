@@ -27,7 +27,7 @@ public class Report {
 	private String summary;
 	@Column(columnDefinition = "varchar")
 	private String text;
-	@Column(columnDefinition = "varchar")
+	@Enumerated(EnumType.STRING)
 	private ReportType type;
 	@JoinColumn
 	@OneToOne(fetch = FetchType.LAZY)
