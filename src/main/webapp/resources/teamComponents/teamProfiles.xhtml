@@ -16,7 +16,7 @@
         <ui:repeat value="#{teamBean.team.teamMembers}" var="teamMember">
             <components:profile
                     member="#{teamMember}"
-                    profileImagePath="#{teamMember.getFullProfileImagePath()}"
+                    profileImagePath="#{teamMember.image.getDownloadUrl()}"
                     panelTitle="#{teamMember.getFullName()}"
                     showEmail="#{true}"
                     showPosition="#{true}"

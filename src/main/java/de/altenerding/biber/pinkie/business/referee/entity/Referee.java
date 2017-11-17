@@ -1,8 +1,7 @@
 package de.altenerding.biber.pinkie.business.referee.entity;
 
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,8 +19,8 @@ public class Referee {
 	private Member member;
 	@Column
 	private int orderId;
-	@Column(columnDefinition = "varchar")
-	private String refereeImage;
+	@OneToOne
+	private Image image;
 	@Column(name = "archived_on")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date archivedOn;
@@ -37,16 +36,11 @@ public class Referee {
 	}
 
 	public String getFullImagePath() {
-		if (StringUtils.isNotBlank(refereeImage)) {
-			return "/file/" + FileDirectory.PROFILE_IMAGE.getName() + "/" + refereeImage;
-		} else if (StringUtils.isNotBlank(member.getProfileImage())) {
-			return member.getFullProfileImagePath();
+		if (image != null) {
+			return image.getDownloadUrl();
+		} else {
+			return member.getImage().getDownloadUrl();
 		}
-		return null;
-	}
-
-	public boolean hasProfileImage() {
-		return StringUtils.isNotBlank(refereeImage) || StringUtils.isNotBlank(member.getProfileImage());
 	}
 
 	public long getId() {
@@ -73,14 +67,6 @@ public class Referee {
 		this.orderId = orderId;
 	}
 
-	public String getRefereeImage() {
-		return refereeImage;
-	}
-
-	public void setRefereeImage(String refereeImage) {
-		this.refereeImage = refereeImage;
-	}
-
 	public Date getArchivedOn() {
 		return archivedOn;
 	}
@@ -95,5 +81,13 @@ public class Referee {
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 }

@@ -1,6 +1,6 @@
 package de.altenerding.biber.pinkie.business.members.entity;
 
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -38,8 +38,8 @@ public class Member {
 	private String city;
 	@Enumerated(EnumType.STRING)
 	private Role role = Role.MEMBER;
-	@Column(name = "profile_image", columnDefinition = "varchar")
-	private String profileImage;
+	@OneToOne
+	private Image image;
 	@Column(columnDefinition = "varchar")
 	private String previousClubs;
 	@Column
@@ -189,18 +189,6 @@ public class Member {
 		return firstName + " " + lastName;
 	}
 
-	public String getProfileImage() {
-		return profileImage;
-	}
-
-	public void setProfileImage(String profilePicture) {
-		this.profileImage = profilePicture;
-	}
-
-	public String getFullProfileImagePath() {
-		return "/file/" + FileDirectory.PROFILE_IMAGE.getName() + "/" + profileImage;
-	}
-
 	public String getPreviousClubs() {
 		return previousClubs;
 	}
@@ -279,5 +267,13 @@ public class Member {
 
 	public void setPrivateEmail(String privateEmail) {
 		this.privateEmail = privateEmail;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 }

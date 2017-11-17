@@ -20,12 +20,12 @@
                                 <h:outputText value="#{announcement.text}"/><br/>
                             </b:column>
                         </b:row>
-                        <b:row rendered="#{announcement.hasAttachment()}">
+                        <b:row rendered="#{announcement.document.fileName != null}">
                             <b:column>
-                                <b:button href="#{request.contextPath}#{announcement.getFullAnnouncementDocumentPath()}"
+                                <b:button href="#{request.contextPath}#{announcement.document.getDownloadUrl()}"
                                           style="margin-top: 15px"
                                           look="info"
-                                          target="blank" value="#{announcement.documentDisplayedName}"
+                                          target="blank" value="#{announcement.document.displayedName}"
                                           icon="download"/>
                             </b:column>
                         </b:row>

@@ -1,5 +1,7 @@
 package de.altenerding.biber.pinkie.business.season.entity;
 
+import de.altenerding.biber.pinkie.business.global.entity.BaseLongIdEntity;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -7,7 +9,7 @@ import java.util.Date;
 @NamedQueries({
 		@NamedQuery(name = "Season.findAll", query = "SELECT s from Season s order by s.createdOn desc")
 })
-public class Season {
+public class Season extends BaseLongIdEntity{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

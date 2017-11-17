@@ -13,7 +13,7 @@
         <b:panel rendered="#{userSessionBean.isUserInRole('PRESS')}" title="#{pageLabel['mainpage.weeklyImage.add']}">
             <b:form id="addWeeklyImageFormId" enctype="multipart/form-data">
                 <b:column colLg="6" colMd="6" colSm="4" colXs="12">
-                    <b:inputText id="weeklyImageDescription" value="#{weeklyImageBean.weeklyImage.description}"
+                    <b:inputText id="weeklyImageDescription" value="#{weeklyImageBean.weeklyImage.image.description}"
                                  required="true" requiredMessage="Bitte Text zum Bild angeben"
                                  style="margin-bottom: 15px;"/>
                 </b:column>

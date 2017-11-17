@@ -3,11 +3,11 @@ package de.altenerding.biber.pinkie.presentation.announcement;
 import de.altenerding.biber.pinkie.business.announcement.boundary.AnnouncementService;
 import de.altenerding.biber.pinkie.business.announcement.entity.Announcement;
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.Document;
+import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import net.bootsfaces.utils.FacesMessages;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.context.RequestScoped;
@@ -74,10 +74,8 @@ public class AnnouncementProcessingBean implements Serializable {
 
 	private void uploadAnnouncementAttachment(Announcement anncouncement) throws Exception {
 		if (file != null) {
-			String fileName = fileService.uploadFile(file, FileDirectory.ANNOUNCEMENT_DOCUMENTS);
-			anncouncement.setAnnouncementDocument(fileName);
-			fileName = StringUtils.isBlank(documentDisplayedName) ? fileName : documentDisplayedName;
-			anncouncement.setDocumentDisplayedName(fileName);
+			Document document = fileService.uploadDocument(file, FileCategory.DOCUMENTS_ANNOUNCEMENT, documentDisplayedName);
+			anncouncement.setDocument(document);
 		}
 	}
 

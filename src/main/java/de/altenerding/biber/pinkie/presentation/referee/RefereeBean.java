@@ -1,8 +1,9 @@
 package de.altenerding.biber.pinkie.presentation.referee;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
 import de.altenerding.biber.pinkie.business.file.entity.FileMapping;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.referee.boundary.RefereeService;
@@ -48,12 +49,12 @@ public class RefereeBean implements Serializable {
 
 			if (!this.referee.getMember().equals(referee.getMember())) {
 				referee.setMember(this.referee.getMember());
-				referee.setRefereeImage(null);
+				referee.setImage(null);
 			}
 
 			if (file != null) {
-				String fileName = fileService.uploadImage(file, FileDirectory.PROFILE_IMAGE);
-				referee.setRefereeImage(fileName);
+				Image image = fileService.uploadImage(file, FileCategory.IMAGES_REFEREE_PROFILE, null);
+				referee.setImage(image);
 			}
 
 			refereeService.updateReferee(referee);
@@ -102,9 +103,9 @@ public class RefereeBean implements Serializable {
 	@Access(role = Role.PRESS)
 	public String uploadRefereeGroupImage() throws Exception {
 		logger.info("Uploading new group image for referees");
-		String fileName = fileService.uploadImage(file, FileDirectory.IMAGES);
+		Image image = fileService.uploadImage(file, FileCategory.IMAGES_REFEREE_GROUP, null);
 		FileMapping fileMapping = new FileMapping();
-		fileMapping.setImageFilePath(fileName);
+		fileMapping.setFile(image);
 		fileMapping.setKey(REFEREE_IMAGE_GROUP_PICTURE_KEY);
 		fileMapping.setPage(REFEREES_PAGE_NAME);
 		fileService.replaceFileMapping(fileMapping);

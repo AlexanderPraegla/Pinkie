@@ -1,7 +1,8 @@
 package de.altenerding.biber.pinkie.presentation.announcement;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.weeklyimage.boundary.WeeklyImageService;
@@ -30,8 +31,8 @@ public class WeeklyImageBean {
 	@Access(role = Role.PRESS)
 	public String saveWeeklyImage() {
 		try {
-			String fileName = fileService.uploadImage(file, FileDirectory.WEEKLY_IMAGE);
-			weeklyImage.setFileName(fileName);
+			Image image = fileService.uploadImage(file, FileCategory.IMAGES_MAINPAGE, weeklyImage.getImage().getDescription());
+			weeklyImage.setImage(image);
 			weeklyImageService.saveWeeklyImage(weeklyImage);
 			FacesMessages.info( "Bild der Woche hinzugefügt");
 		} catch (Exception e) {

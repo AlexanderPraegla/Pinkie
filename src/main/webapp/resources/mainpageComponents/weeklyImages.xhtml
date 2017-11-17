@@ -15,9 +15,9 @@
                     <b:carousel id="carousel" >
                         <c:forEach items="#{weeklyImageBean.weeklyImages}" var="weeklyImage">
                             <b:carouselItem>
-                                <h:outputText value="#{weeklyImage.description}"
+                                <h:outputText value="#{weeklyImage.image.description}"
                                               style="font-size: 20px;display: flex;justify-content: center;"/>
-                                <b:image value="#{weeklyImage.getWeeklyImageFullPath()}"/>
+                                <b:image value="#{weeklyImage.image.getDownloadUrl()}"/>
                             </b:carouselItem>
                         </c:forEach>
                     </b:carousel>

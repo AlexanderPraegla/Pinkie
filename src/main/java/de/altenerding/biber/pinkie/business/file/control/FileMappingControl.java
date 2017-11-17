@@ -53,6 +53,7 @@ public class FileMappingControl {
 
 	public void updateFileMapping(FileMapping fileMapping) {
 		logger.info("Updating fileMapping with id={}", fileMapping.getId());
+		em.merge(fileMapping.getFile());
 		em.merge(fileMapping);
 		em.flush();
 	}

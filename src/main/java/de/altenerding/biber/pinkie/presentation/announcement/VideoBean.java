@@ -1,8 +1,9 @@
 package de.altenerding.biber.pinkie.presentation.announcement;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
 import de.altenerding.biber.pinkie.business.file.entity.FileMapping;
+import de.altenerding.biber.pinkie.business.file.entity.Video;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import org.apache.logging.log4j.Logger;
@@ -47,10 +48,9 @@ public class VideoBean {
 	@Access(role = Role.PRESS)
 	public String uploadVideo() throws Exception {
 		logger.info("Uploading new video");
-		String fileName = fileService.uploadFile(file, FileDirectory.VIDEOS);
+		Video video = fileService.uploadVideo(file, FileCategory.VIDEOS, videoDescription);
 		FileMapping fileMapping = new FileMapping();
-		fileMapping.setDescription(videoDescription);
-		fileMapping.setVideoFilePath(fileName);
+		fileMapping.setFile(video);
 		fileMapping.setPage(START_PAGE_NAME);
 		fileMapping.setKey(START_PAGE_VIDEO_KEY);
 		fileService.replaceFileMapping(fileMapping);

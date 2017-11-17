@@ -13,10 +13,10 @@
         <b:panel title="#{pageLabel['mainpage.video.title']}">
             <b:row>
                 <b:column styleClass="video-description">
-                    <h:outputText value="#{videoBean.fileMapping.description}"/>
+                    <h:outputText value="#{videoBean.fileMapping.getImageDescription()}"/>
                 </b:column>
             </b:row>
-                    <b:video src="#{request.contextPath}#{videoBean.fileMapping.getFileDownloadPath()}"
+                    <b:video src="#{request.contextPath}#{videoBean.fileMapping.file.getDownloadUrl()}"
                              style="width: 100%"/>
         </b:panel>
     </composite:implementation>

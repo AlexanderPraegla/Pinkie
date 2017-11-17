@@ -1,10 +1,58 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="title">Biber Forum</ui:define>
 
     <ui:define name="content">
         <b:container>
+            <b:panel title="Diskussionen" collapsible="false">
+                <b:panel collapsible="false">
+                    <a href="#{request.contextPath}/secure/forum/forumPost.xhtml?postId=1">
+                        <b:row>
+                            <b:column colLg="6">
+                                Weggehen nach dem Spiel
+                            </b:column>
+                            <b:column colLg="2">
+                                Anworten: 2
+                            </b:column>
+                            <b:column colLg="2">
+                                Aufrufe: 20
+                            </b:column>
+                            <b:column colLg="2">
+                                Letzter Beitrag: Thomas Peteranderl <br/>
+                                20.10.2017 - 22:03
+                            </b:column>
+                        </b:row>
+                    </a>
+                    <f:facet name="footer">
+                        Erstellt von Thomas Peteranderl, 20.10.2017 - 22:03
+                    </f:facet>
+                </b:panel>
+
+                <b:panel collapsible="false">
+                    <a href="#{request.contextPath}/secure/forum/forumPost.xhtml?postId=1">
+                        <b:row>
+                            <b:column colLg="6">
+                                Kioskdienst Ersatz
+                            </b:column>
+                            <b:column colLg="2">
+                                Anworten: 0
+                            </b:column>
+                            <b:column colLg="2">
+                                Aufrufe: 10
+                            </b:column>
+                            <b:column colLg="2">
+                                Letzter Beitrag: Max Mustermann <br/>
+                                20.10.2017 - 18:03
+                            </b:column>
+                        </b:row>
+                    </a>
+                    <f:facet name="footer">
+                        Erstellt von Max Mustermann, 20.10.2017 - 18:03
+                    </f:facet>
+                </b:panel>
+            </b:panel>
         </b:container>
     </ui:define>
 </ui:composition>

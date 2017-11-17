@@ -1,7 +1,8 @@
 package de.altenerding.biber.pinkie.presentation.report;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.report.boundary.ReportService;
@@ -64,8 +65,8 @@ public class ReportBean {
 			report.setAuthor(userSessionBean.getMember());
 
 			if (file != null) {
-				String fileName = fileService.uploadImage(file, FileDirectory.REPORT_IMAGE);
-				report.setReportImage(fileName);
+				Image image = fileService.uploadImage(file, FileCategory.IMAGES_REPORT, null);
+				report.setImage(image);
 			}
 
 			reportService.createReport(report);
@@ -85,11 +86,7 @@ public class ReportBean {
 	@Access(role = Role.PRESS)
 	public String updateReport() {
 		logger.info("Updating report with id={}", report.getId());
-		Report editReport = reportService.getReportById(report.getId());
-		editReport.setTitle(report.getTitle());
-		editReport.setSummary(report.getSummary());
-		editReport.setText(report.getText());
-		reportService.updateReport(editReport);
+		reportService.updateReport(report);
 
 		FacesMessages.info(report.getType().getLabel(), "Aktualisiert");
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -118,6 +115,10 @@ public class ReportBean {
 
 	public long getReportId() {
 		return reportId;
+	}
+
+	public void setReport(Report report) {
+		this.report = report;
 	}
 
 	public Report getReport() {

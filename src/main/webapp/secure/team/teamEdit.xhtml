@@ -13,6 +13,12 @@
         <b:container rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <b:panel>
                 <h:form enctype="multipart/form-data">
+                    <h:inputHidden value="#{teamEditBean.team.id}"/>
+                    <h:inputHidden value="#{teamEditBean.team.season}" converter="#{baseLongIdEntityConverter}"/>
+                    <h:inputHidden value="#{teamEditBean.team.orderId}" converter="javax.faces.Long"/>
+                    <h:inputHidden value="#{teamEditBean.team.createdOn}" converter="javax.faces.DateTime"/>
+                    <h:inputHidden value="#{teamEditBean.team.archivedOn}" converter="javax.faces.DateTime"/>
+                    <h:inputHidden value="#{teamEditBean.team.image}" converter="#{baseStringIdEntityConverter}"/>
                     <b:row>
                         <b:column>
                             <b:inputText value="#{teamEditBean.team.name}" label="#{pageLabel['team.teamName']}"/>
@@ -23,7 +29,7 @@
                     </b:row>
                     <b:row>
                         <b:column colLg="6" colMd="6" colSm="12" colXs="12">
-                            <h:graphicImage value="#{teamEditBean.team.getFullImagePath()}"
+                            <h:graphicImage value="#{teamEditBean.team.image.getDownloadUrl()}"
                                             style="max-height: 100%; max-width: 100%;margin-bottom: 15px;"/>
                         </b:column>
                         <b:column colLg="6" colMd="6" colSm="12" colXs="12">
@@ -33,7 +39,7 @@
                     </b:row>
                     <b:row>
                         <b:column>
-                            <b:inputTextarea value="#{teamEditBean.team.imageDescription}" label="#{label['description']}"/>
+                            <b:inputTextarea value="#{teamEditBean.team.image.description}" label="#{label['description']}"/>
                         </b:column>
                     </b:row>
                     <b:row style="margin-bottom: 15px;">

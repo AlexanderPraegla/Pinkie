@@ -14,7 +14,7 @@ import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-@WebServlet(name = "DownloadServlet", urlPatterns = {"/file/*"})
+@WebServlet(name = "DownloadServlet", urlPatterns = {"/files/*"})
 public class DownloadServlet extends HttpServlet {
 
 	private Logger logger;
@@ -34,11 +34,11 @@ public class DownloadServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// Read parameter from form that contains the filename to download
 		try {
-			String fileName = URLDecoder.decode(request.getPathInfo().substring(1), "UTF-8");
+			String fileId = URLDecoder.decode(request.getPathInfo().substring(1), "UTF-8");
 
-			Path path = fileService.download(fileName, response.getOutputStream());
+			Path path = fileService.downloadById(fileId, response.getOutputStream());
 
-			response.setHeader("Content-Type", getServletContext().getMimeType(fileName));
+			response.setHeader("Content-Type", getServletContext().getMimeType(fileId));
 			response.setHeader("Content-Length", String.valueOf(Files.size(path)));
 			response.setHeader("Content-Disposition", "inline; filename=\"" + path.getFileName().toString() + "\"");
 		} catch (Exception e) {

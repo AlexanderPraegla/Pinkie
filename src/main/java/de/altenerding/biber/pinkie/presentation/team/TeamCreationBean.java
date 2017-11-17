@@ -1,7 +1,8 @@
 package de.altenerding.biber.pinkie.presentation.team;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
@@ -42,8 +43,8 @@ public class TeamCreationBean implements Serializable {
 		try {
 
 			if (file != null) {
-				String fileName = fileService.uploadImage(file, FileDirectory.TEAM_IMAGE);
-				team.setImageName(fileName);
+				Image image = fileService.uploadImage(file, FileCategory.IMAGES_TEAM_GROUP, team.getImage().getDescription());
+				team.setImage(image);
 			}
 
 			List<Member> teamMembers = new ArrayList<>();

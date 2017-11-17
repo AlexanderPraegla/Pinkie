@@ -1,7 +1,6 @@
 package de.altenerding.biber.pinkie.business.announcement.entity;
 
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
-import org.apache.commons.lang3.StringUtils;
+import de.altenerding.biber.pinkie.business.file.entity.Document;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,10 +19,8 @@ public class Announcement {
 	@Column(name = "created_on")
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
-	@Column(columnDefinition = "varchar")
-	private String announcementDocument;
-	@Column(columnDefinition = "varchar")
-	private String documentDisplayedName;
+	@OneToOne
+	private Document document;
 	@Column(name = "archived_on")
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date archivedOn;
@@ -59,35 +56,22 @@ public class Announcement {
 		this.createdOn = createdOn;
 	}
 
-	public String getAnnouncementDocument() {
-		return announcementDocument;
-	}
-
-	public void setAnnouncementDocument(String announcementDocument) {
-		this.announcementDocument = announcementDocument;
-	}
-
-	public String getFullAnnouncementDocumentPath() {
-		return "/file/" + FileDirectory.ANNOUNCEMENT_DOCUMENTS.getName() + "/" + announcementDocument;
-	}
-
-	public boolean hasAttachment() {
-		return StringUtils.isNotBlank(announcementDocument);
-	}
-
-	public String getDocumentDisplayedName() {
-		return documentDisplayedName;
-	}
-
-	public void setDocumentDisplayedName(String announcementDocumentName) {
-		this.documentDisplayedName = announcementDocumentName;
-	}
-
 	public Date getArchivedOn() {
 		return archivedOn;
 	}
 
 	public void setArchivedOn(Date archivedOn) {
 		this.archivedOn = archivedOn;
+	}
+
+	public Document getDocument() {
+		if (document == null) {
+			return new Document();
+		}
+		return document;
+	}
+
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 }

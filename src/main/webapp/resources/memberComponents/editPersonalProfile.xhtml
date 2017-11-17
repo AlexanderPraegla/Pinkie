@@ -14,11 +14,11 @@
 
     <composite:implementation>
         <b:panel title="#{pageLabel['member.edit.personal']}" collapsed="false">
-            <b:formGroup rendered="#{memberBean.member.profileImage != null and not memberBean.member.profileImage.equals('')}">
+            <b:formGroup rendered="#{memberBean.member.image.fileName != null}">
                 <b:row>
                     <b:column colLg="2" colMd="2" colSm="3" colXs="6"
                               styleClass="col-xs-offset-3 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
-                        <b:image value="#{memberBean.member.getFullProfileImagePath()}"
+                        <b:image value="#{memberBean.member.image.getDownloadUrl()}"
                                  style="max-width: 100%; max-height: 100%"/>
                     </b:column>
                 </b:row>
@@ -30,7 +30,7 @@
             </b:formGroup>
 
             <b:formGroup>
-                <h:inputHidden value="#{memberBean.member.profileImage}"/>
+                <h:inputHidden value="#{memberBean.member.image}" converter="#{baseStringIdEntityConverter}"/>
             </b:formGroup>
             <b:formGroup>
                 <b:inputText value="#{memberBean.member.nickName}" label="#{label['nickName']}"

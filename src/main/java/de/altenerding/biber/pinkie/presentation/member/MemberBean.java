@@ -1,7 +1,8 @@
 package de.altenerding.biber.pinkie.presentation.member;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.login.boundary.AuthenticateService;
 import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
@@ -42,6 +43,8 @@ public class MemberBean implements Serializable {
 	public String createMember() throws Exception {
 		logger.info("Creating new member with name={}", member.getFullName());
 		String email = member.getFirstName() + "." + member.getLastName() + "@altenerding-biber.de";
+		Image image = fileService.uploadImage(file, FileCategory.IMAGES_MEMBER_PROFILE, "");
+		member.setImage(image);
 		member.setEmail(email);
 		Member member = memberService.createMember(this.member);
 
@@ -57,8 +60,8 @@ public class MemberBean implements Serializable {
 		logger.info("Updating member with name={}", member.getFullName());
 
 		if (file != null) {
-			String fileName = fileService.uploadImage(file, FileDirectory.PROFILE_IMAGE);
-			member.setProfileImage(fileName);
+			Image image = fileService.uploadImage(file, FileCategory.IMAGES_MEMBER_PROFILE, null);
+			member.setImage(image);
 		}
 
 		memberService.updateMember(member);
@@ -67,12 +70,12 @@ public class MemberBean implements Serializable {
 	}
 
 	@Access(role = Role.MEMBER)
-	public String updatProfile() throws Exception {
+	public String updateProfile() throws Exception {
 		logger.info("Updating profile for name={}", member.getFullName());
 
 		if (file != null) {
-			String fileName = fileService.uploadImage(file, FileDirectory.PROFILE_IMAGE);
-			member.setProfileImage(fileName);
+			Image image = fileService.uploadImage(file, FileCategory.IMAGES_MEMBER_PROFILE, null);
+			member.setImage(image);
 		}
 
 		memberService.updateMember(member);

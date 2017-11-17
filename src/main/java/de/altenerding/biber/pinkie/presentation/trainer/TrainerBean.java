@@ -1,8 +1,9 @@
 package de.altenerding.biber.pinkie.presentation.trainer;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
 import de.altenerding.biber.pinkie.business.file.entity.FileMapping;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
@@ -28,15 +29,15 @@ public class TrainerBean {
 	private Logger logger;
 	private List<Member> trainers;
 	private FileMapping fileMapping;
-	private String fileDescription;
 	private Part file;
 
 	@Access(role = Role.PRESS)
 	public String uploadTrainerGroupImage() throws Exception {
 		if (file != null) {
-		logger.info("Replacing trainers group image with new one");
-			String fileName = fileService.uploadImage(file, FileDirectory.IMAGES);
-			fileMapping.setImageFilePath(fileName);
+			logger.info("Replacing trainers group image with new one");
+			String imageDescription = fileMapping.getImage().getDescription();
+			Image image = fileService.uploadImage(file, FileCategory.IMAGES_TRAINER_GROUP, imageDescription);
+			fileMapping.setFile(image);
 			fileMapping.setKey(TRAINER_GROUP_PICTURE_KEY);
 			fileMapping.setPage(TRAINERS_PAGE_NAME);
 			fileService.replaceFileMapping(fileMapping);
@@ -94,11 +95,4 @@ public class TrainerBean {
 		this.file = file;
 	}
 
-	public String getFileDescription() {
-		return fileDescription;
-	}
-
-	public void setFileDescription(String fileDescription) {
-		this.fileDescription = fileDescription;
-	}
 }

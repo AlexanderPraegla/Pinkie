@@ -3,7 +3,8 @@ package de.altenerding.biber.pinkie.presentation.dean;
 import de.altenerding.biber.pinkie.business.dean.boundary.DeanService;
 import de.altenerding.biber.pinkie.business.dean.entity.Dean;
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import net.bootsfaces.utils.FacesMessages;
@@ -45,12 +46,12 @@ public class DeanBean implements Serializable {
 
 			if (!this.dean.getMember().equals(dean.getMember())) {
 				dean.setMember(this.dean.getMember());
-				dean.setDeanImage(null);
+				dean.setImage(null);
 			}
 
 			if (file != null) {
-				String fileName = fileService.uploadImage(file, FileDirectory.PROFILE_IMAGE);
-				dean.setDeanImage(fileName);
+				Image image = fileService.uploadImage(file, FileCategory.IMAGES_DEAN_PROFILE, null);
+				dean.setImage(image);
 			}
 
 			deanService.updateDean(dean);

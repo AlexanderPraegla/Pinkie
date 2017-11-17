@@ -24,12 +24,12 @@
                     </h3>
                     <a href="#{teamBean.team.urlStanding}" target="_blank">Zur NuLiga</a>
                 </b:row>
-                <b:row rendered="#{teamBean.team.hasTeamImage()}">
-                    <h:graphicImage value="#{teamBean.team.getFullImagePath()}"
+                <b:row rendered="#{teamBean.team.image.fileName != null}">
+                    <h:graphicImage value="#{teamBean.team.image.getDownloadUrl()}"
                                     style="max-height: 100%; max-width: 100%"/>
                 </b:row>
                 <b:row style="white-space: pre-wrap">
-                    <h:outputText value="#{teamBean.team.imageDescription}" escape="false"/>
+                    <h:outputText value="#{teamBean.team.image.description}" escape="false"/>
                 </b:row>
             </div>
         </b:panel>
@@ -37,7 +37,7 @@
             <ui:repeat value="#{teamBean.team.trainers}" var="trainer">
                 <components:profile
                         member="#{trainer}"
-                        profileImagePath="#{trainer.getFullProfileImagePath()}"
+                        profileImagePath="#{trainer.image.getDownloadUrl()}"
                         panelTitle="#{trainer.getFullName()}"
                         showMobileNumber="#{true}"
                         showPhonenumber="#{true}"

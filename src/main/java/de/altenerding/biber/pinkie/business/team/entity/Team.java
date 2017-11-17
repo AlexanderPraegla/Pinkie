@@ -1,9 +1,8 @@
 package de.altenerding.biber.pinkie.business.team.entity;
 
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.season.entity.Season;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -36,10 +35,8 @@ public class Team {
 	@Column(name = "created_on")
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
-	@Column(columnDefinition = "VARCHAR")
-	private String imageName;
-	@Column(columnDefinition = "VARCHAR")
-	private String imageDescription;
+	@OneToOne
+	private Image image;
 	@Column(columnDefinition = "VARCHAR")
 	private String additionalInfo;
 	@OneToMany(fetch = FetchType.LAZY)
@@ -113,33 +110,6 @@ public class Team {
 		this.season = season;
 	}
 
-	public String getImageName() {
-		return imageName;
-	}
-
-	public String getFullImagePath() {
-		if (StringUtils.isNotBlank(imageName)) {
-			return "/file/" + FileDirectory.TEAM_IMAGE.getName() + "/" + imageName;
-		}
-		return null;
-	}
-
-	public boolean hasTeamImage() {
-		return StringUtils.isNotBlank(imageName);
-	}
-
-	public void setImageName(String imageName) {
-		this.imageName = imageName;
-	}
-
-	public String getImageDescription() {
-		return imageDescription;
-	}
-
-	public void setImageDescription(String imageDescription) {
-		this.imageDescription = imageDescription;
-	}
-
 	public String getAdditionalInfo() {
 		return additionalInfo;
 	}
@@ -186,5 +156,16 @@ public class Team {
 
 	public void setUrlTeamSchedule(String urlTeamSchedule) {
 		this.urlTeamSchedule = urlTeamSchedule;
+	}
+
+	public Image getImage() {
+		if (image == null) {
+			image = new Image();
+		}
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 }

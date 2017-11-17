@@ -1,10 +1,10 @@
 package de.altenerding.biber.pinkie.business.report.entity;
 
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
+import de.altenerding.biber.pinkie.business.global.entity.BaseLongIdEntity;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.season.entity.Season;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,7 +16,7 @@ import java.util.Date;
 		@NamedQuery(name = "Report.findByTeamIdSeasonID", query = "SELECT g from Report g " +
 				"where g.team.id = :teamId AND g.season.id = :seasonId ORDER BY g.createdOn desc")
 })
-public class Report {
+public class Report extends BaseLongIdEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,8 +41,8 @@ public class Report {
 	@Column(name = "created_on", nullable = false)
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
-	@Column(columnDefinition = "varchar")
-	private String reportImage;
+	@OneToOne
+	private Image image;
 
 	@PrePersist
 	protected void onPersist() {
@@ -123,19 +123,11 @@ public class Report {
 		this.type = type;
 	}
 
-	public String getReportImage() {
-		return reportImage;
+	public Image getImage() {
+		return image;
 	}
 
-	public void setReportImage(String reportImage) {
-		this.reportImage = reportImage;
-	}
-
-	public String getFullReportImagePath() {
-		return "/file/" + FileDirectory.REPORT_IMAGE.getName() + "/" + reportImage;
-	}
-
-	public boolean hasReportImage() {
-		return StringUtils.isNotBlank(reportImage);
+	public void setImage(Image image) {
+		this.image = image;
 	}
 }

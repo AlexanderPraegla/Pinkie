@@ -1,7 +1,8 @@
 package de.altenerding.biber.pinkie.presentation.team;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
@@ -60,16 +61,10 @@ public class TeamEditBean implements Serializable {
 	public String updateTeam() throws Exception {
 		String result;
 		try {
-			Team team = teamService.getTeamById(teamId);
-			team.setName(this.team.getName());
-			team.setLeague(this.team.getLeague());
-			team.setUrlStanding(this.team.getUrlStanding());
-			team.setImageDescription(this.team.getImageDescription());
-			team.setAdditionalInfo(this.team.getAdditionalInfo());
 
 			if (file != null) {
-				String fileName = fileService.uploadImage(file, FileDirectory.TEAM_IMAGE);
-				team.setImageName(fileName);
+				Image image = fileService.uploadImage(file, FileCategory.IMAGES_TEAM_GROUP, team.getImage().getDescription());
+				team.setImage(image);
 			}
 
 			List<Member> teamMembers = new ArrayList<>();

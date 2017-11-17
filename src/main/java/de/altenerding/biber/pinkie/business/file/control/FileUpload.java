@@ -1,6 +1,6 @@
 package de.altenerding.biber.pinkie.business.file.control;
 
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
 import de.altenerding.biber.pinkie.business.systemproperty.SystemProperty;
 import org.apache.logging.log4j.Logger;
 
@@ -19,8 +19,8 @@ public class FileUpload {
 	@SystemProperty(name = "resourceFolder")
 	private String resourceFolder;
 
-	public String upload(Part file, FileDirectory directory) throws Exception {
-		String folder = resourceFolder + directory.getName();
+	public String upload(Part file, FileCategory directory) throws Exception {
+		String folder = resourceFolder + directory.getDirectoryPath();
 		String fileName = getFileName(file);
 
 			logger.info("Upload File '{}' to {}", fileName, folder);
@@ -30,6 +30,7 @@ public class FileUpload {
 			Files.copy(filecontent, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
 		}
 		logger.info("Upload File '{}' to {} successful", fileName, folder);
+
 		return fileName;
 	}
 

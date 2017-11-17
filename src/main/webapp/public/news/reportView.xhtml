@@ -20,10 +20,9 @@
                         <h:outputText value="#{reportBean.report.text}" escape="false"/>
                     </b:column>
                 </b:row>
-                <b:row>
+                <b:row rendered="#{reportBean.report.image != null}">
                     <b:column>
-                        <b:image value="#{reportBean.report.getFullReportImagePath()}"
-                                 rendered="#{reportBean.report.hasReportImage()}"
+                        <b:image value="#{reportBean.report.image.getDownloadUrl()}"
                                  style="max-width: 100%; max-height: 100%"/>
                     </b:column>
                 </b:row>

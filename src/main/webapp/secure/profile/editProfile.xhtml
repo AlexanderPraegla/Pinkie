@@ -34,7 +34,7 @@
                 </b:formGroup>
                 <memberComponents:editPersonalProfile/>
                 <memberComponents:editPlayersProfile/>
-                <b:commandButton action="#{memberBean.updatProfile}" value="#{label['button.save']}">
+                <b:commandButton action="#{memberBean.updateProfile}" value="#{label['button.save']}">
                     <f:param value="#{memberBean.memberId}" name="memberId"/>
                 </b:commandButton>
             </b:form>

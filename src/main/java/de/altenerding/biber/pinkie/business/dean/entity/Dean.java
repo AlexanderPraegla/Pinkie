@@ -1,8 +1,7 @@
 package de.altenerding.biber.pinkie.business.dean.entity;
 
-import de.altenerding.biber.pinkie.business.file.entity.FileDirectory;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,8 +21,8 @@ public class Dean {
 	private String description;
 	@Column
 	private int orderId;
-	@Column(columnDefinition = "varchar")
-	private String deanImage;
+	@OneToOne
+	private Image image;
 	@Column(name = "archived_on")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date archivedOn;
@@ -39,16 +38,11 @@ public class Dean {
 	}
 
 	public String getFullImagePath() {
-		if (StringUtils.isNotBlank(deanImage)) {
-			return "/file/" + FileDirectory.PROFILE_IMAGE.getName() + "/" + deanImage;
-		} else if (StringUtils.isNotBlank(member.getProfileImage())) {
-			return member.getFullProfileImagePath();
+		if (image != null) {
+			return image.getDownloadUrl();
+		} else {
+			return member.getImage().getDownloadUrl();
 		}
-		return null;
-	}
-
-	public boolean hasProfileImage() {
-		return StringUtils.isNotBlank(deanImage) || StringUtils.isNotBlank(member.getProfileImage());
 	}
 
 	public long getId() {
@@ -83,14 +77,6 @@ public class Dean {
 		this.orderId = orderId;
 	}
 
-	public String getDeanImage() {
-		return deanImage;
-	}
-
-	public void setDeanImage(String deanImage) {
-		this.deanImage = deanImage;
-	}
-
 	public Date getArchivedOn() {
 		return archivedOn;
 	}
@@ -105,5 +91,13 @@ public class Dean {
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 }

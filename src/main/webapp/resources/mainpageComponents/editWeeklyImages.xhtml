@@ -17,10 +17,10 @@
                     <div style="margin-bottom: 15px">
                         <b:row>
                             <b:column colLg="12" colMd="12" colSm="12" colXs="12" >
-                                <b:inputText value="#{weeklyImage.description}"/>
+                                <b:inputText value="#{weeklyImage.image.description}"/>
                             </b:column>
                             <b:column colLg="2" colMd="3" colSm="4" colXs="12">
-                                <h:graphicImage value="#{weeklyImage.getWeeklyImageFullPath()}"
+                                <h:graphicImage value="#{weeklyImage.image.getDownloadUrl()}"
                                                 style="max-height: 100%; max-width: 100%"/>
                             </b:column>
                             <b:column colLg="2" colMd="2" colSm="4" colXs="12">

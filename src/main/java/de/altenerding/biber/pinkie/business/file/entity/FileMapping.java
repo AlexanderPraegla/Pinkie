@@ -19,10 +19,8 @@ public class FileMapping {
 	private String page;
 	@Column(columnDefinition = "varchar")
 	private String key;
-	@Column(columnDefinition = "varchar")
-	private String filePath;
-	@Column(columnDefinition = "varchar")
-	private String description;
+	@OneToOne
+	private File file;
 	@Column(name = "created_on")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdOn;
@@ -35,6 +33,34 @@ public class FileMapping {
 		if (createdOn == null) {
 			createdOn = new Date();
 		}
+	}
+
+	public Image getImage() {
+		if (file instanceof Image) {
+			return ((Image) file);
+		}
+		return null;
+	}
+
+	public String getImageDescription() {
+		if (file instanceof Image) {
+			return ((Image) file).getDescription();
+		}
+		return "";
+	}
+
+	public String getVideoDescription() {
+		if (file instanceof Video) {
+			return ((Video) file).getDescription();
+		}
+		return "";
+	}
+
+	public String getDocumentDisplayedName() {
+		if (file instanceof Document) {
+			return ((Document) file).getDisplayedName();
+		}
+		return "";
 	}
 
 	public String getPage() {
@@ -53,44 +79,12 @@ public class FileMapping {
 		this.key = key;
 	}
 
-	public String getFilePath() {
-		return filePath;
-	}
-
-	public void setFilePath(String value) {
-		this.filePath = value;
-	}
-
 	public Date getCreatedOn() {
 		return createdOn;
 	}
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
-	}
-
-	public void setDocumentFilePath(String fileName) {
-		filePath = FileDirectory.DOCUMTENTS.getName() + "/" + fileName;
-	}
-
-	public void setImageFilePath(String fileName) {
-		filePath = FileDirectory.IMAGES.getName() + "/" + fileName;
-	}
-
-	public void setVideoFilePath(String fileName) {
-		filePath = FileDirectory.VIDEOS.getName() + "/" + fileName;
-	}
-
-	public String getFileDownloadPath() {
-		return "/file/" + filePath;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public Date getArchivedOn() {
@@ -107,5 +101,13 @@ public class FileMapping {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
 	}
 }

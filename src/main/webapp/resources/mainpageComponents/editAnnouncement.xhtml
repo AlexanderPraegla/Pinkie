@@ -19,11 +19,11 @@
                             <b:column colLg="8" colMd="12" colSm="12" colXs="12">
                                 <b:inputTextarea value="#{announcement.text}"/>
                                 <b:row>
-                                    <b:column rendered="#{announcement.hasAttachment()}" styleClass="form-group">
+                                    <b:column rendered="#{announcement.document.fileName != null}" styleClass="form-group">
                                         <b:button
-                                                href="#{request.contextPath}#{announcement.getFullAnnouncementDocumentPath()}"
+                                                href="#{request.contextPath}#{announcement.document.getDownloadUrl()}"
                                                 look="info"
-                                                target="blank" value="#{announcement.documentDisplayedName}"
+                                                target="blank" value="#{announcement.document.displayedName}"
                                                 icon="download"/>
                                     </b:column>
                                 </b:row>

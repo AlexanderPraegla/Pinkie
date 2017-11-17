@@ -13,9 +13,9 @@
                 <b:row style="white-space: pre-wrap">
                     <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
                     <b:column colLg="8" colMd="8" colSm="12" colXs="12">
-                        <b:image value="#{trainerBean.fileMapping.getFileDownloadPath()}"
+                        <b:image value="#{trainerBean.fileMapping.file.getDownloadUrl()}"
                                  style="max-width: 100%; max-height: 100%"/>
-                        <h:outputText value="#{trainerBean.fileMapping.description}"/>
+                        <h:outputText value="#{trainerBean.fileMapping.getImage().description}"/>
                     </b:column>
                     <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
                 </b:row>
@@ -27,7 +27,7 @@
                                          style="margin-bottom: 15px;margin-top: 15px;"/>
                         </b:column>
                         <b:column>
-                            <b:inputTextarea value="#{trainerBean.fileMapping.description}"/>
+                            <b:inputTextarea value="#{trainerBean.fileMapping.image.description}"/>
                         </b:column>
                         <b:column colLg="6" colMd="6" colSm="12" colXs="12">
                             <b:commandButton value="#{label['button.upload.image']}" look="primary"
@@ -39,7 +39,7 @@
             <ui:repeat value="#{trainerBean.trainers}" var="trainer">
                 <components:profile
                         member="#{trainer}"
-                        profileImagePath="#{trainer.getFullProfileImagePath()}"
+                        profileImagePath="#{trainer.image.getDownloadUrl()}"
                         panelTitle="#{trainer.getFullName()}"
                         showMobileNumber="#{true}"
                         showPhonenumber="#{true}"

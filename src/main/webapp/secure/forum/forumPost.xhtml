@@ -1,10 +1,42 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="title">Dummy Post</ui:define>
 
     <ui:define name="content">
         <b:container>
+            <b:row>
+                <b:column >
+                    <b:panel title="Weggehen nach dem Spiel" collapsible="false">
+                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                        <f:facet name="footer">
+                            Thomas Peteranderl, 20.10.2017 - 22:03
+                        </f:facet>
+                    </b:panel>
+                </b:column>
+                <b:column >
+                    <b:panel  collapsible="false">
+                        Bin dabei!
+                        <f:facet name="footer">
+                             Daniel Sagert, 20.10.2017 - 22:04
+                        </f:facet>
+                    </b:panel>
+                </b:column>
+                <b:column >
+                    <b:panel collapsible="false">
+                        Ich kann leider nicht :(
+                        <f:facet name="footer">
+                            Michael Sack, 20.10.2017 - 22:15
+                        </f:facet>
+                    </b:panel>
+                </b:column>
+                <b:column >
+                    <b:inputTextarea placeholder="Antwort" />
+                    <b:button look="success" value="Speichern"/>
+                </b:column>
+            </b:row>
+
         </b:container>
     </ui:define>
 </ui:composition>

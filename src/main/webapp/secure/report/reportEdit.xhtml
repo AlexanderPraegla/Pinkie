@@ -12,10 +12,11 @@
         </f:metadata>
         <b:container rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <h:form id="editReportFormId">
+                <h:inputHidden value="#{reportBean.report}" converter="#{baseLongIdEntityConverter}"/>
                 <b:inputText value="#{reportBean.report.author.getFullName()}" label="#{pageLabel['report.author']}" disabled="true"/>
                 <b:inputText value="#{reportBean.report.title}" label="#{pageLabel['report.reportTitle']}" required="true" requiredMessage="Bitte Titel angeben"/>
                 <b:inputText value="#{reportBean.report.summary}" label="#{pageLabel['report.summary']}" required="true" requiredMessage="Bitte Zusammenfassung angeben"/>
-                <b:panelGrid colSpans="4,4,4">
+                <b:panelGrid colSpans="4,4,4" size="sm">
                     <b:inputText value="#{reportBean.report.season.name}" label="#{pageLabel['report.season']}" disabled="true"/>
                     <b:inputText value="#{reportBean.report.team.name}" label="#{pageLabel['report.team']}" disabled="true"/>
                     <b:inputText value="#{reportBean.report.type.label}" label="#{pageLabel['report.reportType']}" disabled="true"/>
