@@ -26,4 +26,7 @@
         <location>/WEB-INF/errorpages/500.xhtml</location>
     </error-page>
 
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
 </web-app>
