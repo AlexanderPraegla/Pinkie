@@ -14,17 +14,17 @@ public class ScheduleBean {
 
 	private NuLigaDataService nuLigaDataService;
 	private List<TeamScheduleEntry> teamScheduleEntries;
+	private List<TeamScheduleEntry> recentResults;
 
 	public void initSchedule() {
 		teamScheduleEntries = nuLigaDataService.getUpcomingGames();
 	}
 
-	/*
-	Maybe this should be in an applicationScoped bean, which refreshes the data every 5 minutes
-	and the bean is just getting the list. This would avoid db calls for every page load
-	 */
 	public List<TeamScheduleEntry> getRecentResults() {
-		return nuLigaDataService.getRecentResults();
+		if (recentResults == null) {
+			recentResults = nuLigaDataService.getRecentResults();
+		}
+		return recentResults;
 	}
 
 	@Inject
