@@ -1,4 +1,4 @@
-package de.altenerding.biber.pinkie.presentation.announcement;
+package de.altenerding.biber.pinkie.presentation.mainpage;
 
 import de.altenerding.biber.pinkie.business.announcement.boundary.AnnouncementService;
 import de.altenerding.biber.pinkie.business.announcement.entity.Announcement;
@@ -41,7 +41,7 @@ public class AnnouncementProcessingBean implements Serializable {
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "editMainpage.xhtml?faces-redirect=true";
+		return "saveMainpage";
 	}
 
 	@Access(role = Role.PRESS)
@@ -53,7 +53,7 @@ public class AnnouncementProcessingBean implements Serializable {
 			logger.error("Error while deleting announcement with id={}", anncouncement.getId(), e);
 			FacesMessages.error("Es ist ein Fehler beim löschen der Ankündigung aufgetreten");
 		}
-		return "editMainpage.xhtml?faces-redirect=true";
+		return "saveMainpage";
 	}
 
 	@Access(role = Role.PRESS)
@@ -69,7 +69,7 @@ public class AnnouncementProcessingBean implements Serializable {
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "editMainpage.xhtml?faces-redirect=true";
+		return "saveMainpage";
 	}
 
 	private void uploadAnnouncementAttachment(Announcement anncouncement) throws Exception {

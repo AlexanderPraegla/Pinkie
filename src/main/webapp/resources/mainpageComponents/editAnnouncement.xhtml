@@ -3,7 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head/>
 <h:body>
@@ -12,14 +12,16 @@
 
     <composite:implementation>
         <b:panel title="#{pageLabel['mainpage.announcement.edit']}" collapsed="true">
-            <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
-                    <div style="margin-bottom: 10px">
-                        <h:form id="announcementListFormId" enctype="multipart/form-data">
+            <c:forEach var="announcement" items="#{announcementBean.announcements}">
+                <div style="margin-bottom: 10px">
+                    <h:form id="announcementListFormId" enctype="multipart/form-data">
+                        <h:inputHidden value="#{announcement.id}"/>
                         <b:row>
                             <b:column colLg="8" colMd="12" colSm="12" colXs="12">
                                 <b:inputTextarea value="#{announcement.text}"/>
                                 <b:row>
-                                    <b:column rendered="#{announcement.document.fileName != null}" styleClass="form-group">
+                                    <b:column rendered="#{announcement.document.fileName != null}"
+                                              styleClass="form-group">
                                         <b:button
                                                 href="#{request.contextPath}#{announcement.document.getDownloadUrl()}"
                                                 look="info"
@@ -43,8 +45,8 @@
                             </b:column>
                         </b:row>
                     </h:form>
-                    </div>
-            </ui:repeat>
+                </div>
+            </c:forEach>
         </b:panel>
     </composite:implementation>
 </h:body>
