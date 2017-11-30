@@ -13,7 +13,9 @@
         <b:panel title="#{pageLabel['mainpage.announcement.add']}" rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <h:form enctype="multipart/form-data">
                 <b:column colLg="10" colMd="10" colSm="10" colXs="12">
-                    <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}" rows="5"/>
+                    <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}" rows="5">
+                        <b:focus/>
+                    </b:inputTextarea>
                 </b:column>
                 <b:column colLg="2" colMd="2" colSm="2" colXs="12">
                     <b:commandButton value="#{label['button.save']}" look="success"

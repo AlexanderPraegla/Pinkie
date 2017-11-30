@@ -8,7 +8,9 @@
         <b:container rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <h:form id="addReportFormId" enctype="multipart/form-data">
                 <b:inputText value="#{userSessionBean.member.getFullName()}" label="#{pageLabel['report.author']}" disabled="true"/>
-                <b:inputText value="#{reportBean.report.title}" label="#{pageLabel['report.reportTitle']}" required="true" requiredMessage="Bitte Titel angeben"/>
+                <b:inputText value="#{reportBean.report.title}" label="#{pageLabel['report.reportTitle']}" required="true" requiredMessage="Bitte Titel angeben">
+                    <b:focus/>
+                </b:inputText>
                 <b:inputText value="#{reportBean.report.summary}" label="#{pageLabel['report.summary']}" required="true" requiredMessage="Bitte Zusammenfassung angeben"/>
                 <b:panelGrid colSpans="4,4,4">
                     <b:selectOneMenu value="#{reportBean.report.season}" label="#{pageLabel['report.season']}">

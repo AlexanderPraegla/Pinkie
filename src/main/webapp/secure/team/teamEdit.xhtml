@@ -21,7 +21,9 @@
                     <h:inputHidden value="#{teamEditBean.team.image}" converter="#{baseStringIdEntityConverter}"/>
                     <b:row>
                         <b:column>
-                            <b:inputText value="#{teamEditBean.team.name}" label="#{pageLabel['team.teamName']}"/>
+                            <b:inputText value="#{teamEditBean.team.name}" label="#{pageLabel['team.teamName']}">
+                                <b:focus/>
+                            </b:inputText>
                             <b:inputText value="#{teamEditBean.team.league}" label="#{pageLabel['team.league']}"/>
                             <b:inputText value="#{teamEditBean.team.urlStanding}" label="#{pageLabel['team.nuLigaUrl']}"/>
                             <b:inputText value="#{teamEditBean.team.season.name}" label="#{pageLabel['team.season']}" disabled="true"/>

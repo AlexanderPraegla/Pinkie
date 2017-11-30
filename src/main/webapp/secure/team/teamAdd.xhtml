@@ -12,7 +12,9 @@
                     <b:row>
                         <b:column>
                             <b:inputText required="true" requiredMessage="Bitte Mannschaftsnamen angeben"
-                                         value="#{teamCreationBean.team.name}" label="#{pageLabel['team.teamName']}"/>
+                                         value="#{teamCreationBean.team.name}" label="#{pageLabel['team.teamName']}">
+                                <b:focus/>
+                            </b:inputText>
                             <b:inputText required="true" requiredMessage="Bitte Liga ausfüllen"
                                          value="#{teamCreationBean.team.league}" label="#{pageLabel['team.league']}"/>
                             <b:inputText value="#{teamCreationBean.team.urlStanding}" label="#{pageLabel['team.nuLigaUrl']}"/>

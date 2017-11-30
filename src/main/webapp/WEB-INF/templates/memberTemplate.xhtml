@@ -20,7 +20,9 @@
                     <b:formGroup>
                         <b:inputText value="#{memberBean.member.firstName}" label="#{label['firstName']}"
                                      placeholder="#{label['firstName']}"
-                                     required="true" requiredMessage="Bitte Vorname ausfüllen"/>
+                                     required="true" requiredMessage="Bitte Vorname ausfüllen">
+                            <b:focus/>
+                        </b:inputText>
                     </b:formGroup>
                     <b:formGroup>
                         <b:inputText value="#{memberBean.member.lastName}" label="#{label['lastName']}"
