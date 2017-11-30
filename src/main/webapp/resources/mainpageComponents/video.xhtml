@@ -16,8 +16,8 @@
                     <h:outputText value="#{videoBean.fileMapping.getImageDescription()}"/>
                 </b:column>
             </b:row>
-                    <b:video src="#{request.contextPath}#{videoBean.fileMapping.file.getDownloadUrl()}"
-                             style="width: 100%"/>
+            <b:video src="#{request.contextPath}#{videoBean.fileMapping.file.getDownloadUrl()}"
+                     style="width: 100%"/>
         </b:panel>
     </composite:implementation>
 </h:body>

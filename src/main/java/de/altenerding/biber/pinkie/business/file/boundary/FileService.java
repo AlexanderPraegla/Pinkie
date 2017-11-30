@@ -12,7 +12,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -90,12 +89,8 @@ public class FileService {
 		}
 	}
 
-	public Path download(String fileName, ServletOutputStream outputStream) throws Exception {
-		return fileDownload.download(fileName, outputStream);
-	}
-
-	public Path downloadById(String fileId, ServletOutputStream outputStream) throws Exception {
-		return fileDownload.downloadById(fileId, outputStream);
+	public java.io.File getFileById(String fileId) throws Exception {
+		return fileDownload.getFileById(fileId);
 	}
 
 	public FileMapping getFileMappingbyKeyPage(String page, String key) throws Exception {
