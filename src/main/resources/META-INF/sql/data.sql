@@ -84,8 +84,8 @@ INSERT INTO team_trainer (team_id, member_id) VALUES (3, 5);
 INSERT INTO team_trainer (team_id, member_id) VALUES (4, 6);
 INSERT INTO team_trainer (team_id, member_id) VALUES (5, 1);
 
-INSERT INTO dean (created_on, image_id, description, orderid, member_id) VALUES (now(), '8b75ec92-0d22-4d1e-bf07-1f0defc878a9', 'Abteilungsleiter', 1, 7);
-INSERT INTO dean (created_on, image_id, description, orderid, member_id) VALUES (now(), 'e2958d6d-d24e-4a08-ae3d-6367410afaee', 'Stellvertretender Abteilungsleiter', 2, 1);
+INSERT INTO dean (created_on, image_id, function, orderid, member_id) VALUES (now(), '8b75ec92-0d22-4d1e-bf07-1f0defc878a9', 'Abteilungsleiter', 1, 7);
+INSERT INTO dean (created_on, image_id, function, orderid, member_id) VALUES (now(), 'e2958d6d-d24e-4a08-ae3d-6367410afaee', 'Stellvertretender Abteilungsleiter', 2, 1);
 
 INSERT INTO referee(created_on, orderid, image_id, member_id) VALUES (now(), 1, '40525a1f-d48d-4f1a-b78a-9b6eb16aa595', 2);
 INSERT INTO referee(created_on, orderid, image_id, member_id) VALUES (now(), 2, '4ccae959-22a8-4ca2-a724-a94fdcc008fc', 1);

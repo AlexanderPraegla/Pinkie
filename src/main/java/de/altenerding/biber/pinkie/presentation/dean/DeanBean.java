@@ -42,7 +42,7 @@ public class DeanBean implements Serializable {
 		String result;
 		try {
 			Dean dean = deanService.getDeanById(deanId);
-			dean.setDescription(this.dean.getDescription());
+			dean.setFunction(this.dean.getFunction());
 
 			if (!this.dean.getMember().equals(dean.getMember())) {
 				dean.setMember(this.dean.getMember());
@@ -55,7 +55,7 @@ public class DeanBean implements Serializable {
 			}
 
 			deanService.updateDean(dean);
-			FacesMessages.info(dean.getDescription(), "Aktualisieret");
+			FacesMessages.info(dean.getFunction(), "Aktualisieret");
 			result = "/public/club/deans.xhtml?faces-redirect=true";
 		} catch (Exception e) {
 			logger.error("Error while updating dean", e);
@@ -70,7 +70,7 @@ public class DeanBean implements Serializable {
 	@Access(role = Role.ADMIN)
 	public String createDean() {
 		deanService.createDean(this.dean);
-		FacesMessages.info(dean.getDescription(), "Erstellt");
+		FacesMessages.info(dean.getFunction(), "Erstellt");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		return "/public/club/deans.xhtml?faces-redirect=true";
@@ -91,7 +91,7 @@ public class DeanBean implements Serializable {
 		logger.info("Archiving dean");
 		dean.setArchivedOn(new Date());
 		deanService.updateDean(dean);
-		FacesMessages.info(dean.getDescription(), "Archiviert");
+		FacesMessages.info(dean.getFunction(), "Archiviert");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		return "/secure/dean/deansEdit.xhtml?faces-redirect=true";

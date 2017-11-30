@@ -18,7 +18,7 @@ public class Dean {
 	@OneToOne(fetch = FetchType.LAZY)
 	private Member member;
 	@Column(columnDefinition = "varchar")
-	private String description;
+	private String function;
 	@Column
 	private int orderId;
 	@OneToOne
@@ -29,6 +29,8 @@ public class Dean {
 	@Column(name = "created_on")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdOn;
+	@Column(columnDefinition = "varchar")
+	private String description;
 
 	@PrePersist
 	protected void onPersist() {
@@ -61,12 +63,12 @@ public class Dean {
 		this.member = member;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getFunction() {
+		return function;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setFunction(String description) {
+		this.function = description;
 	}
 
 	public int getOrderId() {
@@ -99,5 +101,13 @@ public class Dean {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String desciription) {
+		this.description = desciription;
 	}
 }
