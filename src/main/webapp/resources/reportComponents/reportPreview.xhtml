@@ -21,18 +21,18 @@
                 <h:outputText value="#{cc.attrs.report.title}"/>
             </f:facet>
             <b:row>
-                <b:column span="10">
+                <b:column span="8">
                     <h:outputText value="#{cc.attrs.report.summary}"/>
                 </b:column>
-                <b:column span="1" style="margin-top: 5px">
+                <b:column span="2" style="margin-top: 5px">
                     <b:button value="#{label['button.edit']}" outcome="/secure/report/reportEdit.xhtml"
-                              look="default" rendered="#{userSessionBean.isUserInRole('PRESS') and cc.attrs.editable}"
+                              look="default btn-block" rendered="#{userSessionBean.isUserInRole('PRESS') and cc.attrs.editable}"
                               includeViewParams="true">
                         <f:param name="reportId" value="#{cc.attrs.report.id}"/>
                     </b:button>
                 </b:column>
-                <b:column span="1" style="margin-top: 5px">
-                    <b:button value="Lesen" outcome="/public/news/reportView.xhtml" look="primary"
+                <b:column span="2" style="margin-top: 5px">
+                    <b:button value="#{label['button.read']}" outcome="/public/news/reportView.xhtml" look="primary btn-block"
                               includeViewParams="true">
                         <f:param name="reportId" value="#{cc.attrs.report.id}"/>
                     </b:button>
