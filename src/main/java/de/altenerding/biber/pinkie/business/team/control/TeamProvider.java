@@ -1,7 +1,7 @@
 package de.altenerding.biber.pinkie.business.team.control;
 
 import de.altenerding.biber.pinkie.business.members.entity.Member;
-import de.altenerding.biber.pinkie.business.season.control.SeasonProvider;
+import de.altenerding.biber.pinkie.business.season.boundary.SeasonService;
 import de.altenerding.biber.pinkie.business.season.entity.Season;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
 import org.apache.logging.log4j.Logger;
@@ -16,11 +16,11 @@ public class TeamProvider {
 	@PersistenceContext
 	private EntityManager em;
 	private Logger logger;
-	private SeasonProvider seasonProvider;
+	private SeasonService seasonSerivce;
 
-	public List<Team> getTeams() {
+	public List<Team> getCurrentTeams() {
 		logger.info("Loading all Teams of current season from database");
-		Season season = seasonProvider.getCurrentSeason();
+		Season season = seasonSerivce.getCurrentSeason();
 		return em.createNamedQuery("Team.getCurrentTeams", Team.class)
 				.setParameter("seasonId", season.getId())
 				.getResultList();
@@ -43,7 +43,7 @@ public class TeamProvider {
 	}
 
 	@Inject
-	public void setSeasonProvider(SeasonProvider seasonProvider) {
-		this.seasonProvider = seasonProvider;
+	public void setSeasonSerivce(SeasonService seasonSerivce) {
+		this.seasonSerivce = seasonSerivce;
 	}
 }

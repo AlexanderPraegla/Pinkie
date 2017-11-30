@@ -15,8 +15,8 @@ public class TeamService {
 	private TeamProvider teamProvider;
 	private TeamProcessor teamProcessor;
 
-	public List<Team> getTeams() {
-		return teamProvider.getTeams();
+	public List<Team> getCurrentTeams() {
+		return teamProvider.getCurrentTeams();
 	}
 
 	public Team getTeamById(long id) {
@@ -35,10 +35,21 @@ public class TeamService {
 		return teamProcessor.createTeam(team);
 	}
 
+	public void createTeams(List<Team> newTeams) {
+		for (Team team : newTeams) {
+			createTeam(team);
+		}
+	}
+
 	public void archiveTeam(Team team) {
 		teamProcessor.archiveTeam(team);
 	}
 
+	public void archiveTeams(List<Team> teams) {
+		for (Team team : teams) {
+			archiveTeam(team);
+		}
+	}
 
 	public List<Member> getAllTrainers() {
 		return teamProvider.getAllTrainers();

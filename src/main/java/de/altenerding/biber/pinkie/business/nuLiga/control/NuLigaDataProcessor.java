@@ -14,6 +14,7 @@ import org.jsoup.select.Elements;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -30,13 +31,14 @@ public class NuLigaDataProcessor {
 	@PersistenceContext
 	private EntityManager em;
 
-	public void loadNuLigaTeamData() throws Exception {
+	@Transactional
+	void loadNuLigaTeamData() throws Exception {
 		emptyTeamData();
-		List<Team> teams = teamProvider.getTeams();
+		List<Team> teams = teamProvider.getCurrentTeams();
 
 		for (Team team : teams) {
 			if (StringUtils.isBlank(team.getUrlStanding())) {
-				logger.info("No url for nuLiga data available for team={} with id={}", team.getName(), team.getId());
+				logger.warn("No url for nuLiga data available for team={} with id={}", team.getName(), team.getId());
 				continue;
 			}
 			Document document = Jsoup.connect(team.getUrlStanding()).get();

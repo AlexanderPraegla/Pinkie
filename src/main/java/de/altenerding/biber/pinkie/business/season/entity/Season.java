@@ -20,6 +20,13 @@ public class Season extends BaseLongIdEntity{
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
 
+	@PrePersist
+	protected void onPersist() {
+		if (createdOn == null) {
+			createdOn = new Date();
+		}
+	}
+
 	public long getId() {
 		return id;
 	}

@@ -42,7 +42,7 @@ public class TeamBean implements Serializable {
 	public List<Team> getTeams() {
 		if (teams == null) {
 			logger.info("Loading all teams from database");
-			teams = teamService.getTeams();
+			teams = teamService.getCurrentTeams();
 		}
 		return teams;
 	}

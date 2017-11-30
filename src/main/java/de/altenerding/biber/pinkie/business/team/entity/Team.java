@@ -168,4 +168,19 @@ public class Team {
 	public void setImage(Image image) {
 		this.image = image;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Team team = (Team) o;
+
+		return id == team.id;
+	}
+
+	@Override
+	public int hashCode() {
+		return (int) (id ^ (id >>> 32));
+	}
 }

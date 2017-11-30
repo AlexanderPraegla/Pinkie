@@ -35,6 +35,8 @@
                                                    enableFiltering="true"
                                                    colLg="5" colMd="6" colSm="12" colXs="12"
                                                    enableCaseInsensitiveFiltering="true"
+                                                   nonSelectedText="#{label['noItemSelected']}"
+                                                   allSelectedText="#{label['allItemsSelected']}"
                                                    filterPlaceholder="Spielername eintippen">
                                     <f:selectItems value="#{memberBean.members}" var="member"
                                                    itemValue="#{memberBean.members.indexOf(member)}"
@@ -44,6 +46,8 @@
                                                    enableFiltering="true"
                                                    colLg="5" colMd="6" colSm="12" colXs="12"
                                                    enableCaseInsensitiveFiltering="true"
+                                                   nonSelectedText="#{label['noItemSelected']}"
+                                                   allSelectedText="#{label['allItemsSelected']}"
                                                    filterPlaceholder="Trainername eintippen">
                                     <f:selectItems value="#{memberBean.members}" var="member"
                                                    itemValue="#{memberBean.members.indexOf(member)}"
