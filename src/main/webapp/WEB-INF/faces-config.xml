@@ -7,8 +7,35 @@
     <navigation-rule>
         <from-view-id>/secure/mainpage/editMainpage.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>saveMainpage</from-outcome>
+            <from-outcome>success</from-outcome>
             <to-view-id>/secure/mainpage/editMainpage.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/public/login/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/secure/profile/profile.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <redirect-param>
+                    <name>memberId</name>
+                    <value>#{userSessionBean.member.id}</value>
+                </redirect-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/public/login/login.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

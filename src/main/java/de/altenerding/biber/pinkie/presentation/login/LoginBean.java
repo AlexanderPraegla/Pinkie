@@ -37,15 +37,15 @@ public class LoginBean {
 				Member member = memberService.getMemberByEmail(email);
 				userSessionBean.setMember(member);
 				logger.info("Login successful for member alias={}", member.getEmail());
-				result = "/secure/profile/profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();
+				result = "success";
 			} else {
 				logger.error("Login NOT successful for alias={}", email);
 				FacesMessages.error("Login fehlgeschlagen");
-				result = "/public/login/login.xhtml?faces-redirect=true";
+				result = "error";
 			}
 		} catch (Exception e) {
 			logger.info("Error while validating login", e);
-			result = "/public/login/login.xhtml?faces-redirect=true";
+			result = "error";
 			FacesMessages.error("Es ist ein Fehler beim Login aufgetreten");
 		}
 
@@ -55,7 +55,7 @@ public class LoginBean {
 	@Access(role = Role.MEMBER)
 	public String logout() {
 		userSessionBean.setMember(null);
-		return "/index.xhtml?faces-redirect=true";
+		return "logout";
 	}
 	public void setEmail(String email) {
 		this.email = email;

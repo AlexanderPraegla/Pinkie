@@ -41,7 +41,7 @@ public class AnnouncementProcessingBean implements Serializable {
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "saveMainpage";
+		return "success";
 	}
 
 	@Access(role = Role.PRESS)
@@ -53,7 +53,7 @@ public class AnnouncementProcessingBean implements Serializable {
 			logger.error("Error while deleting announcement with id={}", anncouncement.getId(), e);
 			FacesMessages.error("Es ist ein Fehler beim löschen der Ankündigung aufgetreten");
 		}
-		return "saveMainpage";
+		return "success";
 	}
 
 	@Access(role = Role.PRESS)
@@ -69,7 +69,7 @@ public class AnnouncementProcessingBean implements Serializable {
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "saveMainpage";
+		return "success";
 	}
 
 	private void uploadAnnouncementAttachment(Announcement anncouncement) throws Exception {
