@@ -52,11 +52,6 @@ public class ReportBean {
 		report = reportService.getReportById(reportId);
 	}
 
-	/*
-	TODO BUG: When refreshing the page after submitting the form the post request is sent again
-	This is prevented by 'faces-redirect=true' but with this, the info message is not displayed.
-	The workaround for this is the option 'context.getExternalContext().getFlash().setKeepMessages(true);'
-	 */
 	@Access(role = Role.PRESS)
 	public String saveReport() {
 		logger.info("Creating new Report with title={}", report.getTitle());
@@ -86,12 +81,25 @@ public class ReportBean {
 	@Access(role = Role.PRESS)
 	public String updateReport() {
 		logger.info("Updating report with id={}", report.getId());
-		reportService.updateReport(report);
+		String result;
+		try {
+			if (file != null) {
+				Image image = fileService.uploadImage(file, FileCategory.IMAGES_REPORT, null);
+				report.setImage(image);
+			}
 
-		FacesMessages.info(report.getType().getLabel(), "Aktualisiert");
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "/public/news/report.xhtml?faces-redirect=true";
+			reportService.updateReport(report);
+
+			FacesMessages.info(report.getType().getLabel(), "Aktualisiert");
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.getExternalContext().getFlash().setKeepMessages(true);
+			result = "/public/news/report.xhtml?faces-redirect=true";
+		} catch (Exception e) {
+			logger.info("Error while creating report", e);
+			FacesMessages.error("Fehler beim speichern");
+			result = "/secure/report/reportAdd.xhtml?faces-redirect=true";
+		}
+		return result;
 	}
 
 	@Inject
