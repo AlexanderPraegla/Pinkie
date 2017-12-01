@@ -178,13 +178,35 @@ INSERT INTO public.report (id, created_on, summary, text, title, type, author_id
 
 ALTER SEQUENCE report_id_seq RESTART WITH 1000;
 
-INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('FILE', now(), 'referees.xhtml', 'referees.group.picture');
-INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('FILE', now(), 'trainers.xhtml', 'trainers.group.picture');
-INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('FILE', now(), 'index.xhtml', 'startpage.video');
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('FILE', now(), 'referees.xhtml', 'referees.group.picture'); --id = 1
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('FILE', now(), 'trainers.xhtml', 'trainers.group.picture'); --id = 2
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('FILE', now(), 'index.xhtml', 'startpage.video'); --id = 3
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('FILE', now(), 'biberFriends.xhtml', 'biberFriends.documents'); --id = 4
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('FILE', now(), 'biberFriends.xhtml', 'biberFriends.documents'); --id = 5
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('FILE', now(), 'biberFriends.xhtml', 'biberFriends.group.image'); --id = 6
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('TEXT', now(), 'biberFriends.xhtml', 'biberFriends.group.text'); --id = 7
+
+
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('TEXT', now(), 'boosterClub.xhtml', 'boosterClub.purpose'); --id = 8
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('FILE', now(), 'boosterClub.xhtml', 'boosterClub.documents'); --id = 9
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('FILE', now(), 'boosterClub.xhtml', 'boosterClub.documents'); --id = 10
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('TEXT', now(), 'boosterClub.xhtml', 'boosterClub.donationAccount'); --id = 11
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('TEXT', now(), 'boosterClub.xhtml', 'boosterClub.dean'); --id = 12
 
 INSERT INTO file_mapping (id, file_id) VALUES (1, 'f2cdd255-dd3e-412e-b960-d8aebb795961');
 INSERT INTO file_mapping (id, file_id) VALUES (2, '531ed2ea-e09d-4f6e-912a-0c94737dde39');
 INSERT INTO file_mapping (id, file_id) VALUES (3, 'b4274dfe-c53a-40aa-9850-17ba56e36900');
+INSERT INTO file_mapping (id, file_id) VALUES (4, 'bd4335f7-4a8b-4c4c-9e4a-f68bbff23b72');
+INSERT INTO file_mapping (id, file_id) VALUES (5, 'bd4335f7-4a8b-4c4c-9e4a-f68bbff23b72');
+INSERT INTO file_mapping (id, file_id) VALUES (6, 'f2cdd255-dd3e-412e-b960-d8aebb795961');
+
+INSERT INTO file_mapping (id, file_id) VALUES (9, 'bd4335f7-4a8b-4c4c-9e4a-f68bbff23b72');
+INSERT INTO file_mapping (id, file_id) VALUES (10, 'bd4335f7-4a8b-4c4c-9e4a-f68bbff23b72');
+
+INSERT INTO text_mapping (id, text) VALUES (7, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.');
+INSERT INTO text_mapping (id, text) VALUES (8, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.');
+INSERT INTO text_mapping (id, text) VALUES (11, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.');
+INSERT INTO text_mapping (id, text) VALUES (12, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.');
 
 INSERT INTO public.login (alias, created_on, inactivereason, logincount, password, salt) VALUES ('alexander.praegla@altenerding-biber.de', '2017-11-06 21:19:47.164000', null, 0, 'oFpvjMZ42Q13ynLowxKziGinTZPPFGu4C7aAiolQxBg=', 'Kp92eDJ8A/HSAlrOAJHc8gA2EjUHngQPTC33hu1wOrTLcxQfnl9Le7X8VCKQSQ0fhRLAfgnFO0verVlOsum0HQ==');
 INSERT INTO public.login (alias, created_on, inactivereason, logincount, password, salt) VALUES ('daniel.sagert@altenerding-biber.de', '2017-11-06 21:20:17.889000', null, 0, 'Tr2a0nkj5gv44zxiipyZwMj58I8+LKmtDkVxKtCua6o=', 'p7T0u5UC2cQpG/LbzHJzSN0QPb2L26tWr5U52h+xEaqXwgx/rNh57eJHiiFY01sCyJU+pWgVTN9m8y9tYCZttA==');
