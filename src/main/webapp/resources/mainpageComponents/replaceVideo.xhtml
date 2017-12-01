@@ -14,7 +14,6 @@
             <h:form id="addVideoFormId" enctype="multipart/form-data">
                 <b:column colLg="6" colMd="6" colSm="4" colXs="12">
                     <b:inputText value="#{videoBean.videoDescription}"
-                                 required="true" requiredMessage="Bitte Text zum Video angeben"
                                  style="margin-bottom: 15px;"/>
                 </b:column>
                 <b:column colLg="4" colMd="4" colSm="6" colXs="12">
@@ -31,7 +30,7 @@
                 <b:row>
                     <b:column colLg="2" colMd="2" colSm="2" colXs="2" offset="4">
                         <b:commandButton value="#{label['button.archive']}" look="danger" style="width: 100%"
-                                         action="#{videoBean.archiveVideo(videoBean.fileMapping)}"/>
+                                         action="#{videoBean.archiveVideo}"/>
                     </b:column>
                 </b:row>
             </h:form>

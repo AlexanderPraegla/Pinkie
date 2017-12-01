@@ -1,12 +1,17 @@
 package de.altenerding.biber.pinkie.business.file.control;
 
 import de.altenerding.biber.pinkie.business.file.entity.FileMapping;
+import de.altenerding.biber.pinkie.business.file.entity.Mapping;
+import de.altenerding.biber.pinkie.business.file.entity.TextMapping;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FileMappingControl {
 
@@ -14,48 +19,62 @@ public class FileMappingControl {
 	@PersistenceContext
 	private EntityManager em;
 
-	public FileMapping getFileMappingbyKeyPage(String page, String key) throws Exception {
-		logger.info("Getting file for page={} and key={}", page, key);
-		List<FileMapping> fileMappings = em.createNamedQuery("FileMapping.getByPageKey", FileMapping.class)
-				.setParameter("page", page)
-				.setParameter("key", key)
-				.getResultList();
+	public void updateMapping(Mapping mapping) {
+		logger.info("Updating or creating mapping for page={} with key={} and id={}", mapping.getPage(), mapping.getKey(), mapping.getId());
+		em.merge(mapping);
+		em.flush();
+	}
 
-		if (fileMappings.size() == 0) {
+	public FileMapping getSingleFileMapping(String page, String key) {
+		Map<String, List<Mapping>> mappingForPage = getMappingForPage(page);
+		List<Mapping> mappings = mappingForPage.get(key);
+		if (mappings != null) {
+			//There should be only one mapped file for the provided key
+			return (FileMapping) mappings.get(0);
+		} else {
 			return null;
-		} else if (fileMappings.size() > 1) {
-			logger.error("There is more than one mapping for page={} and key={}", page, key);
-			throw new Exception("There is more than one mapping for one key");
+		}
+	}
+
+	public TextMapping getSingleTextMapping(String page, String key) {
+		Map<String, List<Mapping>> mappingForPage = getMappingForPage(page);
+		List<Mapping> mappings = mappingForPage.get(key);
+		if (mappings != null) {
+			//There should be only one mapped text for the provided key
+			return (TextMapping) mappings.get(0);
+		} else {
+			return null;
+		}
+	}
+
+	public List<FileMapping> getMultipeFileMappings(String page, String key) {
+		Map<String, List<Mapping>> mappingForPage = getMappingForPage(page);
+		List<FileMapping> fileMappings = new ArrayList<>();
+
+		for (Mapping mapping : mappingForPage.get(key)) {
+			fileMappings.add((FileMapping) mapping);
+		}
+		return fileMappings;
+	}
+
+	private Map<String, List<Mapping>> getMappingForPage(String page) {
+		logger.info("Loading file and text mappings for page={}", page);
+
+		List<Mapping> mappingList = em.createNamedQuery("Mapping.getByPage", Mapping.class).setParameter("page", page).getResultList();
+
+		Map<String, List<Mapping>> mappings = new HashMap<>();
+		for (Mapping mapping : mappingList) {
+			if (mappings.containsKey(mapping.getKey())) {
+				List<Mapping> list = mappings.get(mapping.getKey());
+				list.add(mapping);
+			} else {
+				List<Mapping> list = new ArrayList<>();
+				list.add(mapping);
+				mappings.put(mapping.getKey(), list);
+			}
 		}
 
-		return fileMappings.get(0);
-	}
-
-	public void replaceFileMapping(FileMapping fileMapping) {
-		logger.info("Archive old file mapping for page={} and key={} befor creating new entry", fileMapping.getPage(), fileMapping.getKey());
-
-		em.createNamedQuery("FileMapping.updateArchivedOn")
-				.setParameter("page", fileMapping.getPage())
-				.setParameter("key", fileMapping.getKey())
-				.executeUpdate();
-
-		logger.info("Creating file mapping for page={} and key={}", fileMapping.getPage(), fileMapping.getKey());
-		em.persist(fileMapping);
-		em.flush();
-	}
-
-	public void addFileMapping(FileMapping fileMapping) {
-		logger.info("Creating file mapping for page={} and key={}", fileMapping.getPage(), fileMapping.getKey());
-
-		em.persist(fileMapping);
-		em.flush();
-	}
-
-	public void updateFileMapping(FileMapping fileMapping) {
-		logger.info("Updating fileMapping with id={}", fileMapping.getId());
-		em.merge(fileMapping.getFile());
-		em.merge(fileMapping);
-		em.flush();
+		return mappings;
 	}
 
 	@Inject

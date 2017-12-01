@@ -178,9 +178,13 @@ INSERT INTO public.report (id, created_on, summary, text, title, type, author_id
 
 ALTER SEQUENCE report_id_seq RESTART WITH 1000;
 
-INSERT INTO filemapping (created_on, page, key, file_id) VALUES (now(), 'referees.xhtml', 'referees.group.picture', 'f2cdd255-dd3e-412e-b960-d8aebb795961');
-INSERT INTO filemapping (created_on, page, key, file_id) VALUES (now(), 'trainers.xhtml', 'trainers.group.picture', '531ed2ea-e09d-4f6e-912a-0c94737dde39');
-INSERT INTO filemapping (created_on, page, key, file_id) VALUES (now(), 'index.xhtml', 'startpage.video', 'b4274dfe-c53a-40aa-9850-17ba56e36900');
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('FILE', now(), 'referees.xhtml', 'referees.group.picture');
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('FILE', now(), 'trainers.xhtml', 'trainers.group.picture');
+INSERT INTO mappings (mapping_type, created_on, page, key) VALUES ('FILE', now(), 'index.xhtml', 'startpage.video');
+
+INSERT INTO file_mapping (id, file_id) VALUES (1, 'f2cdd255-dd3e-412e-b960-d8aebb795961');
+INSERT INTO file_mapping (id, file_id) VALUES (2, '531ed2ea-e09d-4f6e-912a-0c94737dde39');
+INSERT INTO file_mapping (id, file_id) VALUES (3, 'b4274dfe-c53a-40aa-9850-17ba56e36900');
 
 INSERT INTO public.login (alias, created_on, inactivereason, logincount, password, salt) VALUES ('alexander.praegla@altenerding-biber.de', '2017-11-06 21:19:47.164000', null, 0, 'oFpvjMZ42Q13ynLowxKziGinTZPPFGu4C7aAiolQxBg=', 'Kp92eDJ8A/HSAlrOAJHc8gA2EjUHngQPTC33hu1wOrTLcxQfnl9Le7X8VCKQSQ0fhRLAfgnFO0verVlOsum0HQ==');
 INSERT INTO public.login (alias, created_on, inactivereason, logincount, password, salt) VALUES ('daniel.sagert@altenerding-biber.de', '2017-11-06 21:20:17.889000', null, 0, 'Tr2a0nkj5gv44zxiipyZwMj58I8+LKmtDkVxKtCua6o=', 'p7T0u5UC2cQpG/LbzHJzSN0QPb2L26tWr5U52h+xEaqXwgx/rNh57eJHiiFY01sCyJU+pWgVTN9m8y9tYCZttA==');

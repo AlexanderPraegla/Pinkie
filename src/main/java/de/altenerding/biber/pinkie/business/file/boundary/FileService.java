@@ -3,7 +3,13 @@ package de.altenerding.biber.pinkie.business.file.boundary;
 import de.altenerding.biber.pinkie.business.file.control.FileDownload;
 import de.altenerding.biber.pinkie.business.file.control.FileMappingControl;
 import de.altenerding.biber.pinkie.business.file.control.FileUpload;
-import de.altenerding.biber.pinkie.business.file.entity.*;
+import de.altenerding.biber.pinkie.business.file.entity.Document;
+import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
+import de.altenerding.biber.pinkie.business.file.entity.FileMapping;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
+import de.altenerding.biber.pinkie.business.file.entity.Mapping;
+import de.altenerding.biber.pinkie.business.file.entity.TextMapping;
+import de.altenerding.biber.pinkie.business.file.entity.Video;
 import de.altenerding.biber.pinkie.business.systemproperty.SystemProperty;
 import org.apache.logging.log4j.Logger;
 
@@ -17,6 +23,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Stateless
 public class FileService {
@@ -93,16 +100,20 @@ public class FileService {
 		return fileDownload.getFileById(fileId);
 	}
 
-	public FileMapping getFileMappingbyKeyPage(String page, String key) throws Exception {
-		return fileMappingControl.getFileMappingbyKeyPage(page, key);
+	public void updateMapping(Mapping mapping) {
+		fileMappingControl.updateMapping(mapping);
 	}
 
-	public void replaceFileMapping(FileMapping fileMapping) {
-		fileMappingControl.replaceFileMapping(fileMapping);
+	public FileMapping getSingleFileMapping(String page, String key) {
+		return fileMappingControl.getSingleFileMapping(page, key);
 	}
 
-	public void updateFileMapping(FileMapping fileMapping) {
-		fileMappingControl.updateFileMapping(fileMapping);
+	public TextMapping getSingleTextMapping(String page, String key) {
+		return fileMappingControl.getSingleTextMapping(page, key);
+	}
+
+	public List<FileMapping> getMultipeFileMappings(String page, String key) {
+		return fileMappingControl.getMultipeFileMappings(page, key);
 	}
 
 	@Inject

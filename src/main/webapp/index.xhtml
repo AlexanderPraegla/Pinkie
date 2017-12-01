@@ -17,7 +17,7 @@
             <mainpageComponent:announcement/>
             <mainpageComponent:lastResults/>
 
-            <b:row rendered="#{videoBean.fileMapping != null and weeklyImageBean.weeklyImages.size() > 0}">
+            <b:row rendered="#{videoBean.videoMapping.video != null and weeklyImageBean.weeklyImages.size() > 0}">
                 <b:column colLg="6">
                     <mainpageComponent:weeklyImages/>
                 </b:column>
@@ -25,12 +25,12 @@
                     <mainpageComponent:video/>
                 </b:column>
             </b:row>
-            <b:row rendered="#{weeklyImageBean.weeklyImages.size() > 0 and videoBean.fileMapping == null}">
+            <b:row rendered="#{weeklyImageBean.weeklyImages.size() > 0 and videoBean.videoMapping.video == null}">
                 <b:column>
                     <mainpageComponent:weeklyImages/>
                 </b:column>
             </b:row>
-            <b:row rendered="#{videoBean.fileMapping != null and weeklyImageBean.weeklyImages.size() == 0}">
+            <b:row rendered="#{videoBean.videoMapping.video != null and weeklyImageBean.weeklyImages.size() == 0}">
                 <b:column colLg="3"/>
                 <b:column colLg="6">
                     <mainpageComponent:video/>

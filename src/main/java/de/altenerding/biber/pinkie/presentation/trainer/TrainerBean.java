@@ -10,6 +10,7 @@ import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.team.boundary.TeamService;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,25 +29,40 @@ public class TrainerBean {
 	private FileService fileService;
 	private Logger logger;
 	private List<Member> trainers;
-	private FileMapping fileMapping;
 	private Part file;
+	private String groupImageDescription;
+
+	@PostConstruct
+	public void init() {
+		groupImageDescription = fileService.getSingleFileMapping(TRAINERS_PAGE_NAME, TRAINER_GROUP_PICTURE_KEY).getImage().getDescription();
+	}
 
 	@Access(role = Role.PRESS)
 	public String uploadTrainerGroupImage() throws Exception {
+		FileMapping imageMapping = getImageMapping();
 		if (file != null) {
 			logger.info("Replacing trainers group image with new one");
-			String imageDescription = fileMapping.getImage().getDescription();
-			Image image = fileService.uploadImage(file, FileCategory.IMAGES_TRAINER_GROUP, imageDescription);
-			fileMapping.setFile(image);
-			fileMapping.setKey(TRAINER_GROUP_PICTURE_KEY);
-			fileMapping.setPage(TRAINERS_PAGE_NAME);
-			fileService.replaceFileMapping(fileMapping);
+			Image image = fileService.uploadImage(file, FileCategory.IMAGES_TRAINER_GROUP, groupImageDescription);
+
+			if (imageMapping == null) {
+				imageMapping = new FileMapping();
+			}
+			imageMapping.setKey(TRAINER_GROUP_PICTURE_KEY);
+			imageMapping.setPage(TRAINERS_PAGE_NAME);
+			imageMapping.setFile(image);
+
+			fileService.updateMapping(imageMapping);
 		} else {
 			logger.info("Updating trainers group image description");
-			fileService.updateFileMapping(fileMapping);
+			imageMapping.getImage().setDescription(groupImageDescription);
+			fileService.updateMapping(imageMapping);
 		}
 
 		return "/public/club/trainers.xhtml?faces-redirect=true";
+	}
+
+	public FileMapping getImageMapping() {
+		return fileService.getSingleFileMapping(TRAINERS_PAGE_NAME, TRAINER_GROUP_PICTURE_KEY);
 	}
 
 	@Inject
@@ -75,18 +91,6 @@ public class TrainerBean {
 		this.trainers = trainers;
 	}
 
-	public FileMapping getFileMapping() throws Exception {
-		if (fileMapping == null) {
-			fileMapping = fileService.getFileMappingbyKeyPage(TRAINERS_PAGE_NAME, TRAINER_GROUP_PICTURE_KEY);
-		}
-
-		return fileMapping;
-	}
-
-	public void setFileMapping(FileMapping fileMapping) {
-		this.fileMapping = fileMapping;
-	}
-
 	public Part getFile() {
 		return file;
 	}
@@ -95,4 +99,11 @@ public class TrainerBean {
 		this.file = file;
 	}
 
+	public String getGroupImageDescription() {
+		return groupImageDescription;
+	}
+
+	public void setGroupImageDescription(String groupImageDescription) {
+		this.groupImageDescription = groupImageDescription;
+	}
 }

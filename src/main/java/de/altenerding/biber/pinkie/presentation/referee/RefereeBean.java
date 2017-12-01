@@ -33,11 +33,14 @@ public class RefereeBean implements Serializable {
 	private List<Referee> referees;
 	private Referee referee = new Referee();
 	private Part file;
-	private FileMapping fileMapping;
 
 	public void initReferee() {
 		logger.info("Initializing referee");
 		referee = refereeService.getRefereeById(refereeId);
+	}
+
+	public FileMapping getImageMapping() {
+		return fileService.getSingleFileMapping(REFEREES_PAGE_NAME, REFEREE_IMAGE_GROUP_PICTURE_KEY);
 	}
 
 	@Access(role = Role.ADMIN)
@@ -104,12 +107,16 @@ public class RefereeBean implements Serializable {
 	public String uploadRefereeGroupImage() throws Exception {
 		logger.info("Uploading new group image for referees");
 		Image image = fileService.uploadImage(file, FileCategory.IMAGES_REFEREE_GROUP, null);
-		FileMapping fileMapping = new FileMapping();
-		fileMapping.setFile(image);
-		fileMapping.setKey(REFEREE_IMAGE_GROUP_PICTURE_KEY);
-		fileMapping.setPage(REFEREES_PAGE_NAME);
-		fileService.replaceFileMapping(fileMapping);
+		FileMapping imageMapping = getImageMapping();
 
+		if (imageMapping == null) {
+			imageMapping = new FileMapping();
+		}
+		imageMapping.setKey(REFEREE_IMAGE_GROUP_PICTURE_KEY);
+		imageMapping.setPage(REFEREES_PAGE_NAME);
+		imageMapping.setFile(image);
+
+		fileService.updateMapping(imageMapping);
 		return "/public/club/referees.xhtml?faces-redirect=true";
 	}
 
@@ -161,17 +168,5 @@ public class RefereeBean implements Serializable {
 
 	public void setReferee(Referee referee) {
 		this.referee = referee;
-	}
-
-	public void setFileMapping(FileMapping fileMapping) {
-		this.fileMapping = fileMapping;
-	}
-
-	public FileMapping getFileMapping() throws Exception {
-		if (fileMapping == null) {
-			fileMapping = fileService.getFileMappingbyKeyPage(REFEREES_PAGE_NAME, REFEREE_IMAGE_GROUP_PICTURE_KEY);
-		}
-
-		return fileMapping;
 	}
 }

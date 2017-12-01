@@ -2,7 +2,19 @@ package de.altenerding.biber.pinkie.business.file.entity;
 
 import de.altenerding.biber.pinkie.business.global.entity.BaseStringIdEntity;
 
-import javax.persistence.*;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 import java.util.UUID;
 
@@ -37,7 +49,7 @@ public abstract class File extends BaseStringIdEntity {
 	}
 
 	public String getDownloadUrl() {
-		return "/files/" + id; //TODO Download servlet umstellen, dass es mit der id arbeitet und die daten aus der db lädt
+		return "/files/" + id;
 	}
 
 	public String getFullFilePath() {
