@@ -1,4 +1,4 @@
-package de.altenerding.biber.pinkie.presentation.trainer;
+package de.altenerding.biber.pinkie.presentation.club;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
 import de.altenerding.biber.pinkie.business.file.entity.FileCategory;

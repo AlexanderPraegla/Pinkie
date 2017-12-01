@@ -48,7 +48,21 @@ public abstract class Mapping {
         }
     }
 
-    public long getId() {
+    public FileMapping getFileMapping() {
+		if (this instanceof FileMapping) {
+			return (FileMapping) this;
+		}
+		return null;
+	}
+
+    public TextMapping getTextMapping() {
+		if (this instanceof TextMapping) {
+			return (TextMapping) this;
+		}
+		return null;
+	}
+
+	public long getId() {
         return id;
     }
 

@@ -11,6 +11,7 @@ import de.altenerding.biber.pinkie.business.file.entity.Mapping;
 import de.altenerding.biber.pinkie.business.file.entity.TextMapping;
 import de.altenerding.biber.pinkie.business.file.entity.Video;
 import de.altenerding.biber.pinkie.business.systemproperty.SystemProperty;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.PostConstruct;
@@ -24,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 @Stateless
 public class FileService {
@@ -79,7 +81,7 @@ public class FileService {
 
 	public Document uploadDocument(Part file, FileCategory directory, String displayedName) throws Exception {
 		String fileName = fileUpload.upload(file, directory);
-		displayedName = displayedName == null ? fileName : displayedName;
+		displayedName = StringUtils.isBlank(displayedName) ? fileName : displayedName;
 		Document document = new Document(directory, fileName, displayedName);
 		em.persist(document);
 		em.flush();
@@ -87,17 +89,12 @@ public class FileService {
 		return document;
 	}
 
-	@SuppressWarnings("SameParameterValue")
-	private void validateFileMimeType(Part file, String fileType) throws Exception {
-		if (file == null || file.getSize() <= 0 || file.getContentType().isEmpty()) {
-			throw new Exception("Bitte ein gültiges Bild");
-		} else if (!file.getContentType().startsWith(fileType)) {
-			throw new Exception("Bitte eine Bilddatei auswählen");
-		}
-	}
-
 	public java.io.File getFileById(String fileId) throws Exception {
 		return fileDownload.getFileById(fileId);
+	}
+
+	public Map<String, List<Mapping>> getMappingForPage(String page) {
+		return fileMappingControl.getMappingForPage(page);
 	}
 
 	public void updateMapping(Mapping mapping) {
@@ -114,6 +111,15 @@ public class FileService {
 
 	public List<FileMapping> getMultipeFileMappings(String page, String key) {
 		return fileMappingControl.getMultipeFileMappings(page, key);
+	}
+
+	@SuppressWarnings("SameParameterValue")
+	private void validateFileMimeType(Part file, String fileType) throws Exception {
+		if (file == null || file.getSize() <= 0 || file.getContentType().isEmpty()) {
+			throw new Exception("Bitte ein gültiges Bild");
+		} else if (!file.getContentType().startsWith(fileType)) {
+			throw new Exception("Bitte eine Bilddatei auswählen");
+		}
 	}
 
 	@Inject

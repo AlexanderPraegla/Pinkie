@@ -12,11 +12,30 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+
     <navigation-rule>
         <from-view-id>/secure/mainpage/editMainpage.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/secure/mainpage/editMainpage.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/secure/club/editBoosterClub.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/secure/club/editBoosterClub.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/secure/club/editBiberFriends.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/secure/club/editBiberFriends.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

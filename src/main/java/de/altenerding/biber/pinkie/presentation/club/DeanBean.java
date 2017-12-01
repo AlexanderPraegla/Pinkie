@@ -1,4 +1,4 @@
-package de.altenerding.biber.pinkie.presentation.dean;
+package de.altenerding.biber.pinkie.presentation.club;
 
 import de.altenerding.biber.pinkie.business.dean.boundary.DeanService;
 import de.altenerding.biber.pinkie.business.dean.entity.Dean;

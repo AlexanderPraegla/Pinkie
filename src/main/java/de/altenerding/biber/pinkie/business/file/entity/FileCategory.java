@@ -7,9 +7,11 @@ public enum FileCategory {
 	ALBUMS("/albums"),
 
 	DOCUMENTS_ANNOUNCEMENT("documents/announcement/"),
+	DOCUMENTS("documents/global/"),
 
 	VIDEOS("videos/"),
 
+	IMAGES("images/global/"),
 	IMAGES_MAINPAGE("images/mainpage/"),
 	IMAGES_REPORT("images/reports/"),
 	IMAGES_MEMBER_PROFILE("images/memberProfile/"),

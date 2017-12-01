@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
+>
+
+<h:head/>
+<h:body>
+
+    <composite:interface>
+        <composite:attribute type="java.lang.String" name="title"/>
+        <composite:attribute type="java.lang.String" name="text"/>
+        <composite:attribute type="java.lang.String" name="key"/>
+        <composite:attribute type="java.lang.String" name="page"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <b:panel title="#{cc.attrs.title}" collapsible="false">
+            <h:form>
+                <b:row>
+                    <b:column colLg="10" colMd="10" colSm="10" colXs="12">
+                        <b:inputTextarea value="#{cc.attrs.text}" rows="5" >
+                            <b:focus/>
+                        </b:inputTextarea>
+                    </b:column>
+                    <b:column colLg="2" colMd="2" colSm="2" colXs="12">
+                        <b:commandButton value="#{label['button.save']}" look="success" action="success"
+                                         actionListener="#{fileMappingBean.updateSingleMappingText(cc.attrs.text, cc.attrs.page, cc.attrs.key)}">
+                        </b:commandButton>
+                    </b:column>
+                </b:row>
+            </h:form>
+        </b:panel>
+    </composite:implementation>
+</h:body>
+</html>

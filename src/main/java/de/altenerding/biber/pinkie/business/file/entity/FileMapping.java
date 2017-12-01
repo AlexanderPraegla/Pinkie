@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Table(name = "file_mapping")
 public class FileMapping extends Mapping {
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private File file;
 
 	public File getFile() {

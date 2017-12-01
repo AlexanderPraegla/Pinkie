@@ -8,17 +8,23 @@
 <h:body>
 
     <composite:interface>
-        <composite:attribute type="java.lang.String" name="page"/>
-        <composite:attribute type="java.lang.String" name="key"/>
+        <composite:attribute required="true" type="java.lang.String" name="page"/>
+        <composite:attribute required="true" type="java.lang.String" name="key"/>
+        <composite:attribute type="java.lang.Boolean" name="positioned" default="true"/>
     </composite:interface>
 
     <composite:implementation>
-        <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
-        <b:column colLg="8" colMd="8" colSm="12" colXs="12">
-            <b:image value="#{fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).image.downloadUrl}"
-                    style="max-width: 100%; max-height: 100%"/>
-        </b:column>
-        <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
+        <b:row rendered="#{cc.attrs.positioned}">
+            <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
+            <b:column colLg="8" colMd="8" colSm="12" colXs="12">
+                <b:image value="#{fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).image.downloadUrl}"
+                         style="max-width: 100%; max-height: 100%"/>
+            </b:column>
+            <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
+        </b:row>
+        <b:image value="#{fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).image.downloadUrl}"
+                 style="max-width: 100%; max-height: 100%"
+                 rendered="#{not cc.attrs.positioned}"/>
     </composite:implementation>
 </h:body>
 </html>
