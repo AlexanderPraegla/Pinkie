@@ -3,6 +3,7 @@ package de.altenerding.biber.pinkie.presentation.album;
 import de.altenerding.biber.pinkie.business.album.boundary.AlbumService;
 import de.altenerding.biber.pinkie.business.album.entity.Album;
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
+import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
 import de.altenerding.biber.pinkie.business.file.entity.Image;
 
 import javax.enterprise.context.RequestScoped;
@@ -36,6 +37,8 @@ public class AlbumBean {
 		album.setDescription(albumDescription);
 		List<Image> images = new ArrayList<>();
 		String folder = albumDescription.toLowerCase().replace(" ", "_");
+		fileService.createFolder(FileCategory.ALBUMS, folder);
+
 		for (Part albumImage : albumImages) {
 			Image image = fileService.uploadAlbumImage(albumImage, folder);
 			images.add(image);

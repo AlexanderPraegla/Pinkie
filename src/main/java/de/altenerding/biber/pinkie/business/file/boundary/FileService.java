@@ -2,6 +2,7 @@ package de.altenerding.biber.pinkie.business.file.boundary;
 
 import de.altenerding.biber.pinkie.business.file.control.FileDownload;
 import de.altenerding.biber.pinkie.business.file.control.FileMappingControl;
+import de.altenerding.biber.pinkie.business.file.control.FileSystemModifier;
 import de.altenerding.biber.pinkie.business.file.control.FileUpload;
 import de.altenerding.biber.pinkie.business.file.entity.Document;
 import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
@@ -35,6 +36,8 @@ public class FileService {
 	private FileUpload fileUpload;
 	private FileDownload fileDownload;
 	private FileMappingControl fileMappingControl;
+	@Inject
+	private FileSystemModifier fileSystemModifier;
 	@Inject
 	@SystemProperty(name = "resourceFolder")
 	private String resourceFolder;
@@ -124,6 +127,10 @@ public class FileService {
 
 	public List<FileMapping> getMultipeFileMappings(String page, String key) {
 		return fileMappingControl.getMultipeFileMappings(page, key);
+	}
+
+	public void createFolder(FileCategory category, String folder) throws Exception {
+		fileSystemModifier.createFolder(category, folder);
 	}
 
 	@SuppressWarnings("SameParameterValue")
