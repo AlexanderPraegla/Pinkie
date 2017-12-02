@@ -20,10 +20,14 @@ public class FileUpload {
 	private String resourceFolder;
 
 	public String upload(Part file, FileCategory directory) throws Exception {
-		String folder = resourceFolder + directory.getDirectoryPath();
+		return upload(file, directory.getDirectoryPath());
+	}
+
+	public String upload(Part file, String directoryPath) throws Exception {
+		String folder = resourceFolder + directoryPath;
 		String fileName = getFileName(file);
 
-			logger.info("Upload File '{}' to {}", fileName, folder);
+		logger.info("Upload File '{}' to {}", fileName, folder);
 
 		String filePath = folder + File.separator + fileName;
 		try (InputStream filecontent = file.getInputStream()) {

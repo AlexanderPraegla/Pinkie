@@ -31,6 +31,7 @@ public abstract class File extends BaseStringIdEntity {
 	@Column(columnDefinition = "varchar")
 	private String fileName;
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "created_on")
 	private Date createdOn;
 
 	protected File() {

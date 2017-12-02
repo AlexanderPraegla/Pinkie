@@ -13,10 +13,12 @@
                                    outcome="/secure/mainpage/editMainpage.xhtml"/>
                         <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}" value="#{menu['menu.current.addReport']}"
                                    outcome="/secure/report/reportAdd.xhtml"/>
+                        <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}" value="#{menu['menu.current.addAlbum']}"
+                                   outcome="/secure/gallery/addAlbum.xhtml"/>
                         <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink value="#{menu['menu.current.reports']}" outcome="/public/news/report.xhtml"/>
                         <b:navLink value="#{menu['menu.current.clubSchedule']}" outcome="/public/news/clubSchedule.xhtml"/>
-                        <b:navLink value="#{menu['menu.current.images']}" outcome="/index.xhtml"/>
+                        <b:navLink value="#{menu['menu.current.gallery']}" outcome="/public/news/gallery.xhtml"/>
                     </b:listLinks>
                 </b:dropMenu>
                 <b:dropMenu value="#{menu['menu.teams']}">

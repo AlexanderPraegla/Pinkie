@@ -1,0 +1,25 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:define name="title">Galerie</ui:define>
+
+    <ui:define name="content">
+        <b:container>
+            <b:panelGrid colSpans="4,4,4" size="sm">
+                <c:forEach items="#{albumBean.albums}" var="album">
+                    <b:panel>
+                        <h:outputLabel value="#{album.description}"/>
+                        <h:link outcome="/public/news/album.xhtml" includeViewParams="true">
+                            <b:image
+                                    value="#{album.coverImage.downloadUrl}"
+                                    style="max-width: 100%; max-height: 100%"/>
+                            <f:param name="albumId" value="#{album.id}"/>
+                        </h:link>
+                    </b:panel>
+                </c:forEach>
+            </b:panelGrid>
+        </b:container>
+    </ui:define>
+</ui:composition>

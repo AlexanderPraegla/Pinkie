@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -64,6 +65,18 @@ public class FileService {
 		validateFileMimeType(file, "image");
 		String fileName = fileUpload.upload(file, directory);
 		Image image = new Image(directory, fileName, description);
+		em.persist(image);
+		em.flush();
+		em.detach(image);
+		return image;
+	}
+
+	public Image uploadAlbumImage(Part file, String folder) throws Exception {
+		validateFileMimeType(file, "image");
+
+		String fileName = fileUpload.upload(file, FileCategory.ALBUMS.getDirectoryPath() + folder + File.separator);
+		fileName = folder + File.separator + fileName;
+		Image image = new Image(FileCategory.ALBUMS, fileName, null);
 		em.persist(image);
 		em.flush();
 		em.detach(image);

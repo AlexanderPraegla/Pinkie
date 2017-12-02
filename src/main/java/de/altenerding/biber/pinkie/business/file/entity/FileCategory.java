@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum FileCategory {
-	ALBUMS("/albums"),
+	ALBUMS("albums/"),
 
 	DOCUMENTS_ANNOUNCEMENT("documents/announcement/"),
 	DOCUMENTS("documents/global/"),
