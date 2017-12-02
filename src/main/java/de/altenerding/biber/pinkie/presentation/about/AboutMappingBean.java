@@ -17,10 +17,16 @@ public class AboutMappingBean {
 	private FileService fileService;
 
 	private String historyText;
+	private String journeyText;
 
 	public void initHistoryFileMappings(String page) {
 		Map<String, List<Mapping>> mappingForPage = fileService.getMappingForPage(page);
 		historyText = mappingForPage.get("history.text").get(0).getTextMapping().getText();
+	}
+
+	public void initJourneyFileMappings(String page) {
+		Map<String, List<Mapping>> mappingForPage = fileService.getMappingForPage(page);
+		journeyText = mappingForPage.get("journey.text").get(0).getTextMapping().getText();
 	}
 
 	public String getHistoryText() {
@@ -29,5 +35,13 @@ public class AboutMappingBean {
 
 	public void setHistoryText(String historyText) {
 		this.historyText = historyText;
+	}
+
+	public String getJourneyText() {
+		return journeyText;
+	}
+
+	public void setJourneyText(String journeyText) {
+		this.journeyText = journeyText;
 	}
 }
