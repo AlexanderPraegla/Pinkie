@@ -14,7 +14,8 @@
     </composite:interface>
 
     <composite:implementation>
-        <h:outputText value="#{fileMappingBean.getSingleTextMapping(cc.attrs.page, cc.attrs.key).text}"/>
+        <h:outputText value="#{fileMappingBean.getSingleTextMapping(cc.attrs.page, cc.attrs.key).text}"
+                      style="white-space: pre-wrap" escape="false"/>
     </composite:implementation>
 </h:body>
 </html>
