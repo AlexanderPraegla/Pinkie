@@ -26,17 +26,17 @@
                         <b:column colLg="12" colMd="12" colSm="12" colXs="12">
                             <b:selectBooleanCheckbox value="#{sponsorBean.sponsor.premium}" caption="Premium Sponsor" />
                         </b:column>
-                        <b:column colLg="1" colMd="12" colSm="12" colXs="12">
+                        <b:column colLg="1" colMd="1" colSm="2" colXs="12">
                             <b:inputText value="#{sponsorBean.sponsor.orderId}" mask="integer"
                                          validatorMessage="Bitte eine Zahl größer als 0 angeben"/>
                         </b:column>
-                        <b:column colLg="5" colMd="12" colSm="12" colXs="12">
+                        <b:column colLg="5" colMd="5" colSm="5" colXs="12">
                             <o:inputFile value="#{sponsorBean.file}" accept="image/*"
                                          styleClass="btn btn-block btn-default"
                                          required="true" requiredMessage="Bitte ein Bild für den Sponsor hinterlegen"
                                          acceptMessage="Die Date {1} ist ungültig!"/>
                         </b:column>
-                        <b:column colLg="6" colMd="12" colSm="12" colXs="12">
+                        <b:column colLg="6" colMd="6" colSm="5" colXs="12">
                             <b:commandButton value="#{label['button.save']}" action="#{sponsorBean.creatSponsor}"
                                              look="success btn-block"/>
                         </b:column>
@@ -46,12 +46,12 @@
             <c:forEach items="#{sponsorBean.sponsors}" var="sponsor">
                 <b:row>
                     <b:form enctype="multipart/form-data">
-                        <b:column colLg="3">
+                        <b:column colLg="3" colMd="3" colSm="3" colXs="12">
                             <b:image
                                     value="#{sponsor.image.downloadUrl}"
                                     style="max-width: 100%; max-height: 100%"/>
                         </b:column>
-                        <b:column colLg="9">
+                        <b:column colLg="9" colMd="9" colSm="9" colXs="12">
                             <b:row>
                                 <b:column colLg="12" colMd="12" colSm="12" colXs="12">
                                     <b:inputText value="#{sponsor.name}" placeholder="Name"
