@@ -466,3 +466,23 @@ INSERT INTO public.album_image (album_id, images_id) VALUES (4, '210a1d51-e2e4-4
 INSERT INTO public.album_image (album_id, images_id) VALUES (4, '3fe654bd-8e87-4673-9869-ef460bea69e2');
 
 ALTER SEQUENCE album_id_seq RESTART WITH 5;
+
+INSERT INTO public.files (id, file_type, created_on, directory, filename) VALUES ('sponsor1-01ca-4382-bef2-fdd2790696d9', 'IMAGE', '2017-12-14 15:42:42.975000', 'sponsors/', 'hagebaumarkt.jpg');
+INSERT INTO public.image (id, description) VALUES ('sponsor1-01ca-4382-bef2-fdd2790696d9', null);
+
+INSERT INTO public.files (id, file_type, created_on, directory, filename) VALUES ('sponsor2-01ca-4382-bef2-fdd2790696d9', 'IMAGE', '2017-12-14 15:42:42.975000', 'sponsors/', '1473935771_Raiffeisenbank_ED.jpg');
+INSERT INTO public.image (id, description) VALUES ('sponsor2-01ca-4382-bef2-fdd2790696d9', null);
+
+INSERT INTO public.files (id, file_type, created_on, directory, filename) VALUES ('sponsor3-01ca-4382-bef2-fdd2790696d9', 'IMAGE', '2017-12-14 15:42:42.975000', 'sponsors/', '1469107915_Hausmann_neu.jpg');
+INSERT INTO public.image (id, description) VALUES ('sponsor3-01ca-4382-bef2-fdd2790696d9', null);
+
+INSERT INTO public.files (id, file_type, created_on, directory, filename) VALUES ('sponsor4-01ca-4382-bef2-fdd2790696d9', 'IMAGE', '2017-12-14 15:42:42.975000', 'sponsors/', '1473681103_ProConIT.jpg');
+INSERT INTO public.image (id, description) VALUES ('sponsor4-01ca-4382-bef2-fdd2790696d9', null);
+
+insert into sponsor (archived_on, created_on, name, orderid, premium, text, url, image_id) VALUES (null, now(), 'Raiffeisenbank Erding eG', 1, true, '', 'https://www.rberding.de/privatkunden/girokonto-kreditkarten/girokonto/bankkarte-maestro1.html', 'sponsor2-01ca-4382-bef2-fdd2790696d9');
+
+insert into sponsor (archived_on, created_on, name, orderid, premium, text, url, image_id) VALUES (null, now(), 'Auto Hausmann', 2, true, '', 'http://www.auto-hausmann.de/', 'sponsor3-01ca-4382-bef2-fdd2790696d9');
+
+insert into sponsor (archived_on, created_on, name, orderid, premium, text, url, image_id) VALUES (null, now(), 'Hagebaumarkt Erding', 38, false, '', 'https://www.hagebau.de/?AffiliateID=300227&utm_source=google&utm_medium=cpc&utm_campaign=000_Brand|000_Branding_Hagebau&utm_term=hagebau%20baum%C3%A4rkte|b&gclid=COeC3r3CmMwCFckV0wod4IsHMw', 'sponsor1-01ca-4382-bef2-fdd2790696d9');
+
+insert into sponsor (archived_on, created_on, name, orderid, premium, text, url, image_id) VALUES (null, now(), 'PROCON IT', 15, false, '', 'http://www.procon-it.de/', 'sponsor4-01ca-4382-bef2-fdd2790696d9');

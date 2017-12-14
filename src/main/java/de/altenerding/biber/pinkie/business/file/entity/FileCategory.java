@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum FileCategory {
+	SPONSOR("sponsors/"),
+
 	ALBUMS("albums/"),
 
 	DOCUMENTS_ANNOUNCEMENT("documents/announcement/"),
