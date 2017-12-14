@@ -22,9 +22,25 @@ public class SponsorService {
 		return em.createNamedQuery("Sponsor.premium", Sponsor.class).getResultList();
 	}
 
-
 	public List<Sponsor> getNonePremiumSponsors() {
 		logger.info("Loading all none premium sponsors");
 		return em.createNamedQuery("Sponsor.notPremium", Sponsor.class).getResultList();
+	}
+
+	public List<Sponsor> allSponsors() {
+		logger.info("Loading all sponsors");
+		return em.createNamedQuery("Sponsor.all", Sponsor.class).getResultList();
+	}
+
+	public void updateSponsor(Sponsor sponsor) {
+		logger.info("Updating sponsor (\'{}\') with id={}", sponsor.getName(), sponsor.getId());
+		em.merge(sponsor);
+		em.flush();
+	}
+
+	public void createSponsor(Sponsor sponsor) {
+		logger.info("Creating sponsor with name=\'{}\'", sponsor.getName());
+		em.persist(sponsor);
+		em.flush();
 	}
 }

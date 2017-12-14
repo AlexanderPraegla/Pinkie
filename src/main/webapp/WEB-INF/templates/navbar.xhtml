@@ -76,6 +76,8 @@
                                    rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
                         <b:navLink value="#{menu['menu.admin.createSeason']}" outcome="/secure/admin/createSeason.xhtml"
                                    rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
+                        <b:navLink value="#{menu['menu.admin.sponsors.edit']}" outcome="/secure/admin/editSponsors.xhtml"
+                                   rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
                     </b:listLinks>
                 </b:dropMenu>
             </b:navbarLinks>

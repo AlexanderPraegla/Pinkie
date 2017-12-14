@@ -13,12 +13,14 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import java.util.Date;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Sponsor.premium", query = "SELECT s FROM Sponsor s WHERE s.premium = TRUE "),
-		@NamedQuery(name = "Sponsor.notPremium", query = "SELECT s FROM Sponsor s WHERE s.premium = FALSE ")
+		@NamedQuery(name = "Sponsor.premium", query = "SELECT s FROM Sponsor s WHERE s.premium = TRUE ORDER BY s.orderId ASC"),
+		@NamedQuery(name = "Sponsor.notPremium", query = "SELECT s FROM Sponsor s WHERE s.premium = FALSE ORDER BY s.orderId ASC"),
+		@NamedQuery(name = "Sponsor.all", query = "SELECT s FROM Sponsor s ORDER BY s.orderId, s.premium DESC")
 })
 public class Sponsor {
 
@@ -34,6 +36,7 @@ public class Sponsor {
 	private String text;
 	@OneToOne
 	private Image image;
+	@Min(value = 1)
 	private int orderId;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_on")
