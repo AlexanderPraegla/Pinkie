@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:o="http://omnifaces.org/ui">
+
+<h:head/>
+<h:body>
+
+    <composite:interface>
+        <composite:attribute name="label" type="java.lang.String" required="true"/>
+        <composite:attribute name="file" type="javax.servlet.http.Part" required="true"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <o:outputLabel for="reportImage" value="#{cc.attrs.label}"/>
+        <o:inputFile value="#{cc.attrs.file}" accept="image/*" id="reportImage"
+                     styleClass="btn btn-block btn-default"
+                     style="margin-bottom: 15px;"
+                     required="false"
+                     acceptMessage="Die Date {1} ist ungültig! Bitte nur Bilder hochladen"/>
+    </composite:implementation>
+</h:body>
+</html>
