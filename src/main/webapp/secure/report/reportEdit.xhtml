@@ -59,7 +59,7 @@
                         <global:buttonBlock look="success" action="#{reportBean.updateReport}"
                                             label="#{label['button.save']}"/>
                     </b:column>
-                    <b:column colLg="2" colMd="2" colSm="4" colXs="12">
+                    <b:column colLg="2" colMd="2" colSm="4" colXs="12" rendered="#{reportBean.report.image != null}">
                         <global:buttonBlock look="danger" action="#{reportBean.removeImage}"
                                             label="#{label['button.removeImage']}"/>
                     </b:column>
