@@ -60,7 +60,7 @@ public class ReportBean {
 			report.setAuthor(userSessionBean.getMember());
 
 			if (file != null) {
-				Image image = fileService.uploadImage(file, FileCategory.IMAGES_REPORT, null);
+				Image image = fileService.uploadImage(file, FileCategory.IMAGES_REPORT);
 				report.setImage(image);
 			}
 
@@ -84,7 +84,7 @@ public class ReportBean {
 		String result;
 		try {
 			if (file != null) {
-				Image image = fileService.uploadImage(file, FileCategory.IMAGES_REPORT, null);
+				Image image = fileService.uploadImage(file, FileCategory.IMAGES_REPORT);
 				report.setImage(image);
 			}
 

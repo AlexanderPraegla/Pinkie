@@ -50,7 +50,7 @@ public class DeanBean implements Serializable {
 			}
 
 			if (file != null) {
-				Image image = fileService.uploadImage(file, FileCategory.IMAGES_DEAN_PROFILE, null);
+				Image image = fileService.uploadImage(file, FileCategory.IMAGES_DEAN_PROFILE);
 				dean.setImage(image);
 			}
 

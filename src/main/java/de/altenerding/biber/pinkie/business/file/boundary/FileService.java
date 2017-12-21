@@ -64,8 +64,11 @@ public class FileService {
 		}
 	}
 
+	public Image uploadImage(Part file, FileCategory directory) throws Exception {
+		return uploadImage(file, directory, null);
+	}
+
 	public Image uploadImage(Part file, FileCategory directory, String description) throws Exception {
-		validateFileMimeType(file, "image");
 		String fileName = fileUpload.upload(file, directory);
 		Image image = new Image(directory, fileName, description);
 		em.persist(image);
@@ -75,8 +78,6 @@ public class FileService {
 	}
 
 	public Image uploadAlbumImage(Part file, String folder) throws Exception {
-		validateFileMimeType(file, "image");
-
 		String fileName = fileUpload.upload(file, FileCategory.ALBUMS.getDirectoryPath() + folder + File.separator);
 		fileName = folder + File.separator + fileName;
 		Image image = new Image(FileCategory.ALBUMS, fileName, null);
@@ -131,15 +132,6 @@ public class FileService {
 
 	public void createFolder(FileCategory category, String folder) throws Exception {
 		fileSystemModifier.createFolder(category, folder);
-	}
-
-	@SuppressWarnings("SameParameterValue")
-	private void validateFileMimeType(Part file, String fileType) throws Exception {
-		if (file == null || file.getSize() <= 0 || file.getContentType().isEmpty()) {
-			throw new Exception("Bitte ein gültiges Bild");
-		} else if (!file.getContentType().startsWith(fileType)) {
-			throw new Exception("Bitte eine Bilddatei auswählen");
-		}
 	}
 
 	@Inject
