@@ -79,6 +79,22 @@ public class ReportBean {
 	}
 
 	@Access(role = Role.PRESS)
+	public String removeImage() {
+		logger.info("Removing image from report with id={}", report.getId());
+		try {
+			report.setImage(null);
+			reportService.updateReport(report);
+			FacesMessages.info(report.getType().getLabel(), "Bild entfernt");
+		} catch (Exception e) {
+			logger.error("Error while removing image from report", e);
+			FacesMessages.error("Fehler beim entfernen des Bildes");
+		}
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getFlash().setKeepMessages(true);
+		return "removedReportImage";
+	}
+
+	@Access(role = Role.PRESS)
 	public String updateReport() {
 		logger.info("Updating report with id={}", report.getId());
 		String result;
@@ -95,9 +111,9 @@ public class ReportBean {
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			result = "/public/news/report.xhtml?faces-redirect=true";
 		} catch (Exception e) {
-			logger.info("Error while creating report", e);
+			logger.error("Error while creating report", e);
 			FacesMessages.error("Fehler beim speichern");
-			result = "/secure/report/reportAdd.xhtml?faces-redirect=true";
+			result = "/secure/report/reportEdit.xhtml?faces-redirect=true";
 		}
 		return result;
 	}
