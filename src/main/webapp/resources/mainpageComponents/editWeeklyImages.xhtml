@@ -3,7 +3,8 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:global="http://xmlns.jcp.org/jsf/composite/globalComponents"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head/>
 <h:body>
@@ -11,30 +12,30 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="#{pageLabel['mainpage.weeklyImage.edit']}" collapsed="true" rendered="#{userSessionBean.isUserInRole('PRESS')}">
-            <ui:repeat id="repeatweeklyImageId" value="#{weeklyImageBean.weeklyImages}" var="weeklyImage">
+        <b:panel title="#{pageLabel['mainpage.weeklyImage.edit']}" collapsed="true"
+                 rendered="#{userSessionBean.isUserInRole('PRESS')}">
+            <c:forEach var="weeklyImage" items="#{weeklyImageBean.weeklyImages}" >
                 <h:form id="weeklyImageListFormId">
-                    <div style="margin-bottom: 15px">
-                        <b:row>
-                            <b:column colLg="12" colMd="12" colSm="12" colXs="12" >
-                                <b:inputText value="#{weeklyImage.image.description}"/>
-                            </b:column>
-                            <b:column colLg="2" colMd="3" colSm="4" colXs="12">
-                                <h:graphicImage value="#{weeklyImage.image.getDownloadUrl()}"
-                                                style="max-height: 100%; max-width: 100%"/>
-                            </b:column>
-                            <b:column colLg="2" colMd="2" colSm="4" colXs="12">
-                                <b:commandButton action="#{weeklyImageBean.updateText(weeklyImage)}"
-                                                 disabled="false" value="#{pageLabel['mainpage.weeklyImage.refreshText']}" look="success"/>
-                            </b:column>
-                            <b:column colLg="2" colMd="2" colSm="4" colXs="12">
-                                <b:commandButton action="#{weeklyImageBean.archive(weeklyImage.id)}"
-                                                 disabled="false" value="#{label['button.archive']}" look="danger"/>
-                            </b:column>
-                        </b:row>
-                    </div>
+                    <b:row>
+                        <b:column>
+                            <h:inputText value="#{weeklyImage.image.description}" style="margin-bottom: 15px;" styleClass="form-control"/>
+                        </b:column>
+                        <b:column colLg="2" colMd="3" colSm="4" colXs="12">
+                            <h:graphicImage value="#{weeklyImage.image.getDownloadUrl()}"
+                                            style="max-height: 100%; max-width: 100%;margin-bottom: 15px;"/>
+                        </b:column>
+                        <b:column colLg="2" colMd="2" colSm="4" colXs="12">
+                            <global:buttonBlock action="#{weeklyImageBean.updateText(weeklyImage)}" look="success"
+                                                  label="#{pageLabel['mainpage.weeklyImage.refreshText']}"/>
+                        </b:column>
+                        <b:column colLg="2" colMd="2" colSm="4" colXs="12">
+                            <global:buttonBlock action="#{weeklyImageBean.archive(weeklyImage.id)}"
+                                                label="#{label['button.archive']}" look="danger"/>
+                        </b:column>
+                    </b:row>
+                    <hr/>
                 </h:form>
-            </ui:repeat>
+            </c:forEach>
         </b:panel>
     </composite:implementation>
 </h:body>

@@ -23,20 +23,21 @@ public class WeeklyImageBean {
 
 	private Logger logger;
 	private Part file;
-	private WeeklyImage weeklyImage = new WeeklyImage();
+	private String weeklyImageDescription;
 	private List<WeeklyImage> weeklyImages;
 	private FileService fileService;
 	private WeeklyImageService weeklyImageService;
 
 	@Access(role = Role.PRESS)
 	public String saveWeeklyImage() {
+		WeeklyImage weeklyImage = new WeeklyImage();
 		try {
-			Image image = fileService.uploadImage(file, FileCategory.IMAGES_MAINPAGE, weeklyImage.getImage().getDescription());
+			Image image = fileService.uploadImage(file, FileCategory.IMAGES_MAINPAGE, weeklyImageDescription);
 			weeklyImage.setImage(image);
 			weeklyImageService.saveWeeklyImage(weeklyImage);
-			FacesMessages.info( "Bild der Woche hinzugefügt");
+			FacesMessages.info("Bild der Woche hinzugefügt");
 		} catch (Exception e) {
-			logger.error("Error while saving announcement with id={}", weeklyImage.getId(), e);
+			logger.error("Error while saving weekly image with id={}", weeklyImage.getId(), e);
 			FacesMessages.error(e.getMessage());
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -47,7 +48,7 @@ public class WeeklyImageBean {
 	@Access(role = Role.PRESS)
 	public String archive(long imageId) {
 		weeklyImageService.archiveWeeklyImage(imageId);
-		FacesMessages.info( "Bild archiviert");
+		FacesMessages.info("Bild archiviert");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		return "editMainpage.xhtml?faces-redirect=true";
@@ -56,7 +57,7 @@ public class WeeklyImageBean {
 	@Access(role = Role.PRESS)
 	public String updateText(WeeklyImage weeklyImage) {
 		weeklyImageService.updateText(weeklyImage);
-		FacesMessages.info( "Text zum Bild aktualisiert");
+		FacesMessages.info("Text zum Bild aktualisiert");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		return "editMainpage.xhtml?faces-redirect=true";
@@ -77,14 +78,6 @@ public class WeeklyImageBean {
 		this.fileService = fileService;
 	}
 
-	public void setWeeklyImage(WeeklyImage weeklyImage) {
-		this.weeklyImage = weeklyImage;
-	}
-
-	public WeeklyImage getWeeklyImage() {
-		return weeklyImage;
-	}
-
 	public Part getFile() {
 		return file;
 	}
@@ -102,5 +95,13 @@ public class WeeklyImageBean {
 
 	public void setWeeklyImages(List<WeeklyImage> weeklyImages) {
 		this.weeklyImages = weeklyImages;
+	}
+
+	public String getWeeklyImageDescription() {
+		return weeklyImageDescription;
+	}
+
+	public void setWeeklyImageDescription(String weeklyImageDescription) {
+		this.weeklyImageDescription = weeklyImageDescription;
 	}
 }
