@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui">
+      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
+      xmlns:global="http://xmlns.jcp.org/jsf/composite/globalComponents">
 
 <h:head/>
 <h:body>
@@ -12,19 +13,23 @@
     <composite:implementation>
         <b:panel rendered="#{userSessionBean.isUserInRole('PRESS')}" title="#{pageLabel['mainpage.weeklyImage.add']}">
             <b:form id="addWeeklyImageFormId" enctype="multipart/form-data">
-                <b:column colLg="6" colMd="6" colSm="4" colXs="12">
-                    <b:inputText id="weeklyImageDescription" value="#{weeklyImageBean.weeklyImage.image.description}"
-                                 required="true" requiredMessage="Bitte Text zum Bild angeben"
-                                 style="margin-bottom: 15px;"/>
-                </b:column>
-                <b:column colLg="4" colMd="4" colSm="6" colXs="12">
-                    <h:inputFile id="weeklyImageFile" value="#{weeklyImageBean.file}" styleClass="btn btn-default"
-                                 style="margin-bottom: 15px;" required="true" requiredMessage="Bitte Bild angeben"/>
-                </b:column>
-                <b:column colLg="2" colMd="2" colSm="2" colXs="12">
-                    <b:commandButton value="#{label['button.save']}" look="success"
-                                     action="#{weeklyImageBean.saveWeeklyImage()}"/>
-                </b:column>
+                <b:row>
+                    <b:column colLg="6" colMd="6" colSm="4" colXs="12">
+                        <b:inputText id="weeklyImageDescription"
+                                     placeholder="Überschrift"
+                                     value="#{weeklyImageBean.weeklyImageDescription}"
+                                     required="true" requiredMessage="Bitte Text zum Bild angeben"
+                                     style="margin-bottom: 15px;"/>
+                    </b:column>
+                    <b:column colLg="4" colMd="4" colSm="6" colXs="12">
+                        <global:imageUpload required="true" file="#{weeklyImageBean.file}"
+                                            requiredMessage="Bitte Bild angeben"/>
+                    </b:column>
+                    <b:column colLg="2" colMd="2" colSm="2" colXs="12">
+                        <global:buttonBlock action="#{weeklyImageBean.saveWeeklyImage()}"
+                                            label="#{label['button.save']}" look="success"/>
+                    </b:column>
+                </b:row>
             </b:form>
         </b:panel>
     </composite:implementation>

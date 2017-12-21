@@ -2,7 +2,19 @@ package de.altenerding.biber.pinkie.business.weeklyimage.entity;
 
 import de.altenerding.biber.pinkie.business.file.entity.Image;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Entity
@@ -23,7 +35,7 @@ public class WeeklyImage {
 	@Column(name = "created_on")
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	private Image image;
 
 	@PrePersist
@@ -58,9 +70,6 @@ public class WeeklyImage {
 	}
 
 	public Image getImage() {
-		if (image == null) {
-			image = new Image();
-		}
 		return image;
 	}
 

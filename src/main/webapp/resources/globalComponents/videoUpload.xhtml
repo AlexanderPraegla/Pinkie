@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:o="http://omnifaces.org/ui">
+
+<h:head/>
+<h:body>
+
+    <composite:interface>
+        <composite:attribute name="label" type="java.lang.String"/>
+        <composite:attribute name="file" type="javax.servlet.http.Part" required="true"/>
+        <composite:attribute name="required" type="java.lang.Boolean" required="true"/>
+        <composite:attribute name="requiredMessage" type="java.lang.String" required="false" default="Bitte Datei angeben"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <o:outputLabel for="videoUpload" value="#{cc.attrs.label}" rendered="#{cc.attrs.label != null}"/>
+        <o:inputFile value="#{cc.attrs.file}" accept="video/*" id="videoUpload"
+                     styleClass="btn btn-block btn-default"
+                     style="margin-bottom: 15px;"
+                     required="#{cc.attrs.required}"
+                     requiredMessage="#{cc.attrs.requiredMessage}"
+                     acceptMessage="Die Datei {1} ist ungültig! Bitte nur Videos hochladen"/>
+    </composite:implementation>
+</h:body>
+</html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
+>
+
+<h:head/>
+<h:body>
+
+    <composite:interface>
+        <composite:attribute name="action" required="true" method-signature="java.lang.String action()"/>
+        <composite:attribute name="label" required="true"/>
+        <composite:attribute name="look" required="true" default="default"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <b:commandButton action="#{cc.attrs.action}" styleClass="btn-block"
+                         style="margin-bottom: 15px;"
+                         disabled="false" value="#{cc.attrs.label}" look="#{cc.attrs.look}"/>
+    </composite:implementation>
+</h:body>
+</html>
