@@ -113,6 +113,20 @@
         </navigation-case>
     </navigation-rule>
 
+    <navigation-rule>
+        <from-view-id>/secure/report/reportEdit.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>removedReportImage</from-outcome>
+            <to-view-id>/secure/report/reportEdit.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <redirect-param>
+                    <name>reportId</name>
+                    <value>#{reportBean.report.id}</value>
+                </redirect-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
+
     <application>
         <resource-bundle>
             <base-name>text.label</base-name>

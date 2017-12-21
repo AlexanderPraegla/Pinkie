@@ -46,7 +46,7 @@ public class SponsorBean {
 	public String updateSponsor(Sponsor sponsor) {
 		try {
 			if (file != null) {
-				Image image = fileService.uploadImage(file, FileCategory.SPONSOR, null);
+				Image image = fileService.uploadImage(file, FileCategory.SPONSOR);
 				sponsor.setImage(image);
 			}
 

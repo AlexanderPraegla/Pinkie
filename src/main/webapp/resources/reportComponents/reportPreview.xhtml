@@ -38,13 +38,13 @@
                     </b:button>
                 </b:column>
             </b:row>
-            <f:facet name="footer">
+            <div style="font-size: 13px;">
                 <h:outputText value="#{cc.attrs.report.author.getFullName()}"/>
                 <h:outputText value=" - "/>
                 <h:outputText value="#{cc.attrs.report.createdOn}">
                     <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
                 </h:outputText>
-            </f:facet>
+            </div>
         </b:panel>
     </composite:implementation>
 </h:body>
