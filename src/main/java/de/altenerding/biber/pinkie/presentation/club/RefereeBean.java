@@ -56,7 +56,7 @@ public class RefereeBean implements Serializable {
 			}
 
 			if (file != null) {
-				Image image = fileService.uploadImage(file, FileCategory.IMAGES_REFEREE_PROFILE, null);
+				Image image = fileService.uploadImage(file, FileCategory.IMAGES_REFEREE_PROFILE);
 				referee.setImage(image);
 			}
 
@@ -106,7 +106,7 @@ public class RefereeBean implements Serializable {
 	@Access(role = Role.PRESS)
 	public String uploadRefereeGroupImage() throws Exception {
 		logger.info("Uploading new group image for referees");
-		Image image = fileService.uploadImage(file, FileCategory.IMAGES_REFEREE_GROUP, null);
+		Image image = fileService.uploadImage(file, FileCategory.IMAGES_REFEREE_GROUP);
 		FileMapping imageMapping = getImageMapping();
 
 		if (imageMapping == null) {

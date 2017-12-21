@@ -44,7 +44,7 @@ public class MemberBean implements Serializable {
 		logger.info("Creating new member with name={}", member.getFullName());
 		String email = member.getFirstName() + "." + member.getLastName() + "@altenerding-biber.de";
 		if (file != null) {
-			Image image = fileService.uploadImage(file, FileCategory.IMAGES_MEMBER_PROFILE, "");
+			Image image = fileService.uploadImage(file, FileCategory.IMAGES_MEMBER_PROFILE);
 			member.setImage(image);
 		}
 		member.setEmail(email);
@@ -62,7 +62,7 @@ public class MemberBean implements Serializable {
 		logger.info("Updating member with name={}", member.getFullName());
 
 		if (file != null) {
-			Image image = fileService.uploadImage(file, FileCategory.IMAGES_MEMBER_PROFILE, null);
+			Image image = fileService.uploadImage(file, FileCategory.IMAGES_MEMBER_PROFILE);
 			member.setImage(image);
 		}
 
@@ -76,7 +76,7 @@ public class MemberBean implements Serializable {
 		logger.info("Updating profile for name={}", member.getFullName());
 
 		if (file != null) {
-			Image image = fileService.uploadImage(file, FileCategory.IMAGES_MEMBER_PROFILE, null);
+			Image image = fileService.uploadImage(file, FileCategory.IMAGES_MEMBER_PROFILE);
 			member.setImage(image);
 		}
 

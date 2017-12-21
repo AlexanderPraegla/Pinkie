@@ -2,22 +2,26 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:global="http://java.sun.com/jsf/composite/globalComponents">
     <ui:define name="title"><h:outputText value="#{pageLabel['report.edit']}"/> </ui:define>
 
     <ui:define name="content">
         <f:metadata>
             <f:viewParam name="reportId" value="#{reportBean.reportId}"/>
-            <f:viewAction action="#{reportBean.initReport()}" />
+            <f:viewAction action="#{reportBean.initReport()}"/>
         </f:metadata>
         <b:container rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <h:form id="editReportFormId" enctype="multipart/form-data">
                 <h:inputHidden value="#{reportBean.report}" converter="#{baseLongIdEntityConverter}"/>
-                <b:inputText value="#{reportBean.report.author.getFullName()}" label="#{pageLabel['report.author']}" disabled="true"/>
-                <b:inputText value="#{reportBean.report.title}" label="#{pageLabel['report.reportTitle']}" required="true" requiredMessage="Bitte Titel angeben">
+                <b:inputText value="#{reportBean.report.author.getFullName()}" label="#{pageLabel['report.author']}"
+                             disabled="true"/>
+                <b:inputText value="#{reportBean.report.title}" label="#{pageLabel['report.reportTitle']}"
+                             required="true" requiredMessage="Bitte Titel angeben">
                     <b:focus/>
                 </b:inputText>
-                <b:inputText value="#{reportBean.report.summary}" label="#{pageLabel['report.summary']}" required="true" requiredMessage="Bitte Zusammenfassung angeben"/>
+                <b:inputText value="#{reportBean.report.summary}" label="#{pageLabel['report.summary']}" required="true"
+                             requiredMessage="Bitte Zusammenfassung angeben"/>
                 <b:panelGrid colSpans="4,4,4" size="sm">
                     <b:selectOneMenu value="#{reportBean.report.season}" label="#{pageLabel['report.season']}">
                         <f:selectItems value="#{seasonBean.seasons}" var="season" itemValue="#{season}"
@@ -25,12 +29,13 @@
                     </b:selectOneMenu>
 
                     <b:selectOneMenu value="#{reportBean.report.team}" label="#{pageLabel['report.team']}">
-                        <f:selectItem itemLabel="Bitte auswählen" itemValue="" />
+                        <f:selectItem itemLabel="Bitte auswählen" itemValue=""/>
                         <f:selectItems value="#{teamBean.teams}" var="team" itemValue="#{team}"
                                        itemLabel="#{team.name}"/>
                     </b:selectOneMenu>
-                    <b:selectOneMenu value="#{reportBean.report.type}" label="#{pageLabel['report.reportType']}" required="true" requiredMessage="Bitte Berichttyp auswählen">
-                        <f:selectItem itemLabel="Bitte auswählen" itemValue="" />
+                    <b:selectOneMenu value="#{reportBean.report.type}" label="#{pageLabel['report.reportType']}"
+                                     required="true" requiredMessage="Bitte Berichttyp auswählen">
+                        <f:selectItem itemLabel="Bitte auswählen" itemValue=""/>
                         <f:selectItems value="#{enumBean.getReportTypes()}" var="type" itemValue="#{type}"
                                        itemLabel="#{type.label}"/>
                     </b:selectOneMenu>
@@ -38,10 +43,27 @@
                 <b:inputTextarea value="#{reportBean.report.text}" rows="20"
                                  label="#{pageLabel['report.text']}" required="true"
                                  requiredMessage="Es sind keine leeren Berichte erlaubt"/>
-                <h:inputFile value="#{reportBean.file}" styleClass="btn btn-default"
-                             style="margin-bottom: 15px;" />
-                <b:commandButton value="#{label['button.save']}" look="success"
-                                 action="#{reportBean.updateReport}"/>
+                <b:row rendered="#{reportBean.report.image != null}">
+                        <b:column colLg="2" colMd="3" colSm="4" colXs="12">
+                            <h:graphicImage value="#{reportBean.report.image.getDownloadUrl()}"
+                                            style="max-height: 100%; max-width: 100%;margin-bottom: 15px;"/>
+                        </b:column>
+                </b:row>
+                <b:row>
+                    <b:column colLg="4" colMd="4" colSm="6" colXs="12">
+                        <global:imageUpload required="false" file="#{reportBean.file}" label="Bild hochladen"/>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column colLg="2" colMd="2" colSm="3" colXs="12">
+                        <global:buttonBlock look="success" action="#{reportBean.updateReport}"
+                                            label="#{label['button.save']}"/>
+                    </b:column>
+                    <b:column colLg="2" colMd="2" colSm="4" colXs="12">
+                        <global:buttonBlock look="danger" action="#{reportBean.removeImage}"
+                                            label="#{label['button.removeImage']}"/>
+                    </b:column>
+                </b:row>
             </h:form>
         </b:container>
     </ui:define>
