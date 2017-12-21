@@ -12,11 +12,11 @@
                 <b:inputText value="#{userSessionBean.member.getFullName()}" label="#{pageLabel['report.author']}"
                              disabled="true"/>
                 <b:inputText value="#{reportBean.report.title}" label="#{pageLabel['report.reportTitle']}"
-                             required="true" requiredMessage="Bitte Titel angeben">
-                    <b:focus/>
-                </b:inputText>
+                             required="true" requiredMessage="Bitte Titel angeben" maxlength="50"
+                             tooltip="Max. 50 Zeichen"/>
                 <b:inputText value="#{reportBean.report.summary}" label="#{pageLabel['report.summary']}" required="true"
-                             requiredMessage="Bitte Zusammenfassung angeben"/>
+                             requiredMessage="Bitte Zusammenfassung angeben" maxlength="150"
+                             tooltip="Max. 150 Zeichen"/>
                 <b:panelGrid colSpans="4,4,4">
                     <b:selectOneMenu value="#{reportBean.report.season}" label="#{pageLabel['report.season']}">
                         <f:selectItems value="#{seasonBean.seasons}" var="season" itemValue="#{season}"
@@ -42,7 +42,7 @@
                                          requiredMessage="Es sind keine leeren Berichte erlaubt"/>
                     </b:column>
                     <b:column colLg="5" colMd="5" colSm="6" colXs="12">
-                        <global:imageUpload file="#{reportBean.file}" label="Bild anhängen"/>
+                        <global:imageUpload file="#{reportBean.file}" label="Bild anhängen" required="false"/>
                     </b:column>
                     <b:column colSm="12">
                         <b:commandButton value="#{label['button.save']}" look="success"

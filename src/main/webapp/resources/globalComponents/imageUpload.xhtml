@@ -9,16 +9,19 @@
 <h:body>
 
     <composite:interface>
-        <composite:attribute name="label" type="java.lang.String" required="true"/>
+        <composite:attribute name="label" type="java.lang.String"/>
         <composite:attribute name="file" type="javax.servlet.http.Part" required="true"/>
+        <composite:attribute name="required" type="java.lang.Boolean" required="true"/>
+        <composite:attribute name="requiredMessage" type="java.lang.String" required="false" default="Bitte Datei angeben"/>
     </composite:interface>
 
     <composite:implementation>
-        <o:outputLabel for="reportImage" value="#{cc.attrs.label}"/>
-        <o:inputFile value="#{cc.attrs.file}" accept="image/*" id="reportImage"
+        <o:outputLabel for="imageUpload" value="#{cc.attrs.label}" rendered="#{cc.attrs.label != null}"/>
+        <o:inputFile value="#{cc.attrs.file}" accept="image/*" id="imageUpload"
                      styleClass="btn btn-block btn-default"
                      style="margin-bottom: 15px;"
-                     required="false"
+                     required="#{cc.attrs.required}"
+                     requiredMessage="#{cc.attrs.requiredMessage}"
                      acceptMessage="Die Date {1} ist ungültig! Bitte nur Bilder hochladen"/>
     </composite:implementation>
 </h:body>
