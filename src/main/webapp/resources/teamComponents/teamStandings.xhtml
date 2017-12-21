@@ -31,6 +31,8 @@
             <b:dataTableColumn label="#{label['standing.points']}" value="#{standing.points}" orderable="false"
                                contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
         </b:dataTable>
+        <hr/>
+        <b:button href="#{teamBean.team.urlStanding}" target="blank" value="Zur NuLiga" look="primary"/>
     </composite:implementation>
 </h:body>
 </html>

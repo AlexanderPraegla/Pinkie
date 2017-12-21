@@ -217,6 +217,12 @@ INSERT INTO public.login (alias, created_on, inactivereason, logincount, passwor
 INSERT INTO public.login (alias, created_on, inactivereason, logincount, password, salt) VALUES ('daniel.sagert@altenerding-biber.de', '2017-11-06 21:20:17.889000', null, 0, 'Tr2a0nkj5gv44zxiipyZwMj58I8+LKmtDkVxKtCua6o=', 'p7T0u5UC2cQpG/LbzHJzSN0QPb2L26tWr5U52h+xEaqXwgx/rNh57eJHiiFY01sCyJU+pWgVTN9m8y9tYCZttA==');
 INSERT INTO public.login (alias, created_on, inactivereason, logincount, password, salt) VALUES ('michael.sack@altenerding-biber.de', '2017-11-06 21:20:35.798000', null, 0, 'TaDlJWK7hXX1RbjoasQIwW9qYw6T9B3FwULiqU8aNJs=', 'p9ko9tz7IS2Rzu6B6UbvmL2KTTHLH76+eGTf2kWXivDcxltc75870FANfPO64sDbFtNwBwtTJACNdPE6AcsiQg==');
 INSERT INTO public.login (alias, created_on, inactivereason, logincount, password, salt) VALUES ('eva.musterfrau@altenerding-biber.de', '2017-11-06 21:20:51.336000', null, 0, 'vyLhwYPw8lM1RBwMZ1feS5mfD9z8Popv9aBlOcbVoM0=', '2o6PplXO7YXR8la4MrAwCVnnnj6Jd7dy3pQH4I5RBym62GErd1FU7bdnY/CrSxQdDhsEqykhLpwb27IESOAPaQ==');
+INSERT INTO login (alias, created_on, inactivereason, is_onetime_password, logincount, password, salt) VALUES ('max.mustermann@altenerding-biber.de', '2017-12-15 21:20:17.889000', null, null, 0, 'Tr2a0nkj5gv44zxiipyZwMj58I8+LKmtDkVxKtCua6o=', 'p7T0u5UC2cQpG/LbzHJzSN0QPb2L26tWr5U52h+xEaqXwgx/rNh57eJHiiFY01sCyJU+pWgVTN9m8y9tYCZttA==');
+
+INSERT INTO login (alias, created_on, inactivereason, is_onetime_password, logincount, password, salt) VALUES ('hugo.musterknabe@altenerding-biber.de', '2017-12-15 21:20:17.889000', null, null, 0, 'Tr2a0nkj5gv44zxiipyZwMj58I8+LKmtDkVxKtCua6o=', 'p7T0u5UC2cQpG/LbzHJzSN0QPb2L26tWr5U52h+xEaqXwgx/rNh57eJHiiFY01sCyJU+pWgVTN9m8y9tYCZttA==');
+
+INSERT INTO login (alias, created_on, inactivereason, is_onetime_password, logincount, password, salt) VALUES ('werner.lauer@altenerding-biber.de', '2017-12-15 21:20:17.889000', null, null, 0, 'Tr2a0nkj5gv44zxiipyZwMj58I8+LKmtDkVxKtCua6o=', 'p7T0u5UC2cQpG/LbzHJzSN0QPb2L26tWr5U52h+xEaqXwgx/rNh57eJHiiFY01sCyJU+pWgVTN9m8y9tYCZttA==');
+
 
 INSERT INTO public.announcement (archived_on, created_on, text, document_id) VALUES (null, '2017-11-14 19:10:58.627637', 'Dies ist die erste Ankündigung auf der neuen Homepage', null);
 INSERT INTO public.announcement (archived_on, created_on, text, document_id) VALUES (null, '2017-11-14 19:10:58.642486', 'Es liegen nun alle Ergebnisse vom Wochenende vor. Spielberichte sind auch schon einige vorhanden. Einfach unter Top News nachlesen.', null);

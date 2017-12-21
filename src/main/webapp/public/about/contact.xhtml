@@ -1,10 +1,34 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="title">Kontakt</ui:define>
 
     <ui:define name="content">
         <b:container>
+            <h:form>
+                <h:link value="Ansprechpartner für Fragen welche die Abteilung betreffen, finden Sie unter der Rubrik Vorstand" outcome="deans"/>
+            </h:form>
+            <hr/>
+            <h4>
+            <h:outputText value="Ansprechpartner bei Fragen bezüglich der Webseite sind:"/>
+            </h4>
+            <p>
+                <strong>Alexander Praegla</strong><br/>
+                E-Mail: <a
+                    href="mailto: 'alexander.praegla@altenerding-biber.de'">alexander.praegla@altenerding-biber.de</a><br/>
+            </p>
+            <p>
+                <strong>Daniel Sagert</strong><br/>
+                E-Mail: <a
+                    href="mailto: 'daniel.sagert@altenerding-biber.de'">daniel.sagert@altenerding-biber.de</a><br/>
+            </p>
+            <hr/>
+            <h4>
+                <h:outputText value="Bei Fehlern oder Verbesserungswünschen bitte "/>
+                <a href="https://github.com/danielsagert/Pinkie/issues" target="blank">hier</a>
+                <h:outputText value=" ein neues Issue aufmachen."/>
+            </h4>
         </b:container>
     </ui:define>
 </ui:composition>

@@ -104,6 +104,15 @@
         </navigation-case>
     </navigation-rule>
 
+    <navigation-rule>
+        <from-view-id>/public/about/contact.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>deans</from-outcome>
+            <to-view-id>/public/club/deans.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
     <application>
         <resource-bundle>
             <base-name>text.label</base-name>

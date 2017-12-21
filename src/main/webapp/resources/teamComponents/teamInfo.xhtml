@@ -15,18 +15,15 @@
     <composite:implementation>
         <b:panel title="#{pageLabel['team.info.team']}">
             <div style="margin-right: 20px; margin-left: 20px">
-                <b:row>
-                    <h3><h:outputText value="#{teamBean.team.name}"/>
-                        <h:outputText value=" - "/>
-                        <h:outputText value="#{teamBean.team.league}"/>
-                        <h:outputText value=" - "/>
-                        <h:outputText value="#{teamBean.team.season.name}"/>
-                    </h3>
-                    <a href="#{teamBean.team.urlStanding}" target="_blank">Zur NuLiga</a>
-                </b:row>
                 <b:row rendered="#{teamBean.team.image.fileName != null}">
-                    <h:graphicImage value="#{teamBean.team.image.getDownloadUrl()}"
-                                    style="max-height: 100%; max-width: 100%"/>
+                    <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
+                    <b:column colLg="8" colMd="8" colSm="12" colXs="12">
+                        <a href="#{request.contextPath}#{teamBean.team.image.getDownloadUrl()}" target="blank">
+                            <b:image value="#{teamBean.team.image.getDownloadUrl()}"
+                                     style="max-width: 100%; max-height: 100%"/>
+                        </a>
+                    </b:column>
+                    <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
                 </b:row>
                 <b:row style="white-space: pre-wrap">
                     <h:outputText value="#{teamBean.team.image.description}" escape="false"/>

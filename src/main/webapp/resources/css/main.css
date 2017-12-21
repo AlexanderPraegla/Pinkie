@@ -19,3 +19,11 @@ body {
     font-size: 20px;
     margin-bottom: 5px;
 }
+
+.ui-datascroller .ui-datascroller-content {
+    padding: 0 !important;
+}
+
+.ui-widget-content {
+    border: none;
+}

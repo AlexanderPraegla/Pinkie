@@ -12,6 +12,15 @@
             <f:viewAction action="#{teamBean.initTeam()}"/>
         </f:metadata>
         <b:container>
+            <b:row><b:column>
+                <h3><h:outputText value="#{teamBean.team.name}"/>
+                    <h:outputText value=" - "/>
+                    <h:outputText value="#{teamBean.team.league}"/>
+                    <h:outputText value=" - "/>
+                    <h:outputText value="#{teamBean.team.season.name}"/>
+                </h3>
+            </b:column></b:row>
+            <hr/>
             <b:tabView style="margin-bottom: 15px;" activeIndex="#{tabBean.tabIndex}" id="tabView" >
                 <b:tab title="#{pageLabel['team.tab.info']}" ajax="true" >
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('0')}" render="@none"/>

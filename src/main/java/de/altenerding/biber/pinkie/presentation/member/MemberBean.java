@@ -43,8 +43,10 @@ public class MemberBean implements Serializable {
 	public String createMember() throws Exception {
 		logger.info("Creating new member with name={}", member.getFullName());
 		String email = member.getFirstName() + "." + member.getLastName() + "@altenerding-biber.de";
-		Image image = fileService.uploadImage(file, FileCategory.IMAGES_MEMBER_PROFILE, "");
-		member.setImage(image);
+		if (file != null) {
+			Image image = fileService.uploadImage(file, FileCategory.IMAGES_MEMBER_PROFILE, "");
+			member.setImage(image);
+		}
 		member.setEmail(email);
 		Member member = memberService.createMember(this.member);
 
