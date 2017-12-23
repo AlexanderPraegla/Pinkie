@@ -10,14 +10,14 @@
 
     <composite:interface>
         <composite:attribute name="action" required="true" method-signature="java.lang.String action()"/>
-        <composite:attribute name="label" required="true"/>
-        <composite:attribute name="look" required="true" default="default"/>
+        <composite:attribute name="label" required="true" type="java.lang.String"/>
+        <composite:attribute name="look" required="true" default="default" type="java.lang.String"/>
     </composite:interface>
 
     <composite:implementation>
         <b:commandButton action="#{cc.attrs.action}" styleClass="btn-block"
                          style="margin-bottom: 15px;"
-                         disabled="false" value="#{cc.attrs.label}" look="#{cc.attrs.look}"/>
+                         value="#{cc.attrs.label}" look="#{cc.attrs.look}"/>
     </composite:implementation>
 </h:body>
 </html>
