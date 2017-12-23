@@ -43,11 +43,16 @@
                 <b:inputTextarea value="#{reportBean.report.text}" rows="20"
                                  label="#{pageLabel['report.text']}" required="true"
                                  requiredMessage="Es sind keine leeren Berichte erlaubt"/>
-                <b:row rendered="#{reportBean.report.image != null}">
-                        <b:column colLg="2" colMd="3" colSm="4" colXs="12">
-                            <h:graphicImage value="#{reportBean.report.image.getDownloadUrl()}"
-                                            style="max-height: 100%; max-width: 100%;margin-bottom: 15px;"/>
-                        </b:column>
+                <b:row>
+                    <b:column colLg="2" colMd="3" colSm="4" colXs="12" rendered="#{reportBean.report.image != null}">
+                        <h:graphicImage value="#{reportBean.report.image.getDownloadUrl()}"
+                                        style="max-height: 100%; max-width: 100%;margin-bottom: 15px;"/>
+                    </b:column>
+                    <b:column colLg="2" colMd="2" colSm="4" colXs="12"
+                              style="#{(reportBean.report.image != null) ? '' : ' display: none;'}">
+                        <global:buttonBlock look="danger" action="#{reportBean.removeImage}"
+                                            label="#{label['button.removeImage']}"/>
+                    </b:column>
                 </b:row>
                 <b:row>
                     <b:column colLg="4" colMd="4" colSm="6" colXs="12">
@@ -58,10 +63,6 @@
                     <b:column colLg="2" colMd="2" colSm="3" colXs="12">
                         <global:buttonBlock look="success" action="#{reportBean.updateReport}"
                                             label="#{label['button.save']}"/>
-                    </b:column>
-                    <b:column colLg="2" colMd="2" colSm="4" colXs="12" rendered="#{reportBean.report.image != null}">
-                        <global:buttonBlock look="danger" action="#{reportBean.removeImage}"
-                                            label="#{label['button.removeImage']}"/>
                     </b:column>
                 </b:row>
             </h:form>
