@@ -33,4 +33,10 @@ public class AlbumService {
 		em.persist(album);
 		em.flush();
 	}
+
+	public void updateAlbum(Album album) {
+		logger.info("Updating album with id={}", album.getId());
+		em.merge(album);
+		em.flush();
+	}
 }
