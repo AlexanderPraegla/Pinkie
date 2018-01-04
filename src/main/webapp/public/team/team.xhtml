@@ -26,15 +26,16 @@
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('0')}" render="@none"/>
                     <components:teamInfo/>
                 </b:tab>
-                <b:tab title="#{pageLabel['team.tab.playerProfiles']}">
+                <b:tab title="#{pageLabel['team.tab.playerProfiles']}"
+                       rendered="#{teamBean.team.teamMembers.size() > 0}">
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('1')}" render="@none"/>
                     <components:teamProfiles/>
                 </b:tab>
-                <b:tab title="#{pageLabel['team.tab.standing']}">
+                <b:tab title="#{pageLabel['team.tab.standing']}" rendered="#{teamBean.team.urlStanding != ''}">
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('2')}"/>
                     <components:teamStandings/>
                 </b:tab>
-                <b:tab title="#{pageLabel['team.tab.schedule']}">
+                <b:tab title="#{pageLabel['team.tab.schedule']}" rendered="#{teamBean.team.urlStanding != ''}">
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('3')}"/>
                     <components:teamSchedule/>
                 </b:tab>
