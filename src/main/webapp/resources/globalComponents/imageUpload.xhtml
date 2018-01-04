@@ -13,13 +13,14 @@
         <composite:attribute name="file" type="javax.servlet.http.Part" required="true"/>
         <composite:attribute name="required" type="java.lang.Boolean" required="true"/>
         <composite:attribute name="requiredMessage" type="java.lang.String" required="false" default="Bitte Datei angeben"/>
+        <composite:attribute name="multiple" type="java.lang.Boolean" required="false" default="false"/>
     </composite:interface>
 
     <composite:implementation>
         <o:outputLabel for="imageUpload" value="#{cc.attrs.label}" rendered="#{cc.attrs.label != null}"/>
         <o:inputFile value="#{cc.attrs.file}" accept="image/*" id="imageUpload"
                      styleClass="btn btn-block btn-default"
-                     style="margin-bottom: 15px;"
+                     style="margin-bottom: 15px;" multiple="#{cc.attrs.multiple}"
                      required="#{cc.attrs.required}"
                      requiredMessage="#{cc.attrs.requiredMessage}"
                      acceptMessage="Die Date {1} ist ungültig! Bitte nur Bilder hochladen"/>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:global="http://xmlns.jcp.org/jsf/composite/globalComponents"
+>
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+    <ui:define name="title">Album bearbeiten</ui:define>
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="albumId" value="#{albumBean.albumId}"/>
+            <f:viewAction action="#{albumBean.initAlbum()}"/>
+        </f:metadata>
+        <b:container>
+            <b:panel title="Bilder hinzufügen" collapsible="false">
+                <b:form enctype="multipart/form-data">
+                    <h:inputHidden value="#{albumBean.album}" converter="#{baseLongIdEntityConverter}"/>
+                    <b:row>
+                        <b:column colLg="4" colMd="4" colSm="6" colXs="12">
+                            <global:imageUpload file="#{albumBean.files}" required="false"
+                                                multiple="true"/>
+                        </b:column>
+                        <b:column colLg="6" colMd="6" colSm="6" colXs="12">
+                            <b:inputText value="#{albumBean.album.description}" disabled="true"/>
+                        </b:column>
+                        <b:column colLg="2" colMd="2" colSm="12" colXs="12">
+                            <b:commandButton value="#{label['button.add']}" action="#{albumBean.addImages}"
+                                             look="success btn-block"/>
+                        </b:column>
+                    </b:row>
+                </b:form>
+            </b:panel>
+            <b:panel>
+                <b:panelGrid colSpans="3,3,3,3" size="sm">
+                    <c:forEach var="image" items="#{albumBean.album.images}">
+                        <h:form enctype="multipart/form-data">
+                            <b:panel collapsible="false">
+                                <b:row>
+                                    <h:inputHidden value="#{albumBean.album}" converter="#{baseLongIdEntityConverter}"/>
+                                    <b:column>
+                                        <b:image value="#{image.downloadUrl}"
+                                                 style="max-width: 100%; max-height: 100%"/>
+                                    </b:column>
+                                    <b:column>
+                                        <b:commandButton action="#{albumBean.removeImage(image)}" styleClass="btn-block"
+                                                         value="#{label['button.removeImage']}" look="danger"/>
+                                    </b:column>
+                                </b:row>
+                            </b:panel>
+                        </h:form>
+                    </c:forEach>
+                </b:panelGrid>
+            </b:panel>
+        </b:container>
+    </ui:define>
+</ui:composition>
+</html>
