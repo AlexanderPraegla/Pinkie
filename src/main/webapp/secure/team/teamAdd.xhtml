@@ -2,11 +2,13 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:global="http://java.sun.com/jsf/composite/globalComponents">
     <ui:define name="title"><h:outputText value="#{pageLabel['team.add.title']}"/> </ui:define>
 
     <ui:define name="content">
         <b:container rendered="#{userSessionBean.isUserInRole('ADMIN')}">
+            <global:mandatoryHint/>
             <b:panel>
                 <h:form enctype="multipart/form-data">
                     <b:row>
@@ -24,8 +26,9 @@
                                                itemLabel="#{season.name}"/>
                             </b:selectOneMenu>
 
-                            <h:inputFile value="#{teamCreationBean.file}" styleClass="btn btn-default"
-                                         style="margin-bottom: 15px;" />
+                            <global:imageUpload required="true" file="#{teamCreationBean.file}"
+                                                requiredMessage="Bitte ein Mannschaftsbild mit hochladen"
+                                                label="Mannschaftsbild *"/>
                             <b:inputTextarea value="#{teamCreationBean.team.image.description}"
                                              label="#{label['description']}"/>
                         </b:column>
