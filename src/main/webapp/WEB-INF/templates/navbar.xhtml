@@ -13,8 +13,9 @@
                                    outcome="/secure/mainpage/editMainpage.xhtml"/>
                         <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}" value="#{menu['menu.current.addReport']}"
                                    outcome="/secure/report/reportAdd.xhtml"/>
-                        <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}" value="#{menu['menu.current.addAlbum']}"
-                                   outcome="/secure/gallery/addAlbum.xhtml"/>
+                        <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}"
+                                   value="#{menu['menu.current.editGallery']}"
+                                   outcome="/secure/gallery/editGallery.xhtml"/>
                         <b:navLink rendered="#{userSessionBean.isUserInRole('PRESS')}"/>
                         <b:navLink value="#{menu['menu.current.reports']}" outcome="/public/news/report.xhtml"/>
                         <b:navLink value="#{menu['menu.current.clubSchedule']}" outcome="/public/news/clubSchedule.xhtml"/>
@@ -62,7 +63,7 @@
                     </b:listLinks>
                 </b:dropMenu>
                 <b:navLink value="#{menu['menu.sponsors']}" outcome="/public/sponsor/sponsor.xhtml" rendered="#{userSessionBean.member == null}"/>
-                <b:navLink value="#{menu['menu.forum']}" outcome="/secure/forum/forum.xhtml" rendered="#{userSessionBean.isUserInRole('MEMBER')}"/>
+                <b:navLink value="#{menu['menu.forum']}" outcome="/secure/forum/forum.xhtml" rendered="false"/>
                 <b:navLink value="#{menu['menu.profile']}" outcome="/secure/profile/profile.xhtml"
                            rendered="#{userSessionBean.isUserInRole('MEMBER')}"
                            includeViewParams="true">

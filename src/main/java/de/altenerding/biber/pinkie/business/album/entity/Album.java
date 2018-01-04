@@ -1,35 +1,25 @@
 package de.altenerding.biber.pinkie.business.album.entity;
 
 import de.altenerding.biber.pinkie.business.file.entity.Image;
+import de.altenerding.biber.pinkie.business.global.entity.BaseLongIdEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Album.all", query = "SELECT a FROM Album a")
+		@NamedQuery(name = "Album.all", query = "SELECT a FROM Album a WHERE a.archivedOn is null ORDER BY a.createdOn DESC")
 })
-public class Album {
+public class Album extends BaseLongIdEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
 	@Column(columnDefinition = "varchar")
 	private String description;
+	@Column(columnDefinition = "varchar")
+	private String folder;
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<Image> images;
 	@OneToOne(fetch = FetchType.LAZY)
@@ -37,6 +27,9 @@ public class Album {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_on")
 	private Date createdOn;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "archived_on")
+	private Date archivedOn;
 
 
 	@PrePersist
@@ -92,6 +85,22 @@ public class Album {
 
 	public void setCoverImage(Image coverImage) {
 		this.coverImage = coverImage;
+	}
+
+	public Date getArchivedOn() {
+		return archivedOn;
+	}
+
+	public void setArchivedOn(Date archivedOn) {
+		this.archivedOn = archivedOn;
+	}
+
+	public String getFolder() {
+		return folder;
+	}
+
+	public void setFolder(String folder) {
+		this.folder = folder;
 	}
 }
 
