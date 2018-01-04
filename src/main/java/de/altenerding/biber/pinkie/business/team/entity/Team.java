@@ -35,7 +35,7 @@ public class Team {
 	@Column(name = "created_on")
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	private Image image;
 	@Column(columnDefinition = "VARCHAR")
 	private String additionalInfo;

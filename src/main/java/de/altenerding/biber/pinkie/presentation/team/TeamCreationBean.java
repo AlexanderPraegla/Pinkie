@@ -38,7 +38,7 @@ public class TeamCreationBean implements Serializable {
 	private String trainerIndex = "";
 
 	@Access(role = Role.ADMIN)
-	public String createTeam() throws Exception {
+	public String createTeam() {
 		String result;
 		try {
 
@@ -61,11 +61,11 @@ public class TeamCreationBean implements Serializable {
 			team.setTrainers(trainer);
 
 			Team team = teamService.createTeam(this.team);
-			FacesMessages.info(this.team.getName(), "Mannschaft erstellt");
+			FacesMessages.info("Erstellt", this.team.getName());
 			result = "/public/team/team.xhtml?faces-redirect=true&includeViewParams=true&teamId=" + team.getId();
 		} catch (Exception e) {
-			FacesMessages.info(e.getMessage());
-			logger.error("Error while uploading file", e);
+			FacesMessages.error("Fehler beim erstellen eines Teams");
+			logger.error("Error while creating team", e);
 			result = "/secure/team/teamAdd.xhtml?faces-redirect=true&includeViewParams=true";
 		}
 
