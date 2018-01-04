@@ -1,16 +1,7 @@
 package de.altenerding.biber.pinkie.business.file.boundary;
 
-import de.altenerding.biber.pinkie.business.file.control.FileDownload;
-import de.altenerding.biber.pinkie.business.file.control.FileMappingControl;
-import de.altenerding.biber.pinkie.business.file.control.FileSystemModifier;
-import de.altenerding.biber.pinkie.business.file.control.FileUpload;
-import de.altenerding.biber.pinkie.business.file.entity.Document;
-import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
-import de.altenerding.biber.pinkie.business.file.entity.FileMapping;
-import de.altenerding.biber.pinkie.business.file.entity.Image;
-import de.altenerding.biber.pinkie.business.file.entity.Mapping;
-import de.altenerding.biber.pinkie.business.file.entity.TextMapping;
-import de.altenerding.biber.pinkie.business.file.entity.Video;
+import de.altenerding.biber.pinkie.business.file.control.*;
+import de.altenerding.biber.pinkie.business.file.entity.*;
 import de.altenerding.biber.pinkie.business.systemproperty.SystemProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
@@ -38,6 +29,8 @@ public class FileService {
 	private FileMappingControl fileMappingControl;
 	@Inject
 	private FileSystemModifier fileSystemModifier;
+    @Inject
+    private FileDeletion fileDeletion;
 	@Inject
 	@SystemProperty(name = "resourceFolder")
 	private String resourceFolder;
@@ -105,6 +98,13 @@ public class FileService {
 		em.detach(document);
 		return document;
 	}
+
+    public void deleteImage(Image image) {
+        image = em.merge(image);
+        em.remove(image);
+        em.flush();
+        fileDeletion.deleteImage(image);
+    }
 
 	public java.io.File getFileById(String fileId) throws Exception {
 		return fileDownload.getFileById(fileId);

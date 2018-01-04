@@ -387,10 +387,18 @@ INSERT INTO public.image (id, description) VALUES ('7c91f4e8-4537-448d-8fcc-e0ed
 INSERT INTO public.image (id, description) VALUES ('210a1d51-e2e4-44c2-b87f-e7c076f466b8', null);
 INSERT INTO public.image (id, description) VALUES ('3fe654bd-8e87-4673-9869-ef460bea69e2', null);
 
-INSERT INTO public.album (id, created_on, description, coverimage_id) VALUES (1, '2017-12-02 15:42:46.694000', 'Eltern Kind Spieltag 2007', 'c45a8dcb-01ca-4382-bef2-fdd2790696d9');
-INSERT INTO public.album (id, created_on, description, coverimage_id) VALUES (2, '2017-12-02 15:43:12.925000', 'Freising Rasenturnier 2007', '571da8ee-c1f1-4d3c-a5cd-1da6e3b9ae42');
-INSERT INTO public.album (id, created_on, description, coverimage_id) VALUES (3, '2017-12-02 15:43:45.074000', 'mC-jugend-tsv_altusried', '9fa5a610-3a03-4d4f-9e62-e4a0ca00bca1');
-INSERT INTO public.album (id, created_on, description, coverimage_id) VALUES (4, '2017-12-02 15:43:59.720000', 'takeshi-turnier_2007', '46647ee8-8d45-4cef-a4f7-ee233cfc41c3');
+INSERT INTO public.album (id, created_on, description, coverimage_id, folder) VALUES
+  (1, '2017-12-02 15:42:46.694000', 'Eltern Kind Spieltag 2007', 'c45a8dcb-01ca-4382-bef2-fdd2790696d9',
+   'eltern_kind_spieltag_2007');
+INSERT INTO public.album (id, created_on, description, coverimage_id, folder) VALUES
+  (2, '2017-12-02 15:43:12.925000', 'Freising Rasenturnier 2007', '571da8ee-c1f1-4d3c-a5cd-1da6e3b9ae42',
+   'freising_rasenturnier_2007');
+INSERT INTO public.album (id, created_on, description, coverimage_id, folder) VALUES
+  (3, '2017-12-02 15:43:45.074000', 'mC-jugend-tsv_altusried', '9fa5a610-3a03-4d4f-9e62-e4a0ca00bca1',
+   'mc-jugend-tsv_altusried');
+INSERT INTO public.album (id, created_on, description, coverimage_id, folder) VALUES
+  (4, '2017-12-02 15:43:59.720000', 'takeshi-turnier_2007', '46647ee8-8d45-4cef-a4f7-ee233cfc41c3',
+   'takeshi-turnier_2007');
 
 INSERT INTO public.album_image (album_id, images_id) VALUES (1, 'c45a8dcb-01ca-4382-bef2-fdd2790696d9');
 INSERT INTO public.album_image (album_id, images_id) VALUES (1, 'd52ceccf-79e1-4db5-8bc7-f50d359e762f');
