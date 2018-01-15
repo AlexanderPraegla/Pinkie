@@ -9,11 +9,11 @@
         <b:container>
             <b:panel rendered="#{userSessionBean.isUserInRole('ADMIN')}">
                 <b:row>
-                    <b:column colLg="2" colMd="3" colSm="4" colXs="12" style="margin-bottom: 15px;">
-                        <b:button look="primary" value="#{pageLabel['club.deans.edit']}" outcome="/secure/dean/deansEdit.xhtml"/>
+                    <b:column colLg="3" colMd="4" colSm="5" colXs="12" style="margin-bottom: 15px;">
+                        <b:button look="primary btn-block" value="#{pageLabel['club.deans.edit']}" outcome="/secure/dean/deansEdit.xhtml"/>
                     </b:column>
-                    <b:column colLg="2" colMd="3" colSm="4" colXs="12">
-                        <b:button look="primary" value="#{pageLabel['club.deans.add']}" outcome="/secure/dean/deanAdd.xhtml"/>
+                    <b:column colLg="3" colMd="4" colSm="5" colXs="12">
+                        <b:button look="primary btn-block" value="#{pageLabel['club.deans.add']}" outcome="/secure/dean/deanAdd.xhtml"/>
                     </b:column>
                 </b:row>
             </b:panel>

@@ -5,8 +5,12 @@
 
     <ui:define name="content">
         <b:container>
-            <b:button look="primary" value="Förderverein bearbeiten" outcome="/secure/club/editBoosterClub.xhtml"/>
-            <b:button look="primary" value="Biber Handballfreunde bearbeiten" outcome="/secure/club/editBiberFriends.xhtml"/>
+            <b:column colLg="3" colMd="4" colSm="5" colXs="12">
+                <b:button look="primary btn-block" value="Förderverein bearbeiten" outcome="/secure/club/editBoosterClub.xhtml"/>
+            </b:column>
+            <b:column colLg="3" colMd="4" colSm="5" colXs="12">
+                <b:button look="primary btn-block" value="Biber Handballfreunde bearbeiten" outcome="/secure/club/editBiberFriends.xhtml"/>
+            </b:column>
         </b:container>
     </ui:define>
 </ui:composition>
