@@ -6,29 +6,44 @@
 
     <ui:define name="content">
         <b:container>
-            <h:form>
-                <h:link value="Ansprechpartner für Fragen welche die Abteilung betreffen, finden Sie unter der Rubrik Abteilungsleitung" outcome="deans"/>
-            </h:form>
+            <h4>
+                <h:outputText value="Bei Vereinsfragen"/>
+            </h4>
+            <b:panel collapsible="false" look="info">
+                <h:form>
+                    <h:link value="Ansprechpartner für Fragen welche die Abteilung betreffen, finden Sie unter der Rubrik Abteilungsleitung"
+                            outcome="deans"/>
+                </h:form>
+            </b:panel>
             <hr/>
             <h4>
-            <h:outputText value="Ansprechpartner bei Fragen bezüglich der Webseite sind:"/>
+                <h:outputText value="Ansprechpartner bei Fragen bezüglich der Webseite"/>
             </h4>
-            <p>
-                <strong>Alexander Praegla</strong><br/>
-                E-Mail: <a
-                    href="mailto: 'alexander.praegla@altenerding-biber.de'">alexander.praegla@altenerding-biber.de</a><br/>
-            </p>
-            <p>
-                <strong>Daniel Sagert</strong><br/>
-                E-Mail: <a
-                    href="mailto: 'daniel.sagert@altenerding-biber.de'">daniel.sagert@altenerding-biber.de</a><br/>
-            </p>
+            <b:row>
+                <b:column colLg="6" colMd="6" colSm="12" colXs="12">
+                    <p>
+                        <strong>Alexander Praegla</strong><br/>
+                        E-Mail: <a
+                            href="mailto: 'alexander.praegla@altenerding-biber.de'">alexander.praegla@altenerding-biber.de</a><br/>
+                    </p>
+                    <p>
+                        <strong>Daniel Sagert</strong><br/>
+                        E-Mail: <a
+                            href="mailto: 'daniel.sagert@altenerding-biber.de'">daniel.sagert@altenerding-biber.de</a><br/>
+                    </p>
+
+                </b:column>
+                <b:column colLg="6" colMd="6" colSm="12" colXs="12">
+                    <b:panel collapsible="false" look="info">
+                        <h:outputText value="Bei Fehlern oder Verbesserungswünschen bitte "/>
+                        <a href="https://github.com/danielsagert/Pinkie/issues" target="blank">hier auf GitHub </a>
+                        <h:outputText value="einloggen und unter dem Menüpunkt 'Issues' ein neues Issue anlegen. (Wenn ein neuer Account erstellt wird, bitte eine E-Mail Addresse nutzen welche regelmäßig gelesen wird, damit wir euch mit Rückfragen erreichen können)
+                                    Wir werden dann sobald Zeit ist das Thema prüfen und priorisieren. Bitte vorher auch kurz mal durchschauen ob es nicht vllt schon ein Issue mit dem gleichen Thema gibt, dann bitte nicht noch eins erstellen."/>
+                    </b:panel>
+
+                </b:column>
+            </b:row>
             <hr/>
-            <h4>
-                <h:outputText value="Bei Fehlern oder Verbesserungswünschen bitte "/>
-                <a href="https://github.com/danielsagert/Pinkie/issues" target="blank">hier</a>
-                <h:outputText value=" ein neues Issue aufmachen."/>
-            </h4>
         </b:container>
     </ui:define>
 </ui:composition>
