@@ -3,7 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head/>
 <h:body>
@@ -14,22 +14,31 @@
         <b:panel title="#{pageLabel['mainpage.announcement.title']}">
             <h:form id="announcementListFormId">
                 <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
-                    <b:panel collapsible="false">
-                        <b:row>
-                            <b:column>
-                                <h:outputText value="#{announcement.text}"/><br/>
-                            </b:column>
-                        </b:row>
-                        <b:row rendered="#{announcement.document.fileName != null}">
-                            <b:column>
-                                <b:button href="#{request.contextPath}#{announcement.document.getDownloadUrl()}"
-                                          style="margin-top: 15px"
-                                          look="info"
-                                          target="blank" value="#{announcement.document.displayedName}"
-                                          icon="download"/>
-                            </b:column>
-                        </b:row>
-                    </b:panel>
+                        <b:panel collapsible="false" styleClass="panel-no-border">
+                            <b:row>
+                                <b:column>
+                                    <h:outputText value="#{announcement.text}"/><br/>
+                                </b:column>
+                            </b:row>
+                            <b:row rendered="#{announcement.document.fileName != null}">
+                                <b:column>
+                                    <b:button href="#{request.contextPath}#{announcement.document.getDownloadUrl()}"
+                                              style="margin-top: 15px"
+                                              look="info"
+                                              target="blank" value="#{announcement.document.displayedName}"
+                                              icon="download"/>
+                                </b:column>
+                            </b:row>
+                            <b:row>
+                                <b:column>
+                                    <div style="font-size: 13px;">
+                                        <h:outputText value="#{announcement.createdOn}">
+                                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
+                                        </h:outputText>
+                                    </div>
+                                </b:column>
+                            </b:row>
+                        </b:panel>
                 </ui:repeat>
             </h:form>
         </b:panel>

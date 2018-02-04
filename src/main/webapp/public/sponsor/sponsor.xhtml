@@ -9,7 +9,7 @@
             <b:panel title="Premium Sponsoren" collapsible="false">
                 <b:panelGrid colSpans="6,6" size="xs">
                     <c:forEach items="#{sponsorBean.premiumSponsors}" var="sponsor">
-                        <b:panel style="border: none">
+                        <b:panel styleClass="panel-no-border">
                             <h:outputLabel value="#{sponsor.name}"/>
                             <a href="#{sponsor.url}" target="blank">
                                 <b:image
@@ -23,7 +23,7 @@
             <b:panel title="Weitere Sponsoren" collapsed="true">
                 <b:panelGrid colSpans="4,4,4" size="sm">
                     <c:forEach items="#{sponsorBean.nonePremiumSponsors}" var="sponsor">
-                        <b:panel style="border: none">
+                        <b:panel styleClass="panel-no-border">
                             <h:outputLabel value="#{sponsor.name}"/>
                             <a href="#{sponsor.url}" target="blank">
                                 <b:image
