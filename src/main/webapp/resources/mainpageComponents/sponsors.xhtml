@@ -11,7 +11,7 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="#{pageLabel['mainpage.sponsors.title']}" collapsible="true">
+        <b:panel title="#{pageLabel['mainpage.sponsors.title']}" collapsible="true" colLg="6">
             <b:carousel id="carousel" showIndicators="false" disabled="true" interval="10000">
                 <c:forEach items="#{sponsorBean.sponsors}" var="sponsor" varStatus="status">
                     <b:carouselItem style="width: auto; height:auto">

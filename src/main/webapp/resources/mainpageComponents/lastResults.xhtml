@@ -13,10 +13,12 @@
     <composite:implementation>
         <b:panel title="#{pageLabel['mainpage.lastResults.title']}" collapsible="true">
             <b:dataTable value="#{scheduleBean.getRecentResults()}" searching="false" info="false" paginated="false"
-                         var="match" fixedHeader="true" scrollHorizontally="true">
+                         var="match" fixedHeader="true" scrollHorizontally="true" style="margin: 0 auto;">
                 <b:dataTableColumn label="#{label['table.team']}" value="#{match.team.name}" orderable="false"/>
-                <b:dataTableColumn label="#{label['table.day']}" value="#{match.day}" orderable="false"/>
-                <b:dataTableColumn label="#{label['table.date']}" value="#{match.getFormattedMatchDate()}" orderable="false"/>
+                <b:dataTableColumn label="#{label['table.day']}" value="#{match.day}" orderable="false"
+                                   styleClass="sm-screen-hidden xs-screen-hidden"/>
+                <b:dataTableColumn label="#{label['table.date']}" value="#{match.getFormattedMatchDate()}" orderable="false"
+                                   styleClass="sm-screen-hidden xs-screen-hidden"/>
                 <b:dataTableColumn label="#{label['table.homeTeam']}" value="#{match.homeTeam}" orderable="false"
                                    contentStyle="#{match.homeTeam}"/>
                 <b:dataTableColumn label="#{label['table.guestTeam']}" value="#{match.guestTeam}" orderable="false"
