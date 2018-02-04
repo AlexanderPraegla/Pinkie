@@ -23,7 +23,7 @@ public class AnnouncementBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		try {
-			announcements = announcementService.getAnnouncements();
+			announcements = announcementService.getLatestAnnouncements();
 		} catch (Exception e) {
 			logger.error("Error while loading announcements", e);
 			FacesMessages.error("Fehler beim Laden der Ankündigungen");
