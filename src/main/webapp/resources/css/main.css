@@ -27,3 +27,10 @@ body {
 .ui-widget-content {
     border: none;
 }
+
+.panel-no-border {
+    margin-top: 5px !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}

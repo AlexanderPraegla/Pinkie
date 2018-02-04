@@ -16,14 +16,14 @@
                 <c:forEach items="#{sponsorBean.sponsors}" var="sponsor" varStatus="status">
                     <b:carouselItem style="width: auto; height:auto">
                         <b:panelGrid colSpans="6,6" size="xs">
-                            <b:panel style="border: none">
+                            <b:panel styleClass="panel-no-border">
                                 <a href="#{sponsorBean.sponsors.get(status.index).url}" target="blank">
                                     <b:image
                                             value="#{sponsorBean.sponsors.get(status.index).image.downloadUrl}"
                                             style="max-width: 100%; max-height: 200px"/>
                                 </a>
                             </b:panel>
-                            <b:panel style="border: none">
+                            <b:panel styleClass="panel-no-border">
                                 <ui:fragment  rendered="#{not status.last}">
                                     <a href="#{sponsorBean.sponsors.get(status.index + 1).url}" target="blank">
                                         <b:image
