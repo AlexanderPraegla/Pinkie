@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Announcement.findAll", query = "SELECT a FROM Announcement a WHERE a.archivedOn IS NULL ORDER BY a.createdOn DESC"),
+		@NamedQuery(name = "Announcement.getLatestAnnouncements", query = "SELECT a FROM Announcement a WHERE a.archivedOn IS NULL ORDER BY a.createdOn DESC"),
 		@NamedQuery(name = "Announcement.findById", query = "SELECT a FROM Announcement a where a.id = :id")
 })
 public class Announcement {

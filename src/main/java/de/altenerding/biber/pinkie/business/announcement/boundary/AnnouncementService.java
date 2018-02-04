@@ -15,8 +15,8 @@ public class AnnouncementService {
 	private AnnouncementProcessor announcementProcessor;
 
 
-	public List<Announcement> getAnnouncements() throws Exception {
-		return announcementProvider.getAnnouncements();
+	public List<Announcement> getLatestAnnouncements() {
+		return announcementProvider.getLatestAnnouncements();
 	}
 
 	public void saveAnnouncement(Announcement anncouncement) throws Exception {
