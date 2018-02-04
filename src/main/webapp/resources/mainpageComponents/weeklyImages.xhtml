@@ -12,15 +12,15 @@
 
     <composite:implementation>
         <b:panel title="#{pageLabel['mainpage.weeklyImage.title']}" collapsible="true">
-                    <b:carousel id="carousel" >
-                        <c:forEach items="#{weeklyImageBean.weeklyImages}" var="weeklyImage">
-                            <b:carouselItem>
-                                <h:outputText value="#{weeklyImage.image.description}"
-                                              style="font-size: 20px;display: flex;justify-content: center;"/>
-                                <b:image value="#{weeklyImage.image.getDownloadUrl()}"/>
-                            </b:carouselItem>
-                        </c:forEach>
-                    </b:carousel>
+            <b:carousel id="carousel">
+                <c:forEach items="#{weeklyImageBean.weeklyImages}" var="weeklyImage">
+                    <b:carouselItem>
+                        <h:outputText value="#{weeklyImage.image.description}"
+                                      style="font-size: 20px;display: flex;justify-content: center;"/>
+                        <b:image value="#{weeklyImage.image.getDownloadUrl()}"/>
+                    </b:carouselItem>
+                </c:forEach>
+            </b:carousel>
         </b:panel>
     </composite:implementation>
 </h:body>
