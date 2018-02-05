@@ -1,0 +1,1 @@
+--Put SQL statements here to drop columns, tables, etc.
