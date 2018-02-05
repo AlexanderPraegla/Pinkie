@@ -14,8 +14,12 @@ public class ReportService {
 	private ReportProvider reportProvider;
 	private ReportProcessor reportProcessor;
 
-	public List<Report> getReports() throws Exception{
+	public List<Report> getReports() {
 		return reportProvider.getReports();
+	}
+
+	public List<Report> getLatestReports() {
+		return reportProvider.getLatestReports();
 	}
 
 	public Report getReportById(long reportId) {

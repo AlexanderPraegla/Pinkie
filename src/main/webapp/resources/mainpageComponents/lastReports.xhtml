@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:head/>
+<h:body>
+
+    <composite:interface/>
+
+    <composite:implementation>
+        <b:panel title="Letzte Berichte">
+            <ui:repeat value="#{reportBean.latestReports}" var="report">
+                    <h:link value="#{report.title}" outcome="/public/news/reportView.xhtml"
+                            includeViewParams="true">
+                        <f:param name="reportId" value="#{report.id}"/>
+                    </h:link>
+                <br/>
+                <br/>
+            </ui:repeat>
+            <b:button value="Weitere Berichte" outcome="/public/news/report.xhtml" look="primary"
+                      includeViewParams="true" icon="chevron-right" iconAlign="right"/>
+        </b:panel>
+    </composite:implementation>
+</h:body>
+</html>
