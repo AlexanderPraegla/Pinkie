@@ -34,8 +34,9 @@ public class ReportBean {
 	private List<Report> reports;
 	private Report report = new Report();
 	private FileService fileService;
+    private List<Report> latestReports;
 
-	@PostConstruct
+    @PostConstruct
 	public void init() {
 		if (reports == null) {
 			try {
@@ -164,4 +165,11 @@ public class ReportBean {
 	public Part getFile() {
 		return file;
 	}
+
+    public List<Report> getLatestReports() {
+		if (latestReports == null) {
+			latestReports = reportService.getLatestReports();
+		}
+			return latestReports;
+    }
 }

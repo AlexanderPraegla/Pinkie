@@ -15,8 +15,17 @@ public class ReportProvider {
 	private Logger logger;
 
 	public List<Report> getReports() {
-		logger.info("Loading all reports from database");
-		return em.createNamedQuery("Report.findAll", Report.class).setMaxResults(30).getResultList();
+		logger.info("Loading last 30 reports");
+		return getReports(30);
+	}
+
+	public List<Report> getLatestReports() {
+		logger.info("Loading 5 latest reports");
+		return getReports(5);
+	}
+
+	private List<Report> getReports(int maxResults) {
+		return em.createNamedQuery("Report.findAll", Report.class).setMaxResults(maxResults).getResultList();
 	}
 
 	public Report getReportById(long reportId) {
