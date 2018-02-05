@@ -14,31 +14,30 @@
         <b:panel title="#{pageLabel['mainpage.announcement.title']}">
             <h:form id="announcementListFormId">
                 <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
-                        <b:panel collapsible="false" styleClass="panel-no-border">
-                            <b:row>
-                                <b:column>
-                                    <h:outputText value="#{announcement.text}"/><br/>
-                                </b:column>
-                            </b:row>
-                            <b:row rendered="#{announcement.document.fileName != null}">
-                                <b:column>
-                                    <b:button href="#{request.contextPath}#{announcement.document.getDownloadUrl()}"
-                                              style="margin-top: 15px"
-                                              look="info"
-                                              target="blank" value="#{announcement.document.displayedName}"
-                                              icon="download"/>
-                                </b:column>
-                            </b:row>
-                            <b:row>
-                                <b:column>
-                                    <div style="font-size: 12px; font-style: italic;">
-                                        <h:outputText value="#{announcement.createdOn}">
-                                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
-                                        </h:outputText>
-                                    </div>
-                                </b:column>
-                            </b:row>
-                        </b:panel>
+                    <b:row>
+                        <b:column>
+                            <h:outputText value="#{announcement.text}"/><br/>
+                        </b:column>
+                    </b:row>
+                    <b:row rendered="#{announcement.document.fileName != null}">
+                        <b:column>
+                            <b:button href="#{request.contextPath}#{announcement.document.getDownloadUrl()}"
+                                      style="margin-top: 15px"
+                                      look="info"
+                                      target="blank" value="#{announcement.document.displayedName}"
+                                      icon="download"/>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column>
+                            <div style="font-size: 12px; font-style: italic;">
+                                <h:outputText value="#{announcement.createdOn}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
+                                </h:outputText>
+                            </div>
+                        </b:column>
+                    </b:row>
+                    <hr/>
                 </ui:repeat>
             </h:form>
         </b:panel>
