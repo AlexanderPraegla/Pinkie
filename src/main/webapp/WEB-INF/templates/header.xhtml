@@ -3,10 +3,14 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:b="http://bootsfaces.net/ui">
     <b:container style="padding-bottom: 20px; padding-top: 20px">
-        <b:image value="/resources/images/spvgg-handball-biber-header-web.jpg" style="width: 100%" visible="md..."/>
-        <b:image value="/resources/images/spvgg-handball-biber-header-web-mobile.jpg" style="width: 100%" visible="...sm"/>
+        <a href="#{request.contextPath}/">
+            <b:image value="/resources/images/spvgg-handball-biber-header-web.jpg" style="width: 100%"
+                     visible="md..."/>
+            <b:image value="/resources/images/spvgg-handball-biber-header-web-mobile.jpg" style="width: 100%"
+                     visible="...sm"/>
+        </a>
         <h:form id="globalMessagesFormId">
-            <b:messages id="globaltMessages" />
+            <b:messages id="globaltMessages"/>
         </h:form>
     </b:container>
 </ui:composition>
