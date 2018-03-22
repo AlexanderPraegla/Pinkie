@@ -2,6 +2,8 @@
 Relaunch of [altenerding-biber.de](http://www.altenerding-biber.de) based on Java EE instead of PHP.  
 All-new website and REST service for Android app access.
 
+Current test version is visible [here](https://www.praegla.net/pinkie)  
+
 # Environment setup
 ## Application server
 Tested with Tested with [Glassfish5.0](https://javaee.github.io/glassfish/download) Version 4.1 <br/>
