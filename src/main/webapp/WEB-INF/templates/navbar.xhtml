@@ -3,7 +3,9 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:b="http://bootsfaces.net/ui">
 
-    <b:navBar brand="#{menu['menu.brand']}" brandHref="#{request.contextPath}/" inverse="true" fixed="top">
+    <b:navBar brandHref="#{request.contextPath}/"
+              brandStyle="padding-top: 10px" brandImgStyleClass="xs-screen-hidden sm-screen-hidden md-screen-hidden"
+              inverse="true" fixed="top" brandImg="#{resource['images/biber-logo-transparent_32x32.png']}">
         <h:form>
             <b:navbarLinks>
                 <b:dropMenu value="#{menu['menu.current']}">
