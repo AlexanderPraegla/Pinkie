@@ -30,7 +30,14 @@
                                     </b:commandButton>
                                 </b:column>
                             </b:row>
+
+                        <hr style="margin-top: 5px;"/>
                     </ui:repeat>
+                    <b:row styleClass="form-group">
+                        <b:column>
+                            <b:button look="default btn-block" value="#{pageLabel['club.deans.add']}" outcome="/secure/dean/deanAdd.xhtml"/>
+                        </b:column>
+                    </b:row>
                     <b:commandButton value="Reihenfolge aktualisieren" look="success"
                                      action="#{deanBean.updateDeansOrder}"/>
                 </b:panel>
