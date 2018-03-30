@@ -8,39 +8,15 @@
     <ui:define name="content">
         <b:container>
             <h2>Unsere Schiedsrichter</h2>
-            <b:panel rendered="#{userSessionBean.isUserInRole('ADMIN')}">
-                <b:row>
-                    <b:column colLg="2" colMd="3" colSm="4" colXs="12" style="margin-bottom: 15px;">
-                        <b:button look="primary" value="#{pageLabel['club.referees.edit']}" outcome="/secure/referee/refereesEdit.xhtml"/>
-                    </b:column>
-                    <b:column colLg="2" colMd="3" colSm="4" colXs="12">
-                        <b:button look="primary" value="#{pageLabel['club.referees.add']}" outcome="/secure/referee/refereeAdd.xhtml"/>
-                    </b:column>
-                </b:row>
-            </b:panel>
             <b:panel>
                 <b:row>
                     <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
                     <b:column colLg="8" colMd="8" colSm="12" colXs="12">
-                        <b:image value="#{refereeBean.imageMapping.file.getDownloadUrl()}"
+                        <b:image value="#{refereeBean.fileMapping.file.getDownloadUrl()}"
                                  style="max-width: 100%; max-height: 100%"/>
-                        <h:outputText value="#{refereeBean.imageMapping.image.description}"/>
+                        <h:outputText value="#{refereeBean.fileMapping.image.description}"/>
                     </b:column>
                     <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
-                </b:row>
-                <b:row rendered="#{userSessionBean.isUserInRole('PRESS')}">
-                    <h:form enctype="multipart/form-data">
-                        <b:column>
-                            <h:inputFile id="refereeGroupImageUpload" value="#{refereeBean.file}"
-                                         styleClass="btn btn-default"
-                                         style="margin-bottom: 15px;margin-top: 15px;" required="true"
-                                         requiredMessage="Bitte Bild auswählen"/>
-                        </b:column>
-                        <b:column colLg="6" colMd="6" colSm="12" colXs="12">
-                            <b:commandButton value="#{label['button.upload.image']}" look="primary"
-                                             action="#{refereeBean.uploadRefereeGroupImage()}"/>
-                        </b:column>
-                    </h:form>
                 </b:row>
             </b:panel>
             <ui:repeat value="#{refereeBean.referees}" var="referee">

@@ -9,33 +9,35 @@
             <b:form>
                 <b:panel rendered="#{deanBean.deans.size() > 0}">
                     <ui:repeat id="deanRepeat" value="#{deanBean.deans}" var="dean">
-                            <b:row>
-                                <b:column colLg="4" colMd="4" colSm="3" colXs="12">
-                                    <b:inputText value="#{dean.member.getFullName()}" disabled="true"/>
-                                </b:column>
-                                <b:column colLg="3" colMd="3" colSm="3" colXs="12">
-                                    <b:inputText value="#{dean.function}" disabled="true"/>
-                                </b:column>
-                                <b:column colLg="1" colMd="1" colSm="2" colXs="4" tooltip="Reihnfolge in der Vorstandsansicht">
-                                    <b:inputText value="#{dean.orderId}" mask="integer"/>
-                                </b:column>
-                                <b:column colLg="2" colMd="2" colSm="2" colXs="4">
-                                    <b:button value="#{label['button.edit']}" look="default btn-block" outcome="/secure/dean/deanEdit.xhtml">
-                                        <f:param name="deanId" value="#{dean.id}"/>
-                                    </b:button>
-                                </b:column>
-                                <b:column colLg="2" colMd="2" colSm="2" colXs="4">
-                                    <b:commandButton value="#{label['button.archive']}" look="danger btn-block"
-                                                     action="#{deanBean.archiveDean(dean)}">
-                                    </b:commandButton>
-                                </b:column>
-                            </b:row>
-
+                        <b:row>
+                            <b:column colLg="4" colMd="4" colSm="3" colXs="12">
+                                <b:inputText value="#{dean.member.getFullName()}" disabled="true"/>
+                            </b:column>
+                            <b:column colLg="3" colMd="3" colSm="3" colXs="12">
+                                <b:inputText value="#{dean.function}" disabled="true"/>
+                            </b:column>
+                            <b:column colLg="1" colMd="1" colSm="2" colXs="4"
+                                      tooltip="Reihnfolge in der Vorstandsansicht">
+                                <b:inputText value="#{dean.orderId}" mask="integer"/>
+                            </b:column>
+                            <b:column colLg="2" colMd="2" colSm="2" colXs="4">
+                                <b:button value="#{label['button.edit']}" look="default btn-block"
+                                          outcome="/secure/dean/deanEdit.xhtml">
+                                    <f:param name="deanId" value="#{dean.id}"/>
+                                </b:button>
+                            </b:column>
+                            <b:column colLg="2" colMd="2" colSm="2" colXs="4">
+                                <b:commandButton value="#{label['button.archive']}" look="danger btn-block"
+                                                 action="#{deanBean.archiveDean(dean)}">
+                                </b:commandButton>
+                            </b:column>
+                        </b:row>
                         <hr style="margin-top: 5px;"/>
                     </ui:repeat>
                     <b:row styleClass="form-group">
                         <b:column>
-                            <b:button look="default btn-block" value="#{pageLabel['club.deans.add']}" outcome="/secure/dean/deanAdd.xhtml"/>
+                            <b:button look="default btn-block" value="#{pageLabel['club.deans.add']}"
+                                      outcome="/secure/dean/deanAdd.xhtml"/>
                         </b:column>
                     </b:row>
                     <b:commandButton value="Reihenfolge aktualisieren" look="success"

@@ -21,15 +21,15 @@
                 <b:form enctype="multipart/form-data">
                     <b:formGroup>
                         <b:row>
-                            <b:column colLg="4" colMd="6" colSm="6" colXs="8">
+                            <b:column colLg="10" colMd="10" colSm="12" colXs="12">
                                 <b:button
                                         href="#{request.contextPath}#{file.document.downloadUrl}"
                                         look="info"
                                         target="blank" value="#{file.document.displayedName}"
                                         icon="download"/>
                             </b:column>
-                            <b:column colLg="4" colMd="6" colSm="6" colXs="2">
-                                <b:commandButton value="#{label['button.archive']}" look="danger" action="success"
+                            <b:column colLg="2" colMd="2" colSm="12" colXs="12">
+                                <b:commandButton value="#{label['button.archive']}" look="danger btn-block" action="success"
                                                  actionListener="#{fileMappingBean.archiveDocument(file)}">
                                 </b:commandButton>
                             </b:column>
@@ -52,7 +52,7 @@
                                      placeholder="#{label['document.displayedName']}"/>
                     </b:column>
                     <b:column colLg="2" colMd="2" colSm="12" colXs="12">
-                        <b:commandButton value="#{label['button.save']}" look="success" action="success"
+                        <b:commandButton value="#{label['button.save']}" look="success btn-block" action="success"
                                          actionListener="#{fileMappingBean.createMappingfile(cc.attrs.page, cc.attrs.key)}">
                         </b:commandButton>
                     </b:column>

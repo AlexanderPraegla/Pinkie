@@ -26,6 +26,11 @@ public class RefereeService {
 		refereeProcessor.updateReferee(referee);
 	}
 
+
+	public void removeReferee(Referee referee) {
+		refereeProcessor.removeReferee(referee);
+	}
+
 	public void updateReferees(List<Referee> referees) {
 		refereeProcessor.updateReferees(referees);
 	}

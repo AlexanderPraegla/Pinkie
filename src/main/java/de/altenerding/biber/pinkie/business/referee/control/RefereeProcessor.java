@@ -33,6 +33,13 @@ public class RefereeProcessor {
 		logger.info("Created new referee with id={}", referee.getId());
 	}
 
+	public void removeReferee(Referee referee) {
+		logger.info("Deleting referee with id={}", referee.getId());
+		referee = em.merge(referee);
+		em.remove(referee);
+		em.flush();
+	}
+
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
