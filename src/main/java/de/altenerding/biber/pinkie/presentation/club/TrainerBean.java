@@ -31,15 +31,17 @@ public class TrainerBean {
 	private List<Member> trainers;
 	private Part file;
 	private String groupImageDescription;
+	private FileMapping fileMapping;
 
 	@PostConstruct
 	public void init() {
-		groupImageDescription = fileService.getSingleFileMapping(TRAINERS_PAGE_NAME, TRAINER_GROUP_PICTURE_KEY).getImage().getDescription();
+		getFileMapping();
+		groupImageDescription = fileMapping.getImage().getDescription();
 	}
 
 	@Access(role = Role.PRESS)
 	public String uploadTrainerGroupImage() throws Exception {
-		FileMapping imageMapping = getImageMapping();
+		FileMapping imageMapping = getFileMapping();
 		if (file != null) {
 			logger.info("Replacing trainers group image with new one");
 			Image image = fileService.uploadImage(file, FileCategory.IMAGES_TRAINER_GROUP, groupImageDescription);
@@ -61,8 +63,11 @@ public class TrainerBean {
 		return "/public/club/trainers.xhtml?faces-redirect=true";
 	}
 
-	public FileMapping getImageMapping() {
-		return fileService.getSingleFileMapping(TRAINERS_PAGE_NAME, TRAINER_GROUP_PICTURE_KEY);
+	public FileMapping getFileMapping() {
+		if (fileMapping == null) {
+			fileMapping =  fileService.getSingleFileMapping(TRAINERS_PAGE_NAME, TRAINER_GROUP_PICTURE_KEY);
+		}
+		return fileMapping;
 	}
 
 	@Inject

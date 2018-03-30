@@ -13,27 +13,11 @@
                 <b:row style="white-space: pre-wrap">
                     <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
                     <b:column colLg="8" colMd="8" colSm="12" colXs="12">
-                        <b:image value="#{trainerBean.imageMapping.file.getDownloadUrl()}"
+                        <b:image value="#{trainerBean.fileMapping.file.getDownloadUrl()}"
                                  style="max-width: 100%; max-height: 100%"/>
-                        <h:outputText value="#{trainerBean.imageMapping.image.description}"/>
+                        <h:outputText value="#{trainerBean.fileMapping.image.description}"/>
                     </b:column>
                     <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
-                </b:row>
-                <b:row rendered="#{userSessionBean.isUserInRole('PRESS')}">
-                    <h:form enctype="multipart/form-data">
-                        <b:column>
-                            <h:inputFile id="refereeGroupImageUpload" value="#{trainerBean.file}"
-                                         styleClass="btn btn-default"
-                                         style="margin-bottom: 15px;margin-top: 15px;"/>
-                        </b:column>
-                        <b:column>
-                            <b:inputTextarea value="#{trainerBean.groupImageDescription}"/>
-                        </b:column>
-                        <b:column colLg="6" colMd="6" colSm="12" colXs="12">
-                            <b:commandButton value="#{label['button.refresh']}" look="primary"
-                                             action="#{trainerBean.uploadTrainerGroupImage()}"/>
-                        </b:column>
-                    </h:form>
                 </b:row>
             </b:panel>
             <ui:repeat value="#{trainerBean.trainers}" var="trainer">

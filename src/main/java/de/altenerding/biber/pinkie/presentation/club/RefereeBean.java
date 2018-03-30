@@ -11,6 +11,7 @@ import de.altenerding.biber.pinkie.business.referee.entity.Referee;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -33,15 +34,26 @@ public class RefereeBean implements Serializable {
 	private List<Referee> referees;
 	private Referee referee = new Referee();
 	private Part file;
+	private String groupImageDescription;
+    private FileMapping fileMapping;
+
+    @PostConstruct
+    public void init() {
+        groupImageDescription = getFileMapping().getImage().getDescription();
+    }
 
 	public void initReferee() {
 		logger.info("Initializing referee");
 		referee = refereeService.getRefereeById(refereeId);
 	}
 
-	public FileMapping getImageMapping() {
-		return fileService.getSingleFileMapping(REFEREES_PAGE_NAME, REFEREE_IMAGE_GROUP_PICTURE_KEY);
-	}
+	public FileMapping getFileMapping() {
+        if (fileMapping == null) {
+            fileMapping = fileService.getSingleFileMapping(REFEREES_PAGE_NAME, REFEREE_IMAGE_GROUP_PICTURE_KEY);
+        }
+
+        return fileMapping;
+    }
 
 	@Access(role = Role.ADMIN)
 	public String updateReferee() {
@@ -93,11 +105,10 @@ public class RefereeBean implements Serializable {
 	}
 
 	@Access(role = Role.ADMIN)
-	public String archiveReferee(Referee referee) {
-		logger.info("Archiving referee");
-		referee.setArchivedOn(new Date());
-		refereeService.updateReferee(referee);
-		FacesMessages.info("Schiedsrichter archiviert");
+	public String removeReferee(Referee referee) {
+		logger.info("Removing referee");
+		refereeService.removeReferee(referee);
+		FacesMessages.info("Schiedsrichter entfernt");
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		return "/secure/referee/refereesEdit.xhtml?faces-redirect=true";
@@ -106,18 +117,27 @@ public class RefereeBean implements Serializable {
 	@Access(role = Role.PRESS)
 	public String uploadRefereeGroupImage() throws Exception {
 		logger.info("Uploading new group image for referees");
-		Image image = fileService.uploadImage(file, FileCategory.IMAGES_REFEREE_GROUP);
-		FileMapping imageMapping = getImageMapping();
 
-		if (imageMapping == null) {
-			imageMapping = new FileMapping();
-		}
-		imageMapping.setKey(REFEREE_IMAGE_GROUP_PICTURE_KEY);
-		imageMapping.setPage(REFEREES_PAGE_NAME);
-		imageMapping.setFile(image);
+        FileMapping imageMapping = getFileMapping();
+        if (file != null) {
+            logger.info("Replacing referees group image with new one");
+            Image image = fileService.uploadImage(file, FileCategory.IMAGES_REFEREE_GROUP, groupImageDescription);
 
-		fileService.updateMapping(imageMapping);
-		return "/public/club/referees.xhtml?faces-redirect=true";
+            if (imageMapping == null) {
+                imageMapping = new FileMapping();
+            }
+            imageMapping.setKey(REFEREE_IMAGE_GROUP_PICTURE_KEY);
+            imageMapping.setPage(REFEREES_PAGE_NAME);
+            imageMapping.setFile(image);
+
+            fileService.updateMapping(imageMapping);
+        } else {
+            logger.info("Updating referees group image description");
+            imageMapping.getImage().setDescription(groupImageDescription);
+            fileService.updateMapping(imageMapping);
+        }
+
+        return "/public/club/trainers.xhtml?faces-redirect=true";
 	}
 
 	@Inject
@@ -169,4 +189,12 @@ public class RefereeBean implements Serializable {
 	public void setReferee(Referee referee) {
 		this.referee = referee;
 	}
+
+    public String getGroupImageDescription() {
+        return groupImageDescription;
+    }
+
+    public void setGroupImageDescription(String groupImageDescription) {
+        this.groupImageDescription = groupImageDescription;
+    }
 }

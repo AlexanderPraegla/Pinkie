@@ -1,0 +1,38 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:mapping="http://java.sun.com/jsf/composite/mappingComponents"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="title">Schiedsrichter bearbeiten</ui:define>
+
+    <ui:define name="content">
+        <b:container rendered="#{userSessionBean.isUserInRole('ADMIN')}">
+            <b:panel title="Trainer Bild bearbeiten" collapsible="false">
+                <p><h3><h:outputText value="Neues Bild hochladen:"/></h3></p>
+                <h:form enctype="multipart/form-data">
+                    <b:row>
+                        <b:column colLg="2" colMd="2" colSm="2" colXs="12">
+                            <mapping:image key="trainers.group.picture" page="trainers.xhtml" positioned="false"/>
+                        </b:column>
+                        <b:column colLg="8" colMd="8" colSm="8" colXs="12">
+                            <h:inputFile value="#{refereeBean.file}" styleClass="btn btn-default"
+                                         style="margin-bottom: 15px;">
+                            </h:inputFile>
+                        </b:column>
+                        <b:column colLg="2" colMd="2" colSm="12" colXs="12">
+                            <b:commandButton value="#{label['button.save']}" look="success btn-block" action="success"
+                                             actionListener="#{trainerBean.uploadTrainerGroupImage()}">
+                            </b:commandButton>
+                        </b:column>
+                        <b:column colLg="10" colMd="10" colSm="10" colXs="12" style="white-space: pre-wrap">
+                            <b:inputTextarea value="#{trainerBean.groupImageDescription}" rows="5" >
+                                <b:focus/>
+                            </b:inputTextarea>
+                        </b:column>
+                    </b:row>
+                </h:form>
+            </b:panel>
+        </b:container>
+    </ui:define>
+</ui:composition>
