@@ -2,7 +2,8 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:mapping="http://java.sun.com/jsf/composite/mappingComponents">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="title">Geschichte Bearbeiten</ui:define>
 
     <ui:define name="content">
@@ -10,8 +11,59 @@
             <f:viewAction action="#{aboutMappingBean.initHistoryFileMappings('history.xhtml')}"/>
         </f:metadata>
         <b:container rendered="#{userSessionBean.isUserInRole('ADMIN')}">
-            <mapping:editText page="history.xhtml" key="history.text" title="Geschichte beararbeiten"
-                              text="#{aboutMappingBean.historyText}" />
+            <b:panel title="Ereignis hinzufügen" collapsible="false"
+                     rendered="#{userSessionBean.isUserInRole('PRESS')}">
+                <b:form>
+                    <b:row>
+                        <b:column colLg="10" colMd="10" colSm="10" colXs="12" style="white-space: pre-wrap">
+                            <b:inputText value="#{historyBean.createdEvent.summary}">
+                                <b:focus/>
+                            </b:inputText>
+                            <b:inputTextarea value="#{historyBean.createdEvent.text}"/>
+                            <b:datepicker value="#{historyBean.createdEvent.eventDate}" mode="popup-icon"/>
+                        </b:column>
+                        <b:column colLg="2" colMd="2" colSm="2" colXs="12">
+                            <b:commandButton value="#{label['button.save']}" look="success btn-block"
+                                             update="timeline"
+                                             actionListener="#{historyBean.updateOrCreateEvent(historyBean.createdEvent)}">
+                            </b:commandButton>
+                        </b:column>
+                    </b:row>
+                </b:form>
+            </b:panel>
+            <h:panelGroup id="timeline">
+                <b:panel title="Ereignisse bearbeiten">
+                    <p:timeline value="#{historyBean.timelineModel}" height="250px"
+                                var="event"
+                                selectable="true"
+                                zoomable="true"
+                                moveable="true">
+                        <h:outputText value="#{event.summary}"/>
+                        <p:ajax event="select" listener="#{historyBean.onSelect}" update="timeline"/>
+                    </p:timeline>
+                    <b:form style="padding-top: 10px;">
+                        <b:row rendered="#{historyBean.selectedEvent != null}">
+                            <b:column colLg="10" colMd="10" colSm="10" colXs="12" style="white-space: pre-wrap">
+                                <b:inputText value="#{historyBean.selectedEvent.summary}">
+                                    <b:focus/>
+                                </b:inputText>
+                                <b:inputTextarea value="#{historyBean.selectedEvent.text}"/>
+                                <b:datepicker value="#{historyBean.selectedEvent.eventDate}" mode="popup-icon"/>
+                            </b:column>
+                            <b:column colLg="2" colMd="2" colSm="2" colXs="12">
+                                <b:commandButton value="#{label['button.save']}" look="success btn-block"
+                                                 update="timeline"
+                                                 actionListener="#{historyBean.updateOrCreateEvent(historyBean.selectedEvent)}">
+                                </b:commandButton>
+                                <b:commandButton value="#{label['button.delete']}" look="danger btn-block"
+                                                 update="timeline"
+                                                 actionListener="#{historyBean.deleteEvent(historyBean.selectedEvent)}">
+                                </b:commandButton>
+                            </b:column>
+                        </b:row>
+                    </b:form>
+                </b:panel>
+            </h:panelGroup>
         </b:container>
     </ui:define>
 </ui:composition>
