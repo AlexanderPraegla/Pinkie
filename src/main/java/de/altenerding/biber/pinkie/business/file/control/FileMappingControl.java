@@ -51,6 +51,10 @@ public class FileMappingControl {
 		Map<String, List<Mapping>> mappingForPage = getMappingForPage(page);
 		List<FileMapping> fileMappings = new ArrayList<>();
 
+		if (!mappingForPage.containsKey(key)) {
+			return fileMappings;
+		}
+
 		for (Mapping mapping : mappingForPage.get(key)) {
 			fileMappings.add((FileMapping) mapping);
 		}
