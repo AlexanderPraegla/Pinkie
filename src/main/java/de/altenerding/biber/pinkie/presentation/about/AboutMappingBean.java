@@ -18,6 +18,7 @@ public class AboutMappingBean {
 
 	private String historyText;
 	private String journeyText;
+	private String youthText;
 
 	public void initHistoryFileMappings(String page) {
 		Map<String, List<Mapping>> mappingForPage = fileService.getMappingForPage(page);
@@ -27,6 +28,11 @@ public class AboutMappingBean {
 	public void initJourneyFileMappings(String page) {
 		Map<String, List<Mapping>> mappingForPage = fileService.getMappingForPage(page);
 		journeyText = mappingForPage.get("journey.text").get(0).getTextMapping().getText();
+	}
+
+	public void initYouthFileMappings(String page) {
+		Map<String, List<Mapping>> mappingForPage = fileService.getMappingForPage(page);
+		youthText = mappingForPage.get("youth.text").get(0).getTextMapping().getText();
 	}
 
 	public String getHistoryText() {
@@ -43,5 +49,13 @@ public class AboutMappingBean {
 
 	public void setJourneyText(String journeyText) {
 		this.journeyText = journeyText;
+	}
+
+	public String getYouthText() {
+		return youthText;
+	}
+
+	public void setYouthText(String youthText) {
+		this.youthText = youthText;
 	}
 }
