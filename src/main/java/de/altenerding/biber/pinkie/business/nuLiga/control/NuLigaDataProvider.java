@@ -41,7 +41,8 @@ public class NuLigaDataProvider {
 	public List<TeamScheduleEntry> getRecentResults() {
 		logger.info("Getting recent team results for all teams");
 
-		LocalDateTime dateTime = LocalDateTime.now().minusDays(7);
+		int daysOffset = 5;
+		LocalDateTime dateTime = LocalDateTime.now().minusDays(daysOffset);
 		Date startDate = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
 		Date endDate = new Date();
 		List<TeamScheduleEntry> resultList = em.createNamedQuery("TeamScheduleEntry.recentResults", TeamScheduleEntry.class)

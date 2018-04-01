@@ -20,6 +20,7 @@ public class NuLigaDataService {
 	public List<StandingEntry> getTeamStandings(long teamId) {
 		return nuLigaDataProvider.getTeamStandings(teamId);
 	}
+
 	public List<TeamScheduleEntry> getTeamSchedule(long teamId) {
 		return nuLigaDataProvider.getTeamSchedule(teamId);
 	}
@@ -29,6 +30,7 @@ public class NuLigaDataService {
 	}
 
 	public List<TeamScheduleEntry> getRecentResults() {
+		logger.info("Loading recent nu liga results");
 		return nuLigaDataProvider.getRecentResults();
 	}
 

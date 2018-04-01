@@ -16,7 +16,7 @@ public class AnnouncementProvider {
 
 	public List<Announcement> getLatestAnnouncements() {
 		logger.info("Loading all announcements from database");
-		return em.createNamedQuery("Announcement.getLatestAnnouncements", Announcement.class)
+ 		return em.createNamedQuery("Announcement.getLatestAnnouncements", Announcement.class)
 				.setMaxResults(5)
 				.getResultList();
 	}
