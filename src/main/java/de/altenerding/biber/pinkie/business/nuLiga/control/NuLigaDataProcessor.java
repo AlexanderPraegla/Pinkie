@@ -49,12 +49,13 @@ public class NuLigaDataProcessor {
 	}
 
 	private void emptyTeamData() {
-		//Delete old data
+		logger.info("Deleting old nuliga data");
 		em.createNamedQuery("TeamScheduleEntry.deleteAll").executeUpdate();
 		em.createNamedQuery("StandingEntry.deleteAll").executeUpdate();
 		//reset sequence to prevent an overflow
 		em.createNativeQuery("ALTER SEQUENCE standing_id_seq RESTART WITH 1").executeUpdate();
 		em.createNativeQuery("ALTER SEQUENCE schedule_team_id_seq RESTART WITH 1").executeUpdate();
+		logger.info("Sucessfully deleted nuliga data");
 	}
 
 	private void loadTeamSchedule(Team team, Document document) {
