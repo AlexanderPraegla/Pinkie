@@ -1,0 +1,18 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:mapping="http://java.sun.com/jsf/composite/mappingComponents">
+    <ui:define name="title">Vereinsgeschichte</ui:define>
+
+    <ui:define name="content">
+        <b:container>
+            <b:panel title="Jugendarbeit" collapsible="false">
+                <b:row>
+                    <b:column>
+                        <mapping:text page="youth.xhtml" key="youth.text"/>
+                    </b:column>
+                </b:row>
+            </b:panel>
+        </b:container>
+    </ui:define>
+</ui:composition>
