@@ -3,15 +3,15 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:mapping="http://java.sun.com/jsf/composite/mappingComponents">
-    <ui:define name="title">Anfahrt bearbeiten</ui:define>
+    <ui:define name="title">Jugendarbeit bearbeiten</ui:define>
 
     <ui:define name="content">
         <f:metadata>
-            <f:viewAction action="#{aboutMappingBean.initJourneyFileMappings('journey.xhtml')}"/>
+            <f:viewAction action="#{aboutMappingBean.initYouthFileMappings('youth.xhtml')}"/>
         </f:metadata>
         <b:container rendered="#{userSessionBean.isUserInRole('ADMIN')}">
-            <mapping:editText page="journey.xhtml" key="journey.text" title="Anfahrt bearbeiten"
-                              text="#{aboutMappingBean.journeyText}" />
+            <mapping:editText page="youth.xhtml" key="youth.text" title="Jugendarbeit bearbeiten"
+                              text="#{aboutMappingBean.youthText}" />
         </b:container>
     </ui:define>
 </ui:composition>
