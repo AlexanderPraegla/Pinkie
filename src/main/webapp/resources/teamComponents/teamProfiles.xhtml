@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:composite="http://java.sun.com/jsf/composite"
-      xmlns:components="http://java.sun.com/jsf/composite/memberComponents">
+      xmlns:components="http://java.sun.com/jsf/composite/memberComponents" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head/>
 <h:body>
@@ -13,22 +14,12 @@
     <composite:interface/>
 
     <composite:implementation>
-        <ui:repeat value="#{teamBean.team.teamMembers}" var="teamMember">
-            <components:profile
-                    member="#{teamMember}"
-                    profileImagePath="#{teamMember.image.getDownloadUrl()}"
-                    panelTitle="#{teamMember.getFullName()}"
-                    showEmail="#{true}"
-                    showPosition="#{true}"
-                    showPreviousClubs="#{true}"
-                    showTeamFunction="#{true}"
-                    showNickname="#{true}"
-                    showHeight="#{true}"
-                    showWadlUmfang="#{true}"
-                    showThrowingHand="#{true}"
-                    showAdditionalInformation="#{true}"
-            />
-        </ui:repeat>
+        <b:panelGrid colSpans="3,3,3,3" size="sm" rendered="#{teamBean.team.teamMembers.size() > 0}">
+            <c:forEach items="#{teamBean.team.teamMembers}" var="teamMember">
+                <components:profilePreview member="#{teamMember}"
+                                           profileImagePath="#{teamMember.image.getDownloadUrl()}"/>
+            </c:forEach>
+        </b:panelGrid>
     </composite:implementation>
 </h:body>
 </html>

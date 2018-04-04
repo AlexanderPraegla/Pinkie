@@ -22,13 +22,12 @@
             </b:column></b:row>
             <hr/>
             <b:tabView style="margin-bottom: 15px;" activeIndex="#{tabBean.tabIndex}" id="tabView" >
-                <b:tab title="#{pageLabel['team.tab.info']}" ajax="true" >
-                    <f:ajax event="click" listener="#{tabBean.setTabIndex('0')}" render="@none"/>
+                <b:tab title="#{pageLabel['team.tab.info']}"  >
+                    <f:ajax event="click" listener="#{tabBean.setTabIndex('0')}" render="tabView"/>
                     <components:teamInfo/>
                 </b:tab>
-                <b:tab title="#{pageLabel['team.tab.playerProfiles']}"
-                       rendered="#{teamBean.team.teamMembers.size() > 0}">
-                    <f:ajax event="click" listener="#{tabBean.setTabIndex('1')}" render="@none"/>
+                <b:tab title="#{pageLabel['team.tab.playerProfiles']}" >
+                    <f:ajax event="click" listener="#{tabBean.setTabIndex('1')}"/>
                     <components:teamProfiles/>
                 </b:tab>
                 <b:tab title="#{pageLabel['team.tab.standing']}" rendered="#{teamBean.team.urlStanding != ''}">
@@ -40,7 +39,7 @@
                     <components:teamSchedule/>
                 </b:tab>
                 <b:tab title="#{pageLabel['team.tab.reports']}">
-                    <f:ajax event="click" listener="#{tabBean.setTabIndex('4')}" render="@none"/>
+                    <f:ajax event="click" listener="#{tabBean.setTabIndex('4')}"/>
                     <components:teamReports/>
                 </b:tab>
 
