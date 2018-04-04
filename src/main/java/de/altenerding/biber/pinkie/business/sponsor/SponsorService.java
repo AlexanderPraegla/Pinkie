@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Date;
 import java.util.List;
 
 @Stateless
@@ -42,5 +43,11 @@ public class SponsorService {
 		logger.info("Creating sponsor with name=\'{}\'", sponsor.getName());
 		em.persist(sponsor);
 		em.flush();
+	}
+
+	public void archiveSponsor(Sponsor sponsor) {
+		logger.info("Archiving sponsor (\'{}\') with id={}", sponsor.getName(), sponsor.getId());
+		sponsor.setArchivedOn(new Date());
+		updateSponsor(sponsor);
 	}
 }

@@ -35,11 +35,25 @@ public class SponsorBean {
 
 	@Access(role = Role.ADMIN)
 	public String creatSponsor() {
-		sponsorService.createSponsor(sponsor);
-		FacesMessages.info(sponsor.getName(), "Sponsor erstellt");
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.getExternalContext().getFlash().setKeepMessages(true);
-		return "success";
+		try {
+			if (file != null) {
+				Image image = fileService.uploadImage(file, FileCategory.SPONSOR);
+				sponsor.setImage(image);
+			}
+
+			sponsorService.createSponsor(sponsor);
+
+			FacesMessages.info(sponsor.getName(), "Sponsor erstellt");
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.getExternalContext().getFlash().setKeepMessages(true);
+			return "success";
+		} catch (Exception e) {
+			logger.error("Error while creating sponsor", e);
+			FacesMessages.error(sponsor.getName(), "Fehler beim Erstellen des Sponsors");
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.getExternalContext().getFlash().setKeepMessages(true);
+			return "error";
+		}
 	}
 
 	@Access(role = Role.ADMIN)
@@ -59,6 +73,24 @@ public class SponsorBean {
 		} catch (Exception e) {
 			logger.error("Error while updating sponsor", e);
 			FacesMessages.error(sponsor.getName(), "Fehler beim Aktualisieren des Sponsors");
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.getExternalContext().getFlash().setKeepMessages(true);
+			return "error";
+		}
+	}
+
+	@Access(role = Role.ADMIN)
+	public String archiveSponsor(Sponsor sponsor) {
+		try {
+			sponsorService.archiveSponsor(sponsor);
+
+			FacesMessages.info(sponsor.getName(), "Sponsor archiviert");
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.getExternalContext().getFlash().setKeepMessages(true);
+			return "success";
+		} catch (Exception e) {
+			logger.error("Error while archiving sponsor", e);
+			FacesMessages.error(sponsor.getName(), "Fehler beim Archivieren des Sponsors");
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			return "error";
