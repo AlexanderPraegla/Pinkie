@@ -18,9 +18,9 @@ import java.util.Date;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Sponsor.premium", query = "SELECT s FROM Sponsor s WHERE s.premium = TRUE ORDER BY s.orderId ASC"),
-		@NamedQuery(name = "Sponsor.notPremium", query = "SELECT s FROM Sponsor s WHERE s.premium = FALSE ORDER BY s.orderId ASC"),
-		@NamedQuery(name = "Sponsor.all", query = "SELECT s FROM Sponsor s ORDER BY s.orderId, s.premium DESC")
+		@NamedQuery(name = "Sponsor.premium", query = "SELECT s FROM Sponsor s WHERE s.premium = TRUE AND s.archivedOn IS NULL ORDER BY s.orderId ASC"),
+		@NamedQuery(name = "Sponsor.notPremium", query = "SELECT s FROM Sponsor s WHERE s.premium = FALSE AND s.archivedOn IS NULL ORDER BY s.orderId ASC"),
+		@NamedQuery(name = "Sponsor.all", query = "SELECT s FROM Sponsor s WHERE  s.archivedOn IS NULL ORDER BY s.orderId, s.premium DESC")
 })
 public class Sponsor {
 

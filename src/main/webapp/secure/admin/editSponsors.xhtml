@@ -64,19 +64,22 @@
                                 <b:column colLg="12" colMd="12" colSm="12" colXs="12">
                                     <b:selectBooleanCheckbox value="#{sponsor.premium}" caption="Premium Sponsor" />
                                 </b:column>
-                                <b:column colLg="12" colMd="12" colSm="12" colXs="12">
-                                    <b:inputText value="#{sponsor.orderId}"  mask="integer"
+                                <b:column colLg="1" colMd="1" colSm="2" colXs="12">
+                                    <b:inputText value="#{sponsor.orderId}" mask="integer"
                                                  validatorMessage="Bitte eine Zahl größer als 0 angeben"/>
                                 </b:column>
-                                <b:column colLg="6" colMd="12" colSm="12" colXs="12">
+                                <b:column colLg="5" colMd="5" colSm="5" colXs="12">
                                     <o:inputFile value="#{sponsorBean.file}" accept="image/*"
                                                  styleClass="btn btn-block btn-default"
                                                  acceptMessage="Die Date {1} ist ungültig!"/>
                                 </b:column>
-                                <b:column colLg="6" colMd="12" colSm="12" colXs="12">
-                                    <b:commandButton value="#{label['button.save']}"
-                                                     action="#{sponsorBean.updateSponsor(sponsor)}"
+                                <b:column colLg="3" colMd="3" colSm="3" colXs="6">
+                                    <b:commandButton value="#{label['button.refresh']}" action="#{sponsorBean.updateSponsor(sponsor)}"
                                                      look="success btn-block"/>
+                                </b:column>
+                                <b:column colLg="3" colMd="3" colSm="3" colXs="6">
+                                    <b:commandButton value="#{label['button.archive']}" action="#{sponsorBean.archiveSponsor(sponsor)}"
+                                                     look="danger btn-block"/>
                                 </b:column>
                             </b:row>
                         </b:column>
