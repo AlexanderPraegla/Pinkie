@@ -23,7 +23,7 @@
             <hr/>
             <b:tabView style="margin-bottom: 15px;" activeIndex="#{tabBean.tabIndex}" id="tabView" >
                 <b:tab title="#{pageLabel['team.tab.info']}"  >
-                    <f:ajax event="click" listener="#{tabBean.setTabIndex('0')}" render="tabView"/>
+                    <f:ajax event="click" listener="#{tabBean.setTabIndex('0')}"/>
                     <components:teamInfo/>
                 </b:tab>
                 <b:tab title="#{pageLabel['team.tab.playerProfiles']}" >
