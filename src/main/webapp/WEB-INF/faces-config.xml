@@ -64,7 +64,7 @@
         <navigation-case>
             <from-outcome>error</from-outcome>
             <to-view-id>/public/login/login.xhtml</to-view-id>
-            <redirect />
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>

@@ -106,7 +106,9 @@
         <h:form id="loginForm" styleClass="navbar-form navbar-right" rendered="#{userSessionBean.member == null}">
             <b:button outcome="/public/login/login.xhtml" size="sm"
                       disabled="false" value="#{label['button.login']}" look="success" icon="log-in"
-                      iconAlign="right"/>
+                      iconAlign="right">
+                <f:param name="page" value="#{loginBean.currentUrl}"/>
+            </b:button>
         </h:form>
     </b:navBar>
 </ui:composition>
