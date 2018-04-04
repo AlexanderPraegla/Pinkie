@@ -7,12 +7,15 @@ import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 import net.bootsfaces.utils.FacesMessages;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Named
@@ -22,10 +25,17 @@ public class LoginBean {
 	private AuthenticateService authenticateService;
 	private UserSessionBean userSessionBean;
 	private Logger logger;
+	private String page;
+	private String currentUrl;
 
 	private String email;
 	private String password;
 	private MemberService memberService;
+
+	@PostConstruct
+	public void init() {
+		logger.info("page: {}", page);
+	}
 
 	public String login() throws IOException {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -49,7 +59,12 @@ public class LoginBean {
 			FacesMessages.error("Es ist ein Fehler beim Login aufgetreten");
 		}
 
-		return result;
+		if (page == null) {
+			return result;
+		} else {
+			FacesContext.getCurrentInstance().getExternalContext().redirect(page);
+			return "";
+		}
 	}
 
 	@Access(role = Role.MEMBER)
@@ -57,6 +72,7 @@ public class LoginBean {
 		userSessionBean.setMember(null);
 		return "logout";
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -91,5 +107,22 @@ public class LoginBean {
 	@Inject
 	public void setUserSessionBean(UserSessionBean userSessionBean) {
 		this.userSessionBean = userSessionBean;
+	}
+
+	public String getPage() {
+		return page;
+	}
+
+	public void setPage(String page) {
+		this.page = page;
+	}
+
+	public String getCurrentUrl() {
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		String requestURI = request.getRequestURI();
+		String queryString = request.getQueryString();
+
+		currentUrl = StringUtils.isEmpty(queryString) ? requestURI : requestURI + "?" + queryString;
+		return currentUrl;
 	}
 }
