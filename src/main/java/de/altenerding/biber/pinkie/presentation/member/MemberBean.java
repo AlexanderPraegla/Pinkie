@@ -8,6 +8,7 @@ import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.context.RequestScoped;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,6 +32,7 @@ public class MemberBean implements Serializable {
 	private Member member = new Member();
 	private Part file;
 	private FileService fileService;
+	private String filterText;
 
 	public Member getMember() {
 		return member;
@@ -93,6 +96,27 @@ public class MemberBean implements Serializable {
 		return members;
 	}
 
+
+	public void filterMembers() {
+		List<Member> filteredMembers = new ArrayList<>();
+
+		if (members == null) {
+			members = memberService.getMembers();
+		}
+
+		if (StringUtils.isEmpty(filterText)) {
+			return;
+		}
+
+		for (Member member : members) {
+			if (StringUtils.containsIgnoreCase(member.getFullName(), filterText)) {
+				filteredMembers.add(member);
+			}
+		}
+
+		members = filteredMembers;
+	}
+
 	@Inject
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
@@ -131,5 +155,13 @@ public class MemberBean implements Serializable {
 	@Inject
 	public void setAuthenticateService(AuthenticateService authenticateService) {
 		this.authenticateService = authenticateService;
+	}
+
+	public void setFilterText(String filterText) {
+		this.filterText = filterText;
+	}
+
+	public String getFilterText() {
+		return filterText;
 	}
 }

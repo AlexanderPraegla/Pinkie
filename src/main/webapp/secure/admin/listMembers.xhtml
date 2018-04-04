@@ -3,43 +3,52 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
 >
 <ui:composition template="/WEB-INF/templates/template.xhtml">
     <ui:define name="title">Mitgliedsliste</ui:define>
     <ui:define name="content">
         <b:container>
-            <b:panel title="#{pageLabel['admin.members.memberList']}" collapsible="false">
-                <ui:repeat value="#{memberBean.members}" var="member">
-                    <b:form>
-                        <b:row>
-                            <b:column colLg="2" colMd="1" colSm="0" colXs="0"/>
-                            <b:column colLg="4" colMd="4" colSm="6" colXs="12">
-                                <b:formGroup>
-                                    <b:inputText value="#{member.getFullName()}" disabled="true"/>
-                                </b:formGroup>
-                            </b:column>
-                            <b:column colLg="2" colMd="3" colSm="3" colXs="6">
-                                <b:formGroup>
-                                    <b:button outcome="/secure/admin/editMember.xhtml" value="#{label['button.edit']}"
-                                              look="default btn-block">
-                                        <f:param name="memberId" value="#{member.id}"/>
-                                    </b:button>
-                                </b:formGroup>
-                            </b:column>
-                            <b:column colLg="2" colMd="3" colSm="3" colXs="6">
-                                <b:formGroup>
-                                    <b:button outcome="/secure/admin/editMemberPassword.xhtml" value="#{label['changePassword']}"
-                                              look="danger btn-block">
-                                        <f:param name="memberId" value="#{member.id}"/>
-                                    </b:button>
-                                </b:formGroup>
-                            </b:column>
-                            <b:column colLg="2" colMd="1" colSm="0" colXs="0"/>
-                        </b:row>
-                    </b:form>
-                </ui:repeat>
-            </b:panel>
+            <h:form>
+                <b:inputText id="filterText" value="#{memberBean.filterText}" ajax="true"
+                             onkeyup="ajax:memberBean.filterMembers()"
+                             update="memberList" placeholder="Tippen zum Filtern"/>
+            </h:form>
+            <h:panelGroup id="memberList">
+                <b:panel title="#{pageLabel['admin.members.memberList']}" collapsible="false">
+                    <ui:repeat value="#{memberBean.members}" var="member">
+                        <b:form>
+                            <b:row>
+                                <b:column colLg="2" colMd="1" colSm="0" colXs="0"/>
+                                <b:column colLg="4" colMd="4" colSm="6" colXs="12">
+                                    <b:formGroup>
+                                        <b:inputText value="#{member.getFullName()}" disabled="true"/>
+                                    </b:formGroup>
+                                </b:column>
+                                <b:column colLg="2" colMd="3" colSm="3" colXs="6">
+                                    <b:formGroup>
+                                        <b:button outcome="/secure/admin/editMember.xhtml"
+                                                  value="#{label['button.edit']}"
+                                                  look="default btn-block">
+                                            <f:param name="memberId" value="#{member.id}"/>
+                                        </b:button>
+                                    </b:formGroup>
+                                </b:column>
+                                <b:column colLg="2" colMd="3" colSm="3" colXs="6">
+                                    <b:formGroup>
+                                        <b:button outcome="/secure/admin/editMemberPassword.xhtml"
+                                                  value="#{label['changePassword']}"
+                                                  look="danger btn-block">
+                                            <f:param name="memberId" value="#{member.id}"/>
+                                        </b:button>
+                                    </b:formGroup>
+                                </b:column>
+                                <b:column colLg="2" colMd="1" colSm="0" colXs="0"/>
+                            </b:row>
+                        </b:form>
+                    </ui:repeat>
+                </b:panel>
+            </h:panelGroup>
         </b:container>
     </ui:define>
 </ui:composition>
