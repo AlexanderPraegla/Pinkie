@@ -5,7 +5,9 @@ import de.altenerding.biber.pinkie.business.login.control.LoginCreator;
 import de.altenerding.biber.pinkie.business.login.control.LoginModifier;
 import de.altenerding.biber.pinkie.business.login.control.LoginProvider;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
+import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
+import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -18,6 +20,7 @@ public class AuthenticateService implements Serializable {
 	private LoginCreator loginCreator;
 	private LoginModifier loginModifier;
 	private LoginProvider loginProvider;
+	private Logger logger;
 
 	public boolean validate(String alias, String password) throws Exception {
 		return authenticator.validate(alias, password);
@@ -27,8 +30,8 @@ public class AuthenticateService implements Serializable {
 		return authenticator.authenticateRole(role);
 	}
 
-	public boolean hasMemberOnetimePasswort() throws Exception {
-		return loginProvider.hasMemberOnetimePasswort();
+	public boolean hasMemberOnetimePasswort(Member member) throws Exception {
+		return loginProvider.hasMemberOnetimePasswort(member);
 	}
 
 	//Will be used later to set and create password for members
@@ -45,11 +48,18 @@ public class AuthenticateService implements Serializable {
 	}
 
 	public void changePassword(String alias, String passwordOld, String passwordNew) throws Exception {
+		logger.info("Changing password for alias={}", alias);
+
 		if (!validate(alias, passwordOld)) {
 			throw new Exception("Invalid password");
 		}
 
 		loginModifier.savePassword(alias, passwordNew, false);
+	}
+
+	@Inject
+	public void setLogger(Logger logger) {
+		this.logger = logger;
 	}
 
 	@Inject

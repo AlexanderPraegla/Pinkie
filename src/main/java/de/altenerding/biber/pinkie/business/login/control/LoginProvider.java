@@ -29,8 +29,7 @@ public class LoginProvider {
 		return logins.get(0);
 	}
 
-	public boolean hasMemberOnetimePasswort() throws Exception {
-		Member member = userSessionBean.getMember();
+	public boolean hasMemberOnetimePasswort(Member member) throws Exception {
 		String alias = member.getEmail();
 		logger.info("Checking if user with alias={}  has onetime password", alias);
 
