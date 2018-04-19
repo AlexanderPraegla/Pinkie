@@ -16,16 +16,17 @@ public class TemplateProvider {
 	@Inject
 	private Logger logger;
 
-	public CommunicationTemplate getCommunicationTemplate(CommunicationType communicationType, TemplateType templateType) throws Exception {
+	public CommunicationTemplate getCommunicationTemplate(CommunicationType communicationType, TemplateType templateType) {
 		logger.info("Getting communication template for communicationType={} and templateType={}", communicationType, templateType);
-		CommunicationTemplate template = em.createNamedQuery("CommunicationTemplate.findByType", CommunicationTemplate.class)
-				.setParameter("communicationType", communicationType)
-				.setParameter("templateType", templateType)
-				.getSingleResult();
-
-		if (template == null) {
-			logger.error("No communication template available for communicationType={} and templateType={}", communicationType, templateType);
-			throw new Exception("No template available");
+		CommunicationTemplate template;
+		try {
+			template = em.createNamedQuery("CommunicationTemplate.findByType", CommunicationTemplate.class)
+					.setParameter("communicationType", communicationType)
+					.setParameter("templateType", templateType)
+					.getSingleResult();
+		} catch (Exception e) {
+			logger.error("Error loading template for communicationType={} and templateType={}", communicationType, templateType, e);
+			throw e;
 		}
 
 		return template;
