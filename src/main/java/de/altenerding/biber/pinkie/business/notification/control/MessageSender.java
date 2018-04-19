@@ -32,7 +32,8 @@ public class MessageSender {
 				String privateEmail = recipient.getPrivateEmail();
 				if (StringUtils.isEmpty(privateEmail)) {
 					logger.error("No private email available for user {} with id={}", recipient.getFullName(), recipient.getId());
-					throw new Exception("No private email available");
+					logger.error("Sending NO email!");
+					break;
 				}
 
 				email.setRecipient(privateEmail);

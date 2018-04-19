@@ -10,14 +10,14 @@ import net.bootsfaces.utils.FacesMessages;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class PasswordBean implements Serializable {
 
 	private AuthenticateService authenticateService;
@@ -40,16 +40,12 @@ public class PasswordBean implements Serializable {
 		context.getExternalContext().getFlash().setKeepMessages(true);
 
 		try {
-			if (validateRetypePassword()) {
+			if (!validateRetypePassword()) {
 				return "/secure/admin/editMemberPassword.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
 			}
 
-			Member member = memberService.getMemberById(memberId);
-			String alias = member.getEmail();
-			logger.info("Resetting password for alias={}", alias);
-			authenticateService.setOnetimePassword(alias, passwordNew);
+			authenticateService.setOnetimePassword(member.getEmail(), passwordNew);
 
-			//Dummy method. Later there has to be an email sender to send the password to the private email address of the member
 			notificationService.sendPasswortResetEmail(member, passwordNew);
 
 			FacesMessages.info(member.getFullName(), "Passwort neu gesetzt");
@@ -64,38 +60,38 @@ public class PasswordBean implements Serializable {
 
 	@Access(role = Role.MEMBER)
 	public String changePassword() {
-		String result;
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getFlash().setKeepMessages(true);
 
-		if (validateRetypePassword()) {
-			result = "/secure/profile/changePassword.xhtml?" +
+		if (!validateRetypePassword()) {
+			return "/secure/profile/changePassword.xhtml?" +
 					"faces-redirect=true&includeViewParams=true&memberId=" + memberId;
 		} else {
 			try {
-				Member member = memberService.getMemberById(memberId);
-				String alias = member.getEmail();
-				logger.info("Changing password for alias={}", alias);
-				authenticateService.changePassword(alias, passwordOld, passwordNew);
+				authenticateService.changePassword(member.getEmail(), passwordOld, passwordNew);
 
 				FacesMessages.info(member.getFullName(), "Passwort geändert");
 
-				result = "/secure/profile/profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
+				return "/secure/profile/profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
 			} catch (Exception e) {
 				logger.error("Error while changing password", e);
-				result = "/secure/profile/changePassword.xhtml?" +
+				return "/secure/profile/changePassword.xhtml?" +
 						"faces-redirect=true&includeViewParams=true&memberId=" + memberId;
 			}
 		}
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.getExternalContext().getFlash().setKeepMessages(true);
-		return result;
 	}
 
+	public boolean hasPrivateEmail() {
+		return StringUtils.isEmpty(member.getPrivateEmail());
+	}
+
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	private boolean validateRetypePassword() {
 		if (!StringUtils.equals(passwordNew, passwordRetype)) {
 			FacesMessages.error("Die eingegebenen Passwörter stimmen nicht überein!");
 			return false;
 		}
-		return false;
+		return true;
 	}
 
 	@Inject

@@ -47,11 +47,17 @@ public class LoginBean {
 				Member member = memberService.getMemberByEmail(email);
 				userSessionBean.setMember(member);
 				logger.info("Login successful for member alias={}", member.getEmail());
+
+				if (authenticateService.hasMemberOnetimePasswort(member)) {
+
+					FacesContext.getCurrentInstance().getExternalContext().redirect("/secure/profile/changePassword.xhtml?faces-redirect=true&memberId=" + member.getId());
+					return "";
+				}
 				result = "success";
 			} else {
 				logger.error("Login NOT successful for alias={}", email);
 				FacesMessages.error("Login fehlgeschlagen");
-				result = "error";
+				return "error";
 			}
 		} catch (Exception e) {
 			logger.info("Error while validating login", e);

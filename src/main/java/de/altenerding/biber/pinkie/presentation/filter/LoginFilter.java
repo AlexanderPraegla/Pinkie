@@ -1,6 +1,7 @@
 package de.altenerding.biber.pinkie.presentation.filter;
 
 import de.altenerding.biber.pinkie.business.login.boundary.AuthenticateService;
+import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 
@@ -37,8 +38,9 @@ public class LoginFilter implements Filter{
 		if (authenticateService.authenticateRole(Role.MEMBER)) {
 			//Check if user has an onetime password and force him to change it before he can use any logged in site
 			try {
-				if (authenticateService.hasMemberOnetimePasswort()) {
-					long memberId = userSessionBean.getMember().getId();
+				Member member = userSessionBean.getMember();
+				if (authenticateService.hasMemberOnetimePasswort(member)) {
+					long memberId = member.getId();
 					request.getServletContext()
 							.getRequestDispatcher("/secure/profile/changePassword.xhtml?faces-redirect=true&memberId=" + memberId)
 							.forward(req, res);

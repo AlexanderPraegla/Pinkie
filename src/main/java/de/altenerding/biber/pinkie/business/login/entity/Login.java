@@ -7,6 +7,7 @@ import java.util.Date;
 @NamedQueries({
 		@NamedQuery(name = "Login.getByAlias", query = "SELECT l FROM Login l where l.alias = :alias")
 })
+@Cacheable(false)
 public class Login {
 
 	@Id
