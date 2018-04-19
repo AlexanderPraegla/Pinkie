@@ -29,6 +29,7 @@ public class PasswordBean implements Serializable {
 	private String passwordRetype;
 	private String passwordOld;
 	private String passwordNew;
+	private String email;
 
 	public void initMember() {
 		member = memberService.getMemberById(memberId);
@@ -79,6 +80,36 @@ public class PasswordBean implements Serializable {
 						"faces-redirect=true&includeViewParams=true&memberId=" + memberId;
 			}
 		}
+	}
+
+	public String requestOneTimePassword() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getFlash().setKeepMessages(true);
+
+		Member member = memberService.getMemberByEmail(email);
+
+		if (member == null) {
+			FacesMessages.error("Kein Nutzer mit dieser E-Mail Adresse verfügbar");
+			return "";
+		}
+
+		if (StringUtils.isEmpty(member.getPrivateEmail())) {
+			FacesMessages.error("Dieses Mitglied hat keine private E-Mail Adresse hinterlegt. Bitte den Admin kontaktieren");
+			return "";
+		}
+
+		try {
+			String oneTimePassword = authenticateService.changeForgotPassword(member.getEmail());
+			notificationService.sendPasswortResetEmail(member, oneTimePassword);
+		} catch (Exception e) {
+			logger.error("Error creating one time password", e);
+			FacesMessages.error("Es ist ein Fehler beim senden des Passworts aufgetreten");
+			return "";
+		}
+
+
+		FacesMessages.info("Es wurde ein neues Passwort an deine private E-Mail Adresse gesendet");
+		return "startpage";
 	}
 
 	public boolean hasPrivateEmail() {
@@ -152,5 +183,13 @@ public class PasswordBean implements Serializable {
 
 	public String getPasswordNew() {
 		return passwordNew;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

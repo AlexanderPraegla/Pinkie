@@ -7,6 +7,7 @@ import de.altenerding.biber.pinkie.business.login.control.LoginProvider;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateless;
@@ -45,6 +46,12 @@ public class AuthenticateService implements Serializable {
 	@Access(role = Role.ADMIN)
 	public void setOnetimePassword(String alias, String passwordNew) throws Exception {
 		loginModifier.savePassword(alias, passwordNew, true);
+	}
+
+	public String changeForgotPassword(String alias) throws Exception {
+		String oneTimePassword = RandomStringUtils.random(13, true, true);
+		loginModifier.savePassword(alias, oneTimePassword, true);
+		return oneTimePassword;
 	}
 
 	public void changePassword(String alias, String passwordOld, String passwordNew) throws Exception {

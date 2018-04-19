@@ -49,9 +49,7 @@ public class LoginBean {
 				logger.info("Login successful for member alias={}", member.getEmail());
 
 				if (authenticateService.hasMemberOnetimePasswort(member)) {
-
-					FacesContext.getCurrentInstance().getExternalContext().redirect("/secure/profile/changePassword.xhtml?faces-redirect=true&memberId=" + member.getId());
-					return "";
+					return "changePassword";
 				}
 				result = "success";
 			} else {

@@ -19,12 +19,22 @@ public class MemberService implements Serializable {
 
 	public Member getMemberById(long id) {
 		logger.info("Getting member by id={}", id);
-		return em.createNamedQuery("member.findById", Member.class).setParameter("id", id).getSingleResult();
+		try {
+			return em.createNamedQuery("member.findById", Member.class).setParameter("id", id).getSingleResult();
+		} catch (Exception e) {
+			logger.info("Exception while leading member by id={}", id, e);
+			return null;
+		}
 	}
 
 	public Member getMemberByEmail(String email) {
 		logger.info("Getting member by email={}", email);
-		return em.createNamedQuery("member.findByEmail", Member.class).setParameter("email", email).getSingleResult();
+		try {
+			return em.createNamedQuery("member.findByEmail", Member.class).setParameter("email", email).getSingleResult();
+		} catch (Exception e) {
+			logger.info("Exception while leading member by email={}", email, e);
+			return null;
+		}
 	}
 
 	public List<Member> getMembers() {
