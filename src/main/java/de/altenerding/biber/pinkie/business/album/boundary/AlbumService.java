@@ -21,6 +21,11 @@ public class AlbumService {
 		return em.createNamedQuery("Album.all", Album.class).getResultList();
 	}
 
+	public List<Album> getAlbums(int maxResults) {
+		logger.info("Loading all albums");
+		return em.createNamedQuery("Album.all", Album.class).setMaxResults(maxResults).getResultList();
+	}
+
 	public Album getAlbum(long id) {
 		logger.info("Getting album for id={}", id);
 		Album album = em.find(Album.class, id);

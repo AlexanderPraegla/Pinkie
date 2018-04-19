@@ -46,16 +46,16 @@
                                                 look="success"/>
                         </b:column>
                         <b:column colLg="2" colMd="2" colSm="3" colXs="12">
-                            <global:buttonBlock label="#{label['button.archive']}"
-                                                action="#{albumBean.archiveAlbum(album)}"
-                                                look="danger"/>
-                        </b:column>
-                        <b:column colLg="2" colMd="2" colSm="3" colXs="12">
-                            <b:button outcome="/secure/gallery/editAlbum.xhtml" look="primary btn-block"
+                            <b:button outcome="/secure/gallery/editAlbum.xhtml" look="warning btn-block"
                                       style="margin-bottom: 15px"
                                       value="Album bearbeiten">
                                 <f:param name="albumId" value="#{album.id}"/>
                             </b:button>
+                        </b:column>
+                        <b:column colLg="2" colMd="2" colSm="3" colXs="12">
+                            <global:buttonBlock label="#{label['button.archive']}"
+                                                action="#{albumBean.archiveAlbum(album)}"
+                                                look="danger"/>
                         </b:column>
                     </b:row>
                 </h:form>

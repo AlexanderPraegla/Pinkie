@@ -37,11 +37,19 @@ public class AlbumBean implements Serializable {
     private String albumDescription;
     private long albumId;
     private Album album;
+	private static final int MAX_RESULTS = 9;
+	private int currentResultCount = 0;
+	private boolean showDataLoaderButton = true;
 
     public void initAlbum() {
         album = albumService.getAlbum(albumId);
         albumImages = album.getImages();
     }
+
+	public void initDisplayedAlbums() {
+		albums = albumService.getAlbums(MAX_RESULTS);
+		currentResultCount += MAX_RESULTS;
+	}
 
     @Access(role = Role.PRESS)
     public String upload() {
@@ -161,6 +169,18 @@ public class AlbumBean implements Serializable {
         return "success";
     }
 
+	public void loadNextAlbums() {
+		List<Album> reloadedAlbums = albumService.getAlbums(currentResultCount + MAX_RESULTS);
+
+		if (reloadedAlbums.size() == albums.size()) {
+			showDataLoaderButton = false;
+		} else {
+			currentResultCount += MAX_RESULTS;
+			this.albums = reloadedAlbums;
+		}
+
+	}
+
     private boolean descriptionNotUnique(Album album) {
         for (Album a : albums) {
             if (a.getDescription()
@@ -234,4 +254,8 @@ public class AlbumBean implements Serializable {
     public void setAlbumImages(List<Image> albumImages) {
         this.albumImages = albumImages;
     }
+
+	public boolean isShowDataLoaderButton() {
+		return showDataLoaderButton;
+	}
 }
