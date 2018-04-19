@@ -29,6 +29,27 @@ Downloaded [Postgres Driver](https://jdbc.postgresql.org/download.html) and put 
 In Bash:
 ./asadmin add-resources ../domains/domain1/config/glassfish4-ressource.xml
 
+### E-Mail resource Setup
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN"
+        "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+    <mail-resource debug="true" host="smtp.strato.de" from="webmaster@praegla.net" user="webmaster@praegla.net" jndi-name="mail/default">
+        <property name="mail.user" value="webmaster@praegla.net"></property>
+        <property name="mail.smtp.socketFactory.fallback" value="false"></property>
+        <property name="mail.smtp.starttls.enable" value="true"></property>
+        <property name="mail.password" value="<password>"></property>
+        <property name="mail.host" value="smtp.strato.de"></property>
+        <property name="mail.port" value="465"></property>
+        <property name="mail.smtp.auth" value="true"></property>
+        <property name="mail.smtp.socketFactory.port" value="465"></property>
+    </mail-resource>
+</resources>
+```
+In Bash:
+./asadmin add-resources ../domains/domain1/config/email-ressource.xml
+
 #StartUp
 At start up the JVM Option -DresourceFolder=[Path to folder] has to be provided. Inside this folder must exist following folders:
 'imageOfWeek'

@@ -5,7 +5,7 @@ import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
-import de.altenerding.biber.pinkie.business.notification.NotificationService;
+import de.altenerding.biber.pinkie.business.notification.boundary.NotificationService;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
@@ -50,7 +50,7 @@ public class PasswordBean implements Serializable {
 			authenticateService.setOnetimePassword(alias, passwordNew);
 
 			//Dummy method. Later there has to be an email sender to send the password to the private email address of the member
-			notificationService.sendResettedPassword(member.getPrivateEmail(), passwordNew);
+			notificationService.sendPasswortResetEmail(member, passwordNew);
 
 			FacesMessages.info(member.getFullName(), "Passwort neu gesetzt");
 
