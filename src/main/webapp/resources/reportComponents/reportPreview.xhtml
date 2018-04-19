@@ -26,7 +26,8 @@
                 </b:column>
                 <b:column span="2" style="margin-top: 5px">
                     <b:button value="#{label['button.edit']}" outcome="/secure/report/reportEdit.xhtml"
-                              look="default btn-block" rendered="#{userSessionBean.isUserInRole('PRESS') and cc.attrs.editable}"
+                              look="warning btn-block"
+                              rendered="#{userSessionBean.isUserInRole('PRESS') and cc.attrs.editable}"
                               includeViewParams="true">
                         <f:param name="reportId" value="#{cc.attrs.report.id}"/>
                     </b:button>

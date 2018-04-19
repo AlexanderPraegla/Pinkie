@@ -24,7 +24,7 @@
                             </b:column>
                             <b:column colLg="2" colMd="2" colSm="2" colXs="4">
                                 <b:button value="#{label['button.edit']}" outcome="/secure/team/teamEdit.xhtml"
-                                          look="primary btn-block"
+                                          look="warning btn-block"
                                           includeViewParams="true">
                                     <f:param name="teamId" value="#{team.id}"/>
                                 </b:button>
@@ -32,7 +32,7 @@
                             <b:column colLg="2" colMd="2" colSm="2" colXs="4">
                                 <b:commandButton action="#{teamBean.archiveTeam(team)}"
                                                  disabled="#{!userSessionBean.isUserInRole('ADMIN')}"
-                                                 value="#{label['button.archive']}" look="warning btn-block"/>
+                                                 value="#{label['button.archive']}" look="danger btn-block"/>
                             </b:column>
                             <b:column colLg="1" colMd="0" colSm="0" colXs="0"/>
                         </b:row>
