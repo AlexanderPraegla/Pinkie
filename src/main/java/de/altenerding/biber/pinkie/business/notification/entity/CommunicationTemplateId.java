@@ -5,5 +5,5 @@ import java.io.Serializable;
 
 public class CommunicationTemplateId implements Serializable {
 	private CommunicationType communicationType;
-	private TemplateType templateType;
+	private NotificationType notificationType;
 }

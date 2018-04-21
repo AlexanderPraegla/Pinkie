@@ -8,7 +8,7 @@ import java.util.Map;
 public class Message {
 
 	private CommunicationType communicationType;
-	private TemplateType templateType;
+	private NotificationType notificationType;
 	private Member recipient;
 	private Map<Placeholder, String> placeholders = new HashMap<>();
 
@@ -20,12 +20,12 @@ public class Message {
 		this.communicationType = communicationType;
 	}
 
-	public TemplateType getTemplateType() {
-		return templateType;
+	public NotificationType getNotificationType() {
+		return notificationType;
 	}
 
-	public void setTemplateType(TemplateType templateType) {
-		this.templateType = templateType;
+	public void setNotificationType(NotificationType notificationType) {
+		this.notificationType = notificationType;
 	}
 
 	public Map<Placeholder, String> getPlaceholders() {

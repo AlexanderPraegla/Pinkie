@@ -1,0 +1,42 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:memberComponents="http://java.sun.com/jsf/composite/memberComponents"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="title">Profil bearbeiten</ui:define>
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewAction action="#{notificationSettingsBean.initNotifications()}"/>
+        </f:metadata>
+        <b:container rendered="#{userSessionBean.isUserInRole('MEMBER')}">
+            <b:form enctype="multipart/form-data">
+                <b:formGroup>
+                    <h:inputHidden value="#{memberBean.member.id}"/>
+                    <h:inputHidden value="#{memberBean.member.role}"/>
+                    <h:inputHidden value="#{memberBean.member.firstName}"/>
+                    <h:inputHidden value="#{memberBean.member.lastName}"/>
+                    <h:inputHidden value="#{memberBean.member.email}"/>
+                    <h:inputHidden value="#{memberBean.member.privateEmail}"/>
+                </b:formGroup>
+                <b:formGroup>
+                    <b:inputText value="#{memberBean.member.firstName}" label="#{label['firstName']}"
+                                 placeholder="#{label['firstName']}" disabled="true"/>
+                </b:formGroup>
+                <b:formGroup>
+                    <b:inputText value="#{memberBean.member.lastName}" label="#{label['lastName']}"
+                                 placeholder="#{label['lastName']}" disabled="true"/>
+                </b:formGroup>
+                <b:formGroup>
+                    <b:inputText value="#{memberBean.member.email}" label="#{label['eMail']}" disabled="true"/>
+                </b:formGroup>
+                <memberComponents:editPersonalProfile/>
+                <memberComponents:editPlayersProfile/>
+                <b:commandButton action="#{memberBean.updateProfile}" value="#{label['button.save']}" look="success">
+                    <f:param value="#{memberBean.memberId}" name="memberId"/>
+                </b:commandButton>
+            </b:form>
+        </b:container>
+    </ui:define>
+</ui:composition>

@@ -92,6 +92,10 @@
                                    includeViewParams="true">
                             <f:param name="memberId" value="#{userSessionBean.member.id}"/>
                         </b:navLink>
+                        <b:navLink value="#{menu['menu.loggedin.editNotificationSettings']}"
+                                   rendered="#{userSessionBean.member.hasPrivateEmail()}"
+                                   outcome="/secure/profile/editNotificationSettings.xhtml"
+                                   includeViewParams="true"/>
                         <b:navLink value="#{label['changePassword']}" outcome="/secure/profile/changePassword.xhtml"
                                    includeViewParams="true">
                             <f:param name="memberId" value="#{userSessionBean.member.id}"/>

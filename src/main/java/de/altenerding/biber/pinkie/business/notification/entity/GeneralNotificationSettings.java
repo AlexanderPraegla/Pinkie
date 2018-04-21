@@ -1,13 +1,22 @@
 package de.altenerding.biber.pinkie.business.notification.entity;
 
+import de.altenerding.biber.pinkie.business.members.entity.Member;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -15,26 +24,28 @@ import javax.persistence.TemporalType;
 import java.util.Date;
 
 @NamedQueries({
-		@NamedQuery(name = "CommunicationTemplate.findByType",
-				query = "SELECT c FROM CommunicationTemplate c WHERE c.communicationType = :communicationType AND c.notificationType = :templateType")
+		@NamedQuery(name = "GeneralNotificationSettings.findByType",
+				query = "SELECT n FROM GeneralNotificationSettings n WHERE n.communicationType = :communicationType AND n.notificationType = :templateType"),
+		@NamedQuery(name = "GeneralNotificationSettings.findByMemberId",
+				query = "SELECT n FROM GeneralNotificationSettings n WHERE n.member.id = :id")
 })
 @Entity
-@Table(name = "communication_template")
-@IdClass(CommunicationTemplateId.class)
-public class CommunicationTemplate {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Access(AccessType.FIELD)
+@Table(name = "general_notification_settings")
+public class GeneralNotificationSettings {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "communication_type")
 	private CommunicationType communicationType;
-	@Id
 	@Enumerated(EnumType.STRING)
-	@Column(name = "notification_type")
+	@Column(name = "template_type")
 	private NotificationType notificationType;
-	@Column(columnDefinition = "varchar")
-	private String body;
-	@Column(columnDefinition = "varchar")
-	private String subject;
+	@OneToOne(fetch = FetchType.LAZY)
+	private Member member;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_on")
 	private Date createdOn;
@@ -44,6 +55,14 @@ public class CommunicationTemplate {
 		if (createdOn == null) {
 			createdOn = new Date();
 		}
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public CommunicationType getCommunicationType() {
@@ -62,20 +81,12 @@ public class CommunicationTemplate {
 		this.notificationType = notificationType;
 	}
 
-	public String getBody() {
-		return body;
+	public Member getMember() {
+		return member;
 	}
 
-	public void setBody(String body) {
-		this.body = body;
-	}
-
-	public String getSubject() {
-		return subject;
-	}
-
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
 	public Date getCreatedOn() {

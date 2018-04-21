@@ -3,8 +3,8 @@ package de.altenerding.biber.pinkie.business.notification.control;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.notification.entity.CommunicationType;
 import de.altenerding.biber.pinkie.business.notification.entity.Message;
+import de.altenerding.biber.pinkie.business.notification.entity.NotificationType;
 import de.altenerding.biber.pinkie.business.notification.entity.Placeholder;
-import de.altenerding.biber.pinkie.business.notification.entity.TemplateType;
 import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.event.Event;
@@ -21,7 +21,7 @@ public class NotificationProcessor {
 		logger.info("Resetting password for alias={}", member.getEmail());
 		Message message = new Message();
 		message.setCommunicationType(CommunicationType.EMAIL);
-		message.setTemplateType(TemplateType.PASSWORD_RESET);
+		message.setNotificationType(NotificationType.PASSWORD_RESET);
 		message.setRecipient(member);
 		message.addPlaceholder(Placeholder.PASSWORD, oneTimePassword);
 		message.addPlaceholder(Placeholder.FIRSTNAME, member.getFirstName());
