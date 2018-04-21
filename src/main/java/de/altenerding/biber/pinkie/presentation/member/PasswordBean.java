@@ -112,9 +112,6 @@ public class PasswordBean implements Serializable {
 		return "startpage";
 	}
 
-	public boolean hasPrivateEmail() {
-		return StringUtils.isEmpty(member.getPrivateEmail());
-	}
 
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	private boolean validateRetypePassword() {
