@@ -28,7 +28,7 @@ public class LoginBean {
 	private String page;
 	private String currentUrl;
 
-	private String email;
+    private String alias;
 	private String password;
 	private MemberService memberService;
 
@@ -43,10 +43,10 @@ public class LoginBean {
 
 		String result;
 		try {
-			if (authenticateService.validate(email, password)) {
-				Member member = memberService.getMemberByEmail(email);
+            if (authenticateService.validate(alias, password)) {
+                Member member = memberService.getMemberByAlias(alias);
 				userSessionBean.setMember(member);
-				logger.info("Login successful for member alias={}", member.getEmail());
+                logger.info("Login successful for member alias={}", member.getAlias());
 
 				if (authenticateService.hasMemberOnetimePasswort(member)) {
 					return "changePassword";
@@ -55,12 +55,12 @@ public class LoginBean {
                 //check if member has missing notification settings -> redirect to display the missing ones
 				result = "success";
 			} else {
-				logger.error("Login NOT successful for alias={}", email);
+                logger.error("Login NOT successful for alias={}", alias);
 				FacesMessages.error("Login fehlgeschlagen");
 				return "error";
 			}
 		} catch (Exception e) {
-			logger.info("Error while validating login", e);
+            logger.error("Error while validating login", e);
 			result = "error";
 			FacesMessages.error("Es ist ein Fehler beim Login aufgetreten");
 		}
@@ -79,19 +79,19 @@ public class LoginBean {
 		return "logout";
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public String getEmail() {
-		return email;
-	}
+    public String getAlias() {
+        return alias;
+    }
 
-	public String getPassword() {
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public String getPassword() {
 		return password;
 	}
 

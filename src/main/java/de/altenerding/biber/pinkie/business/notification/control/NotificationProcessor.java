@@ -18,7 +18,7 @@ public class NotificationProcessor {
 	private Logger logger;
 
 	public void sendPasswortResetEmail(Member member, String oneTimePassword) {
-		logger.info("Resetting password for alias={}", member.getEmail());
+        logger.info("Resetting password for alias={}", member.getAlias());
 		Message message = new Message();
 		message.setCommunicationType(CommunicationType.EMAIL);
 		message.setNotificationType(NotificationType.PASSWORD_RESET);

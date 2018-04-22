@@ -29,14 +29,13 @@ public class MessageSender {
 			case EMAIL:
 				Email email = new Email();
 				Member recipient = message.getRecipient();
-				String privateEmail = recipient.getPrivateEmail();
-				if (StringUtils.isEmpty(privateEmail)) {
+				if (StringUtils.isEmpty(recipient.getEmail())) {
 					logger.error("No private email available for user {} with id={}", recipient.getFullName(), recipient.getId());
 					logger.error("Sending NO email!");
 					break;
 				}
 
-				email.setRecipient(privateEmail);
+				email.setRecipient(recipient.getEmail());
 				String subject = replacePlaceholders(template.getSubject(), message.getPlaceholders());
 				email.setSubject(subject);
 				String body = replacePlaceholders(template.getBody(), message.getPlaceholders());

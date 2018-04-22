@@ -57,7 +57,7 @@ public class PasswordBean implements Serializable {
                 return "/secure/admin/editMemberPassword.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
             }
 
-            authenticateService.setOnetimePassword(member.getEmail(), passwordNew);
+            authenticateService.setOnetimePassword(member.getAlias(), passwordNew);
 
             notificationService.sendPasswortResetEmail(member, passwordNew);
 
@@ -65,7 +65,7 @@ public class PasswordBean implements Serializable {
 
             return "/secure/admin/listMembers.xhtml?faces-redirect=true";
         } catch (Exception e) {
-            logger.info("Error while resetting password", e);
+            logger.error("Error while resetting password", e);
             FacesMessages.error("Es ist ein Fehler beim Setzten des Passworts aufgetreten");
             return "/secure/admin/editMemberPassword.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
         }
@@ -85,7 +85,7 @@ public class PasswordBean implements Serializable {
             return "/secure/profile/changePassword.xhtml?faces-redirect=true";
         } else {
             try {
-                authenticateService.changePassword(member.getEmail(), passwordOld, passwordNew);
+                authenticateService.changePassword(member.getAlias(), passwordOld, passwordNew);
 
                 FacesMessages.info(member.getFullName(), "Passwort geändert");
 
@@ -106,20 +106,20 @@ public class PasswordBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().getFlash().setKeepMessages(true);
 
-        Member member = memberService.getMemberByEmail(email);
+        Member member = memberService.getMemberByAlias(email);
 
         if (member == null) {
             FacesMessages.error("Kein Nutzer mit dieser E-Mail Adresse verfügbar");
             return "";
         }
 
-        if (StringUtils.isEmpty(member.getPrivateEmail())) {
+        if (StringUtils.isEmpty(member.getEmail())) {
             FacesMessages.error("Dieses Mitglied hat keine private E-Mail Adresse hinterlegt. Bitte den Admin kontaktieren");
             return "";
         }
 
         try {
-            String oneTimePassword = authenticateService.changeForgotPassword(member.getEmail());
+            String oneTimePassword = authenticateService.changeForgotPassword(member.getAlias());
             notificationService.sendPasswortResetEmail(member, oneTimePassword);
         } catch (Exception e) {
             logger.error("Error creating one time password", e);

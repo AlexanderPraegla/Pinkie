@@ -25,13 +25,21 @@
                         </b:inputText>
                     </b:formGroup>
                     <b:formGroup>
+                        <b:inputText value="#{memberBean.member.alias}" label="#{label['alias']}"
+                                     placeholder="#{label['alias']}"
+                                     tooltip="Mit diesem Namen kann sich das Mitglied dann auf der Webseite einloggen. Soll das Format 'Vorname.Nachname' haben"
+                                     required="true" requiredMessage="Bitte User Namen ausfüllen">
+                            <b:focus/>
+                        </b:inputText>
+                    </b:formGroup>
+                    <b:formGroup>
                         <b:inputText value="#{memberBean.member.lastName}" label="#{label['lastName']}"
                                      placeholder="#{label['lastName']}"
                                      required="true" requiredMessage="Bitte Nachname ausfüllen"/>
                     </b:formGroup>
                     <b:formGroup>
                         <b:inputText value="#{memberBean.member.email}" label="#{label['eMail']}" type="email"
-                                     tooltip="Wird automatisch nach dem Format vorname.nachname@altenerding-biber.de erzeugt wenn leer"
+                                     tooltip="Wird nicht auf der Webseite angezeigt, sondern nur für den Versand von Benachrichtigungen benötigt"
                                      placeholder="#{label['eMail']}"/>
                     </b:formGroup>
                     <b:formGroup>
