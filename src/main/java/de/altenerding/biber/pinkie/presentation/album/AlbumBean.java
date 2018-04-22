@@ -105,7 +105,7 @@ public class AlbumBean implements Serializable {
             album.getImages().addAll(images);
             albumService.updateAlbum(album);
         } catch (Exception e) {
-            logger.info("Error while adding images to album", e);
+            logger.error("Error while adding images to album", e);
             FacesMessages.error("Es ist ein Fehler beim Hinzufügen neuer Bilder aufgetreten");
         }
         return "success";

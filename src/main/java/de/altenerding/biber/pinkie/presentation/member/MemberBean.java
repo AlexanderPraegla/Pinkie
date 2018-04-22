@@ -56,17 +56,17 @@ public class MemberBean implements Serializable {
 	@Access(role = Role.ADMIN)
 	public String createMember() throws Exception {
 		logger.info("Creating new member with name={}", member.getFullName());
-		String email = member.getFirstName() + "." + member.getLastName() + "@altenerding-biber.de";
+        String alias = member.getFirstName() + "." + member.getLastName();
 		if (file != null) {
 			Image image = fileService.uploadImage(file, FileCategory.IMAGES_MEMBER_PROFILE);
 			member.setImage(image);
 		}
-		member.setEmail(email);
+        member.setAlias(alias);
 		Member member = memberService.createMember(this.member);
 
 		//Generate random password at first
 		String randomString = UUID.randomUUID().toString();
-		authenticateService.createLogin(member.getEmail(), randomString);
+        authenticateService.createLogin(member.getAlias(), randomString);
 
 		return "/secure/admin/editMember.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();
 	}

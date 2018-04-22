@@ -86,7 +86,7 @@
                 </b:dropMenu>
             </b:navbarLinks>
             <b:navbarLinks pull="right">
-                <b:dropMenu value="#{userSessionBean.member.email}" rendered="#{userSessionBean.member != null}">
+                <b:dropMenu value="#{userSessionBean.member.alias}" rendered="#{userSessionBean.member != null}">
                     <b:listLinks>
                         <b:navLink value="#{menu['menu.loggedin.editProfil']}"
                                    outcome="/secure/profile/editProfile.xhtml"/>

@@ -70,7 +70,7 @@ public class ReportBean {
 			FacesMessages.info(report.getType().getLabel(), "Erstellt");
 			result = "/public/news/report.xhtml?faces-redirect=true";
 		} catch (Exception e) {
-			logger.info("Error while creating report", e);
+            logger.error("Error while creating report", e);
 			FacesMessages.error("Fehler beim speichern");
 			result = "/secure/report/reportAdd.xhtml?faces-redirect=true";
 		}
