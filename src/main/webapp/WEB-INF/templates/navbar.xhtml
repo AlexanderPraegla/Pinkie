@@ -88,16 +88,11 @@
             <b:navbarLinks pull="right">
                 <b:dropMenu value="#{userSessionBean.member.email}" rendered="#{userSessionBean.member != null}">
                     <b:listLinks>
-                        <b:navLink value="#{menu['menu.loggedin.editProfil']}" outcome="/secure/profile/editProfile.xhtml"
-                                   includeViewParams="true">
-                            <f:param name="memberId" value="#{userSessionBean.member.id}"/>
-                        </b:navLink>
+                        <b:navLink value="#{menu['menu.loggedin.editProfil']}"
+                                   outcome="/secure/profile/editProfile.xhtml"/>
                         <b:navLink value="#{menu['menu.loggedin.editNotificationSettings']}"
                                    outcome="/secure/profile/editNotificationSettings.xhtml"/>
-                        <b:navLink value="#{label['changePassword']}" outcome="/secure/profile/changePassword.xhtml"
-                                   includeViewParams="true">
-                            <f:param name="memberId" value="#{userSessionBean.member.id}"/>
-                        </b:navLink>
+                        <b:navLink value="#{label['changePassword']}" outcome="/secure/profile/changePassword.xhtml"/>
                         <b:navCommandLink action="#{loginBean.logout()}"
                                           disabled="false" value="#{label['button.logout']}" icon="log-out"
                                           iconAlign="right"/>
