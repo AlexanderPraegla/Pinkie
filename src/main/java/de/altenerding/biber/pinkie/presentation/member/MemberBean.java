@@ -72,7 +72,7 @@ public class MemberBean implements Serializable {
 		String randomString = UUID.randomUUID().toString();
         authenticateService.createLogin(member.getAlias(), randomString);
 
-		return "/secure/admin/editMember.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + member.getId();
+        return "/secure/admin/listMembers.xhtml?faces-redirect=true";
 	}
 
 	@Access(role = Role.ADMIN)
