@@ -22,6 +22,7 @@ import java.util.Date;
 @NamedQueries({
 		@NamedQuery(name = "member.findAll", query = "SELECT u FROM Member u ORDER BY u.firstName ASC"),
 		@NamedQuery(name = "member.findById", query = "SELECT u FROM Member u where u.id = :id"),
+		@NamedQuery(name = "member.findByAlias", query = "SELECT u FROM Member u where u.alias = :alias"),
 		@NamedQuery(name = "member.findByEmail", query = "SELECT u FROM Member u where u.email = :email")
 })
 public class Member {
@@ -36,9 +37,9 @@ public class Member {
 	@Column
 	private String nickName;
 	@Column(unique = true)
-	private String email;
+	private String alias;
 	@Column
-	private String privateEmail;
+	private String email;
 	@Column
 	private String street;
 	@Column
@@ -97,8 +98,8 @@ public class Member {
 		return id == member.id;
 	}
 
-	public boolean hasPrivateEmail() {
-        return StringUtils.isNotEmpty(privateEmail);
+	public boolean hasEmailAddress() {
+		return StringUtils.isNotEmpty(email);
 	}
 
 	@Override
@@ -138,12 +139,12 @@ public class Member {
 		this.nickName = nickName;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getAlias() {
+		return alias;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 	public String getStreet() {
@@ -278,12 +279,12 @@ public class Member {
 		this.shirtNumber = shirtNumber;
 	}
 
-	public String getPrivateEmail() {
-		return privateEmail;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setPrivateEmail(String privateEmail) {
-		this.privateEmail = privateEmail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Image getImage() {

@@ -17,8 +17,8 @@
                     <h:inputHidden value="#{memberBean.member.role}"/>
                     <h:inputHidden value="#{memberBean.member.firstName}"/>
                     <h:inputHidden value="#{memberBean.member.lastName}"/>
+                    <h:inputHidden value="#{memberBean.member.alias}"/>
                     <h:inputHidden value="#{memberBean.member.email}"/>
-                    <h:inputHidden value="#{memberBean.member.privateEmail}"/>
                 </b:formGroup>
                 <b:formGroup>
                     <b:inputText value="#{memberBean.member.firstName}" label="#{label['firstName']}"
@@ -29,7 +29,7 @@
                                  placeholder="#{label['lastName']}" disabled="true"/>
                 </b:formGroup>
                 <b:formGroup>
-                    <b:inputText value="#{memberBean.member.email}" label="#{label['eMail']}" disabled="true"/>
+                    <b:inputText value="#{memberBean.member.alias}" label="#{label['eMail']}" disabled="true"/>
                 </b:formGroup>
                 <memberComponents:editPersonalProfile/>
                 <memberComponents:editPlayersProfile/>

@@ -30,7 +30,7 @@ public class LoginProvider {
 	}
 
 	public boolean hasMemberOnetimePasswort(Member member) throws Exception {
-		String alias = member.getEmail();
+        String alias = member.getAlias();
 		logger.info("Checking if user with alias={}  has onetime password", alias);
 
 		Login login = getLoginByAlias(alias);
