@@ -8,6 +8,7 @@ import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
+import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
@@ -33,14 +34,24 @@ public class MemberBean implements Serializable {
 	private Part file;
 	private FileService fileService;
 	private String filterText;
+    @Inject
+    private UserSessionBean userSession;
 
 	public Member getMember() {
 		return member;
 	}
 
-	public void initMember() {
+    public void initEditMember() {
 		member = memberService.getMemberById(memberId);
 	}
+
+    public void initDisplayProfileMember() {
+        member = memberService.getMemberById(memberId);
+    }
+
+    public void initLoggedInMember() {
+        member = userSession.getMember();
+    }
 
 	@Access(role = Role.ADMIN)
 	public String createMember() throws Exception {

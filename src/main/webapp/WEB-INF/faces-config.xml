@@ -69,12 +69,7 @@
         <navigation-case>
             <from-outcome>changePassword</from-outcome>
             <to-view-id>/secure/profile/changePassword.xhtml</to-view-id>
-            <redirect include-view-params="true">
-                <redirect-param>
-                    <name>memberId</name>
-                    <value>#{userSessionBean.member.id}</value>
-                </redirect-param>
-            </redirect>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
