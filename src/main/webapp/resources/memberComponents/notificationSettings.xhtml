@@ -1,0 +1,53 @@
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:o="http://omnifaces.org/ui">
+
+<h:head/>
+<h:body>
+
+    <composite:interface>
+        <composite:attribute type="java.util.List"
+                             name="generalNotifications" required="true"/>
+        <composite:attribute type="java.util.List"
+                             name="reportNotification" required="true"/>
+        <composite:attribute type="de.altenerding.biber.pinkie.business.notification.entity.CommunicationType"
+                             name="communicationType" required="true"/>
+    </composite:interface>
+
+    <composite:implementation>
+
+        <o:importConstants type="de.altenerding.biber.pinkie.business.notification.entity.NotificationGroup"
+                           var="NotificationGroup"/>
+        <b:accordion expandedPanels="emailSettingsTab:emailSettingsComponent:generalSettings">
+            <b:panel id="generalSettings"
+                     title="#{label[NotificationGroup.GENERAL.labelKey]}" collapsible="true">
+                <h:outputText value="#{textValues[NotificationGroup.GENERAL.descriptionKey]}"/>
+                <ui:repeat
+                        value="#{cc.attrs.generalNotifications}"
+                        var="generalSetting">
+                    <ui:include src="notificationSetting.xhtml">
+                        <ui:param name="checked" value="#{generalSetting.active}"/>
+                        <ui:param name="label" value="#{generalSetting.displayedLabel}"/>
+                        <ui:param name="setting" value="#{generalSetting}"/>
+                    </ui:include>
+                </ui:repeat>
+            </b:panel>
+
+            <b:panel id="reportSettings"
+                     title="#{label[NotificationGroup.REPORTS.labelKey]}" collapsible="true">
+                <h:outputText value="#{textValues[NotificationGroup.REPORTS.descriptionKey]}"/>
+                <ui:repeat
+                        value="#{cc.attrs.reportNotification}"
+                        var="reportSetting">
+                    <ui:include src="notificationSetting.xhtml">
+                        <ui:param name="checked" value="#{reportSetting.active}"/>
+                        <ui:param name="label" value="#{reportSetting.displayedLabel}"/>
+                        <ui:param name="setting" value="#{reportSetting}"/>
+                    </ui:include>
+                </ui:repeat>
+            </b:panel>
+        </b:accordion>
+    </composite:implementation>
+</h:body>
+</html>

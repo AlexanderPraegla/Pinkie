@@ -20,7 +20,9 @@ public class NuLigaDataTimer {
 
 	@PostConstruct
 	public void init() {
-		loadNuLigaData();
+        // TODO vllt brauchen wir das gar nicht, da es ja reicht wenn das 10min nach dem start ausgeführt und außerdem sollten ja schon vorher daten drinnen sein.
+        // TODO so geht das deployment viel schneller
+//		loadNuLigaData();
 	}
 
 	@Schedule(minute = "*/10", hour = "*", persistent = false)

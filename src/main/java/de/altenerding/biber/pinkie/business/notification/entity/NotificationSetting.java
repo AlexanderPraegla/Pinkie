@@ -2,38 +2,23 @@ package de.altenerding.biber.pinkie.business.notification.entity;
 
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import java.util.Date;
 
-@NamedQueries({
-		@NamedQuery(name = "GeneralNotificationSettings.findByType",
-				query = "SELECT n FROM GeneralNotificationSettings n WHERE n.communicationType = :communicationType AND n.notificationType = :templateType"),
-		@NamedQuery(name = "GeneralNotificationSettings.findByMemberId",
-				query = "SELECT n FROM GeneralNotificationSettings n WHERE n.member.id = :id")
-})
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Access(AccessType.FIELD)
-@Table(name = "general_notification_settings")
-public class GeneralNotificationSettings {
+@MappedSuperclass
+public class NotificationSetting {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +27,7 @@ public class GeneralNotificationSettings {
 	@Column(name = "communication_type")
 	private CommunicationType communicationType;
 	@Enumerated(EnumType.STRING)
-	@Column(name = "template_type")
+    @Column(name = "notification_type")
 	private NotificationType notificationType;
 	@OneToOne(fetch = FetchType.LAZY)
 	private Member member;
@@ -50,7 +35,15 @@ public class GeneralNotificationSettings {
 	@Column(name = "created_on")
 	private Date createdOn;
 
+    //One for UI purposes
+    @Transient
+    private boolean active = false;
+    @Transient
+    private String displayedLabel;
+
+
 	@PrePersist
+
 	protected void onPersist() {
 		if (createdOn == null) {
 			createdOn = new Date();
@@ -81,6 +74,14 @@ public class GeneralNotificationSettings {
 		this.notificationType = notificationType;
 	}
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
 	public Member getMember() {
 		return member;
 	}
@@ -96,4 +97,12 @@ public class GeneralNotificationSettings {
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
+
+    public String getDisplayedLabel() {
+        return displayedLabel;
+    }
+
+    public void setDisplayedLabel(String displayedLabel) {
+        this.displayedLabel = displayedLabel;
+    }
 }
