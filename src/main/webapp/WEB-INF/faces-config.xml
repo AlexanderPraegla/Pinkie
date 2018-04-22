@@ -174,8 +174,8 @@
             <var>menu</var>
         </resource-bundle>
         <resource-bundle>
-            <base-name>text.messages</base-name>
-            <var>messages</var>
+            <base-name>text.textValues</base-name>
+            <var>textValues</var>
         </resource-bundle>
         <resource-handler>org.omnifaces.resourcehandler.CombinedResourceHandler</resource-handler>
     </application>

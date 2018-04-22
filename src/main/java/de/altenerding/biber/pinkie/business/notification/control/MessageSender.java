@@ -23,7 +23,7 @@ public class MessageSender {
 	private Logger logger;
 
 	public void sendMessage(@Observes Message message) throws Exception {
-		CommunicationTemplate template = templateProvider.getCommunicationTemplate(message.getCommunicationType(), message.getTemplateType());
+		CommunicationTemplate template = templateProvider.getCommunicationTemplate(message.getCommunicationType(), message.getNotificationType());
 
 		switch (message.getCommunicationType()) {
 			case EMAIL:

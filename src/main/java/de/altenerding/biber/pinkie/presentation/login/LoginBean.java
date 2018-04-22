@@ -51,6 +51,8 @@ public class LoginBean {
 				if (authenticateService.hasMemberOnetimePasswort(member)) {
 					return "changePassword";
 				}
+
+                //check if member has missing notification settings -> redirect to display the missing ones
 				result = "success";
 			} else {
 				logger.error("Login NOT successful for alias={}", email);

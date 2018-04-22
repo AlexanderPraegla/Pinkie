@@ -10,6 +10,10 @@
             <property name="javax.persistence.schema-generation.drop-source" value="script"/>
             <property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/sql/drop.sql"/>
             <property name="javax.persistence.sql-load-script-source" value="META-INF/sql/data.sql"/>
+
+            <!--<property name="eclipselink.logging.level" value="FINE"/>-->
+            <!--<property name="eclipselink.logging.level.sql" value="FINE"/>-->
+            <!--<property name="eclipselink.logging.parameters" value="true"/>-->
         </properties>
     </persistence-unit>
 </persistence>
