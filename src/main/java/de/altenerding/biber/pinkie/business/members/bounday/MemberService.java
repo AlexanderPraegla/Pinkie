@@ -37,6 +37,16 @@ public class MemberService implements Serializable {
 		}
 	}
 
+    public Member getMemberByAlias(String alias) {
+        logger.info("Getting member by alias={}", alias);
+        try {
+            return em.createNamedQuery("member.findByAlias", Member.class).setParameter("alias", alias).getSingleResult();
+        } catch (Exception e) {
+            logger.info("Exception while leading member by alias={}", alias, e);
+            return null;
+        }
+    }
+
 	public List<Member> getMembers() {
 		return em.createNamedQuery("member.findAll", Member.class).getResultList();
 	}

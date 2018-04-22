@@ -22,33 +22,25 @@ import java.util.Date;
 @NamedQueries({
 		@NamedQuery(name = "member.findAll", query = "SELECT u FROM Member u ORDER BY u.firstName ASC"),
 		@NamedQuery(name = "member.findById", query = "SELECT u FROM Member u where u.id = :id"),
-		@NamedQuery(name = "member.findByAlias", query = "SELECT u FROM Member u where u.alias = :alias"),
-		@NamedQuery(name = "member.findByEmail", query = "SELECT u FROM Member u where u.email = :email")
+        @NamedQuery(name = "member.findByEmail", query = "SELECT u FROM Member u where u.email = :email"),
+        @NamedQuery(name = "member.findByAlias", query = "SELECT u FROM Member u where u.alias = :alias")
 })
 public class Member {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Column
 	private String firstName;
-	@Column
 	private String lastName;
-	@Column
 	private String nickName;
+    private String alias;
 	@Column(unique = true)
-	private String alias;
-	@Column
 	private String email;
-	@Column
+	private String privateEmail;
 	private String street;
-	@Column
 	private String mobileNumber;
-	@Column
 	private String phoneNumber;
-	@Column
 	private String zipcode;
-	@Column
 	private String city;
 	@Enumerated(EnumType.STRING)
 	private Role role = Role.MEMBER;
@@ -56,7 +48,6 @@ public class Member {
 	private Image image;
 	@Column(columnDefinition = "varchar")
 	private String previousClubs;
-	@Column
 	private String shirtNumber;
 	@Column(columnDefinition = "varchar")
 	private String position;
@@ -70,7 +61,6 @@ public class Member {
 	private String throwingHand;
 	@Column(columnDefinition = "varchar")
 	private String additionalInformation;
-	@Column
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
 	@Column(name = "created_on")
@@ -98,8 +88,8 @@ public class Member {
 		return id == member.id;
 	}
 
-	public boolean hasEmailAddress() {
-		return StringUtils.isNotEmpty(email);
+	public boolean hasPrivateEmail() {
+        return StringUtils.isNotEmpty(privateEmail);
 	}
 
 	@Override
@@ -139,12 +129,12 @@ public class Member {
 		this.nickName = nickName;
 	}
 
-	public String getAlias() {
-		return alias;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setAlias(String alias) {
-		this.alias = alias;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getStreet() {
@@ -279,12 +269,12 @@ public class Member {
 		this.shirtNumber = shirtNumber;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getPrivateEmail() {
+		return privateEmail;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPrivateEmail(String privateEmail) {
+		this.privateEmail = privateEmail;
 	}
 
 	public Image getImage() {
@@ -294,4 +284,12 @@ public class Member {
 	public void setImage(Image image) {
 		this.image = image;
 	}
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
 }

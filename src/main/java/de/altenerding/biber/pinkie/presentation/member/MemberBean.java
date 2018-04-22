@@ -12,7 +12,7 @@ import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class MemberBean implements Serializable {
 
 	private long memberId;
@@ -46,7 +46,11 @@ public class MemberBean implements Serializable {
 	}
 
     public void initDisplayProfileMember() {
-        member = memberService.getMemberById(memberId);
+        if (memberId > 0) {
+            member = memberService.getMemberById(memberId);
+        } else {
+            member = userSession.getMember();
+        }
     }
 
     public void initLoggedInMember() {
@@ -96,7 +100,7 @@ public class MemberBean implements Serializable {
 
 		memberService.updateMember(member);
 
-		return "/secure/profile/profile.xhtml?faces-redirect=true&memberId=" + memberId;
+        return "/secure/profile/profile.xhtml?faces-redirect=true";
 	}
 
 	@Access(role = Role.ADMIN)

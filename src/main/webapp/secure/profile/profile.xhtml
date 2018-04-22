@@ -8,7 +8,7 @@
 
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="memberId" value="#{memberBean.memberId}" required="true"/>
+            <f:viewParam name="memberId" value="#{memberBean.memberId}"/>
             <f:viewAction action="#{memberBean.initDisplayProfileMember()}"/>
         </f:metadata>
         <b:container rendered="#{userSessionBean.isUserInRole('MEMBER')}">
