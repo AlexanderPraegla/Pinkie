@@ -98,7 +98,7 @@ public class Member {
 	}
 
 	public boolean hasPrivateEmail() {
-		return StringUtils.isEmpty(privateEmail);
+        return StringUtils.isNotEmpty(privateEmail);
 	}
 
 	@Override

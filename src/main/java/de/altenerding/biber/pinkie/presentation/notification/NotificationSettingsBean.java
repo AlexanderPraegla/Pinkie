@@ -1,9 +1,13 @@
 package de.altenerding.biber.pinkie.presentation.notification;
 
+import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
-import de.altenerding.biber.pinkie.business.notification.boundary.NotificationService;
-import de.altenerding.biber.pinkie.business.notification.entity.GeneralNotificationSettings;
-import de.altenerding.biber.pinkie.business.notification.entity.TeamNotificationSettings;
+import de.altenerding.biber.pinkie.business.members.entity.Role;
+import de.altenerding.biber.pinkie.business.notification.boundary.NotificationSettingService;
+import de.altenerding.biber.pinkie.business.notification.entity.CommunicationType;
+import de.altenerding.biber.pinkie.business.notification.entity.GeneralNotificationSetting;
+import de.altenerding.biber.pinkie.business.notification.entity.NotificationSetting;
+import de.altenerding.biber.pinkie.business.notification.entity.ReportNotificationSetting;
 import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 
 import javax.faces.view.ViewScoped;
@@ -19,41 +23,47 @@ public class NotificationSettingsBean implements Serializable {
 	@Inject
 	private UserSessionBean userSessionBean;
 	@Inject
-	private NotificationService notificationService;
-	private List<GeneralNotificationSettings> generalNotificationSettings;
-	private List<TeamNotificationSettings> teamNotificationSettings;
+    private NotificationSettingService notificationSettingService;
+    private List<GeneralNotificationSetting> generalNotificationSettings;
+    private List<ReportNotificationSetting> reportNotificationSettings;
 
-	public void initNotifications() throws Exception {
+    public void initCurrentNotifications() throws Exception {
 		Member member = userSessionBean.getMember();
 		if (member == null) {
 			throw new Exception("No login available");
 		}
 
-		teamNotificationSettings = notificationService.getTeamNotificationSettingsByMember(member);
-		generalNotificationSettings = notificationService.getGeneralNotificationSettingsById(member);
-	}
+        reportNotificationSettings = notificationSettingService.getReportNotificationSettingsByMember(member, CommunicationType.EMAIL);
+        generalNotificationSettings = notificationSettingService.getGeneralNotificationSettingsByMember(member, CommunicationType.EMAIL);
+    }
 
-	public NotificationService getNotificationService() {
-		return notificationService;
-	}
+    public List<ReportNotificationSetting> getReportNotificationSettings(CommunicationType communicationType) {
+        Member member = userSessionBean.getMember();
+        if (reportNotificationSettings == null) {
+            reportNotificationSettings = notificationSettingService.getReportNotificationSettingsByMember(member, communicationType);
+        }
 
-	public void setNotificationService(NotificationService notificationService) {
-		this.notificationService = notificationService;
-	}
+        return reportNotificationSettings;
+    }
 
-	public List<GeneralNotificationSettings> getGeneralNotificationSettings() {
+    public List<GeneralNotificationSetting> getGeneralNotificationSettings(CommunicationType communicationType) {
+        Member member = userSessionBean.getMember();
+        if (generalNotificationSettings == null) {
+            generalNotificationSettings = notificationSettingService.getGeneralNotificationSettingsByMember(member, communicationType);
+        }
+
 		return generalNotificationSettings;
 	}
 
-	public void setGeneralNotificationSettings(List<GeneralNotificationSettings> generalNotificationSettings) {
-		this.generalNotificationSettings = generalNotificationSettings;
-	}
-
-	public List<TeamNotificationSettings> getTeamNotificationSettings() {
-		return teamNotificationSettings;
-	}
-
-	public void setTeamNotificationSettings(List<TeamNotificationSettings> teamNotificationSettings) {
-		this.teamNotificationSettings = teamNotificationSettings;
+    @Access(role = Role.MEMBER)
+    public void deleteOrCreateNotificationSetting(NotificationSetting notificationSetting) {
+        if (notificationSetting.getId() == 0) {
+            notificationSetting = notificationSettingService.createNotificationSetting(notificationSetting);
+            notificationSetting.setActive(true);
+        } else {
+            notificationSettingService.deleteReportNotificationSetting(notificationSetting);
+            notificationSetting.setActive(false);
+            notificationSetting.setId(0);
+        }
 	}
 }

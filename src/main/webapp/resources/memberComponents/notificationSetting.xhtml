@@ -1,0 +1,12 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <b:formGroup>
+        <b:selectBooleanCheckbox value="#{checked}" caption="#{label}" ajax="true">
+            <f:ajax event="click" render="@this"
+                    listener="#{notificationSettingsBean.deleteOrCreateNotificationSetting(setting)}"/>
+        </b:selectBooleanCheckbox>
+    </b:formGroup>
+
+</ui:fragment>

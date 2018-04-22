@@ -4,6 +4,7 @@ import de.altenerding.biber.pinkie.business.login.boundary.AuthenticateService;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 import javax.servlet.Filter;
@@ -19,48 +20,52 @@ import java.io.IOException;
 import java.net.URLEncoder;
 
 @WebFilter(urlPatterns = "/secure/*", filterName = "LoginFilter")
-public class LoginFilter implements Filter{
+public class LoginFilter implements Filter {
 
-	@Inject
-	private AuthenticateService authenticateService;
-	@Inject
-	private UserSessionBean userSessionBean;
+    @Inject
+    private AuthenticateService authenticateService;
+    @Inject
+    private UserSessionBean userSessionBean;
 
-	@Override
-	public void init(FilterConfig filterConfig) {
+    @Override
+    public void init(FilterConfig filterConfig) {
 
-	}
+    }
 
-	@Override
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest request = (HttpServletRequest) req;
-		HttpServletResponse response = (HttpServletResponse) res;
-		if (authenticateService.authenticateRole(Role.MEMBER)) {
-			//Check if user has an onetime password and force him to change it before he can use any logged in site
-			try {
-				Member member = userSessionBean.getMember();
-				if (authenticateService.hasMemberOnetimePasswort(member)) {
-					long memberId = member.getId();
-					request.getServletContext()
-							.getRequestDispatcher("/secure/profile/changePassword.xhtml?faces-redirect=true&memberId=" + memberId)
-							.forward(req, res);
-					return;
-				}
-			} catch (Exception e) {
-				throw new ServletException(e.getMessage(), e.getCause());
-			}
-			chain.doFilter(request, response);
-		} else {
-			String contextPath = request.getContextPath();
-			String requestURI = request.getRequestURI();
-			String queryString = request.getQueryString();
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) res;
+        if (authenticateService.authenticateRole(Role.MEMBER)) {
+            //Check if user has an onetime password and force him to change it before he can use any logged in site
+            try {
+                Member member = userSessionBean.getMember();
+                if (authenticateService.hasMemberOnetimePasswort(member)) {
+                    long memberId = member.getId();
+                    request.getServletContext()
+                            .getRequestDispatcher("/secure/profile/changePassword.xhtml?faces-redirect=true&memberId=" + memberId)
+                            .forward(req, res);
+                    return;
+                }
+            } catch (Exception e) {
+                throw new ServletException(e.getMessage(), e.getCause());
+            }
+            chain.doFilter(request, response);
+        } else {
+            String contextPath = request.getContextPath();
+            String requestURI = request.getRequestURI();
+            String queryString = request.getQueryString();
 
-			response.sendRedirect(contextPath + "/public/login/login.xhtml?page=" + URLEncoder.encode(requestURI + "?" + queryString	, "UTF-8"));
-		}
-	}
 
-	@Override
-	public void destroy() {
+            String url = contextPath + "/public/login/login.xhtml?page=";
+            url += StringUtils.isEmpty(queryString) ? URLEncoder.encode(requestURI, "UTF-8") : URLEncoder.encode(requestURI + "?" + queryString, "UTF-8");
 
-	}
+            response.sendRedirect(url);
+        }
+    }
+
+    @Override
+    public void destroy() {
+
+    }
 }
