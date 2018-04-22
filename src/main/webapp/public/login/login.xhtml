@@ -10,7 +10,7 @@
         <b:container rendered="#{userSessionBean.member == null}">
             <h:form styleClass="form-signin" prependId="false">
                 <h2 class="form-signin-heading">Bitte anmelden</h2>
-                <b:inputText id="email" placeholder="Email Addresse" value="#{loginBean.email}">
+                <b:inputText id="alias" placeholder="Username" value="#{loginBean.alias}">
                     <b:focus/>
                     <f:facet name="prepend">
                         <b:icon name="user"/>
