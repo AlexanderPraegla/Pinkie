@@ -46,7 +46,7 @@ public class LoginBean {
             if (authenticateService.validate(alias, password)) {
                 Member member = memberService.getMemberByAlias(alias);
 				userSessionBean.setMember(member);
-                logger.info("Login successful for member alias={}", member.getAlias());
+				logger.info("Login successful for member alias={}", member.getEmail());
 
 				if (authenticateService.hasMemberOnetimePasswort(member)) {
 					return "changePassword";
@@ -60,9 +60,9 @@ public class LoginBean {
 				return "error";
 			}
 		} catch (Exception e) {
-            logger.error("Error while validating login", e);
-			result = "error";
+			logger.info("Error while validating login", e);
 			FacesMessages.error("Es ist ein Fehler beim Login aufgetreten");
+            return "error";
 		}
 
 		if (page == null) {

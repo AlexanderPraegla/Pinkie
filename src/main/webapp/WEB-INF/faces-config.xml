@@ -54,12 +54,7 @@
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/secure/profile/profile.xhtml</to-view-id>
-            <redirect include-view-params="true">
-                <redirect-param>
-                    <name>memberId</name>
-                    <value>#{userSessionBean.member.id}</value>
-                </redirect-param>
-            </redirect>
+            <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>error</from-outcome>

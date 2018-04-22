@@ -68,10 +68,7 @@
                 <b:navLink value="#{menu['menu.sponsors']}" outcome="/public/sponsor/sponsor.xhtml" rendered="#{userSessionBean.member == null}"/>
                 <b:navLink value="#{menu['menu.forum']}" outcome="/secure/forum/forum.xhtml" rendered="false"/>
                 <b:navLink value="#{menu['menu.profile']}" outcome="/secure/profile/profile.xhtml"
-                           rendered="#{userSessionBean.isUserInRole('MEMBER')}"
-                           includeViewParams="true">
-                    <f:param name="memberId" value="#{userSessionBean.member.id}"/>
-                </b:navLink>
+                           rendered="#{userSessionBean.isUserInRole('MEMBER')}"/>
                 <b:dropMenu value="#{menu['menu.admin']}" rendered="#{userSessionBean.isUserInRole('ADMIN')}">
                     <b:listLinks>
                         <b:navLink value="#{menu['menu.admin.addMember']}" outcome="/secure/admin/createMember.xhtml"
