@@ -1,8 +1,21 @@
 package de.altenerding.biber.pinkie.business.members.entity;
 
 import de.altenerding.biber.pinkie.business.file.entity.Image;
+import org.apache.commons.lang3.StringUtils;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Entity
@@ -82,6 +95,10 @@ public class Member {
 		Member member = (Member) o;
 
 		return id == member.id;
+	}
+
+	public boolean hasPrivateEmail() {
+        return StringUtils.isNotEmpty(privateEmail);
 	}
 
 	@Override

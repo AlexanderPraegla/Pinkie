@@ -1,0 +1,36 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:memberComponents="http://java.sun.com/jsf/composite/memberComponents"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="title"><h:outputText value="#{pageLabel['member.editNotificationSettings']}"/></ui:define>
+
+    <ui:define name="content">
+        <o:importConstants type="de.altenerding.biber.pinkie.business.notification.entity.CommunicationType"
+                           var="CommunicationType"/>
+
+        <b:container rendered="#{userSessionBean.isUserInRole('MEMBER')}">
+            <b:tabView style="margin-bottom: 15px;" id="tabView">
+                <b:tab id="emailSettingsTab" title="#{label['label.communicationType.EMAIL']}">
+                    <memberComponents:notificationSettings
+                            rendered="#{userSessionBean.member.hasPrivateEmail()}"
+                            id="emailSettingsComponent" communicationType="#{CommunicationType.EMAIL}"
+                            generalNotifications="#{notificationSettingsBean.getGeneralNotificationSettings(CommunicationType.EMAIL)}"
+                            reportNotification="#{notificationSettingsBean.getReportNotificationSettings(CommunicationType.EMAIL)}"/>
+                    <b:panel rendered="#{not userSessionBean.member.hasPrivateEmail()}" look="danger">
+                        <h:outputText value="#{textValues['message.privateemail.notavailable']}"/>
+                        <hr/>
+                        <b:button outcome="/secure/profile/editProfile.xhtml" look="primary"
+                                  value="#{menu['menu.loggedin.editProfil']}"/>
+                    </b:panel>
+                </b:tab>
+                <b:tab title="#{label['label.communicationType.PUSH']}">
+                    <b:container>
+                        <h:outputText value="Kommt in Kürze (oder auch bisl später)"/>
+                    </b:container>
+                </b:tab>
+            </b:tabView>
+        </b:container>
+    </ui:define>
+</ui:composition>
