@@ -8,8 +8,7 @@
 
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="memberId" value="#{memberBean.memberId}"/>
-            <f:viewAction action="#{memberBean.initMember()}"/>
+            <f:viewAction action="#{memberBean.initLoggedInMember()}"/>
         </f:metadata>
         <b:container rendered="#{userSessionBean.isUserInRole('MEMBER')}">
             <b:form enctype="multipart/form-data">

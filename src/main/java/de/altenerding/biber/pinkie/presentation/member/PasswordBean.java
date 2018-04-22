@@ -6,6 +6,7 @@ import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.notification.boundary.NotificationService;
+import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
@@ -30,87 +31,106 @@ public class PasswordBean implements Serializable {
 	private String passwordOld;
 	private String passwordNew;
 	private String email;
+    @Inject
+    private UserSessionBean userSession;
 
 	public void initMember() {
 		member = memberService.getMemberById(memberId);
 	}
 
-	@Access(role = Role.ADMIN)
-	public String resetPassword() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.getExternalContext().getFlash().setKeepMessages(true);
+    public void initLoggedInMember() {
+        member = userSession.getMember();
+    }
 
-		try {
-			if (!validateRetypePassword()) {
-				return "/secure/admin/editMemberPassword.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
-			}
+    /**
+     * Call by an admin who is changing the password of a member
+     *
+     * @return nav link
+     */
+    @Access(role = Role.ADMIN)
+    public String resetMemberPassword() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().getFlash().setKeepMessages(true);
 
-			authenticateService.setOnetimePassword(member.getEmail(), passwordNew);
+        try {
+            if (!validateRetypePassword()) {
+                return "/secure/admin/editMemberPassword.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
+            }
 
-			notificationService.sendPasswortResetEmail(member, passwordNew);
+            authenticateService.setOnetimePassword(member.getEmail(), passwordNew);
 
-			FacesMessages.info(member.getFullName(), "Passwort neu gesetzt");
+            notificationService.sendPasswortResetEmail(member, passwordNew);
 
-			return "/secure/admin/listMembers.xhtml?faces-redirect=true";
-		} catch (Exception e) {
-			logger.info("Error while resetting password", e);
-			FacesMessages.error("Es ist ein Fehler beim Setzten des Passworts aufgetreten");
-			return "/secure/admin/editMemberPassword.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
-		}
-	}
+            FacesMessages.info(member.getFullName(), "Passwort neu gesetzt");
 
-	@Access(role = Role.MEMBER)
-	public String changePassword() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.getExternalContext().getFlash().setKeepMessages(true);
+            return "/secure/admin/listMembers.xhtml?faces-redirect=true";
+        } catch (Exception e) {
+            logger.info("Error while resetting password", e);
+            FacesMessages.error("Es ist ein Fehler beim Setzten des Passworts aufgetreten");
+            return "/secure/admin/editMemberPassword.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
+        }
+    }
 
-		if (!validateRetypePassword()) {
-			return "/secure/profile/changePassword.xhtml?" +
-					"faces-redirect=true&includeViewParams=true&memberId=" + memberId;
-		} else {
-			try {
-				authenticateService.changePassword(member.getEmail(), passwordOld, passwordNew);
+    /**
+     * Called by the logged in member
+     *
+     * @return nav link
+     */
+    @Access(role = Role.MEMBER)
+    public String changeMemberPassword() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().getFlash().setKeepMessages(true);
 
-				FacesMessages.info(member.getFullName(), "Passwort geändert");
+        if (!validateRetypePassword()) {
+            return "/secure/profile/changePassword.xhtml?faces-redirect=true";
+        } else {
+            try {
+                authenticateService.changePassword(member.getEmail(), passwordOld, passwordNew);
 
-				return "/secure/profile/profile.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
-			} catch (Exception e) {
-				logger.error("Error while changing password", e);
-				return "/secure/profile/changePassword.xhtml?" +
-						"faces-redirect=true&includeViewParams=true&memberId=" + memberId;
-			}
-		}
-	}
+                FacesMessages.info(member.getFullName(), "Passwort geändert");
 
-	public String requestOneTimePassword() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.getExternalContext().getFlash().setKeepMessages(true);
+                return "/secure/profile/profile.xhtml?faces-redirect=true";
+            } catch (Exception e) {
+                logger.error("Error while changing password", e);
+                return "/secure/profile/changePassword.xhtml?faces-redirect=true";
+            }
+        }
+    }
 
-		Member member = memberService.getMemberByEmail(email);
+    /**
+     * To get an one time password if the user has forgotten his password
+     *
+     * @return nav link
+     */
+    public String requestOneTimePassword() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().getFlash().setKeepMessages(true);
 
-		if (member == null) {
-			FacesMessages.error("Kein Nutzer mit dieser E-Mail Adresse verfügbar");
-			return "";
-		}
+        Member member = memberService.getMemberByEmail(email);
 
-		if (StringUtils.isEmpty(member.getPrivateEmail())) {
-			FacesMessages.error("Dieses Mitglied hat keine private E-Mail Adresse hinterlegt. Bitte den Admin kontaktieren");
-			return "";
-		}
+        if (member == null) {
+            FacesMessages.error("Kein Nutzer mit dieser E-Mail Adresse verfügbar");
+            return "";
+        }
 
-		try {
-			String oneTimePassword = authenticateService.changeForgotPassword(member.getEmail());
-			notificationService.sendPasswortResetEmail(member, oneTimePassword);
-		} catch (Exception e) {
-			logger.error("Error creating one time password", e);
-			FacesMessages.error("Es ist ein Fehler beim senden des Passworts aufgetreten");
-			return "";
-		}
+        if (StringUtils.isEmpty(member.getPrivateEmail())) {
+            FacesMessages.error("Dieses Mitglied hat keine private E-Mail Adresse hinterlegt. Bitte den Admin kontaktieren");
+            return "";
+        }
+
+        try {
+            String oneTimePassword = authenticateService.changeForgotPassword(member.getEmail());
+            notificationService.sendPasswortResetEmail(member, oneTimePassword);
+        } catch (Exception e) {
+            logger.error("Error creating one time password", e);
+            FacesMessages.error("Es ist ein Fehler beim senden des Passworts aufgetreten");
+            return "";
+        }
 
 
-		FacesMessages.info("Es wurde ein neues Passwort an deine private E-Mail Adresse gesendet");
-		return "startpage";
-	}
+        FacesMessages.info("Es wurde ein neues Passwort an deine private E-Mail Adresse gesendet");
+        return "startpage";
+    }
 
 
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")

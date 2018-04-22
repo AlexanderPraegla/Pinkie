@@ -41,9 +41,8 @@ public class LoginFilter implements Filter {
             try {
                 Member member = userSessionBean.getMember();
                 if (authenticateService.hasMemberOnetimePasswort(member)) {
-                    long memberId = member.getId();
                     request.getServletContext()
-                            .getRequestDispatcher("/secure/profile/changePassword.xhtml?faces-redirect=true&memberId=" + memberId)
+                            .getRequestDispatcher("/secure/profile/changePassword.xhtml?faces-redirect=true")
                             .forward(req, res);
                     return;
                 }
