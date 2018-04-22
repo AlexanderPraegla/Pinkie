@@ -32,9 +32,9 @@ public class Member {
 	private long id;
 	private String firstName;
 	private String lastName;
-	private String nickName;
+    @Column(unique = true)
+    private String nickName;
     private String alias;
-	@Column(unique = true)
 	private String email;
 	private String privateEmail;
 	private String street;

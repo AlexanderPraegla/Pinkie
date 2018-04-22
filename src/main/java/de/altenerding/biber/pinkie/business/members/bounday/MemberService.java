@@ -27,12 +27,12 @@ public class MemberService implements Serializable {
 		}
 	}
 
-	public Member getMemberByAlias(String alias) {
-		logger.info("Getting member by alias={}", alias);
+	public Member getMemberByEmail(String email) {
+		logger.info("Getting member by email={}", email);
 		try {
-			return em.createNamedQuery("member.findByAlias", Member.class).setParameter("alias", alias).getSingleResult();
+			return em.createNamedQuery("member.findByEmail", Member.class).setParameter("email", email).getSingleResult();
 		} catch (Exception e) {
-			logger.error("Exception while leading member by alias={}", alias, e);
+			logger.error("Exception while leading member by email={}", email, e);
 			return null;
 		}
 	}
