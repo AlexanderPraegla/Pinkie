@@ -4,6 +4,7 @@ import de.altenerding.biber.pinkie.business.login.entity.Login;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
@@ -59,6 +60,10 @@ public class Authenticator implements Serializable{
 		return member.getRole() == role;
 
 	}
+
+    public String getRandomPassword() {
+        return RandomStringUtils.random(20, true, true);
+    }
 
 	@Inject
 	public void setSecurityProvider(SecurityProvider securityProvider) {

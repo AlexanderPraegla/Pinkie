@@ -19,7 +19,6 @@ import javax.servlet.http.Part;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Named
 @ViewScoped
@@ -60,17 +59,12 @@ public class MemberBean implements Serializable {
 	@Access(role = Role.ADMIN)
 	public String createMember() throws Exception {
 		logger.info("Creating new member with name={}", member.getFullName());
-        String alias = member.getFirstName() + "." + member.getLastName();
 		if (file != null) {
 			Image image = fileService.uploadImage(file, FileCategory.IMAGES_MEMBER_PROFILE);
 			member.setImage(image);
 		}
-        member.setAlias(alias);
-		Member member = memberService.createMember(this.member);
 
-		//Generate random password at first
-		String randomString = UUID.randomUUID().toString();
-        authenticateService.createLogin(member.getAlias(), randomString);
+        Member member = memberService.createMember(this.member);
 
         return "/secure/admin/listMembers.xhtml?faces-redirect=true";
 	}

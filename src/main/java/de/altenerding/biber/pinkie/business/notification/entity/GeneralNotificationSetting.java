@@ -7,10 +7,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @NamedQueries({
-        @NamedQuery(name = "GeneralNotificationSetting.findActiveSettingsByType",
+        @NamedQuery(name = "GeneralNotificationSetting.findSettingsByType",
                 query = "SELECT n FROM GeneralNotificationSetting n" +
-                        " WHERE n.communicationType = :communicationType" +
-                        " AND n.notificationType = :notificationType"),
+                        " WHERE n.notificationType = :notificationType"),
         @NamedQuery(name = "GeneralNotificationSetting.findByMemberId",
                 query = "SELECT n FROM GeneralNotificationSetting n" +
                         " WHERE n.member.id = :id" +

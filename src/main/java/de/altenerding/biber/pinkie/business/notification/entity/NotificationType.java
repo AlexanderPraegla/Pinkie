@@ -6,14 +6,16 @@ import java.util.stream.Collectors;
 
 public enum NotificationType {
     PASSWORD_RESET(false, "", null, 0),
+    PASSWORD_CHANGED(false, "", null, 0),
     MEMBER_NEW(false, "", null, 0),
 
 
-    REPORT(true, "Benachrichtigen wenn ein Bericht hochgeladen wird", NotificationGroup.REPORTS, 0),
-    ANNOUNCEMENT(true, "Benachrichtigen wenn auf der Startseite eine neue Ankündigung hinzugefügt wird", NotificationGroup.GENERAL, 0),
-    WEEKLY_IMAGE_UPLOADED(true, "Benachrichtigen wenn ein neues Bild der Woche hochgeladen wird", NotificationGroup.GENERAL, 5),
-    CLUB_VIDEO_UPLOADED(true, "Benachrichtigen wenn auf der Startseite ein neues Video hochgeladen wird", NotificationGroup.GENERAL, 10),
-    ALBUM_CREATED(true, "Benachrichtigen wenn ein neues Album in der Gallerie angelegt wird", NotificationGroup.GENERAL, 15);
+    REPORT_TEAM(true, "Benachrichtigen wenn ein Bericht für eine Mannschaft hochgeladen wird", NotificationGroup.REPORTS, 5),
+    REPORT_GENERAL(true, "Benachrichtigen wenn ein Bericht unabhängig von einer Mannschaft hochgeladen wird", NotificationGroup.GENERAL, 0),
+    ANNOUNCEMENT(true, "Benachrichtigen wenn auf der Startseite eine neue Ankündigung hinzugefügt wird", NotificationGroup.GENERAL, 5),
+    WEEKLY_IMAGE_UPLOADED(true, "Benachrichtigen wenn ein neues Bild der Woche hochgeladen wird", NotificationGroup.GENERAL, 10),
+    CLUB_VIDEO_UPLOADED(true, "Benachrichtigen wenn auf der Startseite ein neues Video hochgeladen wird", NotificationGroup.GENERAL, 15),
+    ALBUM_CREATED(true, "Benachrichtigen wenn ein neues Album in der Gallerie angelegt wird", NotificationGroup.GENERAL, 20);
 
 	private final boolean configurable;
     private final String description;

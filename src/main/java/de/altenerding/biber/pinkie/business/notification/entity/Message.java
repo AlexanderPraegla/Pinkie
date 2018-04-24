@@ -10,7 +10,7 @@ public class Message {
 	private CommunicationType communicationType;
 	private NotificationType notificationType;
 	private Member recipient;
-	private Map<Placeholder, String> placeholders = new HashMap<>();
+    private final Map<Placeholder, String> placeholders = new HashMap<>();
 
 	public CommunicationType getCommunicationType() {
 		return communicationType;
@@ -32,13 +32,13 @@ public class Message {
 		return placeholders;
 	}
 
-	public void setPlaceholders(Map<Placeholder, String> placeholders) {
-		this.placeholders = placeholders;
-	}
-
 	public void addPlaceholder(Placeholder placeholder, String value) {
 		this.placeholders.put(placeholder, value);
 	}
+
+    public void addPlaceholders(Map<Placeholder, String> placeholders) {
+        this.placeholders.putAll(placeholders);
+    }
 
 	public Member getRecipient() {
 		return recipient;
