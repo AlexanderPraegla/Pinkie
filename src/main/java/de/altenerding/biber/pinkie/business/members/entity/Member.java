@@ -3,6 +3,7 @@ package de.altenerding.biber.pinkie.business.members.entity;
 import de.altenerding.biber.pinkie.business.file.entity.Image;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -25,6 +26,7 @@ import java.util.Date;
         @NamedQuery(name = "member.findByEmail", query = "SELECT u FROM Member u where u.email = :email"),
         @NamedQuery(name = "member.findByAlias", query = "SELECT u FROM Member u where u.alias = :alias")
 })
+@Cacheable(false)
 public class Member {
 
 	@Id
@@ -34,6 +36,7 @@ public class Member {
 	private String lastName;
     @Column(unique = true)
     private String nickName;
+    @Column(unique = true)
     private String alias;
 	private String email;
 	private String privateEmail;
