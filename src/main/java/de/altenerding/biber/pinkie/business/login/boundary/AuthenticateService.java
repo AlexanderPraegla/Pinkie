@@ -4,10 +4,8 @@ import de.altenerding.biber.pinkie.business.login.control.Authenticator;
 import de.altenerding.biber.pinkie.business.login.control.LoginCreator;
 import de.altenerding.biber.pinkie.business.login.control.LoginModifier;
 import de.altenerding.biber.pinkie.business.login.control.LoginProvider;
-import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateless;
@@ -17,75 +15,46 @@ import java.io.Serializable;
 @Stateless
 public class AuthenticateService implements Serializable {
 
-	private Authenticator authenticator;
-	private LoginCreator loginCreator;
-	private LoginModifier loginModifier;
-	private LoginProvider loginProvider;
-	private Logger logger;
+    private Authenticator authenticator;
+    private LoginCreator loginCreator;
+    private LoginModifier loginModifier;
+    private LoginProvider loginProvider;
+    private Logger logger;
 
-	public boolean validate(String alias, String password) throws Exception {
-		return authenticator.validate(alias, password);
-	}
+    public boolean validate(String alias, String password) throws Exception {
+        return authenticator.validate(alias, password);
+    }
 
-	public boolean authenticateRole(Role role) {
-		return authenticator.authenticateRole(role);
-	}
+    public boolean authenticateRole(Role role) {
+        return authenticator.authenticateRole(role);
+    }
 
-	public boolean hasMemberOnetimePasswort(Member member) throws Exception {
-		return loginProvider.hasMemberOnetimePasswort(member);
-	}
+    public boolean hasMemberOnetimePasswort(Member member) throws Exception {
+        return loginProvider.hasMemberOnetimePasswort(member);
+    }
 
-	//Will be used later to set and create password for members
-	public void createLogin(String alias, String password) throws Exception {
-		loginCreator.createLogin(alias, password);
-	}
+    @Inject
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
 
-	/*
-		updating an existing password without providing to old one should only be possible for admins
-	 */
-	@Access(role = Role.ADMIN)
-	public void setOnetimePassword(String alias, String passwordNew) throws Exception {
-		loginModifier.savePassword(alias, passwordNew, true);
-	}
+    @Inject
+    public void setAuthenticator(Authenticator authenticator) {
+        this.authenticator = authenticator;
+    }
 
-	public String changeForgotPassword(String alias) throws Exception {
-		String oneTimePassword = RandomStringUtils.random(13, true, true);
-		loginModifier.savePassword(alias, oneTimePassword, true);
-		return oneTimePassword;
-	}
+    @Inject
+    public void setLoginCreator(LoginCreator loginCreator) {
+        this.loginCreator = loginCreator;
+    }
 
-	public void changePassword(String alias, String passwordOld, String passwordNew) throws Exception {
-		logger.info("Changing password for alias={}", alias);
+    @Inject
+    public void setLoginModifier(LoginModifier loginModifier) {
+        this.loginModifier = loginModifier;
+    }
 
-		if (!validate(alias, passwordOld)) {
-			throw new Exception("Invalid password");
-		}
-
-		loginModifier.savePassword(alias, passwordNew, false);
-	}
-
-	@Inject
-	public void setLogger(Logger logger) {
-		this.logger = logger;
-	}
-
-	@Inject
-	public void setAuthenticator(Authenticator authenticator) {
-		this.authenticator = authenticator;
-	}
-
-	@Inject
-	public void setLoginCreator(LoginCreator loginCreator) {
-		this.loginCreator = loginCreator;
-	}
-
-	@Inject
-	public void setLoginModifier(LoginModifier loginModifier) {
-		this.loginModifier = loginModifier;
-	}
-
-	@Inject
-	public void setLoginProvider(LoginProvider loginProvider) {
-		this.loginProvider = loginProvider;
-	}
+    @Inject
+    public void setLoginProvider(LoginProvider loginProvider) {
+        this.loginProvider = loginProvider;
+    }
 }

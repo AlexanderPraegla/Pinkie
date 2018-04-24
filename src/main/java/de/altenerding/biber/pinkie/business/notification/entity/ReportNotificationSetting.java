@@ -13,8 +13,7 @@ import javax.persistence.Table;
 @NamedQueries({
         @NamedQuery(name = "ReportNotificationSetting.findActiveSettingsByTypeAndTeam",
                 query = "SELECT n FROM ReportNotificationSetting n" +
-                        " WHERE n.communicationType = :communicationType " +
-                        " AND n.notificationType = :notificationType " +
+                        " WHERE n.notificationType = :notificationType " +
                         " AND n.team.id = :teamId"),
         @NamedQuery(name = "ReportNotificationSetting.findByMemberId",
                 query = "SELECT n FROM ReportNotificationSetting n WHERE n.member.id = :id AND n.communicationType = :communicationType ORDER BY n.team.orderId")

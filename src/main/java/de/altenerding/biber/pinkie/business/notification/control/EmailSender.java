@@ -29,7 +29,7 @@ public class EmailSender {
 			message.setRecipients(Message.RecipientType.TO, address);
 			message.setSubject(email.getSubject());
 			message.setSentDate(new Date());
-			message.setText(email.getBody());
+			message.setContent(email.getBody(), "text/html; charset=utf-8");
 			Transport.send(message, session.getProperty("mail.user"), session.getProperty("mail.password"));
 		} catch (MessagingException ex) {
 			logger.error("Error sending email", ex);

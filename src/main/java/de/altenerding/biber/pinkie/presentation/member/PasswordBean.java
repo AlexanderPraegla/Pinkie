@@ -1,11 +1,9 @@
 package de.altenerding.biber.pinkie.presentation.member;
 
-import de.altenerding.biber.pinkie.business.login.boundary.AuthenticateService;
 import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
-import de.altenerding.biber.pinkie.business.notification.boundary.NotificationService;
 import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.commons.lang3.StringUtils;
@@ -21,8 +19,6 @@ import java.io.Serializable;
 @ViewScoped
 public class PasswordBean implements Serializable {
 
-	private AuthenticateService authenticateService;
-	private NotificationService notificationService;
 	private MemberService memberService;
 	private Logger logger;
 	private long memberId;
@@ -57,9 +53,7 @@ public class PasswordBean implements Serializable {
                 return "/secure/admin/editMemberPassword.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
             }
 
-            authenticateService.setOnetimePassword(member.getAlias(), passwordNew);
-
-            notificationService.sendPasswortResetEmail(member, passwordNew);
+            memberService.resetMemberPassword(member, passwordNew);
 
             FacesMessages.info(member.getFullName(), "Passwort neu gesetzt");
 
@@ -85,7 +79,7 @@ public class PasswordBean implements Serializable {
             return "/secure/profile/changePassword.xhtml?faces-redirect=true";
         } else {
             try {
-                authenticateService.changePassword(member.getAlias(), passwordOld, passwordNew);
+                memberService.changePassword(member.getAlias(), passwordOld, passwordNew);
 
                 FacesMessages.info(member.getFullName(), "Passwort geändert");
 
@@ -119,8 +113,7 @@ public class PasswordBean implements Serializable {
         }
 
         try {
-            String oneTimePassword = authenticateService.changeForgotPassword(member.getAlias());
-            notificationService.sendPasswortResetEmail(member, oneTimePassword);
+            memberService.changeForgotPassword(member);
         } catch (Exception e) {
             logger.error("Error creating one time password", e);
             FacesMessages.error("Es ist ein Fehler beim senden des Passworts aufgetreten");
@@ -145,16 +138,6 @@ public class PasswordBean implements Serializable {
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
-	}
-
-	@Inject
-	public void setNotificationService(NotificationService notificationService) {
-		this.notificationService = notificationService;
-	}
-
-	@Inject
-	public void setAuthenticateService(AuthenticateService authenticateService) {
-		this.authenticateService = authenticateService;
 	}
 
 	@Inject

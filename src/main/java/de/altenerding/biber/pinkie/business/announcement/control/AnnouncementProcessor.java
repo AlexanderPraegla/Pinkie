@@ -1,18 +1,25 @@
 package de.altenerding.biber.pinkie.business.announcement.control;
 
 import de.altenerding.biber.pinkie.business.announcement.entity.Announcement;
+import de.altenerding.biber.pinkie.business.notification.control.MessageSender;
+import de.altenerding.biber.pinkie.business.notification.entity.NotificationType;
+import de.altenerding.biber.pinkie.business.notification.entity.Placeholder;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AnnouncementProcessor {
 
 	@PersistenceContext
 	private EntityManager em;
 	private Logger logger;
+    @Inject
+    private MessageSender messageSender;
 
 
 	public void saveAnnouncement(Announcement anncouncement) throws Exception {
@@ -20,6 +27,10 @@ public class AnnouncementProcessor {
 		em.persist(anncouncement);
 		em.flush();
 		logger.info("Created announcement with id={}", anncouncement.getId());
+
+        Map<Placeholder, String> placeholders = new HashMap<>();
+        placeholders.put(Placeholder.URL, "");
+        messageSender.sendNotifications(NotificationType.ANNOUNCEMENT, placeholders);
 	}
 
 	public void updateAnnouncement(Announcement announcement) throws Exception {

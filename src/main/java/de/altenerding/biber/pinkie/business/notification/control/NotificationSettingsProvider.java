@@ -78,25 +78,24 @@ public class NotificationSettingsProvider {
         return notificationSettings;
     }
 
-    public List<Member> getMembersTeamNotificationSettingsByCommunicationType(CommunicationType communicationType, NotificationType notificationType, Team team) {
-        logger.info("Getting team notification settings for communication type = {} and notificaton type = {}", communicationType, notificationType);
-        List<Member> settings = em.createNamedQuery("ReportNotificationSetting.findActiveSettingsByTypeAndTeam", Member.class)
-                .setParameter("communicationType", communicationType)
+
+    public List<ReportNotificationSetting> getReportNotificationSettingsByCommunicationType(NotificationType notificationType, Team team) {
+        logger.info("Getting report notification settings for notificaton type = {}", notificationType);
+        List<ReportNotificationSetting> settings = em.createNamedQuery("ReportNotificationSetting.findActiveSettingsByTypeAndTeam", ReportNotificationSetting.class)
                 .setParameter("notificationType", notificationType)
                 .setParameter("teamId", team.getId())
                 .getResultList();
 
-        logger.info("Found {} team notification settings for communication type = {} and notificaton type = {}", settings.size(), communicationType, notificationType);
+        logger.info("Found {} report notification settings for notificaton type = {}", settings.size(), notificationType);
         return settings;
     }
 
-    public List<Member> getMembersGeneralNotificationSettingsByCommunicationType(CommunicationType communicationType, NotificationType notificationType) {
-        logger.info("Getting general notification settings for communication type = {} and notificaton type = {}", communicationType, notificationType);
-        List<Member> settings = em.createNamedQuery("GeneralNotificationSetting.findActiveSettingsByType", Member.class)
-                .setParameter("communicationType", communicationType)
+    public List<GeneralNotificationSetting> getGeneralNotificationSettingsByCommunicationType(NotificationType notificationType) {
+        logger.info("Getting general notification settings for notificaton type = {}", notificationType);
+        List<GeneralNotificationSetting> settings = em.createNamedQuery("GeneralNotificationSetting.findSettingsByType", GeneralNotificationSetting.class)
                 .setParameter("notificationType", notificationType)
                 .getResultList();
-        logger.info("Found {} general notification settings for communication type = {} and notificaton type = {}", settings.size(), communicationType, notificationType);
+        logger.info("Found {} general notification settings for notificaton type = {}", settings.size(), notificationType);
         return settings;
     }
 

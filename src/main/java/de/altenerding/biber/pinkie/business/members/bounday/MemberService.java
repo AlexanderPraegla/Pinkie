@@ -1,6 +1,14 @@
 package de.altenerding.biber.pinkie.business.members.bounday;
 
+import de.altenerding.biber.pinkie.business.login.control.Authenticator;
+import de.altenerding.biber.pinkie.business.login.control.LoginCreator;
+import de.altenerding.biber.pinkie.business.login.control.LoginModifier;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
+import de.altenerding.biber.pinkie.business.notification.control.MessageSender;
+import de.altenerding.biber.pinkie.business.notification.entity.CommunicationType;
+import de.altenerding.biber.pinkie.business.notification.entity.NotificationType;
+import de.altenerding.biber.pinkie.business.notification.entity.Placeholder;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateless;
@@ -8,16 +16,27 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Stateless
 public class MemberService implements Serializable {
 
 	@PersistenceContext
 	private EntityManager em;
-	private Logger logger;
+    @Inject
+    private Logger logger;
+    @Inject
+    private LoginCreator loginCreator;
+    @Inject
+    private MessageSender messageSender;
+    @Inject
+    private LoginModifier loginModifier;
+    @Inject
+    private Authenticator authenticator;
 
-	public Member getMemberById(long id) {
+    public Member getMemberById(long id) {
 		logger.info("Getting member by id={}", id);
 		try {
 			return em.createNamedQuery("member.findById", Member.class).setParameter("id", id).getSingleResult();
@@ -51,21 +70,59 @@ public class MemberService implements Serializable {
 		return em.createNamedQuery("member.findAll", Member.class).getResultList();
 	}
 
-	public Member createMember(Member member) {
+    /**
+     * Create new member and a login with random one time password.
+     * If new member has set a private email address a notification is send containing the one time password for the first login
+     *
+     * @param member New member to persist
+     * @return The created member
+     * @throws Exception
+     */
+    public Member createMember(Member member) throws Exception {
+        String alias = member.getFirstName() + "." + member.getLastName();
+        member.setAlias(alias);
+
 		logger.info("Persisting member with name={}", member.getFullName());
 		em.persist(member);
 		em.flush();
-		return member;
+
+        String oneTimePassword = loginCreator.createLogin(member.getAlias());
+
+        if (StringUtils.isNotEmpty(member.getPrivateEmail())) {
+            Map<Placeholder, String> placeholders = new HashMap<>();
+            placeholders.put(Placeholder.PASSWORD, oneTimePassword);
+            placeholders.put(Placeholder.URL, "");
+            messageSender.sendSingleNotification(member, CommunicationType.EMAIL, NotificationType.MEMBER_NEW, placeholders);
+        }
+
+        return member;
 	}
 
 	public void updateMember(Member member) {
 		logger.info("Updating member with id={}", member.getId());
 		em.merge(member);
 		em.flush();
-	}
+    }
 
-	@Inject
-	public void setLogger(Logger logger) {
-		this.logger = logger;
-	}
+    public void resetMemberPassword(Member member, String passwordNew) throws Exception {
+        loginModifier.savePassword(member.getAlias(), passwordNew, true);
+        messageSender.sendPasswortResetEmail(member, passwordNew);
+    }
+
+
+    public void changePassword(String alias, String passwordOld, String passwordNew) throws Exception {
+        logger.info("Changing password for alias={}", alias);
+
+        if (!authenticator.validate(alias, passwordOld)) {
+            throw new Exception("Invalid password");
+        }
+
+        loginModifier.savePassword(alias, passwordNew, false);
+    }
+
+    public void changeForgotPassword(Member member) throws Exception {
+        String oneTimePassword = authenticator.getRandomPassword();
+        loginModifier.savePassword(member.getAlias(), oneTimePassword, true);
+        messageSender.sendPasswortResetEmail(member, oneTimePassword);
+    }
 }

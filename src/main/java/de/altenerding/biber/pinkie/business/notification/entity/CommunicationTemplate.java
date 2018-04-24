@@ -1,5 +1,6 @@
 package de.altenerding.biber.pinkie.business.notification.entity;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,6 +22,7 @@ import java.util.Date;
 @Entity
 @Table(name = "communication_template")
 @IdClass(CommunicationTemplateId.class)
+@Cacheable(false)
 public class CommunicationTemplate {
 
 	@Id
