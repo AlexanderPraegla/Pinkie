@@ -11,7 +11,6 @@ import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -36,8 +35,7 @@ public class ReportBean {
 	private FileService fileService;
     private List<Report> latestReports;
 
-    @PostConstruct
-	public void init() {
+    public void initReports() {
 		if (reports == null) {
 			try {
 				reports = reportService.getReports();
@@ -151,6 +149,9 @@ public class ReportBean {
 	}
 
 	public List<Report> getReports() {
+        if (reports == null) {
+            reports = reportService.getReports();
+        }
 		return reports;
 	}
 

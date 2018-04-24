@@ -8,6 +8,9 @@
     <ui:define name="title">Spielberichte</ui:define>
 
     <ui:define name="content">
+        <f:metadata>
+            <f:viewAction action="#{reportBean.initReports()}"/>
+        </f:metadata>
         <b:container id="reportListingContainerId">
             <h:form>
                 <p:dataScroller value="#{reportBean.reports}" var="report" chunkSize="10">
