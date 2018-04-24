@@ -42,7 +42,7 @@ public class MemberService implements Serializable {
         try {
             return em.createNamedQuery("member.findByAlias", Member.class).setParameter("alias", alias).getSingleResult();
         } catch (Exception e) {
-            logger.info("Exception while leading member by alias={}", alias, e);
+			logger.info("Exception while loading member by alias={}", alias, e);
             return null;
         }
     }

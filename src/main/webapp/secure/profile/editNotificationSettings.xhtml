@@ -14,11 +14,11 @@
             <b:tabView style="margin-bottom: 15px;" id="tabView">
                 <b:tab id="emailSettingsTab" title="#{label['label.communicationType.EMAIL']}">
                     <memberComponents:notificationSettings
-                            rendered="#{userSessionBean.member.hasEmailAddress()}"
+                            rendered="#{userSessionBean.member.hasPrivateEmail()}"
                             id="emailSettingsComponent" communicationType="#{CommunicationType.EMAIL}"
                             generalNotifications="#{notificationSettingsBean.getGeneralNotificationSettings(CommunicationType.EMAIL)}"
                             reportNotification="#{notificationSettingsBean.getReportNotificationSettings(CommunicationType.EMAIL)}"/>
-                    <b:panel rendered="#{not userSessionBean.member.hasEmailAddress()}" look="danger">
+                    <b:panel rendered="#{not userSessionBean.member.hasPrivateEmail()}" look="danger">
                         <h:outputText value="#{textValues['message.email.notavailable']}"/>
                         <hr/>
                         <b:button outcome="/secure/profile/editProfile.xhtml" look="primary"
