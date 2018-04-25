@@ -91,7 +91,6 @@ public class MemberService implements Serializable {
         if (StringUtils.isNotEmpty(member.getPrivateEmail())) {
             Map<Placeholder, String> placeholders = new HashMap<>();
             placeholders.put(Placeholder.PASSWORD, oneTimePassword);
-            placeholders.put(Placeholder.URL, "");
             messageSender.sendSingleNotification(member, CommunicationType.EMAIL, NotificationType.MEMBER_NEW, placeholders);
         }
 
