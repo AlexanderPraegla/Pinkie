@@ -27,7 +27,7 @@ public class ReportProcessor {
 
         Map<Placeholder, String> placeholders = new HashMap<>();
         placeholders.put(Placeholder.REPORT_TITLE, report.getTitle());
-        placeholders.put(Placeholder.URL, "");
+		placeholders.put(Placeholder.AUTHOR, report.getAuthor().getFullName());
         if (report.getTeam() == null) {
             messageSender.sendNotifications(NotificationType.REPORT_GENERAL, placeholders);
         } else {
