@@ -20,6 +20,7 @@ public class Authenticator implements Serializable{
 	private Logger logger;
 
 	public boolean validate(String alias, String password) throws Exception {
+		alias = alias.toLowerCase();
 		logger.info("Checking login credentials for alias={}", alias);
 
 		Login login = loginProvider.getLoginByAlias(alias);
@@ -41,7 +42,7 @@ public class Authenticator implements Serializable{
 		}
 	}
 
-	public boolean authenticateRole(Role role) {
+	public boolean authenticateLoggedInUserRole(Role role) {
 		if (userSessionBean.getMember() == null) {
 			return false;
 		}

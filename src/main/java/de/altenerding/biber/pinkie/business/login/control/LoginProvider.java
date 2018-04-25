@@ -18,6 +18,7 @@ public class LoginProvider {
 	private EntityManager em;
 
 	Login getLoginByAlias(String alias) throws Exception {
+		alias = alias.toLowerCase();
 		logger.info("Getting login credentials for alias={}", alias);
 		List<Login> logins = em.createNamedQuery("Login.getByAlias", Login.class).setParameter("alias", alias).getResultList();
 
