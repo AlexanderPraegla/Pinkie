@@ -79,8 +79,11 @@ public class MemberService implements Serializable {
 	 * @throws Exception
 	 */
 	public Member createMember(Member member) throws Exception {
-		String alias = member.getFirstName() + "." + member.getLastName();
-		member.setAlias(alias);
+
+		if (member.getAlias() == null) {
+			String alias = member.getFirstName() + "." + member.getLastName();
+			member.setAlias(alias);
+		}
 
 		logger.info("Persisting member with name={}", member.getFullName());
 		em.persist(member);
@@ -123,7 +126,7 @@ public class MemberService implements Serializable {
 
 		loginModifier.removeLoginForAlias(member.getAlias());
 
-		messageSender.sendSingleNotification(member, CommunicationType.EMAIL, NotificationType.MEMBER_NEW);
+		messageSender.sendSingleNotification(member, CommunicationType.EMAIL, NotificationType.MEMBER_DELETED);
 	}
 
 	public void resetMemberPassword(Member member) throws Exception {
