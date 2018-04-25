@@ -17,6 +17,7 @@ public class LoginModifier {
 	private LoginProvider loginProvider;
 
 	public void savePassword(String alias, String passwordNew, boolean isOnetimePassword) throws Exception {
+		alias = alias.toLowerCase();
 		logger.info("Setting new password for login for alias={}", alias);
 
 		Login login = loginProvider.getLoginByAlias(alias);
@@ -31,6 +32,8 @@ public class LoginModifier {
 	}
 
 	public void updateAlias(String aliasOld, String aliasNew) throws Exception {
+		aliasOld = aliasOld.toLowerCase();
+		aliasNew = aliasNew.toLowerCase();
 		logger.info("Changing alias from {} to {}", aliasOld, aliasNew);
 		Login login = loginProvider.getLoginByAlias(aliasOld);
 
@@ -41,6 +44,7 @@ public class LoginModifier {
 	}
 
 	public void removeLoginForAlias(String alias) throws Exception {
+		alias = alias.toLowerCase();
 		logger.info("Removing login fpr alias={}", alias);
 		Login login = loginProvider.getLoginByAlias(alias);
 

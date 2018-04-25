@@ -24,7 +24,7 @@ public class RoleInterceptor implements Serializable {
 			return ic.proceed();
 		}
 
-		if (authenticator.authenticateRole(annotation.role())) {
+		if (authenticator.authenticateLoggedInUserRole(annotation.role())) {
 			return ic.proceed();
 		}
 

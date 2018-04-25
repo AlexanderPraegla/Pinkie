@@ -24,7 +24,8 @@ public class LoginCreator {
      * @return The saved one time password for notification purpose
      * @throws Exception If an error occurs during hashing or salting
      */
-    public String createLogin(String alias) throws Exception {
+	public String createLogin(String alias) {
+		alias = alias.toLowerCase();
         logger.info("Creating new login for alias={}", alias);
         byte[] salt = new byte[64];
         new Random().nextBytes(salt);
