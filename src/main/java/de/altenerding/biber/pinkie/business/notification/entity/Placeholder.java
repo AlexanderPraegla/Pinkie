@@ -6,7 +6,8 @@ public enum Placeholder {
     TEAM_NAME("[TEAM_NAME]"),
     REPORT_TITLE("[REPORT_TITLE]"),
 	AUTHOR("[AUTHOR]"),
-	ALBUM_TITLE("[ALBUM_TITLE]");
+	ALBUM_TITLE("[ALBUM_TITLE]"),
+	ALIAS_NEW("[ALIAS_NEW]");
 
 	private final String placeholder;
 

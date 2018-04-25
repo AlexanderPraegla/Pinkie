@@ -8,6 +8,7 @@ import de.altenerding.biber.pinkie.business.notification.control.MessageSender;
 import de.altenerding.biber.pinkie.business.notification.entity.CommunicationType;
 import de.altenerding.biber.pinkie.business.notification.entity.NotificationType;
 import de.altenerding.biber.pinkie.business.notification.entity.Placeholder;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateless;
@@ -94,10 +95,22 @@ public class MemberService implements Serializable {
 		return member;
 	}
 
-	public void updateMember(Member member) {
-		logger.info("Updating member with id={}", member.getId());
-		em.merge(member);
+	public void updateMember(Member memberNew) throws Exception {
+		logger.info("Updating member with id={}", memberNew.getId());
+
+		Member memberOld = getMemberById(memberNew.getId());
+
+		if (!StringUtils.equals(memberOld.getAlias(), memberNew.getAlias())) {
+			loginModifier.updateAlias(memberOld.getAlias(), memberNew.getAlias());
+
+			Map<Placeholder, String> placeholders = new HashMap<>();
+			placeholders.put(Placeholder.ALIAS_NEW, memberNew.getAlias());
+			messageSender.sendSingleNotification(memberNew, CommunicationType.EMAIL, NotificationType.ALIAS_CHANGED, placeholders);
+		}
+
+		em.merge(memberNew);
 		em.flush();
+
 	}
 
 	public void deleteMember(Member member) throws Exception {

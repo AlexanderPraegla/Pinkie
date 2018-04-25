@@ -30,6 +30,16 @@ public class LoginModifier {
 		em.flush();
 	}
 
+	public void updateAlias(String aliasOld, String aliasNew) throws Exception {
+		logger.info("Changing alias from {} to {}", aliasOld, aliasNew);
+		Login login = loginProvider.getLoginByAlias(aliasOld);
+
+		login.setAlias(aliasNew);
+		em.merge(login);
+		em.flush();
+		logger.info("Successfully changed alias from {} to {}", aliasOld, aliasNew);
+	}
+
 	public void removeLoginForAlias(String alias) throws Exception {
 		logger.info("Removing login fpr alias={}", alias);
 		Login login = loginProvider.getLoginByAlias(alias);
