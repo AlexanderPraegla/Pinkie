@@ -7,7 +7,7 @@ public enum Placeholder {
     REPORT_TITLE("[REPORT_TITLE]"),
 	AUTHOR("[AUTHOR]"),
 	ALBUM_TITLE("[ALBUM_TITLE]"),
-	ALIAS_NEW("[ALIAS_NEW]");
+	ALIAS("[ALIAS]");
 
 	private final String placeholder;
 

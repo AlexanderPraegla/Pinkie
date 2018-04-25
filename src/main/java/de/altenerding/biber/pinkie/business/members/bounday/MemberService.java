@@ -89,6 +89,7 @@ public class MemberService implements Serializable {
 		String oneTimePassword = loginCreator.createLogin(member.getAlias());
 
 		Map<Placeholder, String> placeholders = new HashMap<>();
+		placeholders.put(Placeholder.ALIAS, member.getAlias());
 		placeholders.put(Placeholder.PASSWORD, oneTimePassword);
 		messageSender.sendSingleNotification(member, CommunicationType.EMAIL, NotificationType.MEMBER_NEW, placeholders);
 
@@ -104,7 +105,7 @@ public class MemberService implements Serializable {
 			loginModifier.updateAlias(memberOld.getAlias(), memberNew.getAlias());
 
 			Map<Placeholder, String> placeholders = new HashMap<>();
-			placeholders.put(Placeholder.ALIAS_NEW, memberNew.getAlias());
+			placeholders.put(Placeholder.ALIAS, memberNew.getAlias());
 			messageSender.sendSingleNotification(memberNew, CommunicationType.EMAIL, NotificationType.ALIAS_CHANGED, placeholders);
 		}
 
