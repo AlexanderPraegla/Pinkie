@@ -32,25 +32,40 @@ public class NuLigaDataProvider {
 				.getResultList();
 	}
 
-	public List<TeamScheduleEntry> getUpcomingGames() {
+	public List<TeamScheduleEntry> getNextUpcomingMatches(int maxResults) {
+		logger.info("Getting next {} upcoming games for the next three days for all teams", maxResults);
+
+		int daysOffset = 3;
+		LocalDateTime dateTime = LocalDateTime.now().minusDays(daysOffset);
+		Date startDate = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+		Date endDate = new Date();
+
+		return em.createNamedQuery("TeamScheduleEntry.nextUpcomingGames", TeamScheduleEntry.class)
+				.setParameter("startDate", startDate)
+				.setParameter("endDate", endDate)
+				.setMaxResults(maxResults)
+				.getResultList();
+	}
+
+	public List<TeamScheduleEntry> getAllUpcomingMatches() {
 		logger.info("Getting all upcoming games for all teams");
 		return em.createNamedQuery("TeamScheduleEntry.upcomingGames", TeamScheduleEntry.class)
 				.getResultList();
 	}
 
-	public List<TeamScheduleEntry> getRecentResults() {
+	public List<TeamScheduleEntry> getRecentResults(int maxResult) {
 		logger.info("Getting recent team results for all teams");
 
 		int daysOffset = 5;
 		LocalDateTime dateTime = LocalDateTime.now().minusDays(daysOffset);
 		Date startDate = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
 		Date endDate = new Date();
-		List<TeamScheduleEntry> resultList = em.createNamedQuery("TeamScheduleEntry.recentResults", TeamScheduleEntry.class)
+
+		return em.createNamedQuery("TeamScheduleEntry.recentResults", TeamScheduleEntry.class)
 				.setParameter("startDate", startDate)
 				.setParameter("endDate", endDate)
+				.setMaxResults(maxResult)
 				.getResultList();
-
-		return resultList;
 	}
 
 	@Inject

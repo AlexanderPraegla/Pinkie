@@ -12,19 +12,29 @@ import java.util.List;
 @RequestScoped
 public class ScheduleBean {
 
+	private static final int MAX_RESULT_MAINPAGE = 5;
 	private NuLigaDataService nuLigaDataService;
 	private List<TeamScheduleEntry> teamScheduleEntries;
 	private List<TeamScheduleEntry> recentResults;
+	private List<TeamScheduleEntry> upcomingMatches;
 
 	public void initSchedule() {
-		teamScheduleEntries = nuLigaDataService.getUpcomingGames();
+		teamScheduleEntries = nuLigaDataService.getAllUpcomingMatches();
 	}
 
 	public List<TeamScheduleEntry> getRecentResults() {
 		if (recentResults == null) {
-			recentResults = nuLigaDataService.getRecentResults();
+			recentResults = nuLigaDataService.getRecentResults(MAX_RESULT_MAINPAGE);
 		}
 		return recentResults;
+	}
+
+	public List<TeamScheduleEntry> getUpcomingMatches() {
+		if (upcomingMatches == null) {
+			upcomingMatches = nuLigaDataService.getNextUpcomingMatches(MAX_RESULT_MAINPAGE);
+		}
+
+		return upcomingMatches;
 	}
 
 	@Inject
