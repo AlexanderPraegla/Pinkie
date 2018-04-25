@@ -11,7 +11,8 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="#{pageLabel['mainpage.lastResults.title']}" collapsible="true">
+        <b:panel id="lastResultsPanel" title="#{pageLabel['mainpage.lastResults.title']}" collapsible="true"
+                 rendered="#{scheduleBean.getRecentResults().size() > 0}">
             <b:dataTable value="#{scheduleBean.getRecentResults()}" searching="false" info="false" paginated="false"
                          var="match" fixedHeader="true" scrollHorizontally="true" style="margin: 0 auto;">
                 <b:dataTableColumn label="#{label['table.team']}" value="#{match.team.name}" orderable="false"/>

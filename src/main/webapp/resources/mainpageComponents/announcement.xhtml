@@ -11,7 +11,7 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="#{pageLabel['mainpage.announcement.title']}">
+        <b:panel id="announcementPanel" title="#{pageLabel['mainpage.announcement.title']}">
             <h:form id="announcementListFormId">
                 <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
                     <b:row>
