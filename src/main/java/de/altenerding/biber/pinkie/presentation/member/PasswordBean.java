@@ -49,12 +49,9 @@ public class PasswordBean implements Serializable {
         context.getExternalContext().getFlash().setKeepMessages(true);
 
         try {
-            if (!validateRetypePassword()) {
-                return "/secure/admin/editMemberPassword.xhtml?faces-redirect=true&includeViewParams=true&memberId=" + memberId;
-            }
-
-            memberService.resetMemberPassword(member, passwordNew);
-
+			//Updating member in case of new private email address
+			memberService.updateMember(member);
+			memberService.resetMemberPassword(member);
             FacesMessages.info(member.getFullName(), "Passwort neu gesetzt");
 
             return "/secure/admin/listMembers.xhtml?faces-redirect=true";
@@ -79,7 +76,7 @@ public class PasswordBean implements Serializable {
             return "/secure/profile/changePassword.xhtml?faces-redirect=true";
         } else {
             try {
-                memberService.changePassword(member.getAlias(), passwordOld, passwordNew);
+				memberService.changePassword(member, passwordOld, passwordNew);
 
                 FacesMessages.info(member.getFullName(), "Passwort geändert");
 
@@ -107,7 +104,7 @@ public class PasswordBean implements Serializable {
             return "";
         }
 
-        if (StringUtils.isEmpty(member.getEmail())) {
+		if (StringUtils.isEmpty(member.getPrivateEmail())) {
             FacesMessages.error("Dieses Mitglied hat keine private E-Mail Adresse hinterlegt. Bitte den Admin kontaktieren");
             return "";
         }

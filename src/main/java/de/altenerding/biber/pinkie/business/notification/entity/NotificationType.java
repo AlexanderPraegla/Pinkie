@@ -8,6 +8,7 @@ public enum NotificationType {
     PASSWORD_RESET(false, "", null, 0),
     PASSWORD_CHANGED(false, "", null, 0),
     MEMBER_NEW(false, "", null, 0),
+	MEMBER_DELETED(false, "", null, 0),
 
 
     REPORT_TEAM(true, "Benachrichtigen wenn ein Bericht für eine Mannschaft hochgeladen wird", NotificationGroup.REPORTS, 5),

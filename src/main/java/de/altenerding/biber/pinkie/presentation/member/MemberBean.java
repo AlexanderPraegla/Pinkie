@@ -36,10 +36,6 @@ public class MemberBean implements Serializable {
     @Inject
     private UserSessionBean userSession;
 
-	public Member getMember() {
-		return member;
-	}
-
     public void initEditMember() {
 		member = memberService.getMemberById(memberId);
 	}
@@ -124,6 +120,10 @@ public class MemberBean implements Serializable {
 		}
 
 		members = filteredMembers;
+	}
+
+	public Member getMember() {
+		return member;
 	}
 
 	@Inject

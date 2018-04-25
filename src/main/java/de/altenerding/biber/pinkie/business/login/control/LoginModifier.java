@@ -30,6 +30,16 @@ public class LoginModifier {
 		em.flush();
 	}
 
+	public void removeLoginForAlias(String alias) throws Exception {
+		logger.info("Removing login fpr alias={}", alias);
+		Login login = loginProvider.getLoginByAlias(alias);
+
+		login = em.merge(login);
+		em.remove(login);
+		em.flush();
+		logger.info("Successfully removed login for alias={}", alias);
+	}
+
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;

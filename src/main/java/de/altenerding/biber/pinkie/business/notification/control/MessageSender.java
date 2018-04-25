@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,10 @@ public class MessageSender {
 		message.addPlaceholder(Placeholder.FIRSTNAME, member.getFirstName());
 
 		messageEvent.fire(message);
+	}
+
+	public void sendSingleNotification(Member member, CommunicationType communicationType, NotificationType notificationType) {
+		sendSingleNotification(member, communicationType, notificationType, new HashMap<>());
 	}
 
 	public void sendSingleNotification(Member member, CommunicationType communicationType, NotificationType notificationType, Map<Placeholder, String> placeholders) {
@@ -86,13 +91,13 @@ public class MessageSender {
 			case EMAIL:
 				Email email = new Email();
 				Member recipient = message.getRecipient();
-				if (StringUtils.isEmpty(recipient.getEmail())) {
+				if (StringUtils.isEmpty(recipient.getPrivateEmail())) {
 					logger.error("No private email available for user {} with id={}", recipient.getFullName(), recipient.getId());
 					logger.error("Sending NO email!");
 					break;
 				}
 
-				email.setRecipient(recipient.getEmail());
+				email.setRecipient(recipient.getPrivateEmail());
 				String subject = replacePlaceholders(template.getSubject(), message.getPlaceholders());
 				email.setSubject(subject);
 				String body = replacePlaceholders(template.getBody(), message.getPlaceholders());
