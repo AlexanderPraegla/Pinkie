@@ -16,7 +16,7 @@
                 <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
                     <b:row>
                         <b:column>
-                            <h:outputText value="#{announcement.text}"/><br/>
+                            <h:outputText escape="false" value="#{announcement.text}"/><br/>
                         </b:column>
                     </b:row>
                     <b:row rendered="#{announcement.document.fileName != null}">
