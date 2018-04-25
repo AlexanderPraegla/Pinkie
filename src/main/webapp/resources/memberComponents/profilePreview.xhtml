@@ -20,12 +20,8 @@
                 <b:column>
                     <a href="#{request.contextPath}/secure/profile/profile.xhtml?memberId=#{cc.attrs.member.id}">
                         <b:image value="#{cc.attrs.profileImagePath}" style="max-width: 100%; max-height: 250px;"/>
-                    </a>
-                    <a href="#{request.contextPath}/secure/profile/profile.xhtml?memberId=#{cc.attrs.member.id}">
-                        <b:image rendered="#{cc.attrs.hasImage}" value="#{cc.attrs.profileImagePath}"
-                                 style="max-width: 100%; max-height: 100%"/>
                         <b:image rendered="#{not cc.attrs.hasImage}" value="/resources/images/blank-profile-picture.png"
-                                 style="max-width: 100%; max-height: 100%"/>
+                                 style="max-width: 100%; max-height: 250px;"/>
                     </a>
                 </b:column>
                 <b:column style="text-align: center">
