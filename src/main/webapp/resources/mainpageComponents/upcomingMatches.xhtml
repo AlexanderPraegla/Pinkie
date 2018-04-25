@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:b="http://bootsfaces.net/ui">
+
+<h:head/>
+<h:body>
+
+    <composite:interface/>
+
+    <composite:implementation>
+        <b:panel id="upcomingMatchesPanel" title="#{pageLabel['mainpage.upcomingMatches.title']}" collapsible="true"
+                 rendered="#{scheduleBean.upcomingMatches.size() > 0}">
+            <b:dataTable value="#{scheduleBean.upcomingMatches}" searching="false" info="false" paginated="false"
+                         var="match" fixedHeader="true" scrollHorizontally="true" style="margin: 0 auto;">
+                <b:dataTableColumn label="#{label['table.team']}" value="#{match.team.name}" orderable="false"/>
+                <b:dataTableColumn label="#{label['table.day']}" value="#{match.day}" orderable="false"/>
+                <b:dataTableColumn label="#{label['table.date']}" value="#{match.getFormattedMatchDate()}"
+                                   orderable="false"
+                                   styleClass="sm-screen-hidden xs-screen-hidden"/>
+                <b:dataTableColumn label="#{label['table.homeTeam']}" value="#{match.homeTeam}" orderable="false"
+                                   contentStyle="#{match.homeTeam}"/>
+                <b:dataTableColumn label="#{label['table.guestTeam']}" value="#{match.guestTeam}" orderable="false"
+                                   contentStyle="#{match.guestTeam}"/>
+            </b:dataTable>
+        </b:panel>
+    </composite:implementation>
+</h:body>
+</html>

@@ -2,7 +2,19 @@ package de.altenerding.biber.pinkie.business.nuLiga.entity;
 
 import de.altenerding.biber.pinkie.business.team.entity.Team;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,6 +26,11 @@ import java.util.Date;
 		@NamedQuery(name = "TeamScheduleEntry.upcomingGames", query = "SELECT e FROM TeamScheduleEntry e " +
 				"WHERE not e.inactive " +
 				"AND e.result = ''" +
+				"ORDER BY e.matchDate ASC"),
+		@NamedQuery(name = "TeamScheduleEntry.nextUpcomingGames", query = "SELECT e FROM TeamScheduleEntry e " +
+				"WHERE not e.inactive " +
+				"AND e.result = ''" +
+				"AND e.matchDate BETWEEN :startDate AND :endDate " +
 				"ORDER BY e.matchDate ASC"),
 		@NamedQuery(name = "TeamScheduleEntry.recentResults", query = "SELECT e FROM TeamScheduleEntry e " +
 				"WHERE e.result <> '' " +
