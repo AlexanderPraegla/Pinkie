@@ -3,11 +3,13 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:o="http://omnifaces.org/ui"
 >
 <ui:composition template="/WEB-INF/templates/template.xhtml">
     <ui:define name="title">Mitgliedsliste</ui:define>
     <ui:define name="content">
+        <o:importConstants type="de.altenerding.biber.pinkie.business.members.entity.Role"
+                           var="Role"/>
         <b:container>
             <h:form>
                 <b:inputText id="filterText" value="#{memberBean.filterText}" ajax="true"
@@ -46,6 +48,7 @@
                                     <b:formGroup>
                                         <b:button outcome="/secure/admin/deleteMember.xhtml"
                                                   value="#{label['button.delete']}"
+                                                  disabled="#{member.role == Role.ADMIN}"
                                                   look="danger btn-block">
                                             <f:param name="memberId" value="#{member.id}"/>
                                         </b:button>
