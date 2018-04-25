@@ -22,6 +22,7 @@
             <ui:repeat value="#{refereeBean.referees}" var="referee">
                 <components:profile
                         member="#{referee.member}"
+                        hasImage="#{referee.hasProfileImage()}"
                         profileImagePath="#{referee.getFullImagePath()}"
                         panelTitle="#{referee.member.getFullName()}"
                         showFullName="#{true}"

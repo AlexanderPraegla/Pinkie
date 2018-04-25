@@ -46,7 +46,7 @@ public class LoginBean {
             if (authenticateService.validate(alias, password)) {
                 Member member = memberService.getMemberByAlias(alias);
 				userSessionBean.setMember(member);
-				logger.info("Login successful for member alias={}", member.getEmail());
+				logger.info("Login successful for member alias={}", member.getAlias());
 
 				if (authenticateService.hasMemberOnetimePasswort(member)) {
 					return "changePassword";

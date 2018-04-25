@@ -8,7 +8,6 @@ import de.altenerding.biber.pinkie.business.notification.control.MessageSender;
 import de.altenerding.biber.pinkie.business.notification.entity.CommunicationType;
 import de.altenerding.biber.pinkie.business.notification.entity.NotificationType;
 import de.altenerding.biber.pinkie.business.notification.entity.Placeholder;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateless;
@@ -25,18 +24,18 @@ public class MemberService implements Serializable {
 
 	@PersistenceContext
 	private EntityManager em;
-    @Inject
-    private Logger logger;
-    @Inject
-    private LoginCreator loginCreator;
-    @Inject
-    private MessageSender messageSender;
-    @Inject
-    private LoginModifier loginModifier;
-    @Inject
-    private Authenticator authenticator;
+	@Inject
+	private Logger logger;
+	@Inject
+	private LoginCreator loginCreator;
+	@Inject
+	private MessageSender messageSender;
+	@Inject
+	private LoginModifier loginModifier;
+	@Inject
+	private Authenticator authenticator;
 
-    public Member getMemberById(long id) {
+	public Member getMemberById(long id) {
 		logger.info("Getting member by id={}", id);
 		try {
 			return em.createNamedQuery("member.findById", Member.class).setParameter("id", id).getSingleResult();
@@ -56,72 +55,85 @@ public class MemberService implements Serializable {
 		}
 	}
 
-    public Member getMemberByAlias(String alias) {
-        logger.info("Getting member by alias={}", alias);
-        try {
-            return em.createNamedQuery("member.findByAlias", Member.class).setParameter("alias", alias).getSingleResult();
-        } catch (Exception e) {
+	public Member getMemberByAlias(String alias) {
+		logger.info("Getting member by alias={}", alias);
+		try {
+			return em.createNamedQuery("member.findByAlias", Member.class).setParameter("alias", alias).getSingleResult();
+		} catch (Exception e) {
 			logger.info("Exception while loading member by alias={}", alias, e);
-            return null;
-        }
-    }
+			return null;
+		}
+	}
 
 	public List<Member> getMembers() {
 		return em.createNamedQuery("member.findAll", Member.class).getResultList();
 	}
 
-    /**
-     * Create new member and a login with random one time password.
-     * If new member has set a private email address a notification is send containing the one time password for the first login
-     *
-     * @param member New member to persist
-     * @return The created member
-     * @throws Exception
-     */
-    public Member createMember(Member member) throws Exception {
-        String alias = member.getFirstName() + "." + member.getLastName();
-        member.setAlias(alias);
+	/**
+	 * Create new member and a login with random one time password.
+	 * If new member has set a private email address a notification is send containing the one time password for the first login
+	 *
+	 * @param member New member to persist
+	 * @return The created member
+	 * @throws Exception
+	 */
+	public Member createMember(Member member) throws Exception {
+		String alias = member.getFirstName() + "." + member.getLastName();
+		member.setAlias(alias);
 
 		logger.info("Persisting member with name={}", member.getFullName());
 		em.persist(member);
 		em.flush();
 
-        String oneTimePassword = loginCreator.createLogin(member.getAlias());
+		String oneTimePassword = loginCreator.createLogin(member.getAlias());
 
-        if (StringUtils.isNotEmpty(member.getPrivateEmail())) {
-            Map<Placeholder, String> placeholders = new HashMap<>();
-            placeholders.put(Placeholder.PASSWORD, oneTimePassword);
-            messageSender.sendSingleNotification(member, CommunicationType.EMAIL, NotificationType.MEMBER_NEW, placeholders);
-        }
+		Map<Placeholder, String> placeholders = new HashMap<>();
+		placeholders.put(Placeholder.PASSWORD, oneTimePassword);
+		messageSender.sendSingleNotification(member, CommunicationType.EMAIL, NotificationType.MEMBER_NEW, placeholders);
 
-        return member;
+		return member;
 	}
 
 	public void updateMember(Member member) {
 		logger.info("Updating member with id={}", member.getId());
 		em.merge(member);
 		em.flush();
-    }
+	}
 
-    public void resetMemberPassword(Member member, String passwordNew) throws Exception {
-        loginModifier.savePassword(member.getAlias(), passwordNew, true);
-        messageSender.sendPasswortResetEmail(member, passwordNew);
-    }
+	public void deleteMember(Member member) throws Exception {
+		logger.info("Removing member with id={}", member.getId());
+		member = em.merge(member);
+		em.remove(member);
+		em.flush();
+		logger.info("Successfully removed member with id={}", member.getId());
+
+		loginModifier.removeLoginForAlias(member.getAlias());
+
+		messageSender.sendSingleNotification(member, CommunicationType.EMAIL, NotificationType.MEMBER_NEW);
+	}
+
+	public void resetMemberPassword(Member member) throws Exception {
+		String randomPassword = authenticator.getRandomPassword();
+		loginModifier.savePassword(member.getAlias(), randomPassword, true);
+		messageSender.sendPasswortResetEmail(member, randomPassword);
+	}
 
 
-    public void changePassword(String alias, String passwordOld, String passwordNew) throws Exception {
-        logger.info("Changing password for alias={}", alias);
+	public void changePassword(Member member, String passwordOld, String passwordNew) throws Exception {
+		logger.info("Changing password for alias={}", member.getAlias());
 
-        if (!authenticator.validate(alias, passwordOld)) {
-            throw new Exception("Invalid password");
-        }
+		if (!authenticator.validate(member.getAlias(), passwordOld)) {
+			throw new Exception("Invalid password");
+		}
 
-        loginModifier.savePassword(alias, passwordNew, false);
-    }
+		loginModifier.savePassword(member.getAlias(), passwordNew, false);
 
-    public void changeForgotPassword(Member member) throws Exception {
-        String oneTimePassword = authenticator.getRandomPassword();
-        loginModifier.savePassword(member.getAlias(), oneTimePassword, true);
-        messageSender.sendPasswortResetEmail(member, oneTimePassword);
-    }
+		messageSender.sendSingleNotification(member, CommunicationType.EMAIL, NotificationType.PASSWORD_CHANGED);
+	}
+
+	public void changeForgotPassword(Member member) throws Exception {
+		String oneTimePassword = authenticator.getRandomPassword();
+		loginModifier.savePassword(member.getAlias(), oneTimePassword, true);
+		messageSender.sendPasswortResetEmail(member, oneTimePassword);
+	}
 }
