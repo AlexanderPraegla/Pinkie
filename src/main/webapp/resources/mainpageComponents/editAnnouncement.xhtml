@@ -12,7 +12,7 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="#{pageLabel['mainpage.announcement.edit']}" collapsed="true">
+        <b:panel title="#{pageLabel['mainpage.announcement.edit']}" collapsed="false">
             <c:forEach var="announcement" items="#{announcementBean.announcements}">
                 <h:form id="announcementListFormId" enctype="multipart/form-data">
                     <h:inputHidden value="#{announcement.id}"/>
