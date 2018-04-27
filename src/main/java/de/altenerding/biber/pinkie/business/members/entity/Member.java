@@ -287,6 +287,10 @@ public class Member {
 		this.image = image;
 	}
 
+	public boolean hasProfileImage() {
+		return image != null;
+	}
+
     public String getAlias() {
         return alias;
     }

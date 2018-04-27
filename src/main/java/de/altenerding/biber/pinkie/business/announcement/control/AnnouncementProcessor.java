@@ -29,7 +29,6 @@ public class AnnouncementProcessor {
 		logger.info("Created announcement with id={}", anncouncement.getId());
 
         Map<Placeholder, String> placeholders = new HashMap<>();
-        placeholders.put(Placeholder.URL, "");
         messageSender.sendNotifications(NotificationType.ANNOUNCEMENT, placeholders);
 	}
 

@@ -11,7 +11,7 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="#{pageLabel['mainpage.weeklyImage.title']}" collapsible="true">
+        <b:panel id="weeklyImagePanel" title="#{pageLabel['mainpage.weeklyImage.title']}" collapsible="true">
             <b:carousel id="carousel">
                 <c:forEach items="#{weeklyImageBean.weeklyImages}" var="weeklyImage">
                     <b:carouselItem>

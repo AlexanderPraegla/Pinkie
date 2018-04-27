@@ -5,8 +5,9 @@ public enum Placeholder {
     PASSWORD("[PASSWORD]"),
     TEAM_NAME("[TEAM_NAME]"),
     REPORT_TITLE("[REPORT_TITLE]"),
-    ALBUM_TITLE("[ALBUM_TITLE]"),
-    URL("[URL]"),;
+	AUTHOR("[AUTHOR]"),
+	ALBUM_TITLE("[ALBUM_TITLE]"),
+	ALIAS("[ALIAS]");
 
 	private final String placeholder;
 

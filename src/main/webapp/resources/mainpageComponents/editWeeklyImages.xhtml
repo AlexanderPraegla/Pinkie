@@ -12,7 +12,7 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel title="#{pageLabel['mainpage.weeklyImage.edit']}" collapsed="true"
+        <b:panel title="#{pageLabel['mainpage.weeklyImage.edit']}" collapsed="false"
                  rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <c:forEach var="weeklyImage" items="#{weeklyImageBean.weeklyImages}" >
                 <h:form id="weeklyImageListFormId">

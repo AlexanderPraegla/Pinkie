@@ -3,7 +3,18 @@ package de.altenerding.biber.pinkie.business.referee.entity;
 import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Entity
@@ -33,6 +44,10 @@ public class Referee {
 		if (createdOn == null) {
 			createdOn = new Date();
 		}
+	}
+
+	public boolean hasProfileImage() {
+		return image != null || member.getImage() != null;
 	}
 
 	public String getFullImagePath() {

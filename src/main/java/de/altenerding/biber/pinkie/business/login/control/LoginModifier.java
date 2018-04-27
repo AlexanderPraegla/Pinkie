@@ -17,6 +17,7 @@ public class LoginModifier {
 	private LoginProvider loginProvider;
 
 	public void savePassword(String alias, String passwordNew, boolean isOnetimePassword) throws Exception {
+		alias = alias.toLowerCase();
 		logger.info("Setting new password for login for alias={}", alias);
 
 		Login login = loginProvider.getLoginByAlias(alias);
@@ -28,6 +29,29 @@ public class LoginModifier {
 
 		em.merge(login);
 		em.flush();
+	}
+
+	public void updateAlias(String aliasOld, String aliasNew) throws Exception {
+		aliasOld = aliasOld.toLowerCase();
+		aliasNew = aliasNew.toLowerCase();
+		logger.info("Changing alias from {} to {}", aliasOld, aliasNew);
+		Login login = loginProvider.getLoginByAlias(aliasOld);
+
+		login.setAlias(aliasNew);
+		em.merge(login);
+		em.flush();
+		logger.info("Successfully changed alias from {} to {}", aliasOld, aliasNew);
+	}
+
+	public void removeLoginForAlias(String alias) throws Exception {
+		alias = alias.toLowerCase();
+		logger.info("Removing login fpr alias={}", alias);
+		Login login = loginProvider.getLoginByAlias(alias);
+
+		login = em.merge(login);
+		em.remove(login);
+		em.flush();
+		logger.info("Successfully removed login for alias={}", alias);
 	}
 
 	@Inject

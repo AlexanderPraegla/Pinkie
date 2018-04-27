@@ -23,6 +23,7 @@
             <ui:repeat value="#{trainerBean.trainers}" var="trainer">
                 <components:profile
                         member="#{trainer}"
+                        hasImage="#{trainer.hasProfileImage()}"
                         profileImagePath="#{trainer.image.getDownloadUrl()}"
                         panelTitle="#{trainer.getFullName()}"
                         showMobileNumber="#{true}"

@@ -25,13 +25,17 @@ public class NuLigaDataService {
 		return nuLigaDataProvider.getTeamSchedule(teamId);
 	}
 
-	public List<TeamScheduleEntry> getUpcomingGames() {
-		return nuLigaDataProvider.getUpcomingGames();
+	public List<TeamScheduleEntry> getNextUpcomingMatches(int maxResults) {
+		return nuLigaDataProvider.getNextUpcomingMatches(maxResults);
 	}
 
-	public List<TeamScheduleEntry> getRecentResults() {
+	public List<TeamScheduleEntry> getAllUpcomingMatches() {
+		return nuLigaDataProvider.getAllUpcomingMatches();
+	}
+
+	public List<TeamScheduleEntry> getRecentResults(int maxResult) {
 		logger.info("Loading recent nu liga results");
-		return nuLigaDataProvider.getRecentResults();
+		return nuLigaDataProvider.getRecentResults(maxResult);
 	}
 
 	@Inject

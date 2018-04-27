@@ -11,20 +11,19 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel id="lastResultsPanel" title="#{pageLabel['mainpage.lastResults.title']}" collapsible="true"
-                 rendered="#{scheduleBean.getRecentResults().size() > 0}">
-            <b:dataTable value="#{scheduleBean.getRecentResults()}" searching="false" info="false" paginated="false"
+        <b:panel id="upcomingMatchesPanel" title="#{pageLabel['mainpage.upcomingMatches.title']}" collapsible="true"
+                 rendered="#{scheduleBean.upcomingMatches.size() > 0}">
+            <b:dataTable value="#{scheduleBean.upcomingMatches}" searching="false" info="false" paginated="false"
                          var="match" fixedHeader="true" scrollHorizontally="true" style="margin: 0 auto;">
                 <b:dataTableColumn label="#{label['table.team']}" value="#{match.team.name}" orderable="false"/>
-                <b:dataTableColumn label="#{label['table.day']}" value="#{match.day}" orderable="false"
-                                   styleClass="sm-screen-hidden xs-screen-hidden"/>
-                <b:dataTableColumn label="#{label['table.date']}" value="#{match.getFormattedMatchDate()}" orderable="false"
+                <b:dataTableColumn label="#{label['table.day']}" value="#{match.day}" orderable="false"/>
+                <b:dataTableColumn label="#{label['table.date']}" value="#{match.getFormattedMatchDate()}"
+                                   orderable="false"
                                    styleClass="sm-screen-hidden xs-screen-hidden"/>
                 <b:dataTableColumn label="#{label['table.homeTeam']}" value="#{match.homeTeam}" orderable="false"
                                    contentStyle="#{match.homeTeam}"/>
                 <b:dataTableColumn label="#{label['table.guestTeam']}" value="#{match.guestTeam}" orderable="false"
                                    contentStyle="#{match.guestTeam}"/>
-                <b:dataTableColumn label="#{label['table.result']}" value="#{match.result}" orderable="false"/>
             </b:dataTable>
         </b:panel>
     </composite:implementation>

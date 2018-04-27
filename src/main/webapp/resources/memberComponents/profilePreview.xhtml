@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:b="http://bootsfaces.net/ui">
 
 <h:head/>
@@ -10,6 +10,7 @@
 
     <composite:interface>
         <composite:attribute type="de.altenerding.biber.pinkie.business.members.entity.Member" name="member"/>
+        <composite:attribute type="java.lang.Boolean" default="#{true}" name="hasImage"/>
         <composite:attribute type="java.lang.String" name="profileImagePath"/>
     </composite:interface>
 
@@ -19,6 +20,8 @@
                 <b:column>
                     <a href="#{request.contextPath}/secure/profile/profile.xhtml?memberId=#{cc.attrs.member.id}">
                         <b:image value="#{cc.attrs.profileImagePath}" style="max-width: 100%; max-height: 250px;"/>
+                        <b:image rendered="#{not cc.attrs.hasImage}" value="/resources/images/blank-profile-picture.png"
+                                 style="max-width: 100%; max-height: 250px;"/>
                     </a>
                 </b:column>
                 <b:column style="text-align: center">
