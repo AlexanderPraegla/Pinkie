@@ -1,7 +1,17 @@
 package de.altenerding.biber.pinkie.business.file.boundary;
 
-import de.altenerding.biber.pinkie.business.file.control.*;
-import de.altenerding.biber.pinkie.business.file.entity.*;
+import de.altenerding.biber.pinkie.business.file.control.FileDeletion;
+import de.altenerding.biber.pinkie.business.file.control.FileDownload;
+import de.altenerding.biber.pinkie.business.file.control.FileMappingControl;
+import de.altenerding.biber.pinkie.business.file.control.FileSystemModifier;
+import de.altenerding.biber.pinkie.business.file.control.FileUpload;
+import de.altenerding.biber.pinkie.business.file.entity.Document;
+import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
+import de.altenerding.biber.pinkie.business.file.entity.FileMapping;
+import de.altenerding.biber.pinkie.business.file.entity.Image;
+import de.altenerding.biber.pinkie.business.file.entity.Mapping;
+import de.altenerding.biber.pinkie.business.file.entity.TextMapping;
+import de.altenerding.biber.pinkie.business.file.entity.Video;
 import de.altenerding.biber.pinkie.business.systemproperty.SystemProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
@@ -46,7 +56,7 @@ public class FileService {
 			if (Files.notExists(folderPath)) {
 				logger.info("Directory \'{}\' does not exist", fileCategory.getDirectoryPath());
 				try {
-					Files.createDirectory(folderPath);
+					Files.createDirectories(folderPath);
 					logger.info("Directory \'{}\' created", fileCategory.getDirectoryPath());
 				} catch (IOException e) {
 					logger.error("Could not create directory \'{}\'", fileCategory.getDirectoryPath(), e);
