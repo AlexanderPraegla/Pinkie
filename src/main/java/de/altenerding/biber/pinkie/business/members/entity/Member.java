@@ -34,7 +34,6 @@ public class Member {
 	private long id;
 	private String firstName;
 	private String lastName;
-    @Column(unique = true)
     private String nickName;
     @Column(unique = true)
     private String alias;
