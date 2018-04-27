@@ -36,7 +36,7 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
-        if (authenticateService.authenticateRole(Role.MEMBER)) {
+        if (authenticateService.authenticateLoggedInUserRole(Role.MEMBER)) {
             //Check if user has an onetime password and force him to change it before he can use any logged in site
             try {
                 Member member = userSessionBean.getMember();

@@ -14,10 +14,12 @@
         <composite:attribute type="java.lang.String" name="panelTitle"/>
         <composite:attribute type="java.lang.Boolean" default="#{true}" name="collapsible"/>
         <composite:attribute type="java.lang.Boolean" default="#{true}" name="collapsed"/>
+        <composite:attribute type="java.lang.Boolean" default="#{true}" name="hasImage"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showFullName"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showNickname"/>
         <composite:attribute type="java.util.Date" default="#{false}" name="showBirthday"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showEmail"/>
+        <composite:attribute type="java.lang.Boolean" default="#{false}" name="showAlias"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showMobileNumber"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showPhonenumber"/>
         <composite:attribute type="java.lang.Boolean" default="#{false}" name="showCity"/>
@@ -42,7 +44,10 @@
                 <b:column colLg="2" colMd="2" colSm="3" colXs="6"
                           styleClass="col-xs-offset-3 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
                     <a href="#{request.contextPath}/secure/profile/profile.xhtml?memberId=#{cc.attrs.member.id}">
-                        <b:image value="#{cc.attrs.profileImagePath}" style="max-width: 100%; max-height: 100%"/>
+                        <b:image rendered="#{cc.attrs.hasImage}" value="#{cc.attrs.profileImagePath}"
+                                 style="max-width: 100%; max-height: 100%"/>
+                        <b:image rendered="#{not cc.attrs.hasImage}" value="/resources/images/blank-profile-picture.png"
+                                 style="max-width: 100%; max-height: 100%"/>
                     </a>
                 </b:column>
                 <b:column colLg="10" colMd="10" colSm="9" colXs="12">
@@ -70,6 +75,12 @@
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberEmail"
                                                                                           value="#{label['eMail']}"/></b:column>
                         <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberEmail"
+                                                                                         value="#{cc.attrs.member.email}"/></b:column>
+                    </b:row>
+                    <b:row rendered="#{cc.attrs.showAll or cc.attrs.showAlias}">
+                        <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputLabel for="memberAlias"
+                                                                                          value="#{label['alias']}"/></b:column>
+                        <b:column colLg="6" colMd="6" colSm="6" colXs="12"><h:outputText id="memberAlias"
                                                                                          value="#{cc.attrs.member.alias}"/></b:column>
                     </b:row>
                     <b:row rendered="#{cc.attrs.showAll or cc.attrs.showMobileNumber}">

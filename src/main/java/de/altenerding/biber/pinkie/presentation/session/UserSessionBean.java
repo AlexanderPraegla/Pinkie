@@ -18,7 +18,7 @@ public class UserSessionBean implements Serializable {
 	private Member member = null;
 
 	public boolean isUserInRole(Role role) {
-		return authenticateService.authenticateRole(role);
+		return authenticateService.authenticateLoggedInUserRole(role);
 	}
 
 	public Member getMember() {

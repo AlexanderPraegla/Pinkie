@@ -25,8 +25,8 @@ public class AuthenticateService implements Serializable {
         return authenticator.validate(alias, password);
     }
 
-    public boolean authenticateRole(Role role) {
-        return authenticator.authenticateRole(role);
+    public boolean authenticateLoggedInUserRole(Role role) {
+        return authenticator.authenticateLoggedInUserRole(role);
     }
 
     public boolean hasMemberOnetimePasswort(Member member) throws Exception {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:o="http://omnifaces.org/ui"
+>
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+    <f:metadata>
+        <f:viewParam name="memberId" value="#{memberBean.memberId}"/>
+        <f:viewAction action="#{memberBean.initMemberById()}"/>
+    </f:metadata>
+    <ui:define name="title">Mitglied löschen</ui:define>
+    <ui:define name="content">
+        <o:importConstants type="de.altenerding.biber.pinkie.business.members.entity.Role"
+                           var="Role"/>
+        <b:container rendered="#{userSessionBean.isUserInRole('ADMIN')}">
+            <h:form id="deleteMember" styleClass="form-setPassword" prependId="false">
+                <h2 class="form-signin-heading">Account löschen</h2>
+                <b:column colLg="6" colMd="2" colSm="3" colXs="6" style="margin-bottom: 15px"
+                          styleClass="col-xs-offset-3 col-lg-offset-3 col-md-offset-0 col-sm-offset-0">
+                    <a href="#{request.contextPath}/secure/profile/profile.xhtml?memberId=#{memberBean.member.id}">
+                        <b:image rendered="#{memberBean.member.hasProfileImage()}"
+                                 value="#{memberBean.member.image.getDownloadUrl()}"
+                                 style="max-width: 100%; max-height: 100%"/>
+                        <b:image rendered="#{not memberBean.member.hasProfileImage()}"
+                                 value="/resources/images/blank-profile-picture.png"
+                                 style="max-width: 100%; max-height: 100%"/>
+                    </a>
+                </b:column>
+                <b:inputText id="fullname" value="#{memberBean.member.fullName}"
+                             disabled="true" tooltip="#{label['fullName']}"/>
+                <b:inputText id="privateEmail" value="#{memberBean.member.privateEmail}" type="email"
+                             disabled="true" tooltip="#{label['privateEmail']}"/>
+
+                <b:commandButton action="#{memberBean.deleteMember()}"
+                                 disabled="#{memberBean.member.role == Role.ADMIN}" value="#{label['button.delete']}"
+                                 look="danger btn-block">
+                    <f:param name="memberId" value="#{memberBean.memberId}"/>
+                </b:commandButton>
+            </h:form>
+        </b:container>
+    </ui:define>
+</ui:composition>
+</html>

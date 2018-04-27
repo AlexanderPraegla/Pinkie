@@ -6,7 +6,7 @@
 <ui:composition template="/WEB-INF/templates/memberTemplate.xhtml">
     <ui:define name="title">Mitglied anlegen</ui:define>
         <ui:define name="sumbitButton">
-            <b:commandButton action="#{memberBean.createMember}" value="#{label['button.save']}"/>
+            <b:commandButton look="success" action="#{memberBean.createMember}" value="#{label['button.save']}"/>
         </ui:define>
 </ui:composition>
 </html>

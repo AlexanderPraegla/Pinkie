@@ -10,6 +10,7 @@
             <ui:repeat value="#{deanBean.deans}" var="dean">
                 <components:profile
                         member="#{dean.member}"
+                        hasImage="#{dean.hasProfileImage()}"
                         profileImagePath="#{dean.getFullImagePath()}"
                         panelTitle="#{dean.function}"
                         showFullName="#{true}"
