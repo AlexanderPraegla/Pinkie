@@ -2,7 +2,6 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:mainpageComponent="http://java.sun.com/jsf/composite/mainpageComponents"
 >
     <ui:define name="title">Altenerding Handball</ui:define>
 
@@ -10,34 +9,18 @@
 
 
         <b:container>
-            <b:row>
-                <b:column colLg="6">
-                    <mainpageComponent:announcement/>
-                </b:column>
-                <b:column colLg="6">
-                    <mainpageComponent:lastReports/>
-                </b:column>
-                <b:column colLg="6">
-                    <mainpageComponent:lastResults/>
-                </b:column>
-
-                <b:column colLg="6">
-                    <mainpageComponent:upcomingMatches/>
-                </b:column>
-
-                <b:column colLg="6"
-                          rendered="#{weeklyImageBean.weeklyImages.size() > 0}">
-                    <mainpageComponent:weeklyImages/>
-                </b:column>
-                <b:column colLg="6">
-
-                    <mainpageComponent:sponsors/>
-                </b:column>
-                <b:column colLg="6"
-                          rendered="#{videoBean.videoMapping.video != null}">
-                    <mainpageComponent:video/>
-                </b:column>
-            </b:row>
+            <b:form>
+                <b:tabView>
+                    <b:tab title="Tab1">
+                        <b:panel>
+                            <b:form>
+                                <b:inputText value="#{testTabBean.text}"/>
+                                <b:commandButton action="#{testTabBean.doIt()}" value="test" look="danger"/>
+                            </b:form>
+                        </b:panel>
+                    </b:tab>
+                </b:tabView>
+            </b:form>
         </b:container>
     </ui:define>
 </ui:composition>
