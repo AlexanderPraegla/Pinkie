@@ -24,6 +24,9 @@
                                          required="true" requiredMessage="Bitte URL ausfüllen"/>
                         </b:column>
                         <b:column colLg="12" colMd="12" colSm="12" colXs="12">
+                            <b:inputTextarea rows="2" value="#{sponsorBean.sponsor.text}" placeholder="Beschreibung"/>
+                        </b:column>
+                        <b:column colLg="12" colMd="12" colSm="12" colXs="12">
                             <b:selectBooleanCheckbox value="#{sponsorBean.sponsor.premium}" caption="Premium Sponsor" />
                         </b:column>
                         <b:column colLg="1" colMd="1" colSm="2" colXs="12">
@@ -47,9 +50,9 @@
                 <b:row>
                     <b:form enctype="multipart/form-data">
                         <b:column colLg="3" colMd="3" colSm="3" colXs="12">
-                            <b:image
-                                    value="#{sponsor.image.downloadUrl}"
-                                    style="max-width: 100%; max-height: 100%"/>
+                            <b:image rendered="#{sponsor.image != null}"
+                                     value="#{sponsor.image.downloadUrl}"
+                                     style="max-width: 100%; max-height: 100%"/>
                         </b:column>
                         <b:column colLg="9" colMd="9" colSm="9" colXs="12">
                             <b:row>
@@ -60,6 +63,9 @@
                                 <b:column colLg="12" colMd="12" colSm="12" colXs="12">
                                     <b:inputText value="#{sponsor.url}" placeholder="URL"
                                                  required="true" requiredMessage="Bitte URL ausfüllen"/>
+                                </b:column>
+                                <b:column colLg="12" colMd="12" colSm="12" colXs="12">
+                                    <b:inputTextarea rows="2" value="#{sponsor.text}" placeholder="Beschreibung"/>
                                 </b:column>
                                 <b:column colLg="12" colMd="12" colSm="12" colXs="12">
                                     <b:selectBooleanCheckbox value="#{sponsor.premium}" caption="Premium Sponsor" />
