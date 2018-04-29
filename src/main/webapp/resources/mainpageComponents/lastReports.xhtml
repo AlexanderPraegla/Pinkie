@@ -19,7 +19,11 @@
                             includeViewParams="true">
                         <f:param name="reportId" value="#{report.id}"/>
                     </h:link>
-                <br/>
+                <div style="font-size: 12px; font-style: italic;">
+                    <h:outputText value="#{report.createdOn}">
+                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
+                    </h:outputText>
+                </div>
                 <br/>
             </ui:repeat>
             <b:button value="Weitere Berichte" outcome="/public/news/report.xhtml" look="primary"
