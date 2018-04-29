@@ -17,14 +17,14 @@ public class LoginProvider {
 	@PersistenceContext
 	private EntityManager em;
 
-	Login getLoginByAlias(String alias) throws Exception {
+	public Login getLoginByAlias(String alias) throws Exception {
 		alias = alias.toLowerCase();
 		logger.info("Getting login credentials for alias={}", alias);
 		List<Login> logins = em.createNamedQuery("Login.getByAlias", Login.class).setParameter("alias", alias).getResultList();
 
 		if (logins.size() < 1) {
 			logger.error("No login credentials found for alias={}", alias);
-			throw new Exception("No login credentials found");
+			return null;
 		}
 
 		return logins.get(0);
@@ -35,6 +35,11 @@ public class LoginProvider {
 		logger.info("Checking if user with alias={}  has onetime password", alias);
 
 		Login login = getLoginByAlias(alias);
+
+		if (login == null) {
+			logger.error("No login credentials found for alias={}", alias);
+			throw new Exception("No login credentials found");
+		}
 
 		return login.isOnetimePassword();
 	}
