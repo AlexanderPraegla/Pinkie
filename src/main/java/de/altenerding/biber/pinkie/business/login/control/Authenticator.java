@@ -17,6 +17,7 @@ public class Authenticator implements Serializable{
 	private UserSessionBean userSessionBean;
 	private SecurityProvider securityProvider;
 	private LoginProvider loginProvider;
+	private LoginModifier loginModifier;
 	private Logger logger;
 
 	public boolean validate(String alias, String password) throws Exception {
@@ -24,6 +25,11 @@ public class Authenticator implements Serializable{
 		logger.info("Checking login credentials for alias={}", alias);
 
 		Login login = loginProvider.getLoginByAlias(alias);
+
+		if (login == null) {
+			logger.error("No login credentials found for alias={}", alias);
+			return false;
+		}
 
 		if (login.getLoginCount() >= 3) {
 			logger.error("Login tries already at {}", login.getLoginCount());
@@ -35,9 +41,11 @@ public class Authenticator implements Serializable{
 
 		if (StringUtils.equals(login.getPassword(), hashedPassword)) {
 			login.setLoginCount(0);
+			loginModifier.updateLogin(login);
 			return true;
 		} else {
 			login.setLoginCount(login.getLoginCount() + 1);
+			loginModifier.updateLogin(login);
 			return false;
 		}
 	}
@@ -84,5 +92,10 @@ public class Authenticator implements Serializable{
 	@Inject
 	public void setLoginProvider(LoginProvider loginProvider) {
 		this.loginProvider = loginProvider;
+	}
+
+	@Inject
+	public void setLoginModifier(LoginModifier loginModifier) {
+		this.loginModifier = loginModifier;
 	}
 }

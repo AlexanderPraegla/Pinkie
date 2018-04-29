@@ -4,6 +4,7 @@ import de.altenerding.biber.pinkie.business.login.control.Authenticator;
 import de.altenerding.biber.pinkie.business.login.control.LoginCreator;
 import de.altenerding.biber.pinkie.business.login.control.LoginModifier;
 import de.altenerding.biber.pinkie.business.login.control.LoginProvider;
+import de.altenerding.biber.pinkie.business.login.entity.Login;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import org.apache.logging.log4j.Logger;
@@ -31,6 +32,10 @@ public class AuthenticateService implements Serializable {
 
     public boolean hasMemberOnetimePasswort(Member member) throws Exception {
         return loginProvider.hasMemberOnetimePasswort(member);
+    }
+
+    public Login getLoginByAlias(String alias) throws Exception {
+        return loginProvider.getLoginByAlias(alias);
     }
 
     @Inject

@@ -29,6 +29,10 @@ public class UserSessionBean implements Serializable {
 		this.member = member;
 	}
 
+    public void logout() {
+        member = null;
+    }
+
 	@Inject
 	public void setAuthenticateService(AuthenticateService authenticateService) {
 		this.authenticateService = authenticateService;
