@@ -26,8 +26,7 @@
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('0')}"/>
                     <components:teamInfo/>
                 </b:tab>
-                <b:tab title="#{pageLabel['team.tab.playerProfiles']}"
-                       rendered="#{teamBean.team.teamMembers.size() > 0}">
+                <b:tab title="#{pageLabel['team.tab.playerProfiles']}">
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('1')}"/>
                     <components:teamProfiles/>
                 </b:tab>
