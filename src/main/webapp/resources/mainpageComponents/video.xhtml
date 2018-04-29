@@ -10,7 +10,8 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel id="videoPanel" title="#{pageLabel['mainpage.video.title']}">
+        <b:panel id="videoPanel" title="#{pageLabel['mainpage.video.title']}"
+                 rendered="#{videoBean.videoMapping.video != null}">
             <b:row>
                 <b:column styleClass="video-description">
                     <h:outputText value="#{videoBean.videoMapping.video.description}"/>
