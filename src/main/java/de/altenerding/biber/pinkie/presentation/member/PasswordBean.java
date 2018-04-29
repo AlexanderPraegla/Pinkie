@@ -26,7 +26,7 @@ public class PasswordBean implements Serializable {
 	private String passwordRetype;
 	private String passwordOld;
 	private String passwordNew;
-	private String email;
+	private String alias;
 	@Inject
 	private UserSessionBean userSession;
 
@@ -98,16 +98,16 @@ public class PasswordBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
 
-		Member member = memberService.getMemberByAlias(email);
+		Member member = memberService.getMemberByAlias(alias);
 
 		if (member == null) {
 			FacesMessages.error("Kein Nutzer mit dieser E-Mail Adresse verfügbar");
-			return "";
+			return "/public/login/passwordForgotten.xhtml?faces-redirect=true";
 		}
 
 		if (StringUtils.isEmpty(member.getPrivateEmail())) {
 			FacesMessages.error("Dieses Mitglied hat keine private E-Mail Adresse hinterlegt. Bitte den Admin kontaktieren");
-			return "";
+			return "/public/login/passwordForgotten.xhtml?faces-redirect=true";
 		}
 
 		try {
@@ -183,11 +183,11 @@ public class PasswordBean implements Serializable {
 		return passwordNew;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getAlias() {
+		return alias;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 }
