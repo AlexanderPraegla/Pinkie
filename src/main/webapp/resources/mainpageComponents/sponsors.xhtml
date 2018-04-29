@@ -3,7 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head/>
 <h:body>
@@ -15,31 +15,22 @@
                  rendered="#{sponsorBean.sponsors.size() > 0}">
             <b:row>
                 <b:carousel id="carousel" showIndicators="false" disabled="true" interval="10000">
-                    <c:forEach items="#{sponsorBean.sponsors}" var="sponsor" varStatus="status">
+                    <c:forEach items="#{sponsorBean.sponsors}" var="sponsor">
                         <b:carouselItem style="width: auto; height:auto">
                             <b:panelGrid colSpans="6,6" size="xs">
-                                <b:panel styleClass="panel-no-border">
-                                    <a href="#{sponsorBean.sponsors.get(status.index).url}" target="blank">
-                                        <b:image
-                                                value="#{sponsorBean.sponsors.get(status.index).image.downloadUrl}"
+                                <b:panel styleClass="panel-no-border"
+                                         rendered="#{sponsor.url != null and sponsor.url != ''}">
+                                    <a href="#{sponsor.url}" target="blank">
+                                        <b:image rendered="#{sponsor.image != null}"
+                                                 value="#{sponsor.image.downloadUrl}"
                                                 style="max-width: 100%; max-height: 200px"/>
                                     </a>
                                 </b:panel>
                                 <b:panel styleClass="panel-no-border">
-                                    <ui:fragment rendered="#{not status.last}">
-                                        <a href="#{sponsorBean.sponsors.get(status.index + 1).url}" target="blank">
-                                            <b:image
-                                                    value="#{sponsorBean.sponsors.get(status.index + 1).image.downloadUrl}"
-                                                    style="max-width: 100%; max-height: 200px"/>
-                                        </a>
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{status.last}">
-                                        <a href="#{sponsorBean.sponsors.get(0).url}" target="blank">
-                                            <b:image
-                                                    value="#{sponsorBean.sponsors.get(0).image.downloadUrl}"
-                                                    style="max-width: 100%; max-height: 200px"/>
-                                        </a>
-                                    </ui:fragment>
+                                    <b:panelGrid colSpans="12">
+                                        <h:outputText style="font-weight:bold" value="#{sponsor.name}" escape="false"/>
+                                        <h:outputText value="#{sponsor.text}" escape="false"/>
+                                    </b:panelGrid>
                                 </b:panel>
                             </b:panelGrid>
                         </b:carouselItem>
