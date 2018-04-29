@@ -12,9 +12,9 @@
                         <b:panel styleClass="panel-no-border">
                             <h:outputLabel value="#{sponsor.name}"/>
                             <a href="#{sponsor.url}" target="blank">
-                                <b:image
-                                        value="#{sponsor.image.downloadUrl}"
-                                        style="max-width: 100%; max-height: 100%"/>
+                                <b:image rendered="#{sponsor.image != null}"
+                                         value="#{sponsor.image.downloadUrl}"
+                                         style="max-width: 100%; max-height: 100%"/>
                             </a>
                         </b:panel>
                     </c:forEach>
@@ -26,9 +26,9 @@
                         <b:panel styleClass="panel-no-border">
                             <h:outputLabel value="#{sponsor.name}"/>
                             <a href="#{sponsor.url}" target="blank">
-                                <b:image
-                                        value="#{sponsor.image.downloadUrl}"
-                                        style="max-width: 100%; max-height: 100%"/>
+                                <b:image rendered="#{sponsor.image != null}"
+                                         value="#{sponsor.image.downloadUrl}"
+                                         style="max-width: 100%; max-height: 100%"/>
                             </a>
                         </b:panel>
                     </c:forEach>
