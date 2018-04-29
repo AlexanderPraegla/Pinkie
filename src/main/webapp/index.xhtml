@@ -25,16 +25,14 @@
                     <mainpageComponent:upcomingMatches/>
                 </b:column>
 
-                <b:column colLg="6"
-                          rendered="#{weeklyImageBean.weeklyImages.size() > 0}">
+                <b:column colLg="6">
                     <mainpageComponent:weeklyImages/>
                 </b:column>
                 <b:column colLg="6">
 
                     <mainpageComponent:sponsors/>
                 </b:column>
-                <b:column colLg="6"
-                          rendered="#{videoBean.videoMapping.video != null}">
+                <b:column colLg="6">
                     <mainpageComponent:video/>
                 </b:column>
             </b:row>

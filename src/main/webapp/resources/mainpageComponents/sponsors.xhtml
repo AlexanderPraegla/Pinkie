@@ -11,7 +11,8 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:panel id="sponsorsPanel" title="#{pageLabel['mainpage.sponsors.title']}">
+        <b:panel id="sponsorsPanel" title="#{pageLabel['mainpage.sponsors.title']}"
+                 rendered="#{sponsorBean.sponsors.size() > 0}">
             <b:row>
                 <b:carousel id="carousel" showIndicators="false" disabled="true" interval="10000">
                     <c:forEach items="#{sponsorBean.sponsors}" var="sponsor" varStatus="status">
