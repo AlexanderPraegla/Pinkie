@@ -11,54 +11,44 @@
         <o:importConstants type="de.altenerding.biber.pinkie.business.members.entity.Role"
                            var="Role"/>
         <b:container>
-            <h:form>
-                <b:inputText id="filterText" value="#{memberBean.filterText}" ajax="true"
-                             onkeyup="ajax:memberBean.filterMembers()"
-                             update="memberList" placeholder="Tippen zum Filtern"/>
-            </h:form>
-            <h:panelGroup id="memberList">
-                <b:panel title="#{pageLabel['admin.members.memberList']}" collapsible="false">
-                    <ui:repeat value="#{memberBean.members}" var="member">
-                        <b:form>
-                            <b:row>
-                                <b:column colLg="4" colMd="4" colSm="6" colXs="12">
-                                    <b:formGroup>
-                                        <b:inputText value="#{member.getFullName()}" disabled="true"/>
-                                    </b:formGroup>
-                                </b:column>
-                                <b:column colLg="2" colMd="3" colSm="3" colXs="6">
-                                    <b:formGroup>
-                                        <b:button outcome="/secure/admin/editMember.xhtml"
-                                                  value="#{label['button.edit']}"
-                                                  look="warning btn-block">
-                                            <f:param name="memberId" value="#{member.id}"/>
-                                        </b:button>
-                                    </b:formGroup>
-                                </b:column>
-                                <b:column colLg="3" colMd="4" colSm="4" colXs="6">
-                                    <b:formGroup>
-                                        <b:button outcome="/secure/admin/editMemberPassword.xhtml"
-                                                  value="#{label['resetPasswort']}"
-                                                  look="danger btn-block">
-                                            <f:param name="memberId" value="#{member.id}"/>
-                                        </b:button>
-                                    </b:formGroup>
-                                </b:column>
-                                <b:column colLg="3" colMd="4" colSm="4" colXs="6">
-                                    <b:formGroup>
-                                        <b:button outcome="/secure/admin/deleteMember.xhtml"
-                                                  value="#{label['button.delete']}"
-                                                  disabled="#{member.role == Role.ADMIN}"
-                                                  look="danger btn-block">
-                                            <f:param name="memberId" value="#{member.id}"/>
-                                        </b:button>
-                                    </b:formGroup>
-                                </b:column>
-                            </b:row>
-                        </b:form>
-                    </ui:repeat>
-                </b:panel>
-            </h:panelGroup>
+            <b:dataTable value="#{memberBean.members}" searching="true" info="false"
+                         multiColumnSearch="false" multiColumnSearchPosition="top"
+                         var="member" fixedHeader="true" scrollHorizontally="true">
+                <b:dataTableColumn label="#{label['fullName']}" value="#{member.fullName}" order="asc"
+                                   searchable="true"/>
+                <b:dataTableColumn label="#{label['birthday']}" dataType="date" searchable="false"
+                                   orderable="false" styleClass="md-screen-hidden sm-screen-hidden xs-screen-hidden">
+                    <h:outputText value="#{member.birthday}">
+                        <f:convertDateTime pattern="dd.MM.yyyy" timeZone="Europe/Berlin"/>
+                    </h:outputText>
+                </b:dataTableColumn>
+                <b:dataTableColumn label="#{label['authorization']}" value="#{member.role}" searchable="false"
+                                   orderable="true" styleClass="md-screen-hidden sm-screen-hidden xs-screen-hidden"/>
+                <b:dataTableColumn label="#{label['privateEmail']}" value="#{member.privateEmail}" searchable="true"
+                                   orderable="true" styleClass="md-screen-hidden sm-screen-hidden xs-screen-hidden"/>
+                <b:dataTableColumn label="" orderable="false">
+                    <b:button outcome="/secure/admin/editMember.xhtml"
+                              tooltip="#{label['button.edit']}" iconAwesome="pencil"
+                              look="warning btn-block">
+                        <f:param name="memberId" value="#{member.id}"/>
+                    </b:button>
+                </b:dataTableColumn>
+                <b:dataTableColumn label="" orderable="false">
+                    <b:button outcome="/secure/admin/deleteMember.xhtml"
+                              tooltip="#{label['button.delete']}" iconAwesome="trash"
+                              look="danger btn-block"
+                              disabled="#{member.role == Role.ADMIN}">
+                        <f:param name="memberId" value="#{member.id}"/>
+                    </b:button>
+                </b:dataTableColumn>
+                <b:dataTableColumn label="" orderable="false">
+                    <b:button outcome="/secure/admin/editMemberPassword.xhtml"
+                              value="#{label['resetPasswort']}"
+                              look="danger btn-block">
+                        <f:param name="memberId" value="#{member.id}"/>
+                    </b:button>
+                </b:dataTableColumn>
+            </b:dataTable>
         </b:container>
     </ui:define>
 </ui:composition>
