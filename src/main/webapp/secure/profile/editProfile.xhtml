@@ -12,19 +12,14 @@
         </f:metadata>
         <b:container rendered="#{userSessionBean.isUserInRole('MEMBER')}">
             <b:form enctype="multipart/form-data">
-                <b:formGroup>
-                    <b:inputText value="#{memberBean.member.firstName}" label="#{label['firstName']}"
-                                 placeholder="#{label['firstName']}" disabled="true"/>
-                </b:formGroup>
-                <b:formGroup>
-                    <b:inputText value="#{memberBean.member.lastName}" label="#{label['lastName']}"
-                                 placeholder="#{label['lastName']}" disabled="true"/>
-                </b:formGroup>
-                <b:formGroup>
-                    <b:inputText value="#{memberBean.member.email}" label="#{label['eMail']}" disabled="true"/>
-                </b:formGroup>
-                <memberComponents:editPersonalProfile/>
-                <memberComponents:editPlayersProfile/>
+                <b:tabView style="margin-bottom: 15px;">
+                    <b:tab title="Persönliches">
+                        <memberComponents:editPersonalProfile/>
+                    </b:tab>
+                    <b:tab title="Sportliches">
+                        <memberComponents:editPlayersProfile/>
+                    </b:tab>
+                </b:tabView>
                 <b:commandButton action="#{memberBean.updateProfile}" value="#{label['button.save']}" look="success"/>
             </b:form>
         </b:container>
