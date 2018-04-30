@@ -9,7 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.Closeable;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,7 +85,7 @@ public class FileServlet extends HttpServlet {
 		// URL-decode the file name (might contain spaces and on) and prepare file object.
 		File file;
 		try {
-			file = fileService.getFileById(fileId);
+			file = fileService.getFileById(Long.parseLong(fileId));
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);

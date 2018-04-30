@@ -17,14 +17,19 @@
         <b:row rendered="#{cc.attrs.positioned}">
             <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
             <b:column colLg="8" colMd="8" colSm="12" colXs="12">
-                <b:image value="#{fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).image.downloadUrl}"
-                         style="max-width: 100%; max-height: 100%"/>
+                <b:image
+                        rendered="#{fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key) != null
+                        and fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).file != null}"
+                        value="#{fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).image.downloadUrl}"
+                        style="max-width: 100%; max-height: 100%"/>
             </b:column>
             <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
         </b:row>
-        <b:image value="#{fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).image.downloadUrl}"
-                 style="max-width: 100%; max-height: 100%"
-                 rendered="#{not cc.attrs.positioned}"/>
+        <b:image rendered="#{not cc.attrs.positioned
+                        and fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key) != null
+                        and fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).file != null}"
+                 value="#{fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).image.downloadUrl}"
+                 style="max-width: 100%; max-height: 100%"/>
     </composite:implementation>
 </h:body>
 </html>

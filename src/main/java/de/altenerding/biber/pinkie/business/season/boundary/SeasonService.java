@@ -23,7 +23,12 @@ public class SeasonService {
 
 	public Season getCurrentSeason() {
 		logger.info("Loading current season");
-		return em.createNamedQuery("Season.findAll", Season.class).setMaxResults(1).getResultList().get(0);
+        List<Season> resultList = em.createNamedQuery("Season.findAll", Season.class).setMaxResults(1).getResultList();
+        if (resultList.size() > 0) {
+            return resultList.get(0);
+        } else {
+            return null;
+        }
 	}
 
 	public Season createSeason(String name) {

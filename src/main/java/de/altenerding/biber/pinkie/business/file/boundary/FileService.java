@@ -116,7 +116,7 @@ public class FileService {
         fileDeletion.deleteImage(image);
     }
 
-	public java.io.File getFileById(String fileId) throws Exception {
+	public java.io.File getFileById(long fileId) throws Exception {
 		return fileDownload.getFileById(fileId);
 	}
 
