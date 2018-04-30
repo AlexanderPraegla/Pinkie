@@ -1,7 +1,5 @@
 package de.altenerding.biber.pinkie.business.file.entity;
 
-import de.altenerding.biber.pinkie.business.global.entity.BaseLongIdEntity;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
@@ -18,13 +16,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "file_type", discriminatorType = DiscriminatorType.STRING)
 @Access(AccessType.FIELD)
 @Table(name = "files")
-public abstract class File extends BaseLongIdEntity {
+public abstract class File {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -89,5 +88,20 @@ public abstract class File extends BaseLongIdEntity {
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+		File file = (File) o;
+		return id == file.id;
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(super.hashCode(), id);
 	}
 }

@@ -11,16 +11,17 @@ import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
+import java.io.Serializable;
 import java.util.List;
 
 @Named
-@RequestScoped
-public class ReportBean {
+@ViewScoped
+public class ReportBean implements Serializable {
 
 	private Logger logger;
 	private ReportService reportService;

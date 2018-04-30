@@ -17,7 +17,6 @@
         <b:container>
             <b:panel title="Bilder hinzufügen" collapsible="false">
                 <b:form enctype="multipart/form-data">
-                    <h:inputHidden value="#{albumBean.album}" converter="#{baseLongIdEntityConverter}"/>
                     <b:row>
                         <b:column colLg="4" colMd="4" colSm="6" colXs="12">
                             <global:imageUpload file="#{albumBean.files}" required="false"
@@ -39,7 +38,6 @@
                         <h:form enctype="multipart/form-data">
                             <b:panel collapsible="false">
                                 <b:row>
-                                    <h:inputHidden value="#{albumBean.album}" converter="#{baseLongIdEntityConverter}"/>
                                     <b:column>
                                         <b:image value="#{image.downloadUrl}"
                                                  style="max-width: 100%; max-height: 100%"/>

@@ -13,7 +13,6 @@
         </f:metadata>
         <b:container rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <h:form id="editReportFormId" enctype="multipart/form-data">
-                <h:inputHidden value="#{reportBean.report}" converter="#{baseLongIdEntityConverter}"/>
                 <b:inputText value="#{reportBean.report.author.getFullName()}" label="#{pageLabel['report.author']}"
                              disabled="true"/>
                 <b:inputText value="#{reportBean.report.title}" label="#{pageLabel['report.reportTitle']}"
