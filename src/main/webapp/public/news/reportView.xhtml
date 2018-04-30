@@ -3,7 +3,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <ui:define name="title"><h:outputText value="#{reportBean.report.title}" /></ui:define>
+    <ui:define name="title"><h:outputText value="#{reportBean.report.title}"/></ui:define>
 
     <ui:define name="content">
         <f:metadata>
@@ -11,6 +11,15 @@
             <f:viewAction action="#{reportBean.initReport()}"/>
         </f:metadata>
         <b:container>
+            <b:row rendered="#{reportBean.report.team != null}" style="font-size: 25px;text-align: -webkit-center;">
+                <b:column>
+                    <h:outputText value="#{reportBean.report.team.name}"/>
+                    <h:outputText value=" - "/>
+                    <h:outputText value="#{reportBean.report.team.league}"/>
+                    <h:outputText value=" - "/>
+                    <h:outputText value="#{reportBean.report.team.season.name}"/>
+                </b:column>
+            </b:row>
             <b:panel collapsible="false" style="white-space: pre-wrap">
                 <f:facet name="heading">
                     <h:outputText value="#{reportBean.report.title}"/>

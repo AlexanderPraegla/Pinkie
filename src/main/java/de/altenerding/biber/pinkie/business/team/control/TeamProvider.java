@@ -43,6 +43,11 @@ public class TeamProvider {
 		return trainers;
 	}
 
+	public List<Team> getTeamsBySeason(Season season) {
+		logger.info("Loading teams with season={}", season);
+		return em.createNamedQuery("Teams.findBySeason", Team.class).setParameter("season", season).getResultList();
+	}
+
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
