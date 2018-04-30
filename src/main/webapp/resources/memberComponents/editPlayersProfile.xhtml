@@ -13,7 +13,6 @@
     </composite:interface>
 
     <composite:implementation>
-        <b:panel title="#{pageLabel['member.edit.playersProfile']}" collapsed="false">
             <b:formGroup>
                 <b:inputText value="#{memberBean.member.position}" label="#{label['position']}"
                              placeholder="#{label['position']}"/>
@@ -45,7 +44,6 @@
                                  rows="5"
                                  placeholder="#{label['additionalInformation']}"/>
             </b:formGroup>
-        </b:panel>
     </composite:implementation>
 </h:body>
 </html>

@@ -13,47 +13,49 @@
         <b:container rendered="#{userSessionBean.isUserInRole('ADMIN')}">
             <h2><ui:insert name="title">Template Member Title</ui:insert></h2>
             <b:form enctype="multipart/form-data">
-                <b:panel title="#{pageLabel['member.mandatoryfields']}" collapsible="false">
-                    <b:formGroup>
-                        <h:inputHidden value="#{memberBean.member.id}"/>
-                    </b:formGroup>
-                    <b:formGroup>
-                        <b:inputText value="#{memberBean.member.firstName}" label="#{label['firstName']}"
-                                     placeholder="#{label['firstName']}"
-                                     required="true" requiredMessage="Bitte Vorname ausfüllen">
-                            <b:focus/>
-                        </b:inputText>
-                    </b:formGroup>
-                    <b:formGroup>
-                        <b:inputText value="#{memberBean.member.lastName}" label="#{label['lastName']}"
-                                     placeholder="#{label['lastName']}"
-                                     required="true" requiredMessage="Bitte Nachname ausfüllen"/>
-                    </b:formGroup>
-                    <b:formGroup>
-                        <b:inputText value="#{memberBean.member.alias}" label="#{label['alias']}"
-                                     placeholder="#{label['alias']}"
-                                     tooltip="Mit diesem Namen kann sich das Mitglied dann auf der Webseite einloggen. Soll das Format 'Vorname.Nachname' haben"
-                                     required="true" requiredMessage="Bitte User Namen ausfüllen">
-                            <b:focus/>
-                        </b:inputText>
-                    </b:formGroup>
-                    <b:formGroup>
-                        <b:inputText value="#{memberBean.member.email}" label="#{label['eMail']}" type="email"
-                                     placeholder="#{label['eMail']}"/>
-                    </b:formGroup>
-                    <b:formGroup>
-                        <b:selectOneMenu value="#{memberBean.member.role}" label="#{label['authorization']}" required="true"
-                                         requiredMessage="Bitte Berechtigung auswählen">
-                            <f:selectItems value="#{enumBean.getAssignableRoles()}" var="role" itemValue="#{role}"
-                                           itemLabel="#{role.getLabel()}"/>
-                        </b:selectOneMenu>
-                    </b:formGroup>
-                </b:panel>
+                <b:tabView style="margin-bottom: 15px;">
+                    <b:tab title="#{pageLabel['member.mandatoryfields']}">
+                        <b:formGroup>
+                            <h:inputHidden value="#{memberBean.member.id}"/>
+                        </b:formGroup>
+                        <b:formGroup>
+                            <b:inputText value="#{memberBean.member.firstName}" label="#{label['firstName']}"
+                                         placeholder="#{label['firstName']}"
+                                         required="true" requiredMessage="Bitte Vorname ausfüllen">
+                                <b:focus/>
+                            </b:inputText>
+                        </b:formGroup>
+                        <b:formGroup>
+                            <b:inputText value="#{memberBean.member.lastName}" label="#{label['lastName']}"
+                                         placeholder="#{label['lastName']}"
+                                         required="true" requiredMessage="Bitte Nachname ausfüllen"/>
+                        </b:formGroup>
+                        <b:formGroup>
+                            <b:inputText value="#{memberBean.member.alias}" label="#{label['alias']}"
+                                         placeholder="#{label['alias']}"
+                                         tooltip="Mit diesem Namen kann sich das Mitglied dann auf der Webseite einloggen. Soll das Format 'Vorname.Nachname' haben"
+                                         required="true" requiredMessage="Bitte User Namen ausfüllen">
+                                <b:focus/>
+                            </b:inputText>
+                        </b:formGroup>
+                        <b:formGroup>
+                            <b:selectOneMenu value="#{memberBean.member.role}" label="#{label['authorization']}"
+                                             required="true"
+                                             requiredMessage="Bitte Berechtigung auswählen">
+                                <f:selectItems value="#{enumBean.getAssignableRoles()}" var="role" itemValue="#{role}"
+                                               itemLabel="#{role.getLabel()}"/>
+                            </b:selectOneMenu>
+                        </b:formGroup>
+                    </b:tab>
 
-                <memberComponents:editPersonalProfile/>
-                <memberComponents:editPlayersProfile/>
+                    <b:tab title="#{pageLabel['member.edit.personal']}">
+                        <memberComponents:editPersonalProfile/>
+                    </b:tab>
+                    <b:tab title="#{pageLabel['member.edit.playersProfile']}">
+                        <memberComponents:editPlayersProfile/>
+                    </b:tab>
 
-
+                </b:tabView>
                 <b:formGroup>
                     <ui:insert name="sumbitButton"/>
                 </b:formGroup>

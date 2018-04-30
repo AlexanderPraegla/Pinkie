@@ -13,7 +13,6 @@
     </composite:interface>
 
     <composite:implementation>
-        <b:panel title="#{pageLabel['member.edit.personal']}" collapsed="false">
             <b:formGroup rendered="#{memberBean.member.image.fileName != null}">
                 <b:row>
                     <b:column colLg="2" colMd="2" colSm="3" colXs="6"
@@ -33,6 +32,10 @@
                 <b:inputText value="#{memberBean.member.nickName}" label="#{label['nickName']}"
                              placeholder="#{label['nickName']}"/>
             </b:formGroup>
+        <b:formGroup>
+            <b:inputText value="#{memberBean.member.email}" label="#{label['eMail']}" type="email"
+                         placeholder="#{label['eMail']}"/>
+        </b:formGroup>
             <b:formGroup>
                 <b:inputText value="#{memberBean.member.privateEmail}" label="#{label['privateEmail']}"
                              tooltip="Wird nicht auf der Webseite angezeigt, sondern nur für den Versand von Benachrichtigungen benötigt"
@@ -69,7 +72,6 @@
                 <b:inputText value="#{memberBean.member.city}" label="#{label['city']}"
                              placeholder="#{label['city']}"/>
             </b:formGroup>
-        </b:panel>
     </composite:implementation>
 </h:body>
 </html>
