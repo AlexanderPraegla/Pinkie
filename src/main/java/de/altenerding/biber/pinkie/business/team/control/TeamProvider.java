@@ -38,7 +38,15 @@ public class TeamProvider {
 	}
 
 	public List<Member> getAllTrainers() {
-		List<Member> trainers = em.createNamedQuery("Team.allTrainer", Member.class).getResultList();
+		Season currentSeason = seasonSerivce.getCurrentSeason();
+		List<Member> trainers = em.createNamedQuery("Team.allTrainer", Member.class)
+				.setParameter("seasonId", currentSeason.getId())
+				.getResultList();
+
+		if (trainers.size() > 0 && trainers.get(0) == null) {
+			return new ArrayList<>();
+		}
+
 		logger.info("Found {} trainers", trainers.size());
 		return trainers;
 	}
