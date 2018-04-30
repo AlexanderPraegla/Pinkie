@@ -1,9 +1,20 @@
 package de.altenerding.biber.pinkie.business.album.entity;
 
 import de.altenerding.biber.pinkie.business.file.entity.Image;
-import de.altenerding.biber.pinkie.business.global.entity.BaseLongIdEntity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +22,7 @@ import java.util.List;
 @NamedQueries({
 		@NamedQuery(name = "Album.all", query = "SELECT a FROM Album a WHERE a.archivedOn is null ORDER BY a.createdOn DESC")
 })
-public class Album extends BaseLongIdEntity {
+public class Album {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

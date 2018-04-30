@@ -159,11 +159,19 @@ public class AlbumBean implements Serializable {
         try {
             List<Image> images = album.getImages();
             images.remove(image);
+
+            if (album.getCoverImage().equals(image) && images.size() > 0) {
+                album.setCoverImage(images.get(0));
+            } else {
+                FacesMessages.error("Das letzte Bild kann nicht entfernt werden!");
+                return "success";
+            }
+
             albumService.updateAlbum(album);
             fileService.deleteImage(image);
             FacesMessages.info("Bild entfernt");
         } catch (Exception e) {
-            logger.error("Error while removing image with id={} from album with={}", image.getId(), album.getId());
+            logger.error("Error while removing image with id={} from album with={}", image.getId(), album.getId(), e);
             FacesMessages.error("Fehler beim entfernen des Bildes");
         }
         return "success";

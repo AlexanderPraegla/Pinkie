@@ -1,12 +1,25 @@
 package de.altenerding.biber.pinkie.business.report.entity;
 
 import de.altenerding.biber.pinkie.business.file.entity.Image;
-import de.altenerding.biber.pinkie.business.global.entity.BaseLongIdEntity;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.season.entity.Season;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Entity
@@ -16,7 +29,7 @@ import java.util.Date;
 		@NamedQuery(name = "Report.findByTeamIdSeasonID", query = "SELECT g from Report g " +
 				"where g.team.id = :teamId AND g.season.id = :seasonId ORDER BY g.createdOn desc")
 })
-public class Report extends BaseLongIdEntity {
+public class Report {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
