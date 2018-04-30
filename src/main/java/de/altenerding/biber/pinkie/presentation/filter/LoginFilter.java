@@ -6,6 +6,7 @@ import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.servlet.Filter;
@@ -27,6 +28,8 @@ public class LoginFilter implements Filter {
     private AuthenticateService authenticateService;
     @Inject
     private UserSessionBean userSessionBean;
+    @Inject
+    private Logger logger;
 
     @Override
     public void init(FilterConfig filterConfig) {
@@ -44,6 +47,7 @@ public class LoginFilter implements Filter {
                 Login login = authenticateService.getLoginByAlias(member.getAlias());
 
                 if (login == null) {
+                    logger.error("No login credentials available for alias={}", member.getAlias());
                     userSessionBean.logout();
                     String contextPath = request.getContextPath();
                     String requestURI = request.getRequestURI();
