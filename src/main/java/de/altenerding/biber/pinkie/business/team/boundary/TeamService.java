@@ -1,6 +1,7 @@
 package de.altenerding.biber.pinkie.business.team.boundary;
 
 import de.altenerding.biber.pinkie.business.members.entity.Member;
+import de.altenerding.biber.pinkie.business.season.entity.Season;
 import de.altenerding.biber.pinkie.business.team.control.TeamProcessor;
 import de.altenerding.biber.pinkie.business.team.control.TeamProvider;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
@@ -18,6 +19,10 @@ public class TeamService {
 	public List<Team> getCurrentTeams() {
 		return teamProvider.getCurrentTeams();
 	}
+
+    public List<Team> getTeamsBySeason(Season season) {
+        return teamProvider.getTeamsBySeason(season);
+    }
 
 	public Team getTeamById(long id) {
 		return teamProvider.getTeamById(id);

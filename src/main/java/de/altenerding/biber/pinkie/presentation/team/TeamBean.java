@@ -7,6 +7,7 @@ import de.altenerding.biber.pinkie.business.nuLiga.entity.StandingEntry;
 import de.altenerding.biber.pinkie.business.nuLiga.entity.TeamScheduleEntry;
 import de.altenerding.biber.pinkie.business.report.boundary.ReportService;
 import de.altenerding.biber.pinkie.business.report.entity.Report;
+import de.altenerding.biber.pinkie.business.season.entity.Season;
 import de.altenerding.biber.pinkie.business.team.boundary.TeamService;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
 import org.apache.logging.log4j.Logger;
@@ -37,6 +38,14 @@ public class TeamBean implements Serializable {
 	public void initTeam() {
 		logger.info("Loading team data for id={}", teamId);
 		team = teamService.getTeamById(teamId);
+	}
+
+	public List<Team> getTeamBySeason(Season season) {
+		if (season != null) {
+			return teamService.getTeamsBySeason(season);
+		} else {
+			return teamService.getCurrentTeams();
+		}
 	}
 
 	public List<Team> getTeams() {

@@ -21,11 +21,14 @@
                     <b:selectOneMenu value="#{reportBean.report.season}" label="#{pageLabel['report.season']}">
                         <f:selectItems value="#{seasonBean.seasons}" var="season" itemValue="#{season}"
                                        itemLabel="#{season.name}"/>
+                        <f:ajax event="change" render="selectTeams"/>
                     </b:selectOneMenu>
 
-                    <b:selectOneMenu value="#{reportBean.report.team}" label="#{pageLabel['report.team']}">
+                    <b:selectOneMenu id="selectTeams" value="#{reportBean.report.team}"
+                                     label="#{pageLabel['report.team']}">
                         <f:selectItem itemLabel="Bitte auswählen" itemValue=""/>
-                        <f:selectItems value="#{teamBean.teams}" var="team" itemValue="#{team}"
+                        <f:selectItems value="#{teamBean.getTeamBySeason(reportBean.report.season)}" var="team"
+                                       itemValue="#{team}"
                                        itemLabel="#{team.name}"/>
                     </b:selectOneMenu>
                     <b:selectOneMenu value="#{reportBean.report.type}" label="#{pageLabel['report.reportType']}"
