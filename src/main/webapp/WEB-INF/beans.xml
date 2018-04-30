@@ -5,7 +5,4 @@
         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
         bean-discovery-mode="all">
-    <interceptors>
-        <class>de.altenerding.biber.pinkie.business.members.control.RoleInterceptor</class>
-    </interceptors>
 </beans>
