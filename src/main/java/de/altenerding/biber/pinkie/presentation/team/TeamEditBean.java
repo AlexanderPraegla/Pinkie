@@ -73,11 +73,16 @@ public class TeamEditBean implements Serializable {
 			}
 			team.setTeamMembers(teamMembers);
 
-			List<Member> trainer = new ArrayList<>();
+			List<Member> trainers = new ArrayList<>();
 			for (String index : StringUtils.split(trainerIndex, ",")) {
-				trainer.add(members.get(Integer.parseInt(index)));
+				trainers.add(members.get(Integer.parseInt(index)));
 			}
-			team.setTrainers(trainer);
+
+			if (trainers.size() > 0) {
+				team.setTrainers(trainers);
+			} else {
+				team.setTrainers(null);
+			}
 
 			teamService.updateTeam(team);
 			FacesMessages.info(team.getName(), "Team aktualisiert");

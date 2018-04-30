@@ -32,7 +32,7 @@ import java.util.List;
 		@NamedQuery(name = "Team.findById", query = "SELECT t FROM Team t where t.id = :id"),
 		@NamedQuery(name = "Teams.findBySeason", query = "SELECT t FROM Team t where t.season = :season"),
 		@NamedQuery(name = "Team.archiveTeam", query = "UPDATE Team t SET t.archivedOn = current_timestamp WHERE t.id = :id"),
-		@NamedQuery(name = "Team.allTrainer", query = "SELECT DISTINCT t.trainers FROM Team t where t.archivedOn IS NULL")
+		@NamedQuery(name = "Team.allTrainer", query = "SELECT DISTINCT t.trainers FROM Team t where t.archivedOn IS NULL AND t.season.id = :seasonId")
 })
 public class Team {
 
