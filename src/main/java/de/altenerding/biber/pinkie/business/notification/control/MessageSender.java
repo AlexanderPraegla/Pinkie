@@ -42,6 +42,7 @@ public class MessageSender {
 		message.setRecipient(member);
 		message.addPlaceholder(Placeholder.PASSWORD, oneTimePassword);
 		message.addPlaceholder(Placeholder.FIRSTNAME, member.getFirstName());
+		message.addPlaceholder(Placeholder.ALIAS, member.getAlias());
 
 		messageEvent.fire(message);
 	}

@@ -5,6 +5,7 @@ import de.altenerding.biber.pinkie.business.login.control.LoginCreator;
 import de.altenerding.biber.pinkie.business.login.control.LoginModifier;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.notification.control.MessageSender;
+import de.altenerding.biber.pinkie.business.notification.control.NotificationSettingsProcessor;
 import de.altenerding.biber.pinkie.business.notification.entity.CommunicationType;
 import de.altenerding.biber.pinkie.business.notification.entity.NotificationType;
 import de.altenerding.biber.pinkie.business.notification.entity.Placeholder;
@@ -35,6 +36,8 @@ public class MemberService implements Serializable {
 	private LoginModifier loginModifier;
 	@Inject
 	private Authenticator authenticator;
+    @Inject
+    private NotificationSettingsProcessor notificationSettingsProcessor;
 
 	public Member getMemberById(long id) {
 		logger.info("Getting member by id={}", id);
@@ -119,12 +122,13 @@ public class MemberService implements Serializable {
 
 	public void deleteMember(Member member) throws Exception {
 		logger.info("Removing member with id={}", member.getId());
+        loginModifier.removeLoginForAlias(member.getAlias());
+        notificationSettingsProcessor.deleteReportNotificationSettingForMember(member);
 		member = em.merge(member);
 		em.remove(member);
 		em.flush();
 		logger.info("Successfully removed member with id={}", member.getId());
 
-		loginModifier.removeLoginForAlias(member.getAlias());
 
 		messageSender.sendSingleNotification(member, CommunicationType.EMAIL, NotificationType.MEMBER_DELETED);
 	}
