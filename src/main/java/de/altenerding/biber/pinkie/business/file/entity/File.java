@@ -1,6 +1,6 @@
 package de.altenerding.biber.pinkie.business.file.entity;
 
-import de.altenerding.biber.pinkie.business.global.entity.BaseStringIdEntity;
+import de.altenerding.biber.pinkie.business.global.entity.BaseLongIdEntity;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -16,17 +18,17 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "file_type", discriminatorType = DiscriminatorType.STRING)
 @Access(AccessType.FIELD)
 @Table(name = "files")
-public abstract class File extends BaseStringIdEntity {
+public abstract class File extends BaseLongIdEntity {
 
 	@Id
-	private String id = UUID.randomUUID().toString();
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	private FileCategory directory;
 	@Column(columnDefinition = "varchar")
 	private String fileName;
@@ -57,11 +59,11 @@ public abstract class File extends BaseStringIdEntity {
 		return directory.getDirectoryPath() + fileName;
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

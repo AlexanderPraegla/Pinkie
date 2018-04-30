@@ -13,8 +13,8 @@ import net.bootsfaces.utils.FacesMessages;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class TeamCreationBean implements Serializable {
 
 	private TeamService teamService;
@@ -32,10 +32,15 @@ public class TeamCreationBean implements Serializable {
 	private MemberBean memberBean;
 	private Logger logger;
 
-	private Team team = new Team();
+	private Team team;
 	private Part file;
 	private String memberIndex = "";
 	private String trainerIndex = "";
+
+	public void initNewTeam() {
+		team = new Team();
+		team.setImage(new Image());
+	}
 
 	@Access(role = Role.ADMIN)
 	public String createTeam() {

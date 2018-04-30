@@ -40,6 +40,13 @@ public class FileMappingBean {
 	@Access(role = Role.ADMIN)
 	public void updateSingleMappingText(String text, String page, String key) {
 		TextMapping mapping = fileService.getSingleTextMapping(page, key);
+
+		if (mapping == null) {
+			mapping = new TextMapping();
+			mapping.setPage(page);
+			mapping.setKey(key);
+		}
+
 		mapping.setText(text);
 		fileService.updateMapping(mapping);
 	}
@@ -48,6 +55,13 @@ public class FileMappingBean {
 	@Access(role = Role.ADMIN)
 	public void updateSingleMappingFileImage(String page, String key) throws Exception {
 		FileMapping mapping = fileService.getSingleFileMapping(page, key);
+
+		if (mapping == null) {
+			mapping = new FileMapping();
+			mapping.setPage(page);
+			mapping.setKey(key);
+		}
+
 		Image image = fileService.uploadImage(file, FileCategory.IMAGES, displayedName);
 		mapping.setFile(image);
 		fileService.updateMapping(mapping);

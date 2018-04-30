@@ -27,6 +27,7 @@ public class HistoryBean implements Serializable {
 	public void updateOrCreateEvent(HistoryEvent event) {
 		if (event.getId() <= 0) {
 			historyService.createHistoryEvent(event);
+			createdEvent = new HistoryEvent();
 		} else {
 			historyService.updateHistoryEvent(event);
 		}

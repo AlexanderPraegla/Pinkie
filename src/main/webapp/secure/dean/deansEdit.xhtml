@@ -7,7 +7,7 @@
     <ui:define name="content">
         <b:container rendered="#{userSessionBean.isUserInRole('ADMIN')}">
             <b:form>
-                <b:panel rendered="#{deanBean.deans.size() > 0}">
+                <b:panel>
                     <ui:repeat id="deanRepeat" value="#{deanBean.deans}" var="dean">
                         <b:row>
                             <b:column colLg="4" colMd="4" colSm="3" colXs="12">

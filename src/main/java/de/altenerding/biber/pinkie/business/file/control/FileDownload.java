@@ -19,7 +19,7 @@ public class FileDownload {
 	@PersistenceContext
 	private EntityManager em;
 
-	public java.io.File getFileById(String fileId) throws Exception {
+	public java.io.File getFileById(long fileId) {
 		File file = em.find(File.class, fileId);
 		Path path = Paths.get(resourceFolder + file.getFullFilePath());
 		return path.toFile();

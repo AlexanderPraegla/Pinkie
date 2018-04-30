@@ -35,30 +35,34 @@ public class TrainerBean {
 
 	@PostConstruct
 	public void init() {
-		getFileMapping();
-		groupImageDescription = fileMapping.getImage().getDescription();
+		if (getFileMapping() != null) {
+			groupImageDescription = fileMapping.getImage().getDescription();
+		}
 	}
 
 	@Access(role = Role.PRESS)
 	public String uploadTrainerGroupImage() throws Exception {
 		FileMapping imageMapping = getFileMapping();
+
+		if (imageMapping == null) {
+			imageMapping = new FileMapping();
+			imageMapping.setKey(TRAINER_GROUP_PICTURE_KEY);
+			imageMapping.setPage(TRAINERS_PAGE_NAME);
+		}
+
 		if (file != null) {
 			logger.info("Replacing trainers group image with new one");
 			Image image = fileService.uploadImage(file, FileCategory.IMAGES_TRAINER_GROUP, groupImageDescription);
 
-			if (imageMapping == null) {
-				imageMapping = new FileMapping();
-			}
 			imageMapping.setKey(TRAINER_GROUP_PICTURE_KEY);
 			imageMapping.setPage(TRAINERS_PAGE_NAME);
 			imageMapping.setFile(image);
 
-			fileService.updateMapping(imageMapping);
 		} else {
 			logger.info("Updating trainers group image description");
 			imageMapping.getImage().setDescription(groupImageDescription);
-			fileService.updateMapping(imageMapping);
 		}
+		fileService.updateMapping(imageMapping);
 
 		return "/public/club/trainers.xhtml?faces-redirect=true";
 	}

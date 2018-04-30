@@ -15,7 +15,7 @@
     <composite:implementation>
         <b:panel title="#{pageLabel['team.info.team']}">
             <div style="margin-right: 20px; margin-left: 20px">
-                <b:row rendered="#{teamBean.team.image.fileName != null}">
+                <b:row rendered="#{teamBean.team.image != null}">
                     <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
                     <b:column colLg="8" colMd="8" colSm="12" colXs="12">
                         <a href="#{request.contextPath}#{teamBean.team.image.getDownloadUrl()}" target="blank">

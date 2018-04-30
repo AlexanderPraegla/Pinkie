@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeamProvider {
@@ -21,6 +22,11 @@ public class TeamProvider {
 	public List<Team> getCurrentTeams() {
 		logger.info("Loading all Teams of current season from database");
 		Season season = seasonSerivce.getCurrentSeason();
+
+        if (season == null) {
+            return new ArrayList<>();
+        }
+
 		return em.createNamedQuery("Team.getCurrentTeams", Team.class)
 				.setParameter("seasonId", season.getId())
 				.getResultList();

@@ -18,7 +18,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 @Named
@@ -39,7 +38,9 @@ public class RefereeBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        groupImageDescription = getFileMapping().getImage().getDescription();
+		if (getFileMapping() != null) {
+			groupImageDescription = getFileMapping().getImage().getDescription();
+		}
     }
 
 	public void initReferee() {

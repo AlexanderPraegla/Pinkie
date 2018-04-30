@@ -13,41 +13,57 @@ import java.util.Map;
 @RequestScoped
 public class BoosterClubBean {
 
-	@Inject
-	private FileService fileService;
+    @Inject
+    private FileService fileService;
 
-	private String purpose;
-	private String donationAccount;
-	private String dean;
+    private String purpose;
+    private String donationAccount;
+    private String dean;
 
-	public void initFileMappings(String page) {
-		Map<String, List<Mapping>> mappingForPage = fileService.getMappingForPage(page);
-		purpose = mappingForPage.get("boosterClub.purpose").get(0).getTextMapping().getText();
-		donationAccount = mappingForPage.get("boosterClub.donationAccount").get(0).getTextMapping().getText();
-		dean = mappingForPage.get("boosterClub.dean").get(0).getTextMapping().getText();
-	}
+    public void initFileMappings(String page) {
+        Map<String, List<Mapping>> mappingForPage = fileService.getMappingForPage(page);
 
-	public String getPurpose() {
-		return purpose;
-	}
+        if (mappingForPage.size() == 0) {
+            return;
+        }
 
-	public void setPurpose(String purpose) {
-		this.purpose = purpose;
-	}
+        List<Mapping> mappingPurpose = mappingForPage.get("boosterClub.purpose");
+        if (mappingPurpose != null && mappingPurpose.size() > 0) {
+            purpose = mappingPurpose.get(0).getTextMapping().getText();
+        }
 
-	public String getDonationAccount() {
-		return donationAccount;
-	}
+        List<Mapping> mappingDonationAccount = mappingForPage.get("boosterClub.donationAccount");
+        if (mappingDonationAccount != null && mappingDonationAccount.size() > 0) {
+            donationAccount = mappingDonationAccount.get(0).getTextMapping().getText();
+        }
 
-	public void setDonationAccount(String donationAccount) {
-		this.donationAccount = donationAccount;
-	}
+        List<Mapping> mappingDean = mappingForPage.get("boosterClub.dean");
+        if (mappingDean != null && mappingDean.size() > 0) {
+            dean = mappingDean.get(0).getTextMapping().getText();
+        }
+    }
 
-	public String getDean() {
-		return dean;
-	}
+    public String getPurpose() {
+        return purpose;
+    }
 
-	public void setDean(String dean) {
-		this.dean = dean;
-	}
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public String getDonationAccount() {
+        return donationAccount;
+    }
+
+    public void setDonationAccount(String donationAccount) {
+        this.donationAccount = donationAccount;
+    }
+
+    public String getDean() {
+        return dean;
+    }
+
+    public void setDean(String dean) {
+        this.dean = dean;
+    }
 }
