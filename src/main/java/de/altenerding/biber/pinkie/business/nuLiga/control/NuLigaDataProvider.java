@@ -36,9 +36,9 @@ public class NuLigaDataProvider {
 		logger.info("Getting next {} upcoming games for the next three days for all teams", maxResults);
 
 		int daysOffset = 3;
-		LocalDateTime dateTime = LocalDateTime.now().minusDays(daysOffset);
-		Date startDate = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
-		Date endDate = new Date();
+        LocalDateTime dateTime = LocalDateTime.now().plusDays(daysOffset);
+        Date endDate = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+        Date startDate = new Date();
 
 		return em.createNamedQuery("TeamScheduleEntry.nextUpcomingGames", TeamScheduleEntry.class)
 				.setParameter("startDate", startDate)
