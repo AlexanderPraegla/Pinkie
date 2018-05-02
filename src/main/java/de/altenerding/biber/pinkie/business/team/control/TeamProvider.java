@@ -14,55 +14,66 @@ import java.util.List;
 
 public class TeamProvider {
 
-	@PersistenceContext
-	private EntityManager em;
-	private Logger logger;
-	private SeasonService seasonSerivce;
+    @PersistenceContext
+    private EntityManager em;
+    private Logger logger;
+    private SeasonService seasonSerivce;
 
-	public List<Team> getCurrentTeams() {
-		logger.info("Loading all Teams of current season from database");
-		Season season = seasonSerivce.getCurrentSeason();
+    public List<Team> getCurrentTeams() {
+        logger.info("Loading all Teams of current season from database");
+        Season season = seasonSerivce.getCurrentSeason();
 
         if (season == null) {
             return new ArrayList<>();
         }
 
-		return em.createNamedQuery("Team.getCurrentTeams", Team.class)
-				.setParameter("seasonId", season.getId())
-				.getResultList();
-	}
+        return em.createNamedQuery("Team.getCurrentTeams", Team.class)
+                .setParameter("seasonId", season.getId())
+                .getResultList();
+    }
 
-	public Team getTeamById(long id) {
-		logger.info("Loading team with id={}", id);
-		return em.createNamedQuery("Team.findById", Team.class).setParameter("id", id).getSingleResult();
-	}
+    public Team getTeamById(long id) {
+        logger.info("Loading team with id={}", id);
+        return em.createNamedQuery("Team.findById", Team.class).setParameter("id", id).getSingleResult();
+    }
 
-	public List<Member> getAllTrainers() {
-		Season currentSeason = seasonSerivce.getCurrentSeason();
-		List<Member> trainers = em.createNamedQuery("Team.allTrainer", Member.class)
-				.setParameter("seasonId", currentSeason.getId())
-				.getResultList();
+    public List<Member> getAllTrainers() {
+        Season currentSeason = seasonSerivce.getCurrentSeason();
 
-		if (trainers.size() > 0 && trainers.get(0) == null) {
-			return new ArrayList<>();
-		}
+        if (currentSeason == null) {
+            logger.error("No season available at the moment!");
+            return new ArrayList<>();
+        }
 
-		logger.info("Found {} trainers", trainers.size());
-		return trainers;
-	}
+        logger.info("Getting all trainers for season={}", currentSeason.getName());
+        List<Member> trainers = em.createNamedQuery("Team.allTrainer", Member.class)
+                .setParameter("seasonId", currentSeason.getId())
+                .getResultList();
 
-	public List<Team> getTeamsBySeason(Season season) {
-		logger.info("Loading teams with season={}", season);
-		return em.createNamedQuery("Teams.findBySeason", Team.class).setParameter("season", season).getResultList();
-	}
+        if (trainers.size() == 0) {
+            return new ArrayList<>();
+        } else {
+            while (trainers.size() > 0 && trainers.get(0) == null) {
+                trainers.remove(0);
+            }
+        }
 
-	@Inject
-	public void setLogger(Logger logger) {
-		this.logger = logger;
-	}
+        logger.info("Found {} trainers", trainers.size());
+        return trainers;
+    }
 
-	@Inject
-	public void setSeasonSerivce(SeasonService seasonSerivce) {
-		this.seasonSerivce = seasonSerivce;
-	}
+    public List<Team> getTeamsBySeason(Season season) {
+        logger.info("Loading teams with season={}", season);
+        return em.createNamedQuery("Teams.findBySeason", Team.class).setParameter("season", season).getResultList();
+    }
+
+    @Inject
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
+    @Inject
+    public void setSeasonSerivce(SeasonService seasonSerivce) {
+        this.seasonSerivce = seasonSerivce;
+    }
 }
