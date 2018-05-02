@@ -40,8 +40,9 @@
                 </b:column>
             </b:row>
             <div style="font-size: 13px;font-style: italic; padding-top: 5px">
-                <h:outputText value="#{cc.attrs.report.author.getFullName()}"/>
-                <h:outputText value=" - "/>
+                <h:outputText rendered="#{cc.attrs.report.author != null}"
+                              value="#{cc.attrs.report.author.getFullName()}"/>
+                <h:outputText rendered="#{cc.attrs.report.author != null}" value=" - "/>
                 <h:outputText value="#{cc.attrs.report.createdOn}">
                     <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
                 </h:outputText>
