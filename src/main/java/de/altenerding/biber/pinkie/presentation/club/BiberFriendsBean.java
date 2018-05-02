@@ -20,7 +20,15 @@ public class BiberFriendsBean {
 
 	public void initFileMappings(String page) {
 		Map<String, List<Mapping>> mappingForPage = fileService.getMappingForPage(page);
-		text = mappingForPage.get("biberFriends.group.text").get(0).getTextMapping().getText();
+
+        if (mappingForPage.size() == 0) {
+            return;
+        }
+
+        List<Mapping> biberFriendsMapping = mappingForPage.get("biberFriends.group.text");
+        if (biberFriendsMapping != null && biberFriendsMapping.size() > 0) {
+            text = biberFriendsMapping.get(0).getTextMapping().getText();
+        }
 	}
 
 	public String getText() {
