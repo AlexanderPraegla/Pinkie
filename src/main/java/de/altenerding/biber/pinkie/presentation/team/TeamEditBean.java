@@ -86,7 +86,7 @@ public class TeamEditBean implements Serializable {
 
 			teamService.updateTeam(team);
 			FacesMessages.info(team.getName(), "Team aktualisiert");
-			result = "/public/team/team.xhtml?faces-redirect=true&includeViewParams=true&teamId=" + teamId;
+            result = "/secure/team/teamEditOverview.xhtml?faces-redirect=true&includeViewParams=true";
 		} catch (Exception e) {
 			FacesMessages.info(e.getMessage());
 			logger.error("Error while uploading file", e);
