@@ -10,16 +10,20 @@
         <b:container>
             <h2>Unsere Trainer</h2>
             <b:panel>
-                <b:row style="white-space: pre-wrap">
-                    <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
-                    <b:column colLg="8" colMd="8" colSm="12" colXs="12">
-                        <b:image value="#{trainerBean.fileMapping.file.getDownloadUrl()}"
-                                 rendered="#{trainerBean.fileMapping != null and trainerBean.fileMapping.file != null}"
-                                 style="max-width: 100%; max-height: 100%"/>
-                        <h:outputText value="#{trainerBean.fileMapping.image.description}"/>
-                    </b:column>
-                    <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
-                </b:row>
+                <div style="margin-right: 20px; margin-left: 20px">
+                    <b:row rendered="#{teamBean.team.image != null}">
+                        <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
+                        <b:column colLg="8" colMd="8" colSm="12" colXs="12">
+                            <b:image value="#{trainerBean.fileMapping.file.getDownloadUrl()}"
+                                     rendered="#{trainerBean.fileMapping != null and trainerBean.fileMapping.file != null}"
+                                     style="max-width: 100%; max-height: 100%"/>
+                        </b:column>
+                        <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
+                    </b:row>
+                    <b:row style="white-space: pre-wrap">
+                        <h:outputText value="#{trainerBean.fileMapping.image.description}" escape="false"/>
+                    </b:row>
+                </div>
             </b:panel>
             <ui:repeat value="#{trainerBean.trainers}" var="trainer">
                 <components:profile
