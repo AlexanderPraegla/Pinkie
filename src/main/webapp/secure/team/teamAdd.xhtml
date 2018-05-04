@@ -29,9 +29,8 @@
                                                itemLabel="#{season.name}"/>
                             </b:selectOneMenu>
 
-                            <global:imageUpload required="true" file="#{teamCreationBean.file}"
-                                                requiredMessage="Bitte ein Mannschaftsbild mit hochladen"
-                                                label="Mannschaftsbild *"/>
+                            <global:imageUpload file="#{teamCreationBean.file}" required="false"
+                                                label="Mannschaftsbild"/>
                             <b:inputTextarea value="#{teamCreationBean.team.image.description}"
                                              label="#{label['description']}"/>
                         </b:column>
