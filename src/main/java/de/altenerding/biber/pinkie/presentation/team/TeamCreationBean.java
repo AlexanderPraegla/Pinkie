@@ -47,10 +47,12 @@ public class TeamCreationBean implements Serializable {
 		String result;
 		try {
 
-			if (file != null) {
-				Image image = fileService.uploadImage(file, FileCategory.IMAGES_TEAM_GROUP, team.getImage().getDescription());
-				team.setImage(image);
-			}
+            if (file != null) {
+                Image image = fileService.uploadImage(file, FileCategory.IMAGES_TEAM_GROUP, team.getImage().getDescription());
+                team.setImage(image);
+            } else {
+                team.setImage(null);
+            }
 
 			List<Member> teamMembers = new ArrayList<>();
 			List<Member> members = memberBean.getMembers();
