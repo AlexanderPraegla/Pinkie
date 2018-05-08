@@ -21,21 +21,25 @@
                         <b:formGroup>
                             <b:inputText value="#{memberBean.member.firstName}" label="#{label['firstName']}"
                                          placeholder="#{label['firstName']}"
+                                         ajax="true" valueChangeListener="#{memberBean.changedFirstName}"
                                          required="true" requiredMessage="Bitte Vorname ausfüllen">
+                                <f:ajax type="change" render="memberAlias" listener="#{memberBean.prefillAlias}"/>
                                 <b:focus/>
                             </b:inputText>
                         </b:formGroup>
                         <b:formGroup>
                             <b:inputText value="#{memberBean.member.lastName}" label="#{label['lastName']}"
                                          placeholder="#{label['lastName']}"
-                                         required="true" requiredMessage="Bitte Nachname ausfüllen"/>
+                                         ajax="true" valueChangeListener="#{memberBean.changedLastName}"
+                                         required="true" requiredMessage="Bitte Nachname ausfüllen">
+                                <f:ajax type="change" render="memberAlias" listener="#{memberBean.prefillAlias}"/>
+                            </b:inputText>
                         </b:formGroup>
                         <b:formGroup>
-                            <b:inputText value="#{memberBean.member.alias}" label="#{label['alias']}"
+                            <b:inputText id="memberAlias" value="#{memberBean.member.alias}" label="#{label['alias']}"
                                          placeholder="#{label['alias']}"
                                          tooltip="Mit diesem Namen kann sich das Mitglied dann auf der Webseite einloggen. Soll das Format 'Vorname.Nachname' haben"
                                          required="true" requiredMessage="Bitte User Namen ausfüllen">
-                                <b:focus/>
                             </b:inputText>
                         </b:formGroup>
                         <b:formGroup>
