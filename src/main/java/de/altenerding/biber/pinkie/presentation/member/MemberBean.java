@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -157,6 +158,27 @@ public class MemberBean implements Serializable {
 			members = memberService.getMembers();
 		}
 		return members;
+	}
+
+	public void prefillAlias() {
+		if (member != null) {
+			String firstName = member.getFirstName();
+			String lastName = member.getLastName();
+			firstName = StringUtils.isEmpty(firstName) ? "" : firstName;
+			lastName = StringUtils.isEmpty(lastName) ? "" : lastName;
+			String alias = firstName.toLowerCase().trim() + "." + lastName.toLowerCase().trim();
+			member.setAlias(alias);
+		}
+	}
+
+	public void changedFirstName(ValueChangeEvent event) {
+		String firstName = event.getNewValue().toString().trim();
+		member.setFirstName(firstName);
+	}
+
+	public void changedLastName(ValueChangeEvent event) {
+		String lastName = event.getNewValue().toString().trim();
+		member.setLastName(lastName);
 	}
 
 	/**
