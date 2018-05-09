@@ -53,9 +53,9 @@
                         <b:navLink value="#{menu['menu.about.edit']}" outcome="/secure/about/editAboutPages.xhtml"
                                    rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
                         <b:navLink rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
-                    <b:navLink value="#{menu['menu.about.youth']}"
+                    <b:navLink rendered="#{false}" value="#{menu['menu.about.youth']}"
                                outcome="/public/about/youth.xhtml"/>
-                    <b:navLink value="#{menu['menu.about.history']}"
+                    <b:navLink rendered="#{false}" value="#{menu['menu.about.history']}"
                                outcome="/public/about/history.xhtml"/>
                         <b:navLink value="#{menu['menu.about.contact']}" outcome="/public/about/contact.xhtml"/>
                         <b:navLink value="#{menu['menu.about.journey']}" outcome="/public/about/journey.xhtml"/>
