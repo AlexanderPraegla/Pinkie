@@ -65,7 +65,8 @@
                     </b:row>
                     <b:row>
                         <b:column>
-                            <b:inputTextarea value="#{teamEditBean.team.additionalInfo}" label="#{pageLabel['team.info.practiceTime']}"/>
+                            <b:inputTextarea value="#{teamEditBean.team.practiceTime}"
+                                             label="#{pageLabel['team.info.practiceTime']}"/>
 
                             <b:commandButton value="#{label['button.save']}" look="success"
                                              action="#{teamEditBean.updateTeam}"/>

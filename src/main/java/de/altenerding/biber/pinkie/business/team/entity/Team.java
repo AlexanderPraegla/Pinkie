@@ -54,7 +54,7 @@ public class Team {
 	@OneToOne(fetch = FetchType.LAZY)
 	private Image image;
 	@Column(columnDefinition = "VARCHAR")
-	private String additionalInfo;
+	private String practiceTime;
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<Member> teamMembers;
 	@OneToMany(fetch = FetchType.LAZY)
@@ -126,12 +126,12 @@ public class Team {
 		this.season = season;
 	}
 
-	public String getAdditionalInfo() {
-		return additionalInfo;
+	public String getPracticeTime() {
+		return practiceTime;
 	}
 
-	public void setAdditionalInfo(String additionalInfo) {
-		this.additionalInfo = additionalInfo;
+	public void setPracticeTime(String additionalInfo) {
+		this.practiceTime = additionalInfo;
 	}
 
 	public List<Member> getTeamMembers() {
