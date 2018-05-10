@@ -1,5 +1,6 @@
 package de.altenerding.biber.pinkie.business.team.control;
 
+import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
 import org.apache.logging.log4j.Logger;
 
@@ -17,7 +18,10 @@ public class TeamProcessor {
 
 	public void updateTeam(Team team) {
 		logger.info("Updating team={} with id={}", team.getName(), team.getId());
-		em.merge(team.getImage());
+		Image image = team.getImage();
+		if (image != null) {
+			em.merge(image);
+		}
 		em.merge(team);
 		em.flush();
 	}
