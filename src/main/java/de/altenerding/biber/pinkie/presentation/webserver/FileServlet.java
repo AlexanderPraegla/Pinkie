@@ -1,6 +1,7 @@
 package de.altenerding.biber.pinkie.presentation.webserver;
 
 import de.altenerding.biber.pinkie.business.file.boundary.FileService;
+import de.altenerding.biber.pinkie.business.systemproperty.SystemProperty;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.net.URLDecoder;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +35,10 @@ public class FileServlet extends HttpServlet {
 	// Properties ---------------------------------------------------------------------------------
 	@Inject
 	private FileService fileService;
+
+    @Inject
+    @SystemProperty(name = "resourceFolder")
+    private String resourceFolder;
 
 	// Actions ------------------------------------------------------------------------------------
 
@@ -81,11 +88,12 @@ public class FileServlet extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
-		String fileId = URLDecoder.decode(request.getPathInfo().substring(1), "UTF-8");
+        String filePath = URLDecoder.decode(request.getPathInfo().substring(1), "UTF-8");
 		// URL-decode the file name (might contain spaces and on) and prepare file object.
 		File file;
 		try {
-			file = fileService.getFileById(Long.parseLong(fileId));
+            Path path = Paths.get(resourceFolder + filePath);
+            file = path.toFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);

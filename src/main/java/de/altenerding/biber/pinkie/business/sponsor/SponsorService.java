@@ -33,6 +33,11 @@ public class SponsorService {
 		return em.createNamedQuery("Sponsor.all", Sponsor.class).getResultList();
 	}
 
+    public List<Sponsor> allSponsorsWithImage() {
+        logger.info("Loading all sponsors with image");
+        return em.createNamedQuery("Sponsor.allWithImage", Sponsor.class).getResultList();
+    }
+
 	public void updateSponsor(Sponsor sponsor) {
 		logger.info("Updating sponsor (\'{}\') with id={}", sponsor.getName(), sponsor.getId());
 		em.merge(sponsor);

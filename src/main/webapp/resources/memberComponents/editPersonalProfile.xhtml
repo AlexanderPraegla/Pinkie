@@ -3,7 +3,9 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite" xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:global="http://java.sun.com/jsf/composite/globalComponents"
+      xmlns:global="http://java.sun.com/jsf/composite/globalComponents">
 
 <h:head/>
 <h:body>
@@ -17,14 +19,13 @@
                 <b:row>
                     <b:column colLg="2" colMd="2" colSm="3" colXs="6"
                               styleClass="col-xs-offset-3 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
-                        <b:image value="#{memberBean.member.image.getDownloadUrl()}"
-                                 style="max-width: 100%; max-height: 100%"/>
+                        <global:image image="#{memberBean.member.image}"/>
                     </b:column>
                 </b:row>
             </b:formGroup>
             <b:formGroup>
                 <h:outputLabel value="#{label['profileImage']}">
-                    <h:inputFile value="#{memberBean.file}" styleClass="btn btn-default"/>
+                    <global:imageUpload required="false" file="#{memberBean.file}" label="Bild hochladen"/>
                 </h:outputLabel>
             </b:formGroup>
 

@@ -2,6 +2,7 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:global="http://java.sun.com/jsf/composite/globalComponents"
                 xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="title">Galerie</ui:define>
 
@@ -15,11 +16,7 @@
             <b:panelGrid colSpans="3,3,3,3" size="sm">
                 <c:forEach items="#{albumBean.album.images}" var="image">
                     <b:panel>
-                        <a href="#{request.contextPath}#{image.downloadUrl}" target="blank">
-                            <b:image
-                                    value="#{image.downloadUrl}"
-                                    style="max-width: 100%; max-height: 100%"/>
-                        </a>
+                        <global:image image="#{image}"/>
                     </b:panel>
                 </c:forEach>
             </b:panelGrid>
