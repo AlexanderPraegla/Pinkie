@@ -22,7 +22,7 @@
                     </b:row>
                     <b:row rendered="#{announcement.document.fileName != null}">
                         <b:column>
-                            <b:button href="#{request.contextPath}#{announcement.document.getDownloadUrl()}"
+                            <b:button href="#{request.contextPath}#{announcement.document.fileUrl}"
                                       style="margin-top: 15px"
                                       look="info"
                                       target="blank" value="#{announcement.document.displayedName}"

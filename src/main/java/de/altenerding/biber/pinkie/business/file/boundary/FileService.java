@@ -73,7 +73,9 @@ public class FileService {
 
 	public Image uploadImage(Part file, FileCategory directory, String description) throws Exception {
 		String fileName = fileUpload.upload(file, directory);
-		Image image = new Image(directory, fileName, description);
+        String thumbnail = fileUpload.uploadThumbnail(file, directory);
+
+        Image image = new Image(directory, fileName, description, thumbnail);
 		em.persist(image);
 		em.flush();
 		em.detach(image);
@@ -81,9 +83,11 @@ public class FileService {
 	}
 
 	public Image uploadAlbumImage(Part file, String folder) throws Exception {
-		String fileName = fileUpload.upload(file, FileCategory.ALBUMS.getDirectoryPath() + folder + File.separator);
+        String directoryPath = FileCategory.ALBUMS.getDirectoryPath() + folder + File.separator;
+        String fileName = fileUpload.upload(file, directoryPath);
+        String thumbnail = fileUpload.uploadThumbnail(file, directoryPath, FileCategory.ALBUMS.getThumbnailTargetSize());
 		fileName = folder + File.separator + fileName;
-		Image image = new Image(FileCategory.ALBUMS, fileName, null);
+        Image image = new Image(FileCategory.ALBUMS, fileName, null, thumbnail);
 		em.persist(image);
 		em.flush();
 		em.detach(image);
@@ -115,10 +119,6 @@ public class FileService {
         em.flush();
         fileDeletion.deleteImage(image);
     }
-
-	public java.io.File getFileById(long fileId) throws Exception {
-		return fileDownload.getFileById(fileId);
-	}
 
 	public Map<String, List<Mapping>> getMappingForPage(String page) {
 		return fileMappingControl.getMappingForPage(page);

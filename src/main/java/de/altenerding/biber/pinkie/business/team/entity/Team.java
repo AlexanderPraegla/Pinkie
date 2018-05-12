@@ -130,8 +130,8 @@ public class Team {
 		return practiceTime;
 	}
 
-	public void setPracticeTime(String additionalInfo) {
-		this.practiceTime = additionalInfo;
+    public void setPracticeTime(String practiceTime) {
+        this.practiceTime = practiceTime;
 	}
 
 	public List<Member> getTeamMembers() {

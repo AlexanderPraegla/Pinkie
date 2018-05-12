@@ -3,6 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
+      xmlns:global="http://java.sun.com/jsf/composite/globalComponents"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head/>
@@ -15,18 +16,15 @@
                  rendered="#{sponsorBean.sponsors.size() > 0}">
             <b:row>
                 <b:carousel id="carousel" showIndicators="false" disabled="true" interval="10000">
-                    <c:forEach items="#{sponsorBean.sponsors}" var="sponsor">
+                    <c:forEach items="#{sponsorBean.mainPageSponsors}" var="sponsor">
                         <b:carouselItem style="width: auto; height:auto">
                             <b:panelGrid colSpans="6,6" size="xs">
-                                <b:panel styleClass="panel-no-border"
-                                         rendered="#{sponsor.url != null and sponsor.url != ''}">
-                                    <a href="#{sponsor.url}" target="blank">
-                                        <b:image rendered="#{sponsor.image != null}"
-                                                 value="#{sponsor.image.downloadUrl}"
-                                                style="max-width: 100%; max-height: 200px"/>
-                                    </a>
+                                <b:panel styleClass="panel-no-border" style="height: 220px"
+                                         rendered="#{sponsor.image != null}">
+                                    <global:image image="#{sponsor.image}" onClickHref="#{sponsor.url}"
+                                                  style="max-width: 100%; max-height: 200px"/>
                                 </b:panel>
-                                <b:panel styleClass="panel-no-border">
+                                <b:panel styleClass="panel-no-border" rendered="#{sponsor.image != null}">
                                     <b:panelGrid colSpans="12">
                                         <h:outputText style="font-weight:bold" value="#{sponsor.name}" escape="false"/>
                                         <h:outputText value="#{sponsor.text}" escape="false"/>
