@@ -3,6 +3,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:components="http://java.sun.com/jsf/composite/memberComponents"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:global="http://java.sun.com/jsf/composite/globalComponents"
 >
     <ui:define name="title"><h:outputText value="#{pageLabel['club.trainers.title']}" /></ui:define>
 
@@ -14,9 +15,8 @@
                     <b:row>
                         <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
                         <b:column colLg="8" colMd="8" colSm="12" colXs="12">
-                            <b:image value="#{trainerBean.fileMapping.file.getDownloadUrl()}"
-                                     rendered="#{trainerBean.fileMapping != null and trainerBean.fileMapping.file != null}"
-                                     style="max-width: 100%; max-height: 100%"/>
+                            <global:image rendered="#{trainerBean.fileMapping != null}"
+                                          image="#{trainerBean.fileMapping.file}"/>
                         </b:column>
                         <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
                     </b:row>
@@ -28,8 +28,7 @@
             <ui:repeat value="#{trainerBean.trainers}" var="trainer">
                 <components:profile
                         member="#{trainer}"
-                        hasImage="#{trainer.hasProfileImage()}"
-                        profileImagePath="#{trainer.image.getDownloadUrl()}"
+                        image="#{trainer.image}"
                         panelTitle="#{trainer.getFullName()}"
                         showMobileNumber="#{true}"
                         showPhonenumber="#{true}"

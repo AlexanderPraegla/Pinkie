@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:b="http://bootsfaces.net/ui">
+
+<h:head/>
+<h:body>
+
+    <composite:interface>
+        <composite:attribute name="image" type="de.altenerding.biber.pinkie.business.file.entity.Image"
+                             required="true"/>
+        <composite:attribute name="target" type="java.lang.String" default="_blank" required="false"
+                             shortDescription="_self for same tab or _blank for new tab"/>
+        <composite:attribute name="onClickHref" type="java.lang.String" required="false"/>
+        <composite:attribute name="style" type="java.lang.String" default="max-width: 100%; max-height: 100%"/>
+        <composite:attribute name="isProfileImage" type="java.lang.Boolean" default="false"/>
+        <composite:attribute name="imageOnly" type="java.lang.Boolean" default="false"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <b:row rendered="#{cc.attrs.imageOnly}">
+            <b:column>
+                <b:image value="#{cc.attrs.image.thumbnailUrl}"
+                         style="#{cc.attrs.style}"/>
+            </b:column>
+        </b:row>
+        <b:row rendered="#{not cc.attrs.imageOnly}">
+            <b:column>
+                <h:outputLink value="#{cc.attrs.onClickHref}" target="#{cc.attrs.target}"
+                              rendered="#{cc.attrs.image != null and cc.attrs.onClickHref != null and not cc.attrs.isProfileImage}">
+                    <b:image value="#{cc.attrs.image.thumbnailUrl}"
+                             style="#{cc.attrs.style}"/>
+                </h:outputLink>
+
+                <h:outputLink value="#{request.contextPath}#{cc.attrs.image.fileUrl}" target="#{cc.attrs.target}"
+                              rendered="#{cc.attrs.image != null and cc.attrs.onClickHref == null and not cc.attrs.isProfileImage}">
+                    <b:image value="#{cc.attrs.image.thumbnailUrl}" rendered="#{cc.attrs.image != null}"
+                             style="#{cc.attrs.style}"/>
+                </h:outputLink>
+
+                <h:outputLink value="#{cc.attrs.onClickHref}" target="#{cc.attrs.target}"
+                              rendered="#{cc.attrs.onClickHref != null and cc.attrs.isProfileImage}">
+                    <b:image rendered="#{cc.attrs.image != null}" value="#{cc.attrs.image.thumbnailUrl}"
+                             style="#{cc.attrs.style}"/>
+                    <b:image rendered="#{cc.attrs.image == null}"
+                             value="/resources/images/blank-profile-picture.png"
+                             style="#{cc.attrs.style}"/>
+                </h:outputLink>
+
+                <h:outputLink value="#{request.contextPath}#{cc.attrs.image.fileUrl}" target="#{cc.attrs.target}"
+                              rendered="#{cc.attrs.onClickHref == null and cc.attrs.isProfileImage}">
+                    <b:image rendered="#{cc.attrs.image != null}" value="#{cc.attrs.image.thumbnailUrl}"
+                             style="#{cc.attrs.style}"/>
+                    <b:image rendered="#{cc.attrs.image == null}"
+                             value="/resources/images/blank-profile-picture.png"
+                             style="#{cc.attrs.style}"/>
+                </h:outputLink>
+            </b:column>
+        </b:row>
+    </composite:implementation>
+</h:body>
+</html>
