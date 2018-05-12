@@ -15,12 +15,19 @@
                  rendered="#{announcementBean.announcements.size() > 0}">
             <h:form id="announcementListFormId">
                 <ui:repeat id="repeatAnnouncementId" value="#{announcementBean.announcements}" var="announcement">
-                    <b:row>
+                    <b:row rendered="#{announcement.title != null or announcement.title != ''}">
                         <b:column>
-                            <h:outputText escape="false" value="#{announcement.text}"/><br/>
+                            <h:outputText style="color:#7F3788;word-wrap: break-word;font-weight: bold;" escape="false"
+                                          value="#{announcement.title}"/>
                         </b:column>
                     </b:row>
-                    <b:row rendered="#{announcement.document.fileName != null}">
+                    <b:row>
+                        <b:column>
+                            <h:outputText style="white-space: pre-wrap" escape="false"
+                                          value="#{announcement.text}"/><br/>
+                        </b:column>
+                    </b:row>
+                    <b:row rendered="#{announcement.document != null}">
                         <b:column>
                             <b:button href="#{request.contextPath}#{announcement.document.fileUrl}"
                                       style="margin-top: 15px"
@@ -31,14 +38,17 @@
                     </b:row>
                     <b:row>
                         <b:column>
-                            <div style="font-size: 12px; font-style: italic;">
+                            <div style="font-size: 12px;font-style: italic; padding-top: 5px">
+                                <h:outputText rendered="#{announcement.author != null}"
+                                              value="#{announcement.author.getFullName()}"/>
+                                <h:outputText rendered="#{announcement.author != null}" value=" - "/>
                                 <h:outputText value="#{announcement.createdOn}">
                                     <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
                                 </h:outputText>
                             </div>
                         </b:column>
                     </b:row>
-                    <hr/>
+                    <hr style="margin-top: 10px;margin-bottom: 10px"/>
                 </ui:repeat>
             </h:form>
         </b:panel>

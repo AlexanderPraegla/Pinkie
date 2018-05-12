@@ -66,7 +66,7 @@ public abstract class File {
 		this.id = id;
 	}
 
-    FileCategory getDirectory() {
+    public FileCategory getDirectory() {
 		return directory;
 	}
 

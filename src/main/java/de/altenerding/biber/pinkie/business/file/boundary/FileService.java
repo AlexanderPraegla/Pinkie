@@ -113,11 +113,18 @@ public class FileService {
 		return document;
 	}
 
-    public void deleteImage(Image image) {
+    public void deleteImage(Image image) throws IOException {
         image = em.merge(image);
         em.remove(image);
         em.flush();
         fileDeletion.deleteImage(image);
+    }
+
+    public void deleteDocument(Document document) throws IOException {
+        document = em.merge(document);
+        em.remove(document);
+        em.flush();
+        fileDeletion.deleteFile(document);
     }
 
 	public Map<String, List<Mapping>> getMappingForPage(String page) {

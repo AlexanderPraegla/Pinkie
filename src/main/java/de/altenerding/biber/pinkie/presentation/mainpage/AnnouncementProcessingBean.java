@@ -7,6 +7,7 @@ import de.altenerding.biber.pinkie.business.file.entity.Document;
 import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
+import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.logging.log4j.Logger;
 
@@ -27,6 +28,7 @@ public class AnnouncementProcessingBean implements Serializable {
 	private Announcement anncouncement = new Announcement();
 	private Part file;
 	private String documentDisplayedName;
+    private UserSessionBean userSessionBean;
 
 	@Access(role = Role.PRESS)
 	public String saveEditedAnnouncement(Announcement announcement) {
@@ -56,11 +58,27 @@ public class AnnouncementProcessingBean implements Serializable {
 		return "success";
 	}
 
+    @Access(role = Role.PRESS)
+    public String removeAnnouncementAttachment(Announcement anncouncement) {
+        try {
+            Document document = anncouncement.getDocument();
+            anncouncement.setDocument(null);
+            announcementService.updateAnnouncement(anncouncement);
+            fileService.deleteDocument(document);
+            FacesMessages.info("Ankündigung archiviert");
+        } catch (Exception e) {
+            logger.error("Error while deleting announcement with id={}", anncouncement.getId(), e);
+            FacesMessages.error("Es ist ein Fehler beim löschen der Ankündigung aufgetreten");
+        }
+        return "success";
+    }
+
 	@Access(role = Role.PRESS)
 	public String saveAnnouncement() {
 		try {
 			uploadAnnouncementAttachment(anncouncement);
 
+            anncouncement.setAuthor(userSessionBean.getMember());
 			announcementService.saveAnnouncement(anncouncement);
 			FacesMessages.info( "Ankündigung gespeichert");
 		} catch (Exception e) {
@@ -101,6 +119,11 @@ public class AnnouncementProcessingBean implements Serializable {
 	public void setLogger(Logger logger) {
 		this.logger = logger;
 	}
+
+    @Inject
+    public void setUserSessionBean(UserSessionBean userSessionBean) {
+        this.userSessionBean = userSessionBean;
+    }
 
 	public Part getFile() {
 		return file;
