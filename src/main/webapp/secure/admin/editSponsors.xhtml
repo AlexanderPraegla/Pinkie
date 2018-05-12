@@ -4,6 +4,7 @@
 <html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:o="http://omnifaces.org/ui"
+      xmlns:global="http://java.sun.com/jsf/composite/globalComponents"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
 >
 <ui:composition template="/WEB-INF/templates/template.xhtml">
@@ -50,9 +51,7 @@
                 <b:row>
                     <b:form enctype="multipart/form-data">
                         <b:column colLg="3" colMd="3" colSm="3" colXs="12">
-                            <b:image rendered="#{sponsor.image != null}"
-                                     value="#{sponsor.image.downloadUrl}"
-                                     style="max-width: 100%; max-height: 100%"/>
+                            <global:image image="#{sponsor.image}"/>
                         </b:column>
                         <b:column colLg="9" colMd="9" colSm="9" colXs="12">
                             <b:row>

@@ -5,6 +5,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:b="http://bootsfaces.net/ui"
+      xmlns:global="http://java.sun.com/jsf/composite/globalComponents"
       xmlns:components="http://java.sun.com/jsf/composite/memberComponents">
 
 <h:head/>
@@ -18,10 +19,7 @@
                 <b:row rendered="#{teamBean.team.image != null}">
                     <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
                     <b:column colLg="8" colMd="8" colSm="12" colXs="12">
-                        <a href="#{request.contextPath}#{teamBean.team.image.getDownloadUrl()}" target="blank">
-                            <b:image value="#{teamBean.team.image.getDownloadUrl()}"
-                                     style="max-width: 100%; max-height: 100%"/>
-                        </a>
+                        <global:image image="#{teamBean.team.image}"/>
                     </b:column>
                     <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
                 </b:row>
@@ -34,8 +32,7 @@
             <ui:repeat value="#{teamBean.team.trainers}" var="trainer">
                 <components:profile
                         member="#{trainer}"
-                        hasImage="#{trainer.hasProfileImage()}"
-                        profileImagePath="#{trainer.image.getDownloadUrl()}"
+                        image="#{trainer.image}"
                         panelTitle="#{trainer.getFullName()}"
                         showMobileNumber="#{true}"
                         showPhonenumber="#{true}"

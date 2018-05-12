@@ -23,7 +23,7 @@
                                 <b:column rendered="#{announcement.document.fileName != null}"
                                           styleClass="form-group">
                                     <b:button
-                                            href="#{request.contextPath}#{announcement.document.getDownloadUrl()}"
+                                            href="#{request.contextPath}#{announcement.document.fileUrl}"
                                             look="info"
                                             target="blank" value="#{announcement.document.displayedName}"
                                             icon="download"/>

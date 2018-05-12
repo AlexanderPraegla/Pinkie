@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:global="http://java.sun.com/jsf/composite/globalComponents"
       xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui">
 
 <h:head/>
@@ -17,19 +18,14 @@
         <b:row rendered="#{cc.attrs.positioned}">
             <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
             <b:column colLg="8" colMd="8" colSm="12" colXs="12">
-                <b:image
-                        rendered="#{fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key) != null
-                        and fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).file != null}"
-                        value="#{fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).image.downloadUrl}"
-                        style="max-width: 100%; max-height: 100%"/>
+                <global:image rendered="#{fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key) != null}"
+                              image="#{fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).image}"/>
             </b:column>
             <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
         </b:row>
-        <b:image rendered="#{not cc.attrs.positioned
-                        and fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key) != null
-                        and fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).file != null}"
-                 value="#{fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).image.downloadUrl}"
-                 style="max-width: 100%; max-height: 100%"/>
+        <global:image rendered="#{not cc.attrs.positioned
+                        and fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key) != null}"
+                      image="#{fileMappingBean.getSingleFileMapping(cc.attrs.page, cc.attrs.key).image}"/>
     </composite:implementation>
 </h:body>
 </html>

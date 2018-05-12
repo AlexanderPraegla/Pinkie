@@ -39,8 +39,7 @@
                             <b:panel collapsible="false">
                                 <b:row>
                                     <b:column>
-                                        <b:image value="#{image.downloadUrl}"
-                                                 style="max-width: 100%; max-height: 100%"/>
+                                        <global:image image="#{image}" imageOnly="true"/>
                                     </b:column>
                                     <b:column>
                                         <b:commandButton action="#{albumBean.removeImage(image)}" styleClass="btn-block"

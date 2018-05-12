@@ -1,5 +1,6 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:global="http://java.sun.com/jsf/composite/globalComponents"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
@@ -15,12 +16,8 @@
                     <c:forEach items="#{albumBean.albums}" var="album">
                         <b:panel>
                             <h:outputLabel value="#{album.description}"/>
-                            <h:link outcome="/public/news/album.xhtml" includeViewParams="true">
-                                <b:image
-                                        value="#{album.coverImage.downloadUrl}"
-                                        style="max-width: 100%; max-height: 100%"/>
-                                <f:param name="albumId" value="#{album.id}"/>
-                            </h:link>
+                            <global:image image="#{album.coverImage}" target="self"
+                                          onClickHref="#{request.contextPath}/public/news/album.xhtml?albumId=#{album.id}"/>
                             <div style="font-size: 12px; font-style: italic;">
                                 <h:outputText value="#{album.createdOn}">
                                     <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>

@@ -50,8 +50,8 @@ public abstract class File {
 		}
 	}
 
-	public String getDownloadUrl() {
-		return "/files/" + id;
+    public String getFileUrl() {
+        return "/files/" + getFullFilePath();
 	}
 
 	public String getFullFilePath() {
@@ -66,7 +66,7 @@ public abstract class File {
 		this.id = id;
 	}
 
-	public FileCategory getDirectory() {
+    FileCategory getDirectory() {
 		return directory;
 	}
 

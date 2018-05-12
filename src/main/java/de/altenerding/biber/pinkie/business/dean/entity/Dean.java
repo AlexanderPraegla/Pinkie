@@ -56,9 +56,9 @@ public class Dean {
 
 	public String getFullImagePath() {
 		if (image != null) {
-			return image.getDownloadUrl();
+            return image.getFileUrl();
 		} else {
-			return member.getImage().getDownloadUrl();
+            return member.getImage().getFileUrl();
 		}
 	}
 
@@ -111,7 +111,11 @@ public class Dean {
 	}
 
 	public Image getImage() {
-		return image;
+        if (image != null) {
+            return image;
+        } else {
+            return member.getImage();
+        }
 	}
 
 	public void setImage(Image image) {
