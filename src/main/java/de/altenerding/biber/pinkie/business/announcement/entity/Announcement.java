@@ -1,8 +1,21 @@
 package de.altenerding.biber.pinkie.business.announcement.entity;
 
 import de.altenerding.biber.pinkie.business.file.entity.Document;
+import de.altenerding.biber.pinkie.business.members.entity.Member;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Entity
@@ -15,7 +28,12 @@ public class Announcement {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column(columnDefinition = "VARCHAR")
+	private String title;
+	@Column(columnDefinition = "VARCHAR")
 	private String text;
+	@JoinColumn
+	@OneToOne(fetch = FetchType.LAZY)
+	private Member author;
 	@Column(name = "created_on")
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
@@ -65,13 +83,26 @@ public class Announcement {
 	}
 
 	public Document getDocument() {
-		if (document == null) {
-			return new Document();
-		}
 		return document;
 	}
 
 	public void setDocument(Document document) {
 		this.document = document;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Member getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Member author) {
+		this.author = author;
 	}
 }
