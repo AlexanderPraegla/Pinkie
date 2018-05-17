@@ -14,8 +14,7 @@
         <b:container rendered="#{userSessionBean.isUserInRole('MEMBER')}">
             <components:profile
                     member="#{memberBean.member}"
-                    hasImage="#{memberBean.member.hasProfileImage()}"
-                    profileImagePath="#{memberBean.member.image.getDownloadUrl()}"
+                    image="#{memberBean.member.image}"
                     panelTitle="#{memberBean.member.getFullName()}"
                     collapsible="#{false}"
                     collapsed="#{false}"

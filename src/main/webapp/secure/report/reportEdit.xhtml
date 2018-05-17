@@ -44,8 +44,8 @@
                                  requiredMessage="Es sind keine leeren Berichte erlaubt"/>
                 <b:row>
                     <b:column colLg="2" colMd="3" colSm="4" colXs="12" rendered="#{reportBean.report.image != null}">
-                        <h:graphicImage value="#{reportBean.report.image.getDownloadUrl()}"
-                                        style="max-height: 100%; max-width: 100%;margin-bottom: 15px;"/>
+                        <global:image image="#{reportBean.report.image}"
+                                      style="max-height: 100%; max-width: 100%;margin-bottom: 15px;"/>
                     </b:column>
                     <b:column colLg="2" colMd="2" colSm="4" colXs="12"
                               style="#{(reportBean.report.image != null) ? '' : ' display: none;'}">

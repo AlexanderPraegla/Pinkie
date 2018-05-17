@@ -2,6 +2,7 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
+
 .form-signin {
     margin: 0 auto;
     max-width: 430px;
@@ -18,6 +19,14 @@ body {
     text-align: center;
     font-size: 20px;
     margin-bottom: 5px;
+}
+
+.weekly-image-description {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    color: #7F3788;
+    text-align: center;
 }
 
 .ui-datascroller .ui-datascroller-content {
@@ -40,46 +49,49 @@ body {
 /* Note: Design for a width of 768px */
 @media all and (min-width: 768px) and (max-width: 959px) {
     .lg-screen-hidden {
-        display:none;
-        width:0;
-        height:0;
-        opacity:0;
+        display: none;
+        width: 0;
+        height: 0;
+        opacity: 0;
         visibility: collapse;
     }
 }
+
 /* #Mobile (Landscape)
 ================================================== */
 /* Note: Design for a width of 600px */
 @media all and (min-width: 600px) and (max-width: 767px) {
     .md-screen-hidden {
-        display:none;
-        width:0;
-        height:0;
-        opacity:0;
+        display: none;
+        width: 0;
+        height: 0;
+        opacity: 0;
         visibility: collapse;
     }
 }
+
 /* #Mobile (Landscape)
 ================================================== */
 /* Note: Design for a width of 480px */
 @media all and (min-width: 480px) and (max-width: 599px) {
-    .sm-screen-hidden{
-        display:none;
-        width:0;
-        height:0;
-        opacity:0;
+    .sm-screen-hidden {
+        display: none;
+        width: 0;
+        height: 0;
+        opacity: 0;
         visibility: collapse;
     }
 }
+
 /*  #Mobile (Portrait)
 ================================================== */
 /* Note: Design for a width of 320px */
 @media all and (max-width: 479px) {
-    .xs-screen-hidden{
-        display:none;
-        width:0;
-        height:0;
-        opacity:0;
+    .xs-screen-hidden {
+        display: none;
+        width: 0;
+        height: 0;
+        opacity: 0;
         visibility: collapse;
     }
 }

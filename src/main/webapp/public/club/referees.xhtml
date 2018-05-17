@@ -2,6 +2,7 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:components="http://java.sun.com/jsf/composite/memberComponents"
+                xmlns:global="http://java.sun.com/jsf/composite/globalComponents"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="title"><h:outputText value="#{pageLabel['club.referees.title']}" /></ui:define>
 
@@ -12,9 +13,8 @@
                 <b:row>
                     <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
                     <b:column colLg="8" colMd="8" colSm="12" colXs="12">
-                        <b:image value="#{refereeBean.fileMapping.file.getDownloadUrl()}"
-                                 rendered="#{refereeBean.fileMapping != null and refereeBean.fileMapping.file != null}"
-                                 style="max-width: 100%; max-height: 100%"/>
+                        <global:image rendered="#{refereeBean.fileMapping != null}"
+                                      image="#{refereeBean.fileMapping.file}"/>
                         <h:outputText value="#{refereeBean.fileMapping.image.description}"/>
                     </b:column>
                     <b:column colLg="2" colMd="2" colSm="12" colXs="12"/>
@@ -23,8 +23,7 @@
             <ui:repeat value="#{refereeBean.referees}" var="referee">
                 <components:profile
                         member="#{referee.member}"
-                        hasImage="#{referee.hasProfileImage()}"
-                        profileImagePath="#{referee.getFullImagePath()}"
+                        image="#{referee.image}"
                         panelTitle="#{referee.member.getFullName()}"
                         showFullName="#{true}"
                         showMobileNumber="#{true}"

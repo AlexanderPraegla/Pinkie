@@ -24,6 +24,7 @@ public class SponsorBean {
 	private List<Sponsor> premiumSponsors;
 	private List<Sponsor> nonePremiumSponsors;
 	private List<Sponsor> sponsors;
+    private List<Sponsor> mainPageSponsors;
 	private Part file;
 	private Sponsor sponsor = new Sponsor();
 	@Inject
@@ -133,4 +134,11 @@ public class SponsorBean {
 	public void setSponsor(Sponsor sponsor) {
 		this.sponsor = sponsor;
 	}
+
+    public List<Sponsor> getMainPageSponsors() {
+        if (mainPageSponsors == null) {
+            mainPageSponsors = sponsorService.allSponsorsWithImage();
+        }
+        return mainPageSponsors;
+    }
 }

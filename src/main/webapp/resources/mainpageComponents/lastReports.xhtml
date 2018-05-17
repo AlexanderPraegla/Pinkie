@@ -15,11 +15,17 @@
     <composite:implementation>
         <b:panel id="lastReportsPanel" title="Letzte Berichte" rendered="#{reportBean.latestReports.size() > 0}">
             <ui:repeat value="#{reportBean.latestReports}" var="report">
-                    <h:link value="#{report.title}" outcome="/public/news/reportView.xhtml"
-                            includeViewParams="true">
+                <h:link outcome="/public/news/reportView.xhtml"
+                        includeViewParams="true">
+                    <h:outputText value="#{report.team.name}" rendered="#{report.team != null}"/>
+                    <h:outputText value=" - " rendered="#{report.team != null}"/>
+                    <h:outputText value="#{report.title}"/>
                         <f:param name="reportId" value="#{report.id}"/>
                     </h:link>
-                <div style="font-size: 12px; font-style: italic;">
+                <div style="font-size: 12px;font-style: italic">
+                    <h:outputText rendered="#{report.author != null}"
+                                  value="#{report.author.getFullName()}"/>
+                    <h:outputText rendered="#{report.author != null}" value=" - "/>
                     <h:outputText value="#{report.createdOn}">
                         <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
                     </h:outputText>
