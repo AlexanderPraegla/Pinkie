@@ -17,7 +17,8 @@
             <b:carousel id="carousel">
                 <c:forEach items="#{weeklyImageBean.weeklyImages}" var="weeklyImage">
                     <b:carouselItem>
-                        <h:outputText value="#{weeklyImage.image.description}"
+                        <h:outputText rendered="#{weeklyImage.image.description != null
+                        and weeklyImage.image.description != ''}" value="#{weeklyImage.image.description}"
                                       styleClass="weekly-image-description"/>
                         <global:image image="#{weeklyImage.image}"/>
                     </b:carouselItem>

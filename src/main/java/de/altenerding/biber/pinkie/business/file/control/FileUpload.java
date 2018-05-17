@@ -59,11 +59,14 @@ public class FileUpload {
 
         try (InputStream in = file.getInputStream()) {
             BufferedImage image = ImageIO.read(in);
+            image = dropAlphaChannel(image);
             BufferedImage resize = Scalr.resize(image, Scalr.Method.QUALITY,
                     targetSize, Scalr.OP_ANTIALIAS);
+            resize = dropAlphaChannel(resize);
 
             String filePath = folder + File.separator + fileName;
-            ImageIO.write(resize, THUMBNAIL_TYPE_FORMAT, Files.newOutputStream(Paths.get(filePath)));
+            String extension = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
+            ImageIO.write(resize, extension, Files.newOutputStream(Paths.get(filePath)));
         }
 
         return fileName;
@@ -79,13 +82,21 @@ public class FileUpload {
 		return null;
 	}
 
+    private BufferedImage dropAlphaChannel(BufferedImage src) {
+        BufferedImage convertedImg = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_RGB);
+        convertedImg.getGraphics().drawImage(src, 0, 0, null);
+
+        return convertedImg;
+    }
+
     private String getThumbnailFileName(final Part part) {
         for (String content : part.getHeader("content-disposition").split(";")) {
             if (content.trim().startsWith("filename")) {
                 String filename = content.substring(
                         content.indexOf('=') + 1).trim().replace("\"", "");
                 String name = filename.substring(0, filename.lastIndexOf("."));
-                return name + "_thumb." + THUMBNAIL_TYPE_FORMAT;
+                String extension = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+                return name + "_thumb." + extension;
             }
         }
         return null;
