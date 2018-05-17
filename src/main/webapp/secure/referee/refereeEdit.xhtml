@@ -2,6 +2,7 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:global="http://xmlns.jcp.org/jsf/composite/globalComponents"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="title">Schiedsrichter bearbeiten</ui:define>
 
@@ -16,8 +17,8 @@
                     <b:row>
                         <b:column colLg="2" colMd="2" colSm="3" colXs="6"
                                   styleClass="col-xs-offset-3 col-lg-offset-0 col-md-offset-0 col-sm-offset-0">
-                            <h:graphicImage value="#{refereeBean.referee.getFullImagePath()}"
-                                            style="max-height: 100%; max-width: 100%;margin-bottom: 15px;"/>
+                            <global:image image="#{refereeBean.referee.image}"
+                                          style="max-height: 100%; max-width: 100%;margin-bottom: 15px;"/>
                         </b:column>
                         <b:column colLg="5" colMd="5" colSm="6" colXs="12">
                             <b:row>
