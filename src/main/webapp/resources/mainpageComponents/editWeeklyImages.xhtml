@@ -18,11 +18,12 @@
                 <h:form id="weeklyImageListFormId">
                     <b:row>
                         <b:column>
-                            <h:inputText value="#{weeklyImage.image.description}" style="margin-bottom: 15px;" styleClass="form-control"/>
+                            <h:inputText value="#{weeklyImage.image.description}"
+                                         style="margin-bottom: 15px;" styleClass="form-control"/>
                         </b:column>
                         <b:column colLg="2" colMd="3" colSm="4" colXs="12">
-                            <h:graphicImage value="#{weeklyImage.image.fileUrl}"
-                                            style="max-height: 100%; max-width: 100%;margin-bottom: 15px;"/>
+                            <global:image image="#{weeklyImage.image}"
+                                          style="max-height: 100%; max-width: 100%;margin-bottom: 15px;"/>
                         </b:column>
                         <b:column colLg="2" colMd="2" colSm="4" colXs="12">
                             <global:buttonBlock action="#{weeklyImageBean.updateText(weeklyImage)}" look="success"
