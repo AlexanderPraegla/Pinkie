@@ -3,6 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite" xmlns:b="http://bootsfaces.net/ui"
+      xmlns:global="http://java.sun.com/jsf/composite/globalComponents"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head/>
@@ -16,9 +17,10 @@
             <b:carousel id="carousel">
                 <c:forEach items="#{weeklyImageBean.weeklyImages}" var="weeklyImage">
                     <b:carouselItem>
-                        <h:outputText value="#{weeklyImage.image.description}"
-                                      style="font-size: 20px;display: flex;justify-content: center;"/>
-                        <b:image value="#{weeklyImage.image.getDownloadUrl()}"/>
+                        <h:outputText rendered="#{weeklyImage.image.description != null
+                        and weeklyImage.image.description != ''}" value="#{weeklyImage.image.description}"
+                                      styleClass="weekly-image-description"/>
+                        <global:image image="#{weeklyImage.image}"/>
                     </b:carouselItem>
                 </c:forEach>
             </b:carousel>

@@ -17,7 +17,7 @@
                     <h:outputText value="#{videoBean.videoMapping.video.description}"/>
                 </b:column>
             </b:row>
-            <b:video src="#{request.contextPath}#{videoBean.videoMapping.file.getDownloadUrl()}"
+            <b:video src="#{request.contextPath}#{videoBean.videoMapping.file.fileUrl}"
                      style="width: 100%"/>
         </b:panel>
     </composite:implementation>

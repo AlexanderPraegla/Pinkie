@@ -4,26 +4,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum FileCategory {
-	SPONSOR("sponsors/"),
+    SPONSOR("sponsors/", 600),
 
-	ALBUMS("albums/"),
+    ALBUMS("albums/", 400),
 
-	DOCUMENTS_ANNOUNCEMENT("documents/announcement/"),
-	DOCUMENTS("documents/global/"),
+    DOCUMENTS_ANNOUNCEMENT("documents/announcement/", 0),
+    DOCUMENTS("documents/global/", 0),
 
-	VIDEOS("videos/"),
+    VIDEOS("videos/", 0),
 
-	IMAGES("images/global/"),
-	IMAGES_MAINPAGE("images/mainpage/"),
-	IMAGES_REPORT("images/reports/"),
-	IMAGES_MEMBER_PROFILE("images/memberProfile/"),
-	IMAGES_REFEREE_PROFILE("images/refereeProfile/"),
-	IMAGES_DEAN_PROFILE("images/deanProfile/"),
-	IMAGES_TEAM_GROUP("images/teamGroup/"),
-	IMAGES_TRAINER_GROUP("images/trainerGroup/"),
-	IMAGES_REFEREE_GROUP("images/refereeGroup/")
-	;
+    IMAGES("images/global/", 600),
+    IMAGES_MAINPAGE("images/mainpage/", 600),
+    IMAGES_REPORT("images/reports/", 300),
+    IMAGES_MEMBER_PROFILE("images/memberProfile/", 300),
+    IMAGES_REFEREE_PROFILE("images/refereeProfile/", 300),
+    IMAGES_DEAN_PROFILE("images/deanProfile/", 300),
+    IMAGES_TEAM_GROUP("images/teamGroup/", 800),
+    IMAGES_TRAINER_GROUP("images/trainerGroup/", 800),
+    IMAGES_REFEREE_GROUP("images/refereeGroup/", 800);
 
+    private final int thumbnailTargetSize;
 
 	public static final Map<String, FileCategory> lookUp = new HashMap<>();
 
@@ -35,8 +35,9 @@ public enum FileCategory {
 
 	private final String directoryPath;
 
-	FileCategory(String directoryPath) {
+    FileCategory(String directoryPath, int thumbnailTargetSize) {
 		this.directoryPath = directoryPath;
+        this.thumbnailTargetSize = thumbnailTargetSize;
 	}
 
 	public String getDirectoryPath() {
@@ -46,4 +47,8 @@ public enum FileCategory {
 	public static FileCategory get(String directoryPath) {
 		return lookUp.get(directoryPath);
 	}
+
+    public int getThumbnailTargetSize() {
+        return thumbnailTargetSize;
+    }
 }

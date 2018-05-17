@@ -16,10 +16,15 @@
             <h:form enctype="multipart/form-data">
                 <b:row>
                     <b:column>
+                        <b:inputText value="#{announcementProcessingBean.anncouncement.title}"
+                                     placeholder="Überschrift" maxlength="80" tooltip="Max. 80 Zeichen">
+                            <b:focus/>
+                        </b:inputText>
+                    </b:column>
+                    <b:column>
                         <b:inputTextarea value="#{announcementProcessingBean.anncouncement.text}" required="true"
                                          requiredMessage="Keine Ankündigungen ohne Text!" rows="5"
                                          placeholder="Ankündigungstext">
-                            <b:focus/>
                         </b:inputTextarea>
                     </b:column>
                     <b:column colLg="6" colMd="6" colSm="6" colXs="12">

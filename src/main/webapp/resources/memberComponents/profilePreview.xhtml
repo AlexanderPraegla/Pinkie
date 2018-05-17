@@ -3,14 +3,14 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:global="http://java.sun.com/jsf/composite/globalComponents">
 
 <h:head/>
 <h:body>
 
     <composite:interface>
         <composite:attribute type="de.altenerding.biber.pinkie.business.members.entity.Member" name="member"/>
-        <composite:attribute type="java.lang.Boolean" default="#{true}" name="hasImage"/>
         <composite:attribute type="de.altenerding.biber.pinkie.business.file.entity.Image" name="image"/>
     </composite:interface>
 
@@ -18,13 +18,9 @@
         <b:panel collapsible="false">
             <b:row  style=" margin: 0 auto;">
                 <b:column>
-                    <a href="#{request.contextPath}/secure/profile/profile.xhtml?memberId=#{cc.attrs.member.id}">
-                        <b:image rendered="#{cc.attrs.image != null}" value="#{cc.attrs.image.getDownloadUrl()}"
-                                 style="max-width: 100%; max-height: 250px;"/>
-                        <b:image rendered="#{cc.attrs.image == null}"
-                                 value="/resources/images/blank-profile-picture.png"
-                                 style="max-width: 100%; max-height: 250px;"/>
-                    </a>
+                    <global:image image="#{cc.attrs.image}"
+                                  onClickHref="#{request.contextPath}/secure/profile/profile.xhtml?memberId=#{cc.attrs.member.id}"
+                                  isProfileImage="true"/>
                 </b:column>
                 <b:column style="text-align: center">
                     <h:outputText id="memberFullname"
