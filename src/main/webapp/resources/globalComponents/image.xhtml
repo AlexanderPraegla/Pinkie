@@ -22,7 +22,7 @@
     <composite:implementation>
         <b:row rendered="#{cc.attrs.imageOnly}">
             <b:column>
-                <b:image value="#{cc.attrs.image.thumbnailUrl}"
+                <b:image value="#{cc.attrs.image.thumbnailUrl}" rendered="#{cc.attrs.image != null}"
                          style="#{cc.attrs.style}"/>
             </b:column>
         </b:row>
