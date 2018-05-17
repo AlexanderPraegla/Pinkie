@@ -35,6 +35,7 @@ public class TeamEditBean implements Serializable {
 	private Team team = new Team();
 	private Part file;
 	private List<Member> members;
+	private String imageDescription;
 	private String memberIndex = "";
 	private String trainerIndex = "";
 
@@ -63,7 +64,7 @@ public class TeamEditBean implements Serializable {
 		try {
 
 			if (file != null) {
-				Image image = fileService.uploadImage(file, FileCategory.IMAGES_TEAM_GROUP, team.getImage().getDescription());
+				Image image = fileService.uploadImage(file, FileCategory.IMAGES_TEAM_GROUP, imageDescription);
 				team.setImage(image);
 			}
 
@@ -163,5 +164,13 @@ public class TeamEditBean implements Serializable {
 
 	public void setTrainerIndex(String trainerIndex) {
 		this.trainerIndex = trainerIndex;
+	}
+
+	public String getImageDescription() {
+		return imageDescription;
+	}
+
+	public void setImageDescription(String imageDescription) {
+		this.imageDescription = imageDescription;
 	}
 }
