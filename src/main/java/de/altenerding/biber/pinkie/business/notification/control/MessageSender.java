@@ -67,24 +67,6 @@ public class MessageSender {
 
 	}
 
-	private void sendNotifications(List<? extends NotificationSetting> notificationSettings, Map<Placeholder, String> placeholders) {
-		for (NotificationSetting setting : notificationSettings) {
-			Message message = createMessage(setting.getMember(), setting.getCommunicationType(), setting.getNotificationType(), placeholders);
-			messageEvent.fire(message);
-		}
-	}
-
-	private Message createMessage(Member member, CommunicationType communicationType, NotificationType notificationType, Map<Placeholder, String> placeholders) {
-		Message message = new Message();
-		message.setCommunicationType(communicationType);
-		message.setNotificationType(notificationType);
-		message.setRecipient(member);
-		message.addPlaceholders(placeholders);
-		message.addPlaceholder(Placeholder.FIRSTNAME, member.getFirstName());
-
-		return message;
-	}
-
 	public void sendMessage(@Observes Message message) throws Exception {
 		CommunicationTemplate template = templateProvider.getCommunicationTemplate(message.getCommunicationType(), message.getNotificationType());
 
@@ -110,6 +92,24 @@ public class MessageSender {
 				logger.error("No Push messages implemented yet");
 				break;
 		}
+	}
+
+	private void sendNotifications(List<? extends NotificationSetting> notificationSettings, Map<Placeholder, String> placeholders) {
+		for (NotificationSetting setting : notificationSettings) {
+			Message message = createMessage(setting.getMember(), setting.getCommunicationType(), setting.getNotificationType(), placeholders);
+			messageEvent.fire(message);
+		}
+	}
+
+	private Message createMessage(Member member, CommunicationType communicationType, NotificationType notificationType, Map<Placeholder, String> placeholders) {
+		Message message = new Message();
+		message.setCommunicationType(communicationType);
+		message.setNotificationType(notificationType);
+		message.setRecipient(member);
+		message.addPlaceholders(placeholders);
+		message.addPlaceholder(Placeholder.FIRSTNAME, member.getFirstName());
+
+		return message;
 	}
 
 	private String replacePlaceholders(String text, Map<Placeholder, String> placeholders) {
