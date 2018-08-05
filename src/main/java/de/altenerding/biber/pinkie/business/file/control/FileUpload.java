@@ -47,14 +47,14 @@ public class FileUpload {
     }
 
     public String uploadThumbnail(Part file, String directoryPath, int targetSize) throws Exception {
-        String folder = resourceFolder + directoryPath;
+        String targetImageFolder = resourceFolder + directoryPath;
         String fileName = getThumbnailFileName(file);
 
         if (fileName == null) {
             throw new Exception("No valid file name available");
         }
 
-        logger.info("Creating thumbnail '{}' in folder '{}'", fileName, folder);
+        logger.info("Creating thumbnail '{}' in targetImageFolder '{}'", fileName, targetImageFolder);
 
 
         try (InputStream in = file.getInputStream()) {
@@ -64,7 +64,7 @@ public class FileUpload {
                     targetSize, Scalr.OP_ANTIALIAS);
             resize = dropAlphaChannel(resize);
 
-            String filePath = folder + File.separator + fileName;
+            String filePath = targetImageFolder + File.separator + fileName;
             String extension = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
             ImageIO.write(resize, extension, Files.newOutputStream(Paths.get(filePath)));
         }
