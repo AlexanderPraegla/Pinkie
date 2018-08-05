@@ -12,20 +12,20 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 public class FileUpload {
 
-    private static final String THUMBNAIL_TYPE_FORMAT = "jpg";
-	private Logger logger;
-	@Inject
-	@SystemProperty(name = "resourceFolder")
-	private String resourceFolder;
+    private Logger logger;
+    @Inject
+    @SystemProperty(name = "resourceFolder")
+    private String resourceFolder;
 
-	public String upload(Part file, FileCategory directory) throws Exception {
-		return upload(file, directory.getDirectoryPath());
-	}
+    public String upload(Part file, FileCategory directory) throws Exception {
+        return upload(file, directory.getDirectoryPath());
+    }
 
     public String upload(Part file, String directoryPath) throws Exception {
         String folder = resourceFolder + directoryPath;
@@ -34,8 +34,24 @@ public class FileUpload {
         logger.info("Upload File '{}' to {}", fileName, folder);
 
         String filePath = folder + File.separator + fileName;
+        Path target = Paths.get(filePath);
+
+        /*
+        Checking if a file with the same name already exists.
+        If the file exists a suffix like e.g. _1 is added, counting upwards
+         */
+        int counter = 1;
+        String tmpFileName = fileName;
+        while (Files.exists(target)) {
+            tmpFileName = addFilenameSuffix(fileName, String.valueOf(counter));
+            filePath = folder + File.separator + tmpFileName;
+            target = Paths.get(filePath);
+            counter++;
+        }
+        fileName = tmpFileName;
+
         try (InputStream filecontent = file.getInputStream()) {
-            Files.copy(filecontent, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(filecontent, target, StandardCopyOption.REPLACE_EXISTING);
         }
         logger.info("Upload File '{}' to {} successful", fileName, folder);
 
@@ -72,15 +88,15 @@ public class FileUpload {
         return fileName;
     }
 
-	private String getFileName(final Part part) {
-		for (String content : part.getHeader("content-disposition").split(";")) {
-			if (content.trim().startsWith("filename")) {
-				return content.substring(
-						content.indexOf('=') + 1).trim().replace("\"", "");
-			}
-		}
-		return null;
-	}
+    private String getFileName(final Part part) {
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(
+                        content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
+    }
 
     private BufferedImage dropAlphaChannel(BufferedImage src) {
         BufferedImage convertedImg = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -94,16 +110,20 @@ public class FileUpload {
             if (content.trim().startsWith("filename")) {
                 String filename = content.substring(
                         content.indexOf('=') + 1).trim().replace("\"", "");
-                String name = filename.substring(0, filename.lastIndexOf("."));
-                String extension = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
-                return name + "_thumb." + extension;
+                return addFilenameSuffix(filename, "thumb");
             }
         }
         return null;
     }
 
-	@Inject
-	public void setLogger(Logger logger) {
-		this.logger = logger;
-	}
+    private String addFilenameSuffix(String filename, String suffix) {
+        String name = filename.substring(0, filename.lastIndexOf("."));
+        String extension = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+        return name + "_" + suffix + "." + extension;
+    }
+
+    @Inject
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
 }
