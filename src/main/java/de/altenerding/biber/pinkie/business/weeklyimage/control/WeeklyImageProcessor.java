@@ -1,17 +1,24 @@
 package de.altenerding.biber.pinkie.business.weeklyimage.control;
 
+import de.altenerding.biber.pinkie.business.notification.control.MessageSender;
+import de.altenerding.biber.pinkie.business.notification.entity.NotificationType;
+import de.altenerding.biber.pinkie.business.notification.entity.Placeholder;
 import de.altenerding.biber.pinkie.business.weeklyimage.entity.WeeklyImage;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WeeklyImageProcessor {
 
 	private Logger logger;
 	@PersistenceContext
 	private EntityManager em;
+	@Inject
+	private MessageSender messageSender;
 
 	public void archiveWeeklyImage(long weeklyImageId) {
 		logger.info("Archving weekly image with id={}", weeklyImageId);
@@ -24,6 +31,9 @@ public class WeeklyImageProcessor {
 		logger.info("Persisting new weekly image");
 		em.persist(weeklyImage);
 		em.flush();
+
+		Map<Placeholder, String> placeholders = new HashMap<>();
+		messageSender.sendNotifications(NotificationType.WEEKLY_IMAGE_UPLOADED, placeholders);
 	}
 
 	public void updateText(WeeklyImage weeklyImage) {
