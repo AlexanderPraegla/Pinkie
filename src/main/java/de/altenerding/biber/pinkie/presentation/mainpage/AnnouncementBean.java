@@ -31,7 +31,6 @@ public class AnnouncementBean implements Serializable {
 	}
 
 	public List<Announcement> getAnnouncements() {
-		logger.info("Getting all announcements");
 		if (announcements == null) {
 			init();
 		}
