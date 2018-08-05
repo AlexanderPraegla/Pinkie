@@ -43,6 +43,12 @@ public class TeamEditBean implements Serializable {
 		logger.info("Loading team data for id={}", teamId);
 		team = teamService.getTeamById(teamId);
 		members = memberService.getMembers();
+		Image image = team.getImage();
+
+		if (image != null) {
+			imageDescription = image.getDescription();
+		}
+
 		List<Integer> selectedTeamMemberIds = new ArrayList<>();
 		List<Integer> selectedTrainerIds = new ArrayList<>();
 		for (Member member : team.getTeamMembers()) {
@@ -66,6 +72,10 @@ public class TeamEditBean implements Serializable {
 			if (file != null) {
 				Image image = fileService.uploadImage(file, FileCategory.IMAGES_TEAM_GROUP, imageDescription);
 				team.setImage(image);
+			}
+
+			if (team.getImage() != null) {
+				team.getImage().setDescription(imageDescription);
 			}
 
 			List<Member> teamMembers = new ArrayList<>();
