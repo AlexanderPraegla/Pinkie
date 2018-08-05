@@ -1,7 +1,6 @@
 package de.altenerding.biber.pinkie.business.file.boundary;
 
 import de.altenerding.biber.pinkie.business.file.control.FileDeletion;
-import de.altenerding.biber.pinkie.business.file.control.FileDownload;
 import de.altenerding.biber.pinkie.business.file.control.FileMappingControl;
 import de.altenerding.biber.pinkie.business.file.control.FileSystemModifier;
 import de.altenerding.biber.pinkie.business.file.control.FileUpload;
@@ -34,8 +33,7 @@ import java.util.Map;
 public class FileService {
 
 	private Logger logger;
-	private FileUpload fileUpload;
-	private FileDownload fileDownload;
+	private FileUpload fileUploader;
 	private FileMappingControl fileMappingControl;
 	@Inject
 	private FileSystemModifier fileSystemModifier;
@@ -72,8 +70,8 @@ public class FileService {
 	}
 
 	public Image uploadImage(Part file, FileCategory directory, String description) throws Exception {
-		String fileName = fileUpload.upload(file, directory);
-        String thumbnail = fileUpload.uploadThumbnail(file, directory);
+		String fileName = fileUploader.upload(file, directory);
+		String thumbnail = fileUploader.uploadThumbnail(file, directory);
 
         Image image = new Image(directory, fileName, description, thumbnail);
 		em.persist(image);
@@ -84,9 +82,10 @@ public class FileService {
 
 	public Image uploadAlbumImage(Part file, String folder) throws Exception {
         String directoryPath = FileCategory.ALBUMS.getDirectoryPath() + folder + File.separator;
-        String fileName = fileUpload.upload(file, directoryPath);
-        String thumbnail = fileUpload.uploadThumbnail(file, directoryPath, FileCategory.ALBUMS.getThumbnailTargetSize());
+		String fileName = fileUploader.upload(file, directoryPath);
+		String thumbnail = fileUploader.uploadThumbnail(file, directoryPath, FileCategory.ALBUMS.getThumbnailTargetSize());
 		fileName = folder + File.separator + fileName;
+		thumbnail = folder + File.separator + thumbnail;
         Image image = new Image(FileCategory.ALBUMS, fileName, null, thumbnail);
 		em.persist(image);
 		em.flush();
@@ -95,7 +94,7 @@ public class FileService {
 	}
 
 	public Video uploadVideo(Part file, FileCategory directory, String description) throws Exception {
-		String fileName = fileUpload.upload(file, directory);
+		String fileName = fileUploader.upload(file, directory);
 		Video video = new Video(directory, fileName, description);
 		em.persist(video);
 		em.flush();
@@ -104,7 +103,7 @@ public class FileService {
 	}
 
 	public Document uploadDocument(Part file, FileCategory directory, String displayedName) throws Exception {
-		String fileName = fileUpload.upload(file, directory);
+		String fileName = fileUploader.upload(file, directory);
 		displayedName = StringUtils.isBlank(displayedName) ? fileName : displayedName;
 		Document document = new Document(directory, fileName, displayedName);
 		em.persist(document);
@@ -152,13 +151,8 @@ public class FileService {
 	}
 
 	@Inject
-	public void setFileUpload(FileUpload fileUpload) {
-		this.fileUpload = fileUpload;
-	}
-
-	@Inject
-	public void setFileDownload(FileDownload fileDownload) {
-		this.fileDownload = fileDownload;
+	public void setFileUploader(FileUpload fileUploader) {
+		this.fileUploader = fileUploader;
 	}
 
 	@Inject
