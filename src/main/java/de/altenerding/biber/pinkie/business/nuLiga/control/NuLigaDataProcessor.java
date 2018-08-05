@@ -26,156 +26,191 @@ import java.util.Locale;
 
 public class NuLigaDataProcessor {
 
-	private Logger logger;
-	private TeamProvider teamProvider;
-	@PersistenceContext
-	private EntityManager em;
+    private Logger logger;
+    private TeamProvider teamProvider;
+    @PersistenceContext
+    private EntityManager em;
 
-	@Transactional
-	void loadNuLigaTeamData() throws Exception {
-		emptyTeamData();
-		List<Team> teams = teamProvider.getCurrentTeams();
+    @Transactional
+    void loadNuLigaTeamData() throws Exception {
+        emptyTeamData();
+        List<Team> teams = teamProvider.getCurrentTeams();
 
-		for (Team team : teams) {
-			if (StringUtils.isBlank(team.getUrlStanding())) {
-				logger.warn("No url for nuLiga data available for team={} with id={}", team.getName(), team.getId());
-				continue;
-			}
-			Document document = Jsoup.connect(team.getUrlStanding()).get();
-			loadTeamStandings(team, document);
-			document = Jsoup.connect(team.getUrlTeamSchedule()).get();
-			loadTeamSchedule(team, document);
-		}
-	}
+        for (Team team : teams) {
+            if (StringUtils.isBlank(team.getUrlStanding())) {
+                logger.warn("No url for nuLiga data available for team={} with id={}", team.getName(), team.getId());
+                continue;
+            }
+            Document document = Jsoup.connect(team.getUrlStanding()).get();
+            loadTeamStandings(team, document);
+            document = Jsoup.connect(team.getUrlTeamSchedule()).get();
+            loadTeamSchedule(team, document);
+        }
+    }
 
-	private void emptyTeamData() {
-		logger.info("Deleting old nuliga data");
-		em.createNamedQuery("TeamScheduleEntry.deleteAll").executeUpdate();
-		em.createNamedQuery("StandingEntry.deleteAll").executeUpdate();
-		//reset sequence to prevent an overflow
-		em.createNativeQuery("ALTER SEQUENCE standing_id_seq RESTART WITH 1").executeUpdate();
-		em.createNativeQuery("ALTER SEQUENCE schedule_team_id_seq RESTART WITH 1").executeUpdate();
-		logger.info("Sucessfully deleted nuliga data");
-	}
+    private void emptyTeamData() {
+        logger.info("Deleting old nuliga data");
+        em.createNamedQuery("TeamScheduleEntry.deleteAll").executeUpdate();
+        em.createNamedQuery("StandingEntry.deleteAll").executeUpdate();
+        //reset sequence to prevent an overflow
+        em.createNativeQuery("ALTER SEQUENCE standing_id_seq RESTART WITH 1").executeUpdate();
+        em.createNativeQuery("ALTER SEQUENCE schedule_team_id_seq RESTART WITH 1").executeUpdate();
+        logger.info("Sucessfully deleted nuliga data");
+    }
 
-	private void loadTeamSchedule(Team team, Document document) {
-		logger.info("Loading team schedule from nuLiga for team={} with id={}", team.getName(), team.getId());
-		List<Element> tables = document.select("table");
-		Element standingTable = tables.get(1);
-		Elements rows = standingTable.select("tr");
+    private void loadTeamSchedule(Team team, Document document) {
+        logger.info("Loading team schedule from nuLiga for team={} with id={}", team.getName(), team.getId());
+        List<TeamScheduleEntry> teamScheduleEntries = parseScheduleHtml(team, document);
 
-		List<TeamScheduleEntry> seasonScheduleEntries = new ArrayList<>();
+        for (TeamScheduleEntry entry : teamScheduleEntries) {
+            em.persist(entry);
+            em.flush();
+        }
+    }
 
-		for (int i = 1; i < rows.size(); i++) { //first row is the col names so skip it.
-			Element row = rows.get(i);
-			Elements cols = row.select("td");
+    private void loadTeamStandings(Team team, Document document) throws IOException {
+        logger.info("Loading standings data for team={} with id={}", team.getName(), team.getId());
+        List<StandingEntry> standingEntries = parseRankingHtml(team, document);
 
-			TeamScheduleEntry entry = new TeamScheduleEntry();
-			entry.setTeam(team);
+        for (StandingEntry entry : standingEntries) {
+            em.persist(entry);
+            em.flush();
+        }
 
-			int columnCounter = 0;
-			if (cols.size() == 11) {
-				String day = cols.get(columnCounter++).text(); //Column 1
-				if (day.replace("\u00A0", "").isEmpty()) {
-					entry.setDay(seasonScheduleEntries.get(i - 2).getDay());
-				} else {
-					entry.setDay(day);
-				}
+    }
 
-				String matchDate = cols.get(columnCounter++).text(); //Column 2
-				if (matchDate.replace("\u00A0", "").isEmpty()) {
-					//date is the same as previous
-					matchDate = seasonScheduleEntries.get(i - 2).getFormattedMatchDate();
-				}
-				String matchTime = cols.get(columnCounter++)
-						.text()
-						.replace("\u00A0", "")
-						.substring(0, 5) //cut time string
-						.trim(); //Column 3
+    List<TeamScheduleEntry> parseScheduleHtml(Team team, Document document) {
+        List<Element> tables = document.select("table");
+        List<TeamScheduleEntry> teamScheduleEntries = parseHtmlTable(team, tables.get(1));
+        if (tables.size() > 2) {
+            teamScheduleEntries.addAll(parseHtmlTable(team, tables.get(2)));
+        }
+        return teamScheduleEntries;
+    }
 
-				String dateString = matchDate + " " + matchTime;
+    private List<TeamScheduleEntry> parseHtmlTable(Team team, Element standingTable) {
+        Elements rows = standingTable.select("tr");
 
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.GERMANY);
-				LocalDateTime localDate = LocalDateTime.parse(dateString, formatter);
-				entry.setMatchDate(Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant()));
+        List<TeamScheduleEntry> seasonScheduleEntries = new ArrayList<>();
 
-			} else {
-				entry.setInactive(true);
-				String inactiveReason = cols.get(columnCounter++).text(); //Column 1
-				entry.setInactiveReason(inactiveReason);
-				columnCounter++; //Skip column 2
-			}
-			@SuppressWarnings("unused")
+        for (int i = 1; i < rows.size(); i++) { //first row is the col names so skip it.
+            Element row = rows.get(i);
+            Elements cols = row.select("td");
+
+            TeamScheduleEntry entry = new TeamScheduleEntry();
+            entry.setTeam(team);
+
+            int columnCounter = 0;
+            if (cols.size() == 11) {
+                String day = cols.get(columnCounter++).text(); //Column 1
+                if (day.replace("\u00A0", "").isEmpty()) {
+                    entry.setDay(seasonScheduleEntries.get(i - 2).getDay());
+                } else {
+                    entry.setDay(day);
+                }
+
+                String matchDate = cols.get(columnCounter++).text(); //Column 2
+                if (matchDate.replace("\u00A0", "").isEmpty()) {
+                    //date is the same as previous
+                    matchDate = seasonScheduleEntries.get(i - 2).getFormattedMatchDate();
+                }
+                String matchTime = cols.get(columnCounter++)
+                        .text()
+                        .replace("\u00A0", "")
+                        .substring(0, 5) //cut time string
+                        .trim(); //Column 3
+
+                String dateString = matchDate + " " + matchTime;
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.GERMANY);
+                LocalDateTime localDate = LocalDateTime.parse(dateString, formatter);
+                entry.setMatchDate(Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant()));
+
+            } else {
+                entry.setInactive(true);
+                String inactiveReason = cols.get(columnCounter++).text(); //Column 1
+                entry.setInactiveReason(inactiveReason);
+                columnCounter++; //Skip column 2
+            }
+            @SuppressWarnings("unused")
 			/*
 				ignore Hallennr
 				column index is different depending on case above
 			 */
-					String place = cols.get(columnCounter++).text();
-			String matchId = cols.get(columnCounter++).text();
-			entry.setMatchId(Long.parseLong(matchId));
-			String homeTeam = cols.get(columnCounter++).text().replace("\u00A0", "").trim();
-			entry.setHomeTeam(homeTeam);
-			String guestTeam = cols.get(columnCounter++).text().replace("\u00A0", "").trim();
-			entry.setGuestTeam(guestTeam);
-			String result = cols.get(columnCounter++).text().replace("\u00A0", "").trim();
-			entry.setResult(result);
-			@SuppressWarnings({"unused", "UnusedAssignment"})
-			String col9 = cols.get(columnCounter++).text(); //ignore emtpy cell
+                    String place = cols.get(columnCounter++).text();
+            String matchId = cols.get(columnCounter++).text();
+            entry.setMatchId(Long.parseLong(matchId));
+            String homeTeam = cols.get(columnCounter++).text().replace("\u00A0", "").trim();
+            entry.setHomeTeam(homeTeam);
+            String guestTeam = cols.get(columnCounter++).text().replace("\u00A0", "").trim();
+            entry.setGuestTeam(guestTeam);
+            String result = cols.get(columnCounter++).text().replace("\u00A0", "").trim();
+            entry.setResult(result);
+            @SuppressWarnings({"unused", "UnusedAssignment"})
+            String col9 = cols.get(columnCounter++).text(); //ignore emtpy cell
 
-			seasonScheduleEntries.add(entry);
+            seasonScheduleEntries.add(entry);
 
-			em.persist(entry);
-			em.flush();
-		}
-	}
+        }
 
-	private void loadTeamStandings(Team team, Document document) throws IOException {
-		logger.info("Loading standings data for team={} with id={}", team.getName(), team.getId());
-		List<Element> tables = document.select("table");
-		Element standingTable = tables.get(0);
-		Elements rows = standingTable.select("tr");
+        return seasonScheduleEntries;
+    }
 
-		for (int i = 1; i < rows.size(); i++) { //first row is the col names so skip it.
-			Element row = rows.get(i);
-			Elements cols = row.select("td");
+    List<StandingEntry> parseRankingHtml(Team team, Document document) {
+        List<Element> tables = document.select("table");
+        Element standingTable = tables.get(0);
+        Elements rows = standingTable.select("tr");
 
-			StandingEntry entry = new StandingEntry();
-			entry.setTeam(team);
-			entry.setStand(Integer.parseInt(cols.get(1).text()));
-			String teamName = cols.get(2).text();
-			entry.setTeamName(teamName);
+        List<StandingEntry> rankings = new ArrayList<>();
+        for (int i = 1; i < rows.size(); i++) { //first row is the col names so skip it.
+            Element row = rows.get(i);
+            Elements cols = row.select("td");
 
-			if (teamName.contains("Altenerding")) {
-				Element element = cols.get(2);
-				String teamScheduleUrl = element.select("a").attr("abs:href");
-				team.setUrlTeamSchedule(teamScheduleUrl);
-			}
+            StandingEntry entry = new StandingEntry();
+            entry.setTeam(team);
+            entry.setStand(Integer.parseInt(cols.get(1).text()));
+            String teamName = cols.get(2).text();
+            entry.setTeamName(teamName);
 
-			if (cols.size() == 5) {
-				entry.setInactive(true);
-				entry.setInactiveReason(cols.get(4).text());
-			} else {
+            if (teamName.contains("Altenerding")) {
+                Element element = cols.get(2);
+                String teamScheduleUrl = element.select("a").attr("abs:href");
+                teamScheduleUrl = teamScheduleUrl.replace("pageState=vorrunde", "pageState=gesamt");
+                teamScheduleUrl = teamScheduleUrl.replace("pageState=rückrunde", "pageState=gesamt");
+                team.setUrlTeamSchedule(teamScheduleUrl);
+            }
 
-				entry.setNumberOfMatches(Integer.parseInt(cols.get(3).text()));
-				entry.setNumberOfWinnings(Integer.parseInt(cols.get(4).text()));
-				entry.setNumberOfTies(Integer.parseInt(cols.get(5).text()));
-				entry.setNumberOfLoss(Integer.parseInt(cols.get(6).text()));
-				entry.setGoals(cols.get(7).text());
-				entry.setGoalDifference(cols.get(8).text());
-				entry.setPoints(cols.get(9).text());
-			}
-			em.persist(entry);
-			em.flush();
-		}
-	}
+            if (cols.size() == 5) {
+                entry.setInactive(true);
+                entry.setInactiveReason(cols.get(4).text());
+            } else {
 
-	@Inject
-	public void setLogger(Logger logger) {
-		this.logger = logger;
-	}
+                entry.setNumberOfMatches(Integer.parseInt(cols.get(3).text()));
+                entry.setNumberOfWinnings(Integer.parseInt(cols.get(4).text()));
+                entry.setNumberOfTies(Integer.parseInt(cols.get(5).text()));
+                entry.setNumberOfLoss(Integer.parseInt(cols.get(6).text()));
+                entry.setGoals(cols.get(7).text());
+                entry.setGoalDifference(cols.get(8).text());
+                entry.setPoints(cols.get(9).text());
+            }
 
-	@Inject
-	public void setTeamProvider(TeamProvider teamProvider) {
-		this.teamProvider = teamProvider;
-	}
+            rankings.add(entry);
+        }
+
+        return rankings;
+    }
+
+    public Logger getLogger() {
+        return logger;
+    }
+
+    @Inject
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
+    @Inject
+    public void setTeamProvider(TeamProvider teamProvider) {
+        this.teamProvider = teamProvider;
+    }
 }
