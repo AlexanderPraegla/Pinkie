@@ -20,7 +20,7 @@
                         <h:outputText rendered="#{weeklyImage.image.description != null
                         and weeklyImage.image.description != ''}" value="#{weeklyImage.image.description}"
                                       styleClass="weekly-image-description"/>
-                        <global:image image="#{weeklyImage.image}"/>
+                        <global:image image="#{weeklyImage.image}" styleClass="weekly-image-description"/>
                     </b:carouselItem>
                 </c:forEach>
             </b:carousel>

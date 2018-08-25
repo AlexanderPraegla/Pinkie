@@ -17,16 +17,17 @@
         <composite:attribute name="style" type="java.lang.String" default="max-width: 100%; max-height: 100%"/>
         <composite:attribute name="isProfileImage" type="java.lang.Boolean" default="false"/>
         <composite:attribute name="imageOnly" type="java.lang.Boolean" default="false"/>
+        <composite:attribute name="styleClass" type="java.lang.String"/>
     </composite:interface>
 
     <composite:implementation>
-        <b:row rendered="#{cc.attrs.imageOnly}">
+        <b:row rendered="#{cc.attrs.imageOnly}" styleClass="#{cc.attrs.styleClass}">
             <b:column>
                 <b:image value="#{cc.attrs.image.thumbnailUrl}" rendered="#{cc.attrs.image != null}"
                          style="#{cc.attrs.style}"/>
             </b:column>
         </b:row>
-        <b:row rendered="#{not cc.attrs.imageOnly}">
+        <b:row rendered="#{not cc.attrs.imageOnly}" styleClass="#{cc.attrs.styleClass}">
             <b:column>
                 <h:outputLink value="#{cc.attrs.onClickHref}" target="#{cc.attrs.target}"
                               rendered="#{cc.attrs.image != null and cc.attrs.onClickHref != null and not cc.attrs.isProfileImage}">
