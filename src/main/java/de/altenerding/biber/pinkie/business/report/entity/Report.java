@@ -24,10 +24,11 @@ import java.util.Date;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Report.findAll", query = "SELECT g from Report g order by g.createdOn desc"),
+		@NamedQuery(name = "Report.findAll", query = "SELECT g from Report g WHERE g.released = TRUE order by g.createdOn desc"),
 		@NamedQuery(name = "Report.findById", query = "SELECT g from Report g where g.id = :id"),
+		@NamedQuery(name = "Report.unreleasedReports", query = "SELECT g from Report g where g.released = FALSE order by g.createdOn desc"),
 		@NamedQuery(name = "Report.findByTeamIdSeasonID", query = "SELECT g from Report g " +
-				"where g.team.id = :teamId AND g.season.id = :seasonId ORDER BY g.createdOn desc")
+				"where g.team.id = :teamId AND g.season.id = :seasonId AND g.released = TRUE ORDER BY g.createdOn desc")
 })
 public class Report {
 
@@ -56,6 +57,12 @@ public class Report {
 	private Date createdOn;
 	@OneToOne
 	private Image image;
+	private boolean released = false;
+	@OneToOne(fetch = FetchType.LAZY)
+	private Member releasedBy;
+	@Column(name = "released_on", nullable = false)
+	@Temporal(value = TemporalType.TIMESTAMP)
+	private Date releasedOn;
 
 	@PrePersist
 	protected void onPersist() {
@@ -142,5 +149,29 @@ public class Report {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public boolean isReleased() {
+		return released;
+	}
+
+	public void setReleased(boolean released) {
+		this.released = released;
+	}
+
+	public Member getReleasedBy() {
+		return releasedBy;
+	}
+
+	public void setReleasedBy(Member releasedBy) {
+		this.releasedBy = releasedBy;
+	}
+
+	public Date getReleasedOn() {
+		return releasedOn;
+	}
+
+	public void setReleasedOn(Date releasedOn) {
+		this.releasedOn = releasedOn;
 	}
 }
