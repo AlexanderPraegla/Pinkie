@@ -66,7 +66,7 @@ public class ReportBean implements Serializable {
 
 			reportService.createReport(report);
 
-			FacesMessages.info(report.getType().getLabel(), "Erstellt");
+			FacesMessages.info("Bericht erstellt", "Bitte beachten, dass der Bericht erst noch freigegeben werden muss, bevor er auf der Homepage erscheint");
 			result = "/public/news/report.xhtml?faces-redirect=true";
 		} catch (Exception e) {
             logger.error("Error while creating report", e);
@@ -79,7 +79,7 @@ public class ReportBean implements Serializable {
 	}
 
 	@Access(role = Role.PRESS)
-	public String removeImage() {
+	public String removeImage(Report report) {
 		logger.info("Removing image from report with id={}", report.getId());
 		try {
 			report.setImage(null);

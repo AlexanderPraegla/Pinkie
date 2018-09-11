@@ -22,6 +22,10 @@ public class ReportService {
 		return reportProvider.getLatestReports();
 	}
 
+	public List<Report> getReportsForReview() {
+		return reportProvider.getUnreleasedReports();
+	}
+
 	public Report getReportById(long reportId) {
 		return reportProvider.getReportById(reportId);
 	}
@@ -36,6 +40,10 @@ public class ReportService {
 
 	public void updateReport(Report report) {
 		reportProcessor.updateReport(report);
+	}
+
+	public void releaseReport(Report report) {
+		reportProcessor.releaseReport(report);
 	}
 
 	@Inject
