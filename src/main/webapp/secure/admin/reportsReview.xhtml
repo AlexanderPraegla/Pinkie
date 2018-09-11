@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+    <ui:define name="title">Berichte Freigeben</ui:define>
+    <ui:define name="content">
+        <b:container>
+            <p:dataScroller value="#{reportReviewBean.unreleasedReports}" var="report" chunkSize="10"
+                            rendered="#{reportReviewBean.unreleasedReports.size() > 0}">
+
+                <f:facet name="loader">
+                    <b:commandButton type="button" value="Weitere laden" icon="ui-icon-circle-triangle-s"
+                                     look="default btn-block"/>
+                </f:facet>
+
+                <b:panel collapsible="false">
+                    <f:facet name="heading">
+                        <h:outputText value="#{report.team.name}" rendered="#{report.team != null}"/>
+                        <h:outputText value=" - " rendered="#{report.team != null}"/>
+                        <h:outputText value="#{report.title}"/>
+                    </f:facet>
+                    <b:row>
+                        <b:column span="8">
+                            <h:outputText value="#{report.summary}"/>
+                        </b:column>
+                        <b:column span="2" style="margin-top: 5px">
+                            <b:form>
+                                <b:commandButton value="#{label['button.release']}"
+                                                 action="#{reportReviewBean.releaseReport(report)}"
+                                                 look="success btn-block"
+                                                 rendered="#{userSessionBean.isUserInRole('ADMIN')}"
+                                                 includeViewParams="true">
+                                    <f:param name="reportId" value="#{report.id}"/>
+                                </b:commandButton>
+                            </b:form>
+                        </b:column>
+                        <b:column span="2" style="margin-top: 5px">
+                            <b:button value="#{label['button.check']}" outcome="/secure/admin/reportsReviewEdit.xhtml"
+                                      look="danger btn-block"
+                                      includeViewParams="true">
+                                <f:param name="reportId" value="#{report.id}"/>
+                            </b:button>
+                        </b:column>
+                    </b:row>
+                    <div style="font-size: 13px;font-style: italic; padding-top: 5px">
+                        <h:outputText rendered="#{report.author != null}"
+                                      value="#{report.author.getFullName()}"/>
+                        <h:outputText rendered="#{report.author != null}" value=" - "/>
+                        <h:outputText value="#{report.createdOn}">
+                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
+                        </h:outputText>
+                    </div>
+                </b:panel>
+            </p:dataScroller>
+            <b:panel collapsible="false" look="info" rendered="#{reportReviewBean.unreleasedReports.size() == 0}">
+                <h:outputText value="Keine Berichte zur Freigabe vorhanden"/>
+            </b:panel>
+        </b:container>
+    </ui:define>
+</ui:composition>
+</html>

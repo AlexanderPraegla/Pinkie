@@ -49,7 +49,7 @@
                     </b:column>
                     <b:column colLg="2" colMd="2" colSm="4" colXs="12"
                               style="#{(reportBean.report.image != null) ? '' : ' display: none;'}">
-                        <global:buttonBlock look="danger" action="#{reportBean.removeImage}"
+                        <global:buttonBlock look="danger" action="#{reportBean.removeImage(reportBean.report)}"
                                             label="#{label['button.removeImage']}"/>
                     </b:column>
                 </b:row>
