@@ -4,11 +4,13 @@ import de.altenerding.biber.pinkie.business.notification.control.MessageSender;
 import de.altenerding.biber.pinkie.business.notification.entity.NotificationType;
 import de.altenerding.biber.pinkie.business.notification.entity.Placeholder;
 import de.altenerding.biber.pinkie.business.report.entity.Report;
+import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +21,8 @@ public class ReportProcessor {
 	private Logger logger;
     @Inject
     private MessageSender messageSender;
+	@Inject
+	private UserSessionBean userSessionBean;
 
 	public void createReport(Report report) {
 		logger.info("Creating new Report with title={} from author={}", report.getTitle(), report.getAuthor().getFullName());
@@ -35,6 +39,14 @@ public class ReportProcessor {
             messageSender.sendReportNotifications(NotificationType.REPORT_TEAM, report.getTeam(), placeholders);
         }
     }
+
+	public void releaseReport(Report report) {
+		logger.info("Releasing report with id={}", report.getId());
+		report.setReleased(true);
+		report.setReleasedBy(userSessionBean.getMember());
+		report.setReleasedOn(new Date(System.currentTimeMillis()));
+		updateReport(report);
+	}
 
 	public void updateReport(Report report) {
 		logger.info("Updating report with id={}", report.getId());
