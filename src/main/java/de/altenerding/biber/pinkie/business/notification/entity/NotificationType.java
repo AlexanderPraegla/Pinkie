@@ -14,7 +14,7 @@ public enum NotificationType {
 
     REPORT_TEAM(true, "Benachrichtigen wenn ein Bericht für eine Mannschaft hochgeladen wird", NotificationGroup.REPORTS, 5),
     REPORT_GENERAL(true, "Benachrichtigen wenn ein Bericht unabhängig von einer Mannschaft hochgeladen wird", NotificationGroup.GENERAL, 0),
-    ANNOUNCEMENT(true, "Benachrichtigen wenn auf der Startseite eine neue Ankündigung hinzugefügt wird", NotificationGroup.GENERAL, 5),
+    ANNOUNCEMENT(true, "Benachrichtigen wenn auf der Startseite eine neue News hinzugefügt wird", NotificationGroup.GENERAL, 5),
     WEEKLY_IMAGE_UPLOADED(true, "Benachrichtigen wenn ein neues Bild der Woche hochgeladen wird", NotificationGroup.GENERAL, 10),
     CLUB_VIDEO_UPLOADED(true, "Benachrichtigen wenn auf der Startseite ein neues Video hochgeladen wird", NotificationGroup.GENERAL, 15),
     ALBUM_CREATED(true, "Benachrichtigen wenn ein neues Album in der Gallerie angelegt wird", NotificationGroup.GENERAL, 20),
