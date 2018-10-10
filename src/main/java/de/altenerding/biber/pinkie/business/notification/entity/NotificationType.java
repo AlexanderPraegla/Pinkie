@@ -17,7 +17,9 @@ public enum NotificationType {
     ANNOUNCEMENT(true, "Benachrichtigen wenn auf der Startseite eine neue Ankündigung hinzugefügt wird", NotificationGroup.GENERAL, 5),
     WEEKLY_IMAGE_UPLOADED(true, "Benachrichtigen wenn ein neues Bild der Woche hochgeladen wird", NotificationGroup.GENERAL, 10),
     CLUB_VIDEO_UPLOADED(true, "Benachrichtigen wenn auf der Startseite ein neues Video hochgeladen wird", NotificationGroup.GENERAL, 15),
-    ALBUM_CREATED(true, "Benachrichtigen wenn ein neues Album in der Gallerie angelegt wird", NotificationGroup.GENERAL, 20);
+    ALBUM_CREATED(true, "Benachrichtigen wenn ein neues Album in der Gallerie angelegt wird", NotificationGroup.GENERAL, 20),
+
+    REPORT_IN_REVIEW(true, "Benachrichtigen, wenn ein neuer Bericht hochgeladen wurde und er freigegeben werden muss.", NotificationGroup.ADMINISTRATION, 1);
 
 	private final boolean configurable;
     private final String description;
