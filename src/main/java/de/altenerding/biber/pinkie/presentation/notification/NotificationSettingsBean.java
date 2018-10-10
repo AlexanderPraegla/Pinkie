@@ -4,6 +4,7 @@ import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.notification.boundary.NotificationSettingService;
+import de.altenerding.biber.pinkie.business.notification.entity.AdministrationNotificationSetting;
 import de.altenerding.biber.pinkie.business.notification.entity.CommunicationType;
 import de.altenerding.biber.pinkie.business.notification.entity.GeneralNotificationSetting;
 import de.altenerding.biber.pinkie.business.notification.entity.NotificationSetting;
@@ -25,17 +26,19 @@ public class NotificationSettingsBean implements Serializable {
 	@Inject
     private NotificationSettingService notificationSettingService;
     private List<GeneralNotificationSetting> generalNotificationSettings;
+    private List<AdministrationNotificationSetting> administrationNotificationSettings;
     private List<ReportNotificationSetting> reportNotificationSettings;
 
-    public void initCurrentNotifications() throws Exception {
-		Member member = userSessionBean.getMember();
-		if (member == null) {
-			throw new Exception("No login available");
-		}
-
-        reportNotificationSettings = notificationSettingService.getReportNotificationSettingsByMember(member, CommunicationType.EMAIL);
-        generalNotificationSettings = notificationSettingService.getGeneralNotificationSettingsByMember(member, CommunicationType.EMAIL);
-    }
+//    public void initCurrentNotifications() throws Exception {
+//		Member member = userSessionBean.getMember();
+//		if (member == null) {
+//			throw new Exception("No login available");
+//		}
+//
+//        reportNotificationSettings = notificationSettingService.getReportNotificationSettingsByMember(member, CommunicationType.EMAIL);
+//        generalNotificationSettings = notificationSettingService.getGeneralNotificationSettingsByMember(member, CommunicationType.EMAIL);
+//        generalNotificationSettings = notificationSettingService.getGeneralNotificationSettingsByMember(member, CommunicationType.EMAIL);
+//    }
 
     public List<ReportNotificationSetting> getReportNotificationSettings(CommunicationType communicationType) {
         Member member = userSessionBean.getMember();
@@ -54,6 +57,15 @@ public class NotificationSettingsBean implements Serializable {
 
 		return generalNotificationSettings;
 	}
+
+    public List<AdministrationNotificationSetting> getAdministrationNotificationSettings(CommunicationType communicationType) {
+        Member member = userSessionBean.getMember();
+        if (administrationNotificationSettings == null) {
+            administrationNotificationSettings = notificationSettingService.getAdministrationNotificationSettingsByMember(member, communicationType);
+        }
+
+        return administrationNotificationSettings;
+    }
 
     @Access(role = Role.MEMBER)
     public void deleteOrCreateNotificationSetting(NotificationSetting notificationSetting) {

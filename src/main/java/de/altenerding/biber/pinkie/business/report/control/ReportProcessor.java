@@ -30,6 +30,18 @@ public class ReportProcessor {
 		em.flush();
 
         Map<Placeholder, String> placeholders = new HashMap<>();
+        placeholders.put(Placeholder.AUTHOR, report.getAuthor().getFullName());
+        messageSender.sendAdminNotifications(NotificationType.REPORT_IN_REVIEW, placeholders);
+    }
+
+    public void releaseReport(Report report) {
+        logger.info("Releasing report with id={}", report.getId());
+        report.setReleased(true);
+        report.setReleasedBy(userSessionBean.getMember());
+        report.setReleasedOn(new Date(System.currentTimeMillis()));
+        updateReport(report);
+
+        Map<Placeholder, String> placeholders = new HashMap<>();
         placeholders.put(Placeholder.REPORT_TITLE, report.getTitle());
 		placeholders.put(Placeholder.AUTHOR, report.getAuthor().getFullName());
         if (report.getTeam() == null) {
@@ -39,14 +51,6 @@ public class ReportProcessor {
             messageSender.sendReportNotifications(NotificationType.REPORT_TEAM, report.getTeam(), placeholders);
         }
     }
-
-	public void releaseReport(Report report) {
-		logger.info("Releasing report with id={}", report.getId());
-		report.setReleased(true);
-		report.setReleasedBy(userSessionBean.getMember());
-		report.setReleasedOn(new Date(System.currentTimeMillis()));
-		updateReport(report);
-	}
 
 	public void updateReport(Report report) {
 		logger.info("Updating report with id={}", report.getId());
