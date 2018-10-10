@@ -3,6 +3,7 @@ package de.altenerding.biber.pinkie.business.notification.boundary;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.notification.control.NotificationSettingsProcessor;
 import de.altenerding.biber.pinkie.business.notification.control.NotificationSettingsProvider;
+import de.altenerding.biber.pinkie.business.notification.entity.AdministrationNotificationSetting;
 import de.altenerding.biber.pinkie.business.notification.entity.CommunicationType;
 import de.altenerding.biber.pinkie.business.notification.entity.GeneralNotificationSetting;
 import de.altenerding.biber.pinkie.business.notification.entity.NotificationSetting;
@@ -26,6 +27,10 @@ public class NotificationSettingService {
 
     public List<GeneralNotificationSetting> getGeneralNotificationSettingsByMember(Member member, CommunicationType communicationType) {
         return notificationSettingsProvider.getGeneralNotificationSettingsByMember(member, communicationType);
+    }
+
+    public List<AdministrationNotificationSetting> getAdministrationNotificationSettingsByMember(Member member, CommunicationType communicationType) {
+        return notificationSettingsProvider.getAdministrationNotificationSettingsByMember(member, communicationType);
     }
 
     public NotificationSetting createNotificationSetting(NotificationSetting notificationSetting) {
