@@ -17,6 +17,7 @@
                             rendered="#{userSessionBean.member.hasPrivateEmail()}"
                             id="emailSettingsComponent" communicationType="#{CommunicationType.EMAIL}"
                             generalNotifications="#{notificationSettingsBean.getGeneralNotificationSettings(CommunicationType.EMAIL)}"
+                            administrationNotifications="#{notificationSettingsBean.getAdministrationNotificationSettings(CommunicationType.EMAIL)}"
                             reportNotification="#{notificationSettingsBean.getReportNotificationSettings(CommunicationType.EMAIL)}"/>
                     <b:panel rendered="#{not userSessionBean.member.hasPrivateEmail()}" look="danger">
                         <h:outputText value="#{textValues['message.email.notavailable']}"/>
