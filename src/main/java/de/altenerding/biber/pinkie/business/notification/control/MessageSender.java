@@ -1,6 +1,7 @@
 package de.altenerding.biber.pinkie.business.notification.control;
 
 import de.altenerding.biber.pinkie.business.members.entity.Member;
+import de.altenerding.biber.pinkie.business.notification.entity.AdministrationNotificationSetting;
 import de.altenerding.biber.pinkie.business.notification.entity.CommunicationTemplate;
 import de.altenerding.biber.pinkie.business.notification.entity.CommunicationType;
 import de.altenerding.biber.pinkie.business.notification.entity.Email;
@@ -61,13 +62,18 @@ public class MessageSender {
 		sendNotifications(notificationSettings, placeholders);
 	}
 
+	public void sendAdminNotifications(NotificationType notificationType, Map<Placeholder, String> placeholders) {
+		List<AdministrationNotificationSetting> notificationSettings = notificationSettingsProvider.getAdministrationNotificationSettingsByCommunicationType(notificationType);
+		sendNotifications(notificationSettings, placeholders);
+	}
+
 	public void sendReportNotifications(NotificationType notificationType, Team team, Map<Placeholder, String> placeholders) {
 		List<ReportNotificationSetting> notificationSettings = notificationSettingsProvider.getReportNotificationSettingsByCommunicationType(notificationType, team);
 		sendNotifications(notificationSettings, placeholders);
 
 	}
 
-	public void sendMessage(@Observes Message message) throws Exception {
+	public void sendMessage(@Observes Message message) {
 		CommunicationTemplate template = templateProvider.getCommunicationTemplate(message.getCommunicationType(), message.getNotificationType());
 
 		switch (message.getCommunicationType()) {

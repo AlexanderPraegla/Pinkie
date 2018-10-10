@@ -16,7 +16,9 @@ import javax.persistence.Table;
                         " WHERE n.notificationType = :notificationType " +
                         " AND n.team.id = :teamId"),
         @NamedQuery(name = "ReportNotificationSetting.findByMemberId",
-                query = "SELECT n FROM ReportNotificationSetting n WHERE n.member.id = :id AND n.communicationType = :communicationType ORDER BY n.team.orderId")
+                query = "SELECT n FROM ReportNotificationSetting n WHERE n.member.id = :id AND n.communicationType = :communicationType ORDER BY n.team.orderId"),
+        @NamedQuery(name = "ReportNotificationSetting.deleteByTeamId",
+                query = "DELETE FROM ReportNotificationSetting n WHERE n.team.id = :teamId")
 })
 @Entity
 @Table(name = "report_notification_settings")

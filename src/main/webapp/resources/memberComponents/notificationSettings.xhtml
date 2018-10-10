@@ -10,6 +10,8 @@
         <composite:attribute type="java.util.List"
                              name="generalNotifications" required="true"/>
         <composite:attribute type="java.util.List"
+                             name="administrationNotifications" required="true"/>
+        <composite:attribute type="java.util.List"
                              name="reportNotification" required="true"/>
         <composite:attribute type="de.altenerding.biber.pinkie.business.notification.entity.CommunicationType"
                              name="communicationType" required="true"/>
@@ -20,6 +22,20 @@
         <o:importConstants type="de.altenerding.biber.pinkie.business.notification.entity.NotificationGroup"
                            var="NotificationGroup"/>
         <b:accordion expandedPanels="emailSettingsTab:emailSettingsComponent:generalSettings">
+            <b:panel id="adminSettings" rendered="#{userSessionBean.isUserInRole('ADMIN')}"
+                     title="#{label[NotificationGroup.ADMINISTRATION.labelKey]}" collapsible="true">
+                <h:outputText value="#{textValues[NotificationGroup.ADMINISTRATION.descriptionKey]}"/>
+                <ui:repeat
+                        value="#{cc.attrs.administrationNotifications}"
+                        var="adminSetting">
+                    <ui:include src="notificationSetting.xhtml">
+                        <ui:param name="checked" value="#{adminSetting.active}"/>
+                        <ui:param name="label" value="#{adminSetting.displayedLabel}"/>
+                        <ui:param name="setting" value="#{adminSetting}"/>
+                    </ui:include>
+                </ui:repeat>
+            </b:panel>
+
             <b:panel id="generalSettings"
                      title="#{label[NotificationGroup.GENERAL.labelKey]}" collapsible="true">
                 <h:outputText value="#{textValues[NotificationGroup.GENERAL.descriptionKey]}"/>
