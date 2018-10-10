@@ -8,12 +8,15 @@ import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.file.entity.TextMapping;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
+import net.bootsfaces.utils.FacesMessages;
+import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
-import java.util.Date;
+import java.io.IOException;
 import java.util.List;
 
 @Named
@@ -22,6 +25,8 @@ public class FileMappingBean {
 
 	@Inject
 	private FileService fileService;
+	@Inject
+	private Logger logger;
 	private Part file;
 	private String displayedName;
 
@@ -80,9 +85,19 @@ public class FileMappingBean {
 	}
 
 	@Access(role = Role.ADMIN)
-	public void archiveDocument(FileMapping fileMapping) {
-		fileMapping.setArchivedOn(new Date());
-		fileService.updateMapping(fileMapping);
+	public void deleteDocument(FileMapping fileMapping) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getFlash().setKeepMessages(true);
+
+		try {
+			fileService.deleteMapping(fileMapping);
+			fileService.deleteDocument(fileMapping.getDocument());
+		} catch (IOException e) {
+			logger.error("Error while deleting document for mapping with id={}", fileMapping.getId(), e);
+			FacesMessages.error("Fehler beim löschen des Dokuments");
+		}
+
+//		return "/secure/about/editLottery.xhtml?faces-redirect=true&includeViewParams=true";
 	}
 
 	public Part getFile() {
