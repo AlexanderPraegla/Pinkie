@@ -36,10 +36,10 @@ public class AnnouncementProcessingBean implements Serializable {
 			uploadAnnouncementAttachment(announcement);
 
 			announcementService.updateAnnouncement(announcement);
-			FacesMessages.info("Ankündigung aktualisiert");
+			FacesMessages.info("News aktualisiert");
 		} catch (Exception e) {
 			logger.error("Error while updating announcement with id={}", announcement.getId(), e);
-			FacesMessages.error("Es ist ein Fehler beim Speichern der Ankündigung aufgetreten");
+			FacesMessages.error("Es ist ein Fehler beim Speichern der News aufgetreten");
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);
@@ -50,10 +50,10 @@ public class AnnouncementProcessingBean implements Serializable {
 	public String archiveAnnouncement(Announcement anncouncement) {
 		try {
 			announcementService.archiveAnnouncement(anncouncement);
-			FacesMessages.info("Ankündigung archiviert");
+			FacesMessages.info("News archiviert");
 		} catch (Exception e) {
 			logger.error("Error while deleting announcement with id={}", anncouncement.getId(), e);
-			FacesMessages.error("Es ist ein Fehler beim löschen der Ankündigung aufgetreten");
+			FacesMessages.error("Es ist ein Fehler beim löschen der News aufgetreten");
 		}
 		return "success";
 	}
@@ -65,10 +65,10 @@ public class AnnouncementProcessingBean implements Serializable {
             anncouncement.setDocument(null);
             announcementService.updateAnnouncement(anncouncement);
             fileService.deleteDocument(document);
-            FacesMessages.info("Ankündigung archiviert");
+            FacesMessages.info("News archiviert");
         } catch (Exception e) {
             logger.error("Error while deleting announcement with id={}", anncouncement.getId(), e);
-            FacesMessages.error("Es ist ein Fehler beim löschen der Ankündigung aufgetreten");
+            FacesMessages.error("Es ist ein Fehler beim löschen der News aufgetreten");
         }
         return "success";
     }
@@ -80,10 +80,10 @@ public class AnnouncementProcessingBean implements Serializable {
 
             anncouncement.setAuthor(userSessionBean.getMember());
 			announcementService.saveAnnouncement(anncouncement);
-			FacesMessages.info( "Ankündigung gespeichert");
+			FacesMessages.info( "News gespeichert");
 		} catch (Exception e) {
 			logger.error("Error while saving announcement with id={}", anncouncement.getId(), e);
-			FacesMessages.error("Es ist ein Fehler beim speichern der Ankündigung aufgetreten");
+			FacesMessages.error("Es ist ein Fehler beim speichern der News aufgetreten");
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getFlash().setKeepMessages(true);

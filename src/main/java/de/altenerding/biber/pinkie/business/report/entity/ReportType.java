@@ -1,7 +1,7 @@
 package de.altenerding.biber.pinkie.business.report.entity;
 
 public enum ReportType {
-	ANNOUNCEMENT("Ankündigung"),
+	ANNOUNCEMENT("News"),
 	INFORMATION("Information"),
 	GAMESREPORT("Spielbericht"),
 	OTHER("Sonstiges");
