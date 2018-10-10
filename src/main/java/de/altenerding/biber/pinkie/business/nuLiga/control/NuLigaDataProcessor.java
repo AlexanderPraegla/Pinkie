@@ -174,7 +174,7 @@ public class NuLigaDataProcessor {
 
             if (teamName.contains("Altenerding")) {
                 Element element = cols.get(2);
-                String teamScheduleUrl = element.select("a").attr("abs:href");
+                String teamScheduleUrl = "https://bhv-handball.liga.nu" + element.select("a").attr("href");
                 teamScheduleUrl = teamScheduleUrl.replace("pageState=vorrunde", "pageState=gesamt");
                 teamScheduleUrl = teamScheduleUrl.replace("pageState=rückrunde", "pageState=gesamt");
                 team.setUrlTeamSchedule(teamScheduleUrl);
