@@ -25,6 +25,13 @@ public class FileMappingControl {
 		em.flush();
 	}
 
+	public void deleteMapping(Mapping mapping) {
+		logger.info("Deleting mapping for page={} with key={} and id={}", mapping.getPage(), mapping.getKey(), mapping.getId());
+		mapping = em.merge(mapping);
+		em.remove(mapping);
+		em.flush();
+	}
+
 	public FileMapping getSingleFileMapping(String page, String key) {
 		Map<String, List<Mapping>> mappingForPage = getMappingForPage(page);
 		List<Mapping> mappings = mappingForPage.get(key);

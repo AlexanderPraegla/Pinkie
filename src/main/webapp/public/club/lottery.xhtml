@@ -1,0 +1,26 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:mapping="http://java.sun.com/jsf/composite/mappingComponents">
+    <ui:define name="title">Saison-Verlosung 2018/2019</ui:define>
+
+    <ui:define name="content">
+        <b:container>
+            <b:panel title="Saison-Verlosung 2018/2019 Toyota Aygo" collapsible="false">
+                <b:row>
+                    <b:column>
+                        <mapping:text page="lottery.xhtml" key="lottery.text"/>
+                    </b:column>
+                </b:row>
+            </b:panel>
+            <b:panel title="Anhänge" collapsible="false">
+                <b:row>
+                    <b:column>
+
+                        <mapping:documents page="lottery.xhtml" key="lottery.documents"/>
+                    </b:column>
+                </b:row>
+            </b:panel>
+        </b:container>
+    </ui:define>
+</ui:composition>

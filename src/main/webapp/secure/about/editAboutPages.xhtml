@@ -5,7 +5,7 @@
     <ui:define name="title">Über uns bearbeiten</ui:define>
 
     <ui:define name="content">
-        <b:container>
+        <b:container rendered="#{userSessionBean.isUserInRole('PRESS')}">
             <b:navLink outcome="/secure/about/editYouth.xhtml">
                 <b:panel>
                     <h:outputText value="Jugendarbeit bearbeiten"/>
