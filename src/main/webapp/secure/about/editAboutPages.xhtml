@@ -6,11 +6,6 @@
 
     <ui:define name="content">
         <b:container rendered="#{userSessionBean.isUserInRole('PRESS')}">
-            <b:navLink outcome="/secure/about/editLottery.xhtml">
-                <b:panel>
-                    <h:outputText value="Verlosung bearbeiten"/>
-                </b:panel>
-            </b:navLink>
             <b:navLink outcome="/secure/about/editYouth.xhtml">
                 <b:panel>
                     <h:outputText value="Jugendarbeit bearbeiten"/>

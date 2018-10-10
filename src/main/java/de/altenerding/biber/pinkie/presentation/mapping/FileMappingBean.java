@@ -96,8 +96,6 @@ public class FileMappingBean {
 			logger.error("Error while deleting document for mapping with id={}", fileMapping.getId(), e);
 			FacesMessages.error("Fehler beim löschen des Dokuments");
 		}
-
-//		return "/secure/about/editLottery.xhtml?faces-redirect=true&includeViewParams=true";
 	}
 
 	public Part getFile() {
