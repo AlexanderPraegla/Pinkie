@@ -21,9 +21,9 @@
                 <b:dataTableColumn label="#{label['table.date']}" value="#{match.getFormattedMatchDate()}" orderable="false"
                                    styleClass="sm-screen-hidden xs-screen-hidden"/>
                 <b:dataTableColumn label="#{label['table.homeTeam']}" value="#{match.homeTeam}" orderable="false"
-                                   contentStyle="#{match.homeTeam}"/>
+                                   contentStyle="#{contentStyleBean.svaTeamStyle(match.homeTeam)}"/>
                 <b:dataTableColumn label="#{label['table.guestTeam']}" value="#{match.guestTeam}" orderable="false"
-                                   contentStyle="#{match.guestTeam}"/>
+                                   contentStyle="#{contentStyleBean.svaTeamStyle(match.guestTeam)}"/>
                 <b:dataTableColumn label="#{label['table.result']}" value="#{match.result}" orderable="false"/>
             </b:dataTable>
         </b:panel>

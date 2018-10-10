@@ -24,6 +24,10 @@ public class ReportProvider {
 		return getReports(5);
 	}
 
+    public List<Report> getUnreleasedReports() {
+        return em.createNamedQuery("Report.unreleasedReports", Report.class).getResultList();
+    }
+
 	private List<Report> getReports(int maxResults) {
 		return em.createNamedQuery("Report.findAll", Report.class).setMaxResults(maxResults).getResultList();
 	}

@@ -1,0 +1,18 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:mapping="http://java.sun.com/jsf/composite/mappingComponents"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">Saison-Verlosung 2018/2019</ui:define>
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewAction action="#{aboutMappingBean.initLotteryFileMappings('lottery.xhtml')}"/>
+        </f:metadata>
+        <b:container rendered="#{userSessionBean.isUserInRole('ADMIN')}">
+            <mapping:editText page="lottery.xhtml" key="lottery.text" title="Verlosungstext bearbeiten"
+                              text="#{aboutMappingBean.lotteryText}" />
+            <mapping:editDocuments page="lottery.xhtml" key="lottery.documents" title="Anhänge bearbeiten"/>
+        </b:container>
+    </ui:define>
+</ui:composition>

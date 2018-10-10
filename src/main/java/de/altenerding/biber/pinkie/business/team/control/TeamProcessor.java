@@ -43,6 +43,10 @@ public class TeamProcessor {
 	public void archiveTeam(Team team) {
 		logger.info("Archiving team={} with id={}", team.getName(), team.getId());
 		em.createNamedQuery("Team.archiveTeam").setParameter("id", team.getId()).executeUpdate();
+
+		logger.info("Removing existing notification setting for team with id={}", team.getId());
+		em.createNamedQuery("ReportNotificationSetting.deleteByTeamId").setParameter("teamId", team.getId()).executeUpdate();
+		em.flush();
 	}
 
 

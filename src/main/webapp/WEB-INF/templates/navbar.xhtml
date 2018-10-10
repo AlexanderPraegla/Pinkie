@@ -50,6 +50,7 @@
                     <b:navLink value="#{menu['menu.club.trainers']}" outcome="/public/club/trainers.xhtml"/>
                     <b:navLink value="#{menu['menu.club.boosterClub']}" outcome="/public/club/boosterClub.xhtml"/>
                     <b:navLink value="#{menu['menu.club.biberFriends']}" outcome="/public/club/biberFriends.xhtml"/>
+                    <b:navLink value="#{menu['menu.about.lottery']}" outcome="/public/club/lottery.xhtml"/>
                     <!--<b:navLink disabled="#{true}" value="#{menu['menu.club.archive']}"-->
                     <!--outcome="/public/club/archive.xhtml"/>-->
                 </b:dropMenu>
@@ -66,20 +67,29 @@
                                outcome="/public/about/history.xhtml"/>
                     <b:navLink value="#{menu['menu.about.contact']}" outcome="/public/about/contact.xhtml"/>
                     <b:navLink value="#{menu['menu.about.journey']}" outcome="/public/about/journey.xhtml"/>
+                    <b:navLink value="#{menu['menu.about.homepageInfos']}" outcome="/public/about/homepageInfos.xhtml"/>
                 </b:dropMenu>
                 <b:navLink value="#{menu['menu.sponsors']}" outcome="/public/sponsor/sponsor.xhtml"
                            rendered="#{userSessionBean.member == null}"/>
                 <b:navLink value="#{menu['menu.forum']}" outcome="/secure/forum/forum.xhtml" rendered="false"/>
                 <b:navLink value="#{menu['menu.profile']}" outcome="/secure/profile/profile.xhtml"
                            rendered="#{userSessionBean.isUserInRole('MEMBER')}"/>
-                <b:dropMenu value="#{menu['menu.admin']}" rendered="#{userSessionBean.isUserInRole('ADMIN')}">
-                    <b:navLink value="#{menu['menu.admin.addMember']}" outcome="/secure/admin/createMember.xhtml"
+                <b:dropMenu value="#{menu['menu.administration']}" rendered="#{userSessionBean.isUserInRole('ADMIN')}">
+                    <b:navLink value="#{menu['menu.administration.reportsReview']}"
+                               outcome="/secure/admin/reportsReview.xhtml"
+                               rendered="#{userSessionBean.isUserInRole('ADMIN')}">
+                    </b:navLink>
+                    <b:navLink value="#{menu['menu.administration.addMember']}"
+                               outcome="/secure/admin/createMember.xhtml"
                                rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
-                    <b:navLink value="#{menu['menu.admin.listMembers']}" outcome="/secure/admin/listMembers.xhtml"
+                    <b:navLink value="#{menu['menu.administration.listMembers']}"
+                               outcome="/secure/admin/listMembers.xhtml"
                                rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
-                    <b:navLink value="#{menu['menu.admin.createSeason']}" outcome="/secure/admin/createSeason.xhtml"
+                    <b:navLink value="#{menu['menu.administration.createSeason']}"
+                               outcome="/secure/admin/createSeason.xhtml"
                                rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
-                    <b:navLink value="#{menu['menu.admin.sponsors.edit']}" outcome="/secure/admin/editSponsors.xhtml"
+                    <b:navLink value="#{menu['menu.administration.sponsors.edit']}"
+                               outcome="/secure/admin/editSponsors.xhtml"
                                rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
                 </b:dropMenu>
             </b:navbarLinks>
