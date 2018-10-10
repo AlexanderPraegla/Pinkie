@@ -30,14 +30,6 @@ public class NotificationSettingsProvider {
 
     /* General notifications */
 
-    public List<GeneralNotificationSetting> getGeneralNotificationSettingsByMember(Member member, CommunicationType communicationType) {
-        List<GeneralNotificationSetting> generalNotificationSettingsByMember = getActiveGeneralNotificationSettingsByMember(member, communicationType);
-        generalNotificationSettingsByMember.addAll(getMissingGeneralNotificationSettingsByMember(member, communicationType));
-
-        generalNotificationSettingsByMember.sort(Comparator.comparingInt(o -> o.getNotificationType().getGroupOrder()));
-        return generalNotificationSettingsByMember;
-    }
-
     public List<GeneralNotificationSetting> getGeneralNotificationSettingsByCommunicationType(NotificationType notificationType) {
         logger.info("Getting general notification settings for notificaton type = {}", notificationType);
         List<GeneralNotificationSetting> settings = em.createNamedQuery("GeneralNotificationSetting.findSettingsByType", GeneralNotificationSetting.class)
@@ -45,6 +37,14 @@ public class NotificationSettingsProvider {
                 .getResultList();
         logger.info("Found {} general notification settings for notificaton type = {}", settings.size(), notificationType);
         return settings;
+    }
+
+    public List<GeneralNotificationSetting> getGeneralNotificationSettingsByMember(Member member, CommunicationType communicationType) {
+        List<GeneralNotificationSetting> generalNotificationSettingsByMember = getActiveGeneralNotificationSettingsByMember(member, communicationType);
+        generalNotificationSettingsByMember.addAll(getMissingGeneralNotificationSettingsByMember(member, communicationType));
+
+        generalNotificationSettingsByMember.sort(Comparator.comparingInt(o -> o.getNotificationType().getGroupOrder()));
+        return generalNotificationSettingsByMember;
     }
 
     private List<GeneralNotificationSetting> getActiveGeneralNotificationSettingsByMember(Member member, CommunicationType communicationType) {
@@ -86,14 +86,6 @@ public class NotificationSettingsProvider {
 
     /* Administration notifications */
 
-    public List<AdministrationNotificationSetting> getAdministrationNotificationSettingsByMember(Member member, CommunicationType communicationType) {
-        List<AdministrationNotificationSetting> administrationNotificationSettingsByMember = getActiveAdministrationNotificationSettingsByMember(member, communicationType);
-        administrationNotificationSettingsByMember.addAll(getMissingAdministrationNotificationSettingsByMember(member, communicationType));
-
-        administrationNotificationSettingsByMember.sort(Comparator.comparingInt(o -> o.getNotificationType().getGroupOrder()));
-        return administrationNotificationSettingsByMember;
-    }
-
     public List<AdministrationNotificationSetting> getAdministrationNotificationSettingsByCommunicationType(NotificationType notificationType) {
         logger.info("Getting administration notification settings for notificaton type = {}", notificationType);
         List<AdministrationNotificationSetting> settings = em.createNamedQuery("AdministrationNotificationSetting.findSettingsByType", AdministrationNotificationSetting.class)
@@ -101,6 +93,14 @@ public class NotificationSettingsProvider {
                 .getResultList();
         logger.info("Found {} administration notification settings for notificaton type = {}", settings.size(), notificationType);
         return settings;
+    }
+
+    public List<AdministrationNotificationSetting> getAdministrationNotificationSettingsByMember(Member member, CommunicationType communicationType) {
+        List<AdministrationNotificationSetting> administrationNotificationSettingsByMember = getActiveAdministrationNotificationSettingsByMember(member, communicationType);
+        administrationNotificationSettingsByMember.addAll(getMissingAdministrationNotificationSettingsByMember(member, communicationType));
+
+        administrationNotificationSettingsByMember.sort(Comparator.comparingInt(o -> o.getNotificationType().getGroupOrder()));
+        return administrationNotificationSettingsByMember;
     }
 
     private List<AdministrationNotificationSetting> getActiveAdministrationNotificationSettingsByMember(Member member, CommunicationType communicationType) {
@@ -142,6 +142,17 @@ public class NotificationSettingsProvider {
 
     /* Report notifications */
 
+    public List<ReportNotificationSetting> getReportNotificationSettingsByCommunicationType(NotificationType notificationType, Team team) {
+        logger.info("Getting report notification settings for notificaton type = {}", notificationType);
+        List<ReportNotificationSetting> settings = em.createNamedQuery("ReportNotificationSetting.findActiveSettingsByTypeAndTeam", ReportNotificationSetting.class)
+                .setParameter("notificationType", notificationType)
+                .setParameter("teamId", team.getId())
+                .getResultList();
+
+        logger.info("Found {} report notification settings for notificaton type = {}", settings.size(), notificationType);
+        return settings;
+    }
+
     public List<ReportNotificationSetting> getReportNotificationSettingsByMember(Member member, CommunicationType communicationType) {
         List<ReportNotificationSetting> reportNotificationSettingsByMember = getActiveReportNotificationSettingsByMember(member, communicationType);
 
@@ -161,28 +172,17 @@ public class NotificationSettingsProvider {
                 "ReportNotificationSetting.findByMemberId", fn);
     }
 
-    public List<ReportNotificationSetting> getReportNotificationSettingsByCommunicationType(NotificationType notificationType, Team team) {
-        logger.info("Getting report notification settings for notificaton type = {}", notificationType);
-        List<ReportNotificationSetting> settings = em.createNamedQuery("ReportNotificationSetting.findActiveSettingsByTypeAndTeam", ReportNotificationSetting.class)
-                .setParameter("notificationType", notificationType)
-                .setParameter("teamId", team.getId())
-                .getResultList();
-
-        logger.info("Found {} report notification settings for notificaton type = {}", settings.size(), notificationType);
-        return settings;
-    }
-
     private List<ReportNotificationSetting> getMissingReportNotificationSettingsByMember(Member member, CommunicationType communicationType) {
         List<ReportNotificationSetting> missingSettings = new ArrayList<>();
 
-        List<ReportNotificationSetting> reportSettings = getActiveReportNotificationSettingsByMember(member, communicationType);
+        List<ReportNotificationSetting> activeReportSettings = getActiveReportNotificationSettingsByMember(member, communicationType);
         List<Team> currentTeams = teamProvider.getCurrentTeams();
         List<NotificationType> notificationTypes = NotificationType.getTypesByEntityClazz(ReportNotificationSetting.class);
 
         for (NotificationType notificationType : notificationTypes) {
             for (Team currentTeam : currentTeams) {
                 boolean hasSetting = false;
-                for (ReportNotificationSetting teamSetting : reportSettings) {
+                for (ReportNotificationSetting teamSetting : activeReportSettings) {
                     if (teamSetting.getTeam().equals(currentTeam)) {
                         hasSetting = true;
                     }
