@@ -7,6 +7,15 @@
     <version>1.0-SNAPSHOT</version>
     <url>http://maven.apache.org</url>
 
+    <contributors>
+        <contributor>
+            <name>Alex</name>
+        </contributor>
+        <contributor>
+            <name>Michi</name>
+        </contributor>
+    </contributors>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
