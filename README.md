@@ -1,18 +1,29 @@
 # Project Pinkie
-Relaunch of [altenerding-biber.de](http://www.altenerding-biber.de) based on Java EE instead of PHP.  
+Relaunch of [altenerding-biber.de](http://www.altenerding-biber.de) based on Java EE and JSF instead of PHP.  
 All-new website and REST service for Android app access.
 
 Current test version is visible [here](https://www.praegla.net/pinkie)  
 
+## Backend
+* JavaEE 8 
+* JPA for database operations
+
+## Frontend
+* JSF 2.3
+* Bootsfaces 1.2.0
+
 # Environment setup
 ## Application server
-Tested with Tested with [Glassfish5.0](https://javaee.github.io/glassfish/download) Version 4.1 <br/>
-Setup after this [Tutorial](https://www.nabisoft.com/tutorials/glassfish/installing-glassfish-41-on-ubuntu)
+Tested with Tested with [Glassfish 5.0.0](https://javaee.github.io/glassfish/download) <br/>
+Setup after this [Tutorial](https://www.nabisoft.com/tutorials/glassfish/installing-glassfish-41-on-ubuntu)<br/><br/>
+This Glassfish version only works with a jdk 8u152 or earlier (see [here](https://stackoverflow.com/questions/50374321/why-cant-access-to-glassfish-admin-console-remotely/50374495#50374495) for an explanation)
 
 ### Set up Postgres Driver in Glassfish
 Downloaded [Postgres Driver](https://jdbc.postgresql.org/download.html) and put it under GLASSFISH_HOME/domains/YOUR_DOMAIN/lib 
 
 ### Datasource Setup
+Install local PostgreSQL database or use a remote one.
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
@@ -51,8 +62,4 @@ In Bash:
 ./asadmin add-resources ../domains/domain1/config/email-ressource.xml
 
 #StartUp
-At start up the JVM Option -DresourceFolder=[Path to folder] has to be provided. Inside this folder must exist following folders:
-'imageOfWeek'
-'teamImages'
-'profileImages'
-'documents'
+At start up provided the JVM Option -DresourceFolder=[Path to folder]. This folder is used to store images and documents uploaded to the website
