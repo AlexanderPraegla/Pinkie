@@ -20,6 +20,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -138,11 +139,21 @@ public class Team {
 		return teamMembers;
 	}
 
+	public List<Member> getSortedTeamMembersByLastName() {
+		teamMembers.sort(Comparator.comparing(Member::getLastName));
+		return teamMembers;
+	}
+
 	public void setTeamMembers(List<Member> teamMembers) {
 		this.teamMembers = teamMembers;
 	}
 
 	public List<Member> getTrainers() {
+		return trainers;
+	}
+
+	public List<Member> getSortedTrainersByLastname() {
+		trainers.sort(Comparator.comparing(Member::getLastName));
 		return trainers;
 	}
 
