@@ -29,6 +29,7 @@
                             <h:outputLabel value="#{pageLabel['admin.createSeason.teams']}" for="selectTeamsId"/>
                             <b:selectMultiMenu id="selectTeamsId" value="#{seasonBean.teamIndex}"
                                                enableFiltering="true"
+                                               maxHeight="300"
                                                selectAllText="#{label['selectAll']}"
                                                includeSelectAllOption="true"
                                                nonSelectedText="#{label['noItemSelected']}"
