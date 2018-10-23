@@ -47,14 +47,27 @@
                             </b:button>
                         </b:column>
                     </b:row>
-                    <div style="font-size: 13px;font-style: italic; padding-top: 5px">
-                        <h:outputText rendered="#{report.author != null}"
-                                      value="#{report.author.getFullName()}"/>
-                        <h:outputText rendered="#{report.author != null}" value=" - "/>
-                        <h:outputText value="#{report.createdOn}">
-                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
-                        </h:outputText>
-                    </div>
+                    <b:row>
+                        <b:column span="6" style="margin-top: 5px">
+                            <div style="font-size: 13px;font-style: italic; padding-top: 5px">
+                                <h:outputText rendered="#{report.author != null}"
+                                              value="#{report.author.getFullName()}"/>
+                                <h:outputText rendered="#{report.author != null}" value=" - "/>
+                                <h:outputText value="#{report.createdOn}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
+                                </h:outputText>
+                            </div>
+                        </b:column>
+                        <b:column span="6" style="margin-top: 5px">
+                            <b:form>
+                                <b:commandButton actionListener="#{reportBean.deleteReport(report)}" look="danger"
+                                                 action="/secure/admin/reportsReview.xhtml"
+                                                 style="float: right"
+                                                 rendered="#{userSessionBean.isUserInRole('ADMIN')}"
+                                                 tooltip="#{label['button.delete']}" iconAwesome="trash"/>
+                            </b:form>
+                        </b:column>
+                    </b:row>
                 </b:panel>
             </p:dataScroller>
             <b:panel collapsible="false" look="info" rendered="#{reportReviewBean.unreleasedReports.size() == 0}">
