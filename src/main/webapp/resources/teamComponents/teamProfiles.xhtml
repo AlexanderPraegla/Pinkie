@@ -13,7 +13,7 @@
 
     <composite:implementation>
         <b:panelGrid colSpans="3,3,3,3" size="sm" rendered="#{teamBean.team.teamMembers.size() > 0}">
-            <c:forEach items="#{teamBean.team.teamMembers}" var="teamMember">
+            <c:forEach items="#{teamBean.team.getSortedTeamMembersByLastName()}" var="teamMember">
                 <components:profilePreview member="#{teamMember}"
                                            image="#{teamMember.image}"/>
             </c:forEach>

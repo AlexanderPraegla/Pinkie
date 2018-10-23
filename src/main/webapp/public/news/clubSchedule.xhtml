@@ -6,7 +6,7 @@
 
     <ui:define name="content">
         <f:metadata>
-            <f:viewAction action="#{scheduleBean.initSchedule()}"/>
+            <f:viewAction action="#{scheduleBean.initAllUpcomningMatches()}"/>
         </f:metadata>
         <b:container>
             <b:dataTable value="#{scheduleBean.teamScheduleEntries}" searching="true" info="false"

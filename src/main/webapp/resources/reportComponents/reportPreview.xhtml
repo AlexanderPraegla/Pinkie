@@ -9,8 +9,9 @@
 <h:body>
 
     <composite:interface>
-        <composite:attribute type="de.altenerding.biber.pinkie.business.report.entity.Report" name="report" />
-        <composite:attribute type="java.lang.Boolean" name="editable" />
+        <composite:attribute type="de.altenerding.biber.pinkie.business.report.entity.Report" name="report"/>
+        <composite:attribute type="java.lang.Boolean" name="editable"/>
+        <composite:attribute type="java.lang.Boolean" name="deletable" default="true"/>
     </composite:interface>
 
     <composite:implementation>
@@ -21,32 +22,47 @@
                 <h:outputText value="#{cc.attrs.report.title}"/>
             </f:facet>
             <b:row>
-                <b:column span="8">
+                <b:column span="10">
                     <h:outputText value="#{cc.attrs.report.summary}"/>
                 </b:column>
+
                 <b:column span="2" style="margin-top: 5px">
-                    <b:button value="#{label['button.edit']}" outcome="/secure/report/reportEdit.xhtml"
-                              look="warning btn-block"
-                              rendered="#{userSessionBean.isUserInRole('PRESS') and cc.attrs.editable}"
-                              includeViewParams="true">
-                        <f:param name="reportId" value="#{cc.attrs.report.id}"/>
-                    </b:button>
-                </b:column>
-                <b:column span="2" style="margin-top: 5px">
-                    <b:button value="#{label['button.read']}" outcome="/public/news/reportView.xhtml" look="primary btn-block"
+                    <b:button value="#{label['button.read']}" outcome="/public/news/reportView.xhtml"
+                              look="primary btn-block"
                               includeViewParams="true">
                         <f:param name="reportId" value="#{cc.attrs.report.id}"/>
                     </b:button>
                 </b:column>
             </b:row>
-            <div style="font-size: 13px;font-style: italic; padding-top: 5px">
-                <h:outputText rendered="#{cc.attrs.report.author != null}"
-                              value="#{cc.attrs.report.author.getFullName()}"/>
-                <h:outputText rendered="#{cc.attrs.report.author != null}" value=" - "/>
-                <h:outputText value="#{cc.attrs.report.createdOn}">
-                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
-                </h:outputText>
-            </div>
+
+            <b:row>
+                <b:column span="6" style="margin-top: 5px">
+                    <div style="font-size: 13px;font-style: italic; padding-top: 5px">
+                        <h:outputText rendered="#{cc.attrs.report.author != null}"
+                                      value="#{cc.attrs.report.author.getFullName()}"/>
+                        <h:outputText rendered="#{cc.attrs.report.author != null}" value=" - "/>
+                        <h:outputText value="#{cc.attrs.report.createdOn}">
+                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="Europe/Berlin"/>
+                        </h:outputText>
+                    </div>
+                </b:column>
+                <b:column span="6" style="margin-top: 5px">
+                    <b:form>
+                        <b:commandButton actionListener="#{reportBean.deleteReport(cc.attrs.report)}" look="danger"
+                                         action="/public/news/report.xhtml?faces-redirect=true"
+                                         style="float: right"
+                                         rendered="#{userSessionBean.isUserInRole('ADMIN') and cc.attrs.deletable}"
+                                         tooltip="#{label['button.delete']}" iconAwesome="trash"/>
+                    </b:form>
+                    <b:button tooltip="#{label['button.edit']}" outcome="/secure/report/reportEdit.xhtml"
+                              look="warning" iconAwesome="pencil" style="float: right; margin-right: 5px"
+                              rendered="#{userSessionBean.isUserInRole('PRESS') and cc.attrs.editable}"
+                              includeViewParams="true">
+                        <f:param name="reportId" value="#{cc.attrs.report.id}"/>
+                    </b:button>
+
+                </b:column>
+            </b:row>
         </b:panel>
     </composite:implementation>
 </h:body>

@@ -23,6 +23,8 @@
                 <b:dataTableColumn label="#{label['table.guestTeam']}" value="#{match.guestTeam}" orderable="false"
                                    contentStyle="#{contentStyleBean.svaTeamStyle(match.guestTeam)}"/>
             </b:dataTable>
+            <b:button value="Zum Spieltag" outcome="/public/news/nextMatchDay.xhtml" look="primary"
+                      includeViewParams="true" icon="chevron-right" iconAlign="right"/>
         </b:panel>
     </composite:implementation>
 </h:body>
