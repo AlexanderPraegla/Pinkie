@@ -28,6 +28,9 @@ public class NuLigaDataService {
 	public List<TeamScheduleEntry> getNextUpcomingMatches(int maxResults) {
 		return nuLigaDataProvider.getNextUpcomingMatches(maxResults);
 	}
+	public List<TeamScheduleEntry> getNextUpcomingMatchDay() {
+		return nuLigaDataProvider.getNextUpcomingMatchDay();
+	}
 
 	public List<TeamScheduleEntry> getAllUpcomingMatches() {
 		return nuLigaDataProvider.getAllUpcomingMatches();

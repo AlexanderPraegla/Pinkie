@@ -11,6 +11,7 @@
         </f:metadata>
         <b:container rendered="#{userSessionBean.isUserInRole('ADMIN')}">
             <mapping:editText page="youth.xhtml" key="youth.text" title="Jugendarbeit bearbeiten"
+                              rows="25"
                               text="#{aboutMappingBean.youthText}" />
         </b:container>
     </ui:define>

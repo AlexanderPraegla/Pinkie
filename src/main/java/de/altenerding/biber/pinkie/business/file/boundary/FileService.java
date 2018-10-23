@@ -133,6 +133,7 @@ public class FileService {
 	public void updateMapping(Mapping mapping) {
 		fileMappingControl.updateMapping(mapping);
 	}
+
 	public void deleteMapping(Mapping mapping) {
 		fileMappingControl.deleteMapping(mapping);
 	}

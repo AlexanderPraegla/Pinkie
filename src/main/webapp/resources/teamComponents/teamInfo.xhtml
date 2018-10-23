@@ -29,7 +29,7 @@
             </div>
         </b:panel>
         <b:panel title="#{pageLabel['team.trainers']}" rendered="#{teamBean.team.trainers.size() > 0}">
-            <ui:repeat value="#{teamBean.team.trainers}" var="trainer">
+            <ui:repeat value="#{teamBean.team.getSortedTrainersByLastname()}" var="trainer">
                 <components:profile
                         member="#{trainer}"
                         image="#{trainer.image}"

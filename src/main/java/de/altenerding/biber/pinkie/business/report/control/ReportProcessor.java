@@ -58,6 +58,13 @@ public class ReportProcessor {
 		em.flush();
 	}
 
+    public void deleteReport(Report report) {
+        logger.info("Deleting report with id={}", report.getId());
+        report = em.merge(report);
+        em.remove(report);
+        em.flush();
+    }
+
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;

@@ -12,26 +12,30 @@ import java.util.List;
 @RequestScoped
 public class ScheduleBean {
 
-	private static final int MAX_RESULT_MAINPAGE = 5;
+	private static final int MAX_RESULT_RECENT_RESULTS_MAINPAGE = 5;
+	private static final int MAX_RESULT_UPCOMING_MATCHES_MAINPAGE = 3;
 	private NuLigaDataService nuLigaDataService;
 	private List<TeamScheduleEntry> teamScheduleEntries;
 	private List<TeamScheduleEntry> recentResults;
 	private List<TeamScheduleEntry> upcomingMatches;
 
-	public void initSchedule() {
+	public void initAllUpcomningMatches() {
 		teamScheduleEntries = nuLigaDataService.getAllUpcomingMatches();
+	}
+	public void initNextUpcomningMatchDay() {
+		teamScheduleEntries = nuLigaDataService.getNextUpcomingMatchDay();
 	}
 
 	public List<TeamScheduleEntry> getRecentResults() {
 		if (recentResults == null) {
-			recentResults = nuLigaDataService.getRecentResults(MAX_RESULT_MAINPAGE);
+			recentResults = nuLigaDataService.getRecentResults(MAX_RESULT_RECENT_RESULTS_MAINPAGE);
 		}
 		return recentResults;
 	}
 
 	public List<TeamScheduleEntry> getUpcomingMatches() {
 		if (upcomingMatches == null) {
-			upcomingMatches = nuLigaDataService.getNextUpcomingMatches(MAX_RESULT_MAINPAGE);
+			upcomingMatches = nuLigaDataService.getNextUpcomingMatches(MAX_RESULT_UPCOMING_MATCHES_MAINPAGE);
 		}
 
 		return upcomingMatches;
