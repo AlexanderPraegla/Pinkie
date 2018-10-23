@@ -46,6 +46,10 @@ public class ReportService {
 		reportProcessor.releaseReport(report);
 	}
 
+	public void deleteReport(Report report) {
+		reportProcessor.deleteReport(report);
+	}
+
 	@Inject
 	public void setReportProvider(ReportProvider reportProvider) {
 		this.reportProvider = reportProvider;

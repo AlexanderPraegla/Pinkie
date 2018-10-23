@@ -118,6 +118,20 @@ public class ReportBean implements Serializable {
 		return result;
 	}
 
+	@Access(role = Role.ADMIN)
+	public void deleteReport(Report report) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getFlash().setKeepMessages(true);
+		try {
+			reportService.deleteReport(report);
+			FacesMessages.info("Bericht gelöscht", report.getTitle());
+
+		} catch (Exception e) {
+			logger.error("Error while deleting report with id={}", report.getId());
+			FacesMessages.error("Fehler beim löschen des Berichts", report.getTitle());
+		}
+	}
+
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
