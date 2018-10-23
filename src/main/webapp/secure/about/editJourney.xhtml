@@ -11,6 +11,7 @@
         </f:metadata>
         <b:container rendered="#{userSessionBean.isUserInRole('ADMIN')}">
             <mapping:editText page="journey.xhtml" key="journey.text" title="Anfahrt bearbeiten"
+                              rows="25"
                               text="#{aboutMappingBean.journeyText}" />
         </b:container>
     </ui:define>

@@ -19,7 +19,7 @@
                             <b:inputText value="#{historyBean.createdEvent.summary}">
                                 <b:focus/>
                             </b:inputText>
-                            <b:inputTextarea value="#{historyBean.createdEvent.text}"/>
+                            <b:inputTextarea value="#{historyBean.createdEvent.text}" rows="10"/>
                             <b:datepicker value="#{historyBean.createdEvent.eventDate}" mode="popup-icon"/>
                         </b:column>
                         <b:column colLg="2" colMd="2" colSm="2" colXs="12">
@@ -47,7 +47,7 @@
                                 <b:inputText value="#{historyBean.selectedEvent.summary}">
                                     <b:focus/>
                                 </b:inputText>
-                                <b:inputTextarea value="#{historyBean.selectedEvent.text}"/>
+                                <b:inputTextarea value="#{historyBean.selectedEvent.text}" rows="10"/>
                                 <b:datepicker value="#{historyBean.selectedEvent.eventDate}" mode="popup-icon"/>
                             </b:column>
                             <b:column colLg="2" colMd="2" colSm="2" colXs="12">

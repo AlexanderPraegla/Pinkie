@@ -13,6 +13,7 @@
         <composite:attribute type="java.lang.String" name="text"/>
         <composite:attribute type="java.lang.String" name="key"/>
         <composite:attribute type="java.lang.String" name="page"/>
+        <composite:attribute type="java.lang.Integer" name="rows" default="5"/>
     </composite:interface>
 
     <composite:implementation>
@@ -20,7 +21,7 @@
             <h:form>
                 <b:row>
                     <b:column colLg="10" colMd="10" colSm="10" colXs="12" style="white-space: pre-wrap">
-                        <b:inputTextarea value="#{cc.attrs.text}" rows="5" >
+                        <b:inputTextarea value="#{cc.attrs.text}" rows="#{cc.attrs.rows}" >
                             <b:focus/>
                         </b:inputTextarea>
                     </b:column>
