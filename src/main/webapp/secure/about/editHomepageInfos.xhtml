@@ -11,6 +11,7 @@
         </f:metadata>
         <b:container rendered="#{userSessionBean.isUserInRole('ADMIN')}">
             <mapping:editText page="homepageInfos.xhtml" key="homepageInfos.text" title="Infos zur Homepage bearbeiten"
+                              rows="25"
                               text="#{aboutMappingBean.homepageInfosText}" />
         </b:container>
     </ui:define>
