@@ -55,8 +55,8 @@ public class DeanBean implements Serializable {
 			}
 
 			deanService.updateDean(dean);
-			FacesMessages.info(dean.getFunction(), "Aktualisieret");
-			result = "/public/club/deans.xhtml?faces-redirect=true";
+			FacesMessages.info("Aktualisiert", dean.getFunction() );
+			result = "/secure/dean/deansEdit.xhtml?faces-redirect=true";
 		} catch (Exception e) {
 			logger.error("Error while updating dean", e);
 			FacesMessages.error("Es ist ein Fehler beim aktualisieren aufgetreten");

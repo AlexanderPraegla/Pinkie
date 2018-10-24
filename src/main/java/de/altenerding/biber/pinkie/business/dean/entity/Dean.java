@@ -110,12 +110,15 @@ public class Dean {
 		this.createdOn = createdOn;
 	}
 
+	@SuppressWarnings("Duplicates")
 	public Image getImage() {
         if (image != null) {
             return image;
-        } else {
-            return member.getImage();
-        }
+		} else if (member != null) {
+			return member.getImage();
+		} else {
+			return null;
+		}
 	}
 
 	public void setImage(Image image) {
