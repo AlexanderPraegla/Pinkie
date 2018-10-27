@@ -40,7 +40,11 @@ public class NuLigaDataProvider {
         logger.info("Getting next {} upcoming games all teams", maxResults);
 
         List<TeamScheduleEntry> nextUpcomingMatchDay = getNextUpcomingMatchDay();
-        return nextUpcomingMatchDay.subList(0, maxResults);
+        if (nextUpcomingMatchDay.size() >= 3) {
+            return nextUpcomingMatchDay.subList(0, maxResults);
+        } else {
+            return nextUpcomingMatchDay;
+        }
     }
 
     public List<TeamScheduleEntry> getNextUpcomingMatchDay() {
