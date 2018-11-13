@@ -7,10 +7,10 @@ import javax.inject.Named;
 @RequestScoped
 public class ContentStyleBean {
 
-	public static final String CLUB_NAME = "Altenerding";
+	public static final String CLUB_ID = "10640";
 
-	public String svaTeamStyle(String teamName) {
-		if (teamName.contains(CLUB_NAME)) {
+	public String svaTeamStyle(String clubId) {
+		if (clubId.contains(CLUB_ID)) {
 			return "font-weight:bold";
 		} else {
 			return "";

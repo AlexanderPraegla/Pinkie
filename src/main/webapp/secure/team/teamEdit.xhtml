@@ -20,8 +20,16 @@
                                 <b:focus/>
                             </b:inputText>
                             <b:inputText value="#{teamEditBean.team.league}" label="#{pageLabel['team.league']}"/>
-                            <b:inputText value="#{teamEditBean.team.urlStanding}" label="#{pageLabel['team.nuLigaUrl']}"/>
-                            <b:inputText value="#{teamEditBean.team.season.name}" label="#{pageLabel['team.season']}" disabled="true"/>
+                            <b:inputText value="#{teamEditBean.team.urlStanding}"
+                                         label="#{pageLabel['team.nuLigaUrl']}"/>
+                            <b:selectOneMenu value="#{teamEditBean.selectedNuLigaTeam}"
+                                             label="#{label['label.dropdown.team.nuliga']}">
+                                <f:selectItem itemValue="#{null}" itemLabel="#{label['select.nuliga.team']}"/>
+                                <f:selectItems value="#{nuLigaBean.teamAbbrDTO}"
+                                               var="team" itemValue="#{team}" itemLabel="#{team.name} | #{team.group}"/>
+                            </b:selectOneMenu>
+                            <b:inputText value="#{teamEditBean.team.season.name}" label="#{pageLabel['team.season']}"
+                                         disabled="true"/>
                         </b:column>
                     </b:row>
                     <b:row>

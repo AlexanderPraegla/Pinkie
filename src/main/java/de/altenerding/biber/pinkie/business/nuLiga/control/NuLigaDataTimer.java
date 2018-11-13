@@ -22,7 +22,11 @@ public class NuLigaDataTimer {
 	public void init() {
         // TODO vllt brauchen wir das gar nicht, da es ja reicht wenn das 10min nach dem start ausgeführt und außerdem sollten ja schon vorher daten drinnen sein.
         // TODO so geht das deployment viel schneller
-//		loadNuLigaData();
+		try {
+			nuLigaDataProcessor.loadNuLigaTeamData();
+		} catch (Exception e) {
+			logger.error("excsdfasd", e);
+		}
 	}
 
 	@Schedule(minute = "*/10", hour = "*", persistent = false)
