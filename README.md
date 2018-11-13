@@ -64,5 +64,9 @@ In Bash:
 In Bash:
 ./asadmin add-resources ../domains/domain1/config/email-ressource.xml
 
-#StartUp
-At start up provided the JVM Option -DresourceFolder=[Path to folder]. This folder is used to store images and documents uploaded to the website
+### JVM Options
+Add following JVM options for the application:
+* /GLASSFISH_HOME/bin/asadmin create-jvm-options '-DnuLigaRestClientId=xxxxxxxx'
+* /GLASSFISH_HOME/bin/asadmin create-jvm-options '-DnuLigaRestClientSecret=xxxxx'
+* /GLASSFISH_HOME/bin/asadmin create-jvm-options '-DresourceFolder=xxxxx'
+  * This folder is used to store images and documents uploaded to the website
