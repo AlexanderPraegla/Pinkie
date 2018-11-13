@@ -9,7 +9,9 @@ import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.team.boundary.TeamService;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
+import de.altenerding.biber.pinkie.presentation.nuliga.NuLigaBean;
 import net.bootsfaces.utils.FacesMessages;
+import nu.liga.open.rs.v2014.dto.championships.TeamAbbrDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
@@ -22,10 +24,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("Duplicates")
 @Named
 @ViewScoped
 public class TeamEditBean implements Serializable {
 
+	@Inject
+	private NuLigaBean nuLigaBean;
 	private TeamService teamService;
 	private FileService fileService;
 	private MemberService memberService;
@@ -38,6 +43,7 @@ public class TeamEditBean implements Serializable {
 	private String imageDescription;
 	private String memberIndex = "";
 	private String trainerIndex = "";
+	private TeamAbbrDTO selectedNuLigaTeam = null;
 
 	public void initTeam() {
 		logger.info("Loading team data for id={}", teamId);
@@ -62,6 +68,13 @@ public class TeamEditBean implements Serializable {
 		//creating preselected values for dropdown menu
 		trainerIndex = StringUtils.join(selectedTrainerIds, ",");
 		memberIndex = StringUtils.join(selectedTeamMemberIds, ",");
+
+		List<TeamAbbrDTO> teamAbbrDTO = nuLigaBean.getTeamAbbrDTO();
+		for (TeamAbbrDTO abbrDTO : teamAbbrDTO) {
+			if (abbrDTO.getTeamId().equals(team.getNuLigaTeamId())) {
+				selectedNuLigaTeam = abbrDTO;
+			}
+		}
 	}
 
 	@Access(role = Role.PRESS)
@@ -93,6 +106,14 @@ public class TeamEditBean implements Serializable {
 				team.setTrainers(trainers);
 			} else {
 				team.setTrainers(null);
+			}
+
+			if (selectedNuLigaTeam != null) {
+				team.setNuLigaGroupId(selectedNuLigaTeam.getGroupId());
+				team.setNuLigaTeamId(selectedNuLigaTeam.getTeamId());
+			} else {
+				team.setNuLigaTeamId(null);
+				team.setNuLigaGroupId(null);
 			}
 
 			teamService.updateTeam(team);
@@ -182,5 +203,13 @@ public class TeamEditBean implements Serializable {
 
 	public void setImageDescription(String imageDescription) {
 		this.imageDescription = imageDescription;
+	}
+
+	public TeamAbbrDTO getSelectedNuLigaTeam() {
+		return selectedNuLigaTeam;
+	}
+
+	public void setSelectedNuLigaTeam(TeamAbbrDTO selectedNuLigaTeam) {
+		this.selectedNuLigaTeam = selectedNuLigaTeam;
 	}
 }

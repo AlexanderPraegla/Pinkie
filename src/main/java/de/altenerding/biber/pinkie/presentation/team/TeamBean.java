@@ -3,8 +3,8 @@ package de.altenerding.biber.pinkie.presentation.team;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.nuLiga.boundary.NuLigaDataService;
-import de.altenerding.biber.pinkie.business.nuLiga.entity.StandingEntry;
-import de.altenerding.biber.pinkie.business.nuLiga.entity.TeamScheduleEntry;
+import de.altenerding.biber.pinkie.business.nuLiga.entity.ClubMeeting;
+import de.altenerding.biber.pinkie.business.nuLiga.entity.GroupTableTeam;
 import de.altenerding.biber.pinkie.business.report.boundary.ReportService;
 import de.altenerding.biber.pinkie.business.report.entity.Report;
 import de.altenerding.biber.pinkie.business.season.entity.Season;
@@ -12,14 +12,14 @@ import de.altenerding.biber.pinkie.business.team.boundary.TeamService;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
 import org.apache.logging.log4j.Logger;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class TeamBean implements Serializable {
 
 	private TeamService teamService;
@@ -32,8 +32,8 @@ public class TeamBean implements Serializable {
 
 	private List<Report> teamReports;
 	private List<Team> teams;
-	private List<StandingEntry> teamStandings;
-	private List<TeamScheduleEntry> teamSchedule;
+	private List<GroupTableTeam> teamRank;
+	private List<ClubMeeting> teamMeetings;
 
 	public void initTeam() {
 		logger.info("Loading team data for id={}", teamId);
@@ -112,25 +112,25 @@ public class TeamBean implements Serializable {
 		return teamReports;
 	}
 
-	public List<StandingEntry> getTeamStandings() {
-		if (teamStandings == null) {
-			teamStandings = nuLigaDataService.getTeamStandings(teamId);
+	public List<GroupTableTeam> getTeamRank() {
+		if (teamRank == null) {
+			teamRank = nuLigaDataService.getGroupTeamTable(team.getNuLigaGroupId());
 		}
-		return teamStandings;
+		return teamRank;
 	}
 
-	public void setTeamStandings(List<StandingEntry> teamStandings) {
-		this.teamStandings = teamStandings;
+	public void setTeamRank(List<GroupTableTeam> teamRank) {
+		this.teamRank = teamRank;
 	}
 
-	public List<TeamScheduleEntry> getTeamSchedule() {
-		if (teamSchedule == null) {
-			teamSchedule = nuLigaDataService.getTeamSchedule(teamId);
+	public List<ClubMeeting> getTeamMeetings() {
+		if (teamMeetings == null) {
+			teamMeetings = nuLigaDataService.getTeamMeetings(team.getNuLigaGroupId());
 		}
-		return teamSchedule;
+		return teamMeetings;
 	}
 
-	public void setTeamSchedule(List<TeamScheduleEntry> teamSchedule) {
-		this.teamSchedule = teamSchedule;
+	public void setTeamMeetings(List<ClubMeeting> teamMeetings) {
+		this.teamMeetings = teamMeetings;
 	}
 }

@@ -30,11 +30,11 @@
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('1')}"/>
                     <components:teamProfiles/>
                 </b:tab>
-                <b:tab title="#{pageLabel['team.tab.standing']}" rendered="#{teamBean.team.urlStanding != ''}">
+                <b:tab title="#{pageLabel['team.tab.standing']}" rendered="#{teamBean.team.nuLigaGroupId != null}">
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('2')}"/>
                     <components:teamStandings/>
                 </b:tab>
-                <b:tab title="#{pageLabel['team.tab.schedule']}" rendered="#{teamBean.team.urlStanding != ''}">
+                <b:tab title="#{pageLabel['team.tab.schedule']}" rendered="#{teamBean.team.nuLigaGroupId != null}">
                     <f:ajax event="click" listener="#{tabBean.setTabIndex('3')}"/>
                     <components:teamSchedule/>
                 </b:tab>
