@@ -36,10 +36,12 @@ public class NuLigaDataProcessor {
             if (StringUtils.isBlank(team.getNuLigaTeamId())) {
                 logger.warn("No nuLiga team id provided for team={} with id={}", team.getName(), team.getId());
             } else {
+                logger.info("Loading nuLiga table for team={} with id={}", team.getName(), team.getId());
                 GroupTableDTO groupTableDTO = nuLigaApiRequester.getTeamTable(team.getNuLigaTeamId());
                 List<GroupTableTeam> from = GroupTableTeamDTOMapper.from(groupTableDTO);
+                logger.info("Found {} entries for ranking table of team with id={}", team.getName(), team.getId());
                 for (GroupTableTeam groupTableTeam : from) {
-                    em.merge(groupTableTeam);
+                    em.persist(groupTableTeam);
                     em.flush();
                 }
             }
@@ -50,7 +52,7 @@ public class NuLigaDataProcessor {
         List<MeetingAbbrDTO> clubMeetingsOfCurrentSeason = nuLigaApiRequester.getClubMeetingsOfCurrentSeason();
         List<ClubMeeting> from = MeetingsAbbrDTOMapper.from(clubMeetingsOfCurrentSeason);
         for (ClubMeeting clubMeeting : from) {
-            em.merge(clubMeeting);
+            em.persist(clubMeeting);
             em.flush();
         }
         logger.info("Persisted successfully {} club meetings", from.size());
@@ -58,9 +60,9 @@ public class NuLigaDataProcessor {
 
     private void emptyTeamData() {
         logger.info("Deleting old nuliga data");
-        int deletedMeetings = em.createNamedQuery("ClubMeeting.deleteAll").executeUpdate();
+        int deletedMeetings = em.createNativeQuery("DELETE FROM club_meeting").executeUpdate();
         logger.info("Deleted {} from table club_meeting", deletedMeetings);
-        int deletedGroupTableEntry = em.createNamedQuery("GroupTableTeam.deleteAll").executeUpdate();
+        int deletedGroupTableEntry = em.createNativeQuery("DELETE FROM group_table_team").executeUpdate();
         logger.info("Deleted {} from table group_table_team", deletedGroupTableEntry);
         logger.info("Sucessfully deleted nuliga data");
     }
