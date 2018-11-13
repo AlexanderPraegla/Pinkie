@@ -158,4 +158,12 @@ public class GroupTableTeam {
     public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
 }
