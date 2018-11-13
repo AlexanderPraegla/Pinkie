@@ -23,6 +23,12 @@
                             <b:inputText required="true" requiredMessage="Bitte Liga ausfüllen"
                                          value="#{teamCreationBean.team.league}" label="#{pageLabel['team.league']}"/>
                             <b:inputText value="#{teamCreationBean.team.urlStanding}" label="#{pageLabel['team.nuLigaUrl']}"/>
+                            <b:selectOneMenu value="#{teamCreationBean.selectedNuLigaTeam}"
+                                             label="#{label['label.dropdown.team.nuliga']}">
+                                <f:selectItem itemValue="#{null}" itemLabel="#{label['select.nuliga.team']}"/>
+                                <f:selectItems value="#{nuLigaBean.teamAbbrDTO}"
+                                               var="team" itemValue="#{team}" itemLabel="#{team.name} | #{team.group}"/>
+                            </b:selectOneMenu>
                             <b:selectOneMenu required="true" requiredMessage="Bitte Saison auswählen"
                                              value="#{teamCreationBean.team.season}" label="#{pageLabel['team.season']}">
                                 <f:selectItems value="#{seasonBean.seasons}" var="season" itemValue="#{season}"

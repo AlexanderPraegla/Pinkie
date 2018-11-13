@@ -1,7 +1,7 @@
 package de.altenerding.biber.pinkie.business.nuLiga.control;
 
-import de.altenerding.biber.pinkie.business.nuLiga.entity.StandingEntry;
-import de.altenerding.biber.pinkie.business.nuLiga.entity.TeamScheduleEntry;
+import de.altenerding.biber.pinkie.business.nuLiga.entity.ClubMeeting;
+import de.altenerding.biber.pinkie.business.nuLiga.entity.GroupTableTeam;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
@@ -22,24 +22,24 @@ public class NuLigaDataProvider {
     private EntityManager em;
     private static final int RECENT_MATCHES_RESULTS_DAY_OFFSET = 7;
 
-    public List<StandingEntry> getTeamStandings(long teamId) {
-        logger.info("Loading team standing for teamId={}", teamId);
-        return em.createNamedQuery("StandingEntry.findAllByTeamId", StandingEntry.class)
-                .setParameter("teamId", teamId)
+    public List<GroupTableTeam> getGroupTeamTable(String groupId) {
+        logger.info("Loading team ranking for groupId={}", groupId);
+        return em.createNamedQuery("GroupTableTeam.findAllByGroupId", GroupTableTeam.class)
+                .setParameter("groupId", groupId)
                 .getResultList();
     }
 
-    public List<TeamScheduleEntry> getTeamSchedule(long teamId) {
-        logger.info("Loading team schedule for teamId={}", teamId);
-        return em.createNamedQuery("TeamScheduleEntry.getAllByTeamId", TeamScheduleEntry.class)
-                .setParameter("teamId", teamId)
+    public List<ClubMeeting> getTeamMeetings(String groupId) {
+        logger.info("Loading team schedule for groupId={}", groupId);
+        return em.createNamedQuery("ClubMeeting.getAllByGroupId", ClubMeeting.class)
+                .setParameter("groupId", groupId)
                 .getResultList();
     }
 
-    public List<TeamScheduleEntry> getNextUpcomingMatches(int maxResults) {
+    public List<ClubMeeting> getNextUpcomingMeetings(int maxResults) {
         logger.info("Getting next {} upcoming games all teams", maxResults);
 
-        List<TeamScheduleEntry> nextUpcomingMatchDay = getNextUpcomingMatchDay();
+        List<ClubMeeting> nextUpcomingMatchDay = getNextUpcomingMatchDay();
         if (nextUpcomingMatchDay.size() >= 3) {
             return nextUpcomingMatchDay.subList(0, maxResults);
         } else {
@@ -47,7 +47,7 @@ public class NuLigaDataProvider {
         }
     }
 
-    public List<TeamScheduleEntry> getNextUpcomingMatchDay() {
+    public List<ClubMeeting> getNextUpcomingMatchDay() {
         logger.info("Getting the matches of the next match day");
 
         LocalDate nextMonday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
@@ -56,26 +56,30 @@ public class NuLigaDataProvider {
 
         Date startDate = new Date();
 
-        return em.createNamedQuery("TeamScheduleEntry.nextUpcomingGames", TeamScheduleEntry.class)
+        return em.createNamedQuery("ClubMeeting.nextUpcomingGames", ClubMeeting.class)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
                 .getResultList();
     }
 
-    public List<TeamScheduleEntry> getAllUpcomingMatches() {
+    public List<ClubMeeting> getAllUpcomingMatches() {
         logger.info("Getting all upcoming games for all teams");
-        return em.createNamedQuery("TeamScheduleEntry.upcomingGames", TeamScheduleEntry.class)
+        Date endDate = Date.from(LocalDate.now().plusYears(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date startDate = new Date();
+        return em.createNamedQuery("ClubMeeting.nextUpcomingGames", ClubMeeting.class)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
                 .getResultList();
     }
 
-    public List<TeamScheduleEntry> getRecentResults(int maxResult) {
+    public List<ClubMeeting> getRecentResults(int maxResult) {
         logger.info("Getting recent team results for all teams");
 
         LocalDateTime dateTime = LocalDateTime.now().minusDays(RECENT_MATCHES_RESULTS_DAY_OFFSET);
         Date startDate = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
         Date endDate = new Date();
 
-        return em.createNamedQuery("TeamScheduleEntry.recentResults", TeamScheduleEntry.class)
+        return em.createNamedQuery("ClubMeeting.recentResults", ClubMeeting.class)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
                 .setMaxResults(maxResult)

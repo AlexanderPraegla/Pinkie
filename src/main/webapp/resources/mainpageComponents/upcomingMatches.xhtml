@@ -14,14 +14,14 @@
         <b:panel id="upcomingMatchesPanel" title="#{pageLabel['mainpage.upcomingMatches.title']}" collapsible="true"
                  rendered="#{scheduleBean.upcomingMatches.size() > 0}">
             <b:dataTable value="#{scheduleBean.upcomingMatches}" searching="false" info="false" paginated="false"
-                         var="match" fixedHeader="true" scrollHorizontally="true" style="margin: 0 auto;">
-                <b:dataTableColumn label="#{label['table.team']}" value="#{match.team.name}" orderable="false"/>
-                <b:dataTableColumn label="#{label['table.date']}" value="#{match.getFormattedMatchDate()}" orderable="false"/>
-                <b:dataTableColumn label="#{label['table.time']}" value="#{match.formattedMatchTime}" orderable="false"/>
-                <b:dataTableColumn label="#{label['table.homeTeam']}" value="#{match.homeTeam}" orderable="false"
-                                   contentStyle="#{contentStyleBean.svaTeamStyle(match.homeTeam)}"/>
-                <b:dataTableColumn label="#{label['table.guestTeam']}" value="#{match.guestTeam}" orderable="false"
-                                   contentStyle="#{contentStyleBean.svaTeamStyle(match.guestTeam)}"/>
+                         var="meeting" fixedHeader="true" scrollHorizontally="true" style="margin: 0 auto;">
+                <b:dataTableColumn label="#{label['table.team']}" value="#{meeting.leagueNickname}" orderable="false"/>
+                <b:dataTableColumn label="#{label['table.date']}" value="#{meeting.getFormattedMatchDate()}" orderable="false"/>
+                <b:dataTableColumn label="#{label['table.time']}" value="#{meeting.formattedMatchTime}" orderable="false"/>
+                <b:dataTableColumn label="#{label['table.homeTeam']}" value="#{meeting.teamHome}" orderable="false"
+                                   contentStyle="#{contentStyleBean.svaTeamStyle(meeting.teamHomeClubNr)}"/>
+                <b:dataTableColumn label="#{label['table.guestTeam']}" value="#{meeting.teamGuest}" orderable="false"
+                                   contentStyle="#{contentStyleBean.svaTeamStyle(meeting.teamGuestClubNr)}"/>
             </b:dataTable>
             <b:button value="Zum Spieltag" outcome="/public/news/nextMatchDay.xhtml" look="primary"
                       includeViewParams="true" icon="chevron-right" iconAlign="right"/>
