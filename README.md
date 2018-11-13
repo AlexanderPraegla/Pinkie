@@ -21,6 +21,9 @@ This Glassfish version only works with a jdk 8u152 or earlier (see [here](https:
 ### Set up Postgres Driver in Glassfish
 Downloaded [Postgres Driver](https://jdbc.postgresql.org/download.html) and put it under GLASSFISH_HOME/domains/YOUR_DOMAIN/lib 
 
+### Install nuLiga JSON client library
+Download [here](https://hbde-portal.liga.nu/rs/documentation/downloads.html#artifact_java_json_client_library) and put it under GLASSFISH_HOME/domains/YOUR_DOMAIN/lib 
+
 ### Datasource Setup
 Install local PostgreSQL database or use a remote one.
 
@@ -61,5 +64,9 @@ In Bash:
 In Bash:
 ./asadmin add-resources ../domains/domain1/config/email-ressource.xml
 
-#StartUp
-At start up provided the JVM Option -DresourceFolder=[Path to folder]. This folder is used to store images and documents uploaded to the website
+### JVM Options
+Add following JVM options for the application:
+* /GLASSFISH_HOME/bin/asadmin create-jvm-options '-DnuLigaRestClientId=xxxxxxxx'
+* /GLASSFISH_HOME/bin/asadmin create-jvm-options '-DnuLigaRestClientSecret=xxxxx'
+* /GLASSFISH_HOME/bin/asadmin create-jvm-options '-DresourceFolder=xxxxx'
+  * This folder is used to store images and documents uploaded to the website
