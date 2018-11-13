@@ -52,7 +52,7 @@ public class FileService {
 			logger.info("Checking if directory={} in path={} exists", fileCategory.getDirectoryPath(), resourceFolder);
 			Path folderPath = Paths.get(resourceFolder + fileCategory.getDirectoryPath());
 			if (Files.notExists(folderPath)) {
-				logger.info("Directory \'{}\' does not exist", fileCategory.getDirectoryPath());
+				logger.debug("Directory \'{}\' does not exist", fileCategory.getDirectoryPath());
 				try {
 					Files.createDirectories(folderPath);
 					logger.info("Directory \'{}\' created", fileCategory.getDirectoryPath());
@@ -60,7 +60,7 @@ public class FileService {
 					logger.error("Could not create directory \'{}\'", fileCategory.getDirectoryPath(), e);
 				}
 			} else {
-				logger.info("Directory \'{}\' exists", fileCategory.getDirectoryPath());
+				logger.debug("Directory \'{}\' exists", fileCategory.getDirectoryPath());
 			}
 		}
 	}
