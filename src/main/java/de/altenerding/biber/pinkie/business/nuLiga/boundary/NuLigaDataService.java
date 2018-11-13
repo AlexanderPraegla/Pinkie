@@ -1,9 +1,10 @@
 package de.altenerding.biber.pinkie.business.nuLiga.boundary;
 
-import de.altenerding.biber.pinkie.business.nuLiga.control.NuLigaDataProcessor;
+import de.altenerding.biber.pinkie.business.nuLiga.control.NuLigaApiRequester;
 import de.altenerding.biber.pinkie.business.nuLiga.control.NuLigaDataProvider;
-import de.altenerding.biber.pinkie.business.nuLiga.entity.StandingEntry;
-import de.altenerding.biber.pinkie.business.nuLiga.entity.TeamScheduleEntry;
+import de.altenerding.biber.pinkie.business.nuLiga.entity.ClubMeeting;
+import de.altenerding.biber.pinkie.business.nuLiga.entity.GroupTableTeam;
+import nu.liga.open.rs.v2014.dto.championships.TeamAbbrDTO;
 import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateless;
@@ -13,46 +14,38 @@ import java.util.List;
 @Stateless
 public class NuLigaDataService {
 
+	@Inject
 	private NuLigaDataProvider nuLigaDataProvider;
-	private NuLigaDataProcessor nuLigaDataProcessor;
+	@Inject
+	private NuLigaApiRequester nuLigaApiRequester;
+	@Inject
 	private Logger logger;
 
-	public List<StandingEntry> getTeamStandings(long teamId) {
-		return nuLigaDataProvider.getTeamStandings(teamId);
+	public List<TeamAbbrDTO> getTeamsOfCurrentSeason() {
+		return nuLigaApiRequester.getTeamsOfCurrentSeason();
 	}
 
-	public List<TeamScheduleEntry> getTeamSchedule(long teamId) {
-		return nuLigaDataProvider.getTeamSchedule(teamId);
+	public List<GroupTableTeam> getGroupTeamTable(String groupId) {
+		return nuLigaDataProvider.getGroupTeamTable(groupId);
 	}
 
-	public List<TeamScheduleEntry> getNextUpcomingMatches(int maxResults) {
-		return nuLigaDataProvider.getNextUpcomingMatches(maxResults);
+	public List<ClubMeeting> getTeamMeetings(String groupId) {
+		return nuLigaDataProvider.getTeamMeetings(groupId);
 	}
-	public List<TeamScheduleEntry> getNextUpcomingMatchDay() {
+	public List<ClubMeeting> getNextUpcomingMeetings(int maxResults) {
+		return nuLigaDataProvider.getNextUpcomingMeetings(maxResults);
+	}
+
+	public List<ClubMeeting> getNextUpcomingMatchDay() {
 		return nuLigaDataProvider.getNextUpcomingMatchDay();
 	}
 
-	public List<TeamScheduleEntry> getAllUpcomingMatches() {
+	public List<ClubMeeting> getAllUpcomingMeetings() {
 		return nuLigaDataProvider.getAllUpcomingMatches();
 	}
 
-	public List<TeamScheduleEntry> getRecentResults(int maxResult) {
-		logger.info("Loading recent nu liga results");
+	public List<ClubMeeting> getRecentResults(int maxResult) {
+		logger.info("Loading recent nuLiga results");
 		return nuLigaDataProvider.getRecentResults(maxResult);
-	}
-
-	@Inject
-	public void setNuLigaDataProvider(NuLigaDataProvider nuLigaDataProvider) {
-		this.nuLigaDataProvider = nuLigaDataProvider;
-	}
-
-	@Inject
-	public void setNuLigaDataProcessor(NuLigaDataProcessor nuLigaDataProcessor) {
-		this.nuLigaDataProcessor = nuLigaDataProcessor;
-	}
-
-	@Inject
-	public void setLogger(Logger logger) {
-		this.logger = logger;
 	}
 }

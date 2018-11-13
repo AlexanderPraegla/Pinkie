@@ -12,19 +12,19 @@
 
     <composite:implementation>
         <b:panel id="lastResultsPanel" title="#{pageLabel['mainpage.lastResults.title']}" collapsible="true"
-                 rendered="#{scheduleBean.getRecentResults().size() > 0}">
-            <b:dataTable value="#{scheduleBean.getRecentResults()}" searching="false" info="false" paginated="false"
-                         var="match" fixedHeader="true" scrollHorizontally="true" style="margin: 0 auto;">
-                <b:dataTableColumn label="#{label['table.team']}" value="#{match.team.name}" orderable="false"/>
-                <b:dataTableColumn label="#{label['table.day']}" value="#{match.day}" orderable="false"
+                 rendered="#{scheduleBean.recentResults.size() > 0}">
+            <b:dataTable value="#{scheduleBean.recentResults}" searching="false" info="false" paginated="false"
+                         var="meeting" fixedHeader="true" scrollHorizontally="true" style="margin: 0 auto;">
+                <b:dataTableColumn label="#{label['table.team']}" value="#{meeting.leagueNickname}" orderable="false"/>
+                <b:dataTableColumn label="#{label['table.day']}" value="#{meeting.getDayOfMeeting()}" orderable="false"
                                    styleClass="sm-screen-hidden xs-screen-hidden"/>
-                <b:dataTableColumn label="#{label['table.date']}" value="#{match.getFormattedMatchDate()}" orderable="false"
+                <b:dataTableColumn label="#{label['table.date']}" value="#{meeting.getFormattedMatchDate()}" orderable="false"
                                    styleClass="sm-screen-hidden xs-screen-hidden"/>
-                <b:dataTableColumn label="#{label['table.homeTeam']}" value="#{match.homeTeam}" orderable="false"
-                                   contentStyle="#{contentStyleBean.svaTeamStyle(match.homeTeam)}"/>
-                <b:dataTableColumn label="#{label['table.guestTeam']}" value="#{match.guestTeam}" orderable="false"
-                                   contentStyle="#{contentStyleBean.svaTeamStyle(match.guestTeam)}"/>
-                <b:dataTableColumn label="#{label['table.result']}" value="#{match.result}" orderable="false"/>
+                <b:dataTableColumn label="#{label['table.homeTeam']}" value="#{meeting.teamHome}" orderable="false"
+                                   contentStyle="#{contentStyleBean.svaTeamStyle(meeting.teamHomeClubNr)}"/>
+                <b:dataTableColumn label="#{label['table.guestTeam']}" value="#{meeting.teamGuest}" orderable="false"
+                                   contentStyle="#{contentStyleBean.svaTeamStyle(meeting.teamGuestClubNr)}"/>
+                <b:dataTableColumn label="#{label['table.result']}" value="#{meeting.matchesHome}:#{meeting.matchesGuest}" orderable="false"/>
             </b:dataTable>
         </b:panel>
     </composite:implementation>
