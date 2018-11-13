@@ -49,15 +49,16 @@ public class NuLigaDataProcessor {
         List<ClubMeeting> from = MeetingsAbbrDTOMapper.from(clubMeetingsOfCurrentSeason);
         for (ClubMeeting clubMeeting : from) {
             em.merge(clubMeeting);
+            em.flush();
         }
-        em.flush();
     }
 
     private void emptyTeamData() {
         logger.info("Deleting old nuliga data");
-        em.createNamedQuery("ClubMeeting.deleteAll").executeUpdate();
-        em.createNamedQuery("GroupTableTeam.deleteAll").executeUpdate();
-        em.flush();
+        int deletedMeetings = em.createNamedQuery("ClubMeeting.deleteAll").executeUpdate();
+        logger.info("Deleted {} from table club_meeting", deletedMeetings);
+        int deletedGroupTableEntry = em.createNamedQuery("GroupTableTeam.deleteAll").executeUpdate();
+        logger.info("Deleted {} from table group_table_team", deletedGroupTableEntry);
         logger.info("Sucessfully deleted nuliga data");
     }
 

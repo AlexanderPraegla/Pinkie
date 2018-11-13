@@ -8,6 +8,7 @@ import nu.liga.open.rs.v2014.dto.championships.MeetingsDTO;
 import nu.liga.open.rs.v2014.dto.championships.TeamAbbrDTO;
 import nu.liga.open.rs.v2014.dto.championships.TeamGroupTablesDTO;
 import nu.liga.open.rs.v2014.dto.championships.TeamsDTO;
+import org.apache.logging.log4j.Logger;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
@@ -29,15 +30,20 @@ public class NuLigaApiRequester {
     private SeasonService seasonService;
     @Inject
     private Retrofit retrofit;
+    @Inject
+    private Logger logger;
 
     public List<TeamAbbrDTO> getTeamsOfCurrentSeason() {
         NuLigaApi nuLigaApi = retrofit.create(NuLigaApi.class);
-        Call<TeamsDTO> teamsDTOCall = nuLigaApi.getClubTeams(seasonService.getCurrentSeason().getSeasonNickName());
+        Season currentSeason = seasonService.getCurrentSeason();
+        Call<TeamsDTO> teamsDTOCall = nuLigaApi.getClubTeams(currentSeason.getSeasonNickName());
         TeamsDTO teamsDTO = retrofitRequester.executeSyncronousCall(teamsDTOCall);
 
         if (teamsDTO != null) {
+            logger.info("Found {} teams for season={}", teamsDTO.getList().size(), currentSeason.getSeasonNickName());
             return teamsDTO.getList();
         } else {
+            logger.warn("Found no teams for season={}", currentSeason.getSeasonNickName());
             return new ArrayList<>();
         }
     }
@@ -73,11 +79,15 @@ public class NuLigaApiRequester {
 
         Call<MeetingsDTO> meetingsDTOCall = nuLigaApi.getClubMeetings(season.getSeasonNickName(), 0, MAX_RESULT, fromDateString, toDateString);
         MeetingsDTO meetingsDTO = retrofitRequester.executeSyncronousCall(meetingsDTOCall);
+        List<MeetingAbbrDTO> result;
         if (meetingsDTO.getAvailableResults() <= MAX_RESULT) {
-            return meetingsDTO.getList();
+            result = meetingsDTO.getList();
         } else {
             meetingsDTOCall = nuLigaApi.getClubMeetings(season.getSeasonNickName(), 0, meetingsDTO.getAvailableResults(), fromDateString, toDateString);
-            return retrofitRequester.executeSyncronousCall(meetingsDTOCall).getList();
+            result = retrofitRequester.executeSyncronousCall(meetingsDTOCall).getList();
         }
+
+        logger.info("Found {} meetings in nuLiga", result.size());
+        return result;
     }
 }
