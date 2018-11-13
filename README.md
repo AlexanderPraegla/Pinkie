@@ -21,6 +21,9 @@ This Glassfish version only works with a jdk 8u152 or earlier (see [here](https:
 ### Set up Postgres Driver in Glassfish
 Downloaded [Postgres Driver](https://jdbc.postgresql.org/download.html) and put it under GLASSFISH_HOME/domains/YOUR_DOMAIN/lib 
 
+### Install nuLiga JSON client library
+Download [here](https://hbde-portal.liga.nu/rs/documentation/downloads.html#artifact_java_json_client_library) and put it under GLASSFISH_HOME/domains/YOUR_DOMAIN/lib 
+
 ### Datasource Setup
 Install local PostgreSQL database or use a remote one.
 
