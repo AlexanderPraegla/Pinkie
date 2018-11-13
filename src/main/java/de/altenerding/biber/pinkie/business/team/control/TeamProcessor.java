@@ -17,7 +17,7 @@ public class TeamProcessor {
 
 
 	public void updateTeam(Team team) {
-		logger.info("Updating team={} with id={}", team.getName(), team.getId());
+		logger.info("Updating {} with id={}", team.getName(), team.getId());
 		Image image = team.getImage();
 		if (image != null) {
 			em.merge(image);
