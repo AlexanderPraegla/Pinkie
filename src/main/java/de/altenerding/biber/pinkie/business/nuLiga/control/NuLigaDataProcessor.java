@@ -40,17 +40,20 @@ public class NuLigaDataProcessor {
                 List<GroupTableTeam> from = GroupTableTeamDTOMapper.from(groupTableDTO);
                 for (GroupTableTeam groupTableTeam : from) {
                     em.merge(groupTableTeam);
+                    em.flush();
                 }
-                em.flush();
             }
 
         }
+        logger.info("Persisted successfully ranking entries");
+
         List<MeetingAbbrDTO> clubMeetingsOfCurrentSeason = nuLigaApiRequester.getClubMeetingsOfCurrentSeason();
         List<ClubMeeting> from = MeetingsAbbrDTOMapper.from(clubMeetingsOfCurrentSeason);
         for (ClubMeeting clubMeeting : from) {
             em.merge(clubMeeting);
             em.flush();
         }
+        logger.info("Persisted successfully {} club meetings", from.size());
     }
 
     private void emptyTeamData() {
