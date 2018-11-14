@@ -10,7 +10,9 @@ Current test version is visible [here](https://www.praegla.net/pinkie)
 
 ## Frontend
 * JSF 2.3
-* Bootsfaces 1.2.0
+* Bootsfaces 1.3.0
+* PrimeFaces 6.1
+* Omnifaces 2.6.6
 
 # Environment setup
 ## Application server
