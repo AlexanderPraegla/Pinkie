@@ -69,7 +69,7 @@ public class FileMappingControl {
 	}
 
 	public Map<String, List<Mapping>> getMappingForPage(String page) {
-		logger.info("Loading file and text mappings for page={}", page);
+		logger.debug("Loading file and text mappings for page={}", page);
 
 		List<Mapping> mappingList = em.createNamedQuery("Mapping.getByPage", Mapping.class).setParameter("page", page).getResultList();
 

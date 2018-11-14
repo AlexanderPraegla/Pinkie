@@ -23,6 +23,7 @@ public class Season {
 	private long id;
 	@Column(columnDefinition = "varchar", unique = true)
 	private String name;
+	private String seasonNickName;
 	@Column(name = "created_on")
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date createdOn;
@@ -56,5 +57,13 @@ public class Season {
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	public String getSeasonNickName() {
+		return seasonNickName;
+	}
+
+	public void setSeasonNickName(String seasonNickName) {
+		this.seasonNickName = seasonNickName;
 	}
 }

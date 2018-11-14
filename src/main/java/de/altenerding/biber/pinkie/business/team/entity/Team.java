@@ -71,6 +71,10 @@ public class Team {
 	@Column(name = "archived_on")
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date archivedOn;
+	@Column(name = "nuliga_team_id")
+	private String nuLigaTeamId;
+	@Column(name = "nuliga_group_id")
+	private String nuLigaGroupId;
 
 	@PrePersist
 	protected void onPersist() {
@@ -191,6 +195,22 @@ public class Team {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public String getNuLigaTeamId() {
+		return nuLigaTeamId;
+	}
+
+	public void setNuLigaTeamId(String nuLigaTeamId) {
+		this.nuLigaTeamId = nuLigaTeamId;
+	}
+
+	public String getNuLigaGroupId() {
+		return nuLigaGroupId;
+	}
+
+	public void setNuLigaGroupId(String nuLigaGroupId) {
+		this.nuLigaGroupId = nuLigaGroupId;
 	}
 
 	@Override

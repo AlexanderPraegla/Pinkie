@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class ReportProvider {
@@ -34,7 +35,12 @@ public class ReportProvider {
 
 	public Report getReportById(long reportId) {
 		logger.info("Loading report with id={}", reportId);
-		return em.createNamedQuery("Report.findById", Report.class).setParameter("id", reportId).getSingleResult();
+		TypedQuery<Report> query = em.createNamedQuery("Report.findById", Report.class).setParameter("id", reportId);
+		if (query.getMaxResults() == 1) {
+			return query.getSingleResult();
+		} else {
+			return null;
+		}
 	}
 
 	public List<Report> getReportsForTeam(long teamId, long seasonId) {

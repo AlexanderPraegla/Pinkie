@@ -10,29 +10,29 @@
     <composite:interface/>
 
     <composite:implementation>
-        <b:dataTable value="#{teamBean.teamStandings}" searching="false" paginated='false' info="false"
-                     var="standing" fixedHeader="true" scrollHorizontally="true">
-            <b:dataTableColumn label="#{label['standing.stand']}" value="#{standing.stand}" orderable="false"
-                               contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="#{label['standing.teamName']}" value="#{standing.teamName}" orderable="false"
-                               contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="#{label['standing.numberOfMatches']}" value="#{standing.numberOfMatches}" orderable="false"
-                               contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="#{label['standing.numberOfWinnings']}" value="#{standing.numberOfWinnings}" orderable="false"
-                               contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="#{label['standing.numberOfTies']}" value="#{standing.numberOfTies}" orderable="false"
-                               contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="#{label['standing.numberOfLoss']}" value="#{standing.numberOfLoss}" orderable="false"
-                               contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="#{label['standing.goals']}" value="#{standing.goals}" orderable="false"
-                               contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="#{label['standing.goalDifference']}" value="#{standing.goalDifference}" orderable="false"
-                               contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
-            <b:dataTableColumn label="#{label['standing.points']}" value="#{standing.points}" orderable="false"
-                               contentStyle="#{contentStyleBean.svaTeamStyle(standing.teamName)}"/>
+        <b:dataTable value="#{teamBean.teamRank}" searching="false" paginated='false' info="false"
+                     var="rank" fixedHeader="true" scrollHorizontally="true">
+            <b:dataTableColumn label="#{label['standing.stand']}" value="#{rank.tableRank}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyle(rank.clubNr)}"/>
+            <b:dataTableColumn label="#{label['standing.teamName']}" value="#{rank.teamName}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyle(rank.clubNr)}"/>
+            <b:dataTableColumn label="#{label['standing.numberOfMatches']}" value="#{rank.meetings}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyle(rank.clubNr)}"/>
+            <b:dataTableColumn label="#{label['standing.numberOfWinnings']}" value="#{rank.winMeetings}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyle(rank.clubNr)}"/>
+            <b:dataTableColumn label="#{label['standing.numberOfTies']}" value="#{rank.tieMeetings}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyle(rank.clubNr)}"/>
+            <b:dataTableColumn label="#{label['standing.numberOfLoss']}" value="#{rank.lossMeetings}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyle(rank.clubNr)}"/>
+            <b:dataTableColumn label="#{label['standing.goals']}" value="#{rank.ownMatches}:#{rank.otherMatches}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyle(rank.clubNr)}"/>
+            <b:dataTableColumn label="#{label['standing.goalDifference']}" value="#{rank.ownMatches - rank.otherMatches}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyle(rank.clubNr)}"/>
+            <b:dataTableColumn label="#{label['standing.points']}" value="#{rank.ownPoints}:#{rank.otherPoints}" orderable="false"
+                               contentStyle="#{contentStyleBean.svaTeamStyle(rank.clubNr)}"/>
         </b:dataTable>
         <hr/>
-        <b:button href="#{teamBean.team.urlStanding}" target="blank" value="Zur NuLiga" look="primary"/>
+        <b:button rendered="#{teamBean.team.urlStanding != null}" href="#{teamBean.team.urlStanding}" target="blank" value="Zur NuLiga" look="primary"/>
     </composite:implementation>
 </h:body>
 </html>

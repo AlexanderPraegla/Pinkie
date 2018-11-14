@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,12 @@ public class TeamProvider {
 
     public Team getTeamById(long id) {
         logger.info("Loading team with id={}", id);
-        return em.createNamedQuery("Team.findById", Team.class).setParameter("id", id).getSingleResult();
+        TypedQuery<Team> query = em.createNamedQuery("Team.findById", Team.class).setParameter("id", id);
+        if (query.getMaxResults() == 1) {
+            return query.getSingleResult();
+        } else {
+            return null;
+        }
     }
 
     public List<Member> getAllTrainers() {
