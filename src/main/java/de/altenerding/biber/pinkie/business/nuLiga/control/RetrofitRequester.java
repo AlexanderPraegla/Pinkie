@@ -152,6 +152,10 @@ public class RetrofitRequester {
         if (response.isSuccessful()) {
             tokenResult = response.body();
             logger.info("Token successfully refreshed");
+        } else if (response.code() == 400) {
+            logger.warn("Trying to create new token because of HTTP Status Code 400");
+            logger.warn(response.errorBody().string());
+            createToken();
         } else {
             throw new IOException(response.errorBody().string());
         }
