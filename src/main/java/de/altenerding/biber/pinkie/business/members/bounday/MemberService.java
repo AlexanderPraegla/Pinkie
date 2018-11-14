@@ -16,7 +16,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -42,10 +41,10 @@ public class MemberService implements Serializable {
 
     public Member getMemberById(long id) {
         logger.info("Getting member by id={}", id);
-        TypedQuery<Member> query = em.createNamedQuery("member.findById", Member.class).setParameter("id", id);
+        List<Member> resultList = em.createNamedQuery("member.findById", Member.class).setParameter("id", id).getResultList();
 
-        if (query.getMaxResults() == 1) {
-            return query.getSingleResult();
+        if (resultList.size() == 1) {
+            return resultList.get(0);
         } else {
             return null;
         }
@@ -53,9 +52,9 @@ public class MemberService implements Serializable {
 
     public Member getMemberByEmail(String email) {
         logger.info("Getting member by email={}", email);
-        TypedQuery<Member> query = em.createNamedQuery("member.findByEmail", Member.class).setParameter("email", email);
-        if (query.getMaxResults() == 1) {
-            return query.getSingleResult();
+        List<Member> resultList = em.createNamedQuery("member.findByEmail", Member.class).setParameter("email", email).getResultList();
+        if (resultList.size() == 1) {
+            return resultList.get(0);
         } else {
             return null;
         }
@@ -63,9 +62,9 @@ public class MemberService implements Serializable {
 
     public Member getMemberByAlias(String alias) {
         logger.info("Getting member by alias={}", alias);
-        TypedQuery<Member> query = em.createNamedQuery("member.findByAlias", Member.class).setParameter("alias", alias);
-        if (query.getMaxResults() == 1) {
-            return query.getSingleResult();
+        List<Member> resultList = em.createNamedQuery("member.findByAlias", Member.class).setParameter("alias", alias).getResultList();
+        if (resultList.size() == 1) {
+            return resultList.get(0);
         } else {
             return null;
         }
