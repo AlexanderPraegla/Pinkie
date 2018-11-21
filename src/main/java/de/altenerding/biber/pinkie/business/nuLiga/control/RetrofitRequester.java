@@ -10,6 +10,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.common.base.CaseFormat;
+import de.altenerding.biber.pinkie.business.config.ConfigService;
+import de.altenerding.biber.pinkie.business.config.entity.Config;
+import de.altenerding.biber.pinkie.business.config.entity.ConfigProperty;
+import de.altenerding.biber.pinkie.business.config.entity.Configuration;
 import de.altenerding.biber.pinkie.business.nuLiga.entity.TokenResult;
 import de.altenerding.biber.pinkie.business.systemproperty.SystemProperty;
 import okhttp3.OkHttpClient;
@@ -36,28 +40,31 @@ public class RetrofitRequester {
     private static final String GRANT_TYPE_REFRESH = "refresh_token";
     private static final String SCOPE = "nuPortalRS_club";
     public static final String BASE_URL = "https://hbde-portal.liga.nu/rs/";
+    private TokenResult tokenResult;
+    private Retrofit retrofit;
 
     @Inject
     private Logger logger;
-    private TokenResult tokenResult;
-    private Retrofit retrofit;
+    @Inject
+    private ConfigService configService;
     @Inject
     @SystemProperty(name = "nuLigaRestClientId")
     private String clientId;
     @Inject
     @SystemProperty(name = "nuLigaRestClientSecret")
     private String clientSecret;
+    @Inject
+    @Config(property = ConfigProperty.NU_LIGA_API_TOKEN)
+    private String initialNuLigaToken;
+    @Inject
+    @Config(property = ConfigProperty.NU_LIGA_API_RESFRESH_TOKEN)
+    private String initialNuLigeRefreshToken;
 
     @PostConstruct
     public void init() {
         logger.info("Initializing retrofit client");
         initRetrofit();
-
-        try {
-            createToken();
-        } catch (IOException e) {
-            logger.error("Error while creating token", e);
-        }
+        tokenResult = new TokenResult(initialNuLigaToken, initialNuLigeRefreshToken);
     }
 
     public <T> T executeSyncronousCall(Call<T> call) {
@@ -152,6 +159,8 @@ public class RetrofitRequester {
         if (response.isSuccessful()) {
             tokenResult = response.body();
             logger.info("Token successfully refreshed");
+            Configuration configuration = new Configuration(ConfigProperty.NU_LIGA_API_TOKEN, tokenResult.getAccessToken());
+            configService.updateConfig(configuration);
         } else if (response.code() == 400) {
             logger.warn("Trying to create new token because of HTTP Status Code 400");
             logger.warn(response.errorBody().string());
@@ -175,6 +184,8 @@ public class RetrofitRequester {
         if (response.isSuccessful()) {
             tokenResult = response.body();
             logger.info("Token successfully created");
+            Configuration configuration = new Configuration(ConfigProperty.NU_LIGA_API_TOKEN, tokenResult.getAccessToken());
+            configService.updateConfig(configuration);
         } else {
             throw new IOException(response.errorBody().string());
         }
