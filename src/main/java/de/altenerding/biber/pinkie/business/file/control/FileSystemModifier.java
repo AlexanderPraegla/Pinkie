@@ -1,7 +1,7 @@
 package de.altenerding.biber.pinkie.business.file.control;
 
+import de.altenerding.biber.pinkie.business.config.entity.Config;
 import de.altenerding.biber.pinkie.business.file.entity.FileCategory;
-import de.altenerding.biber.pinkie.business.systemproperty.SystemProperty;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
@@ -9,12 +9,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static de.altenerding.biber.pinkie.business.config.entity.ConfigProperty.RESOURCE_FOLDER;
+
 public class FileSystemModifier {
 
 	@Inject
 	private Logger logger;
 	@Inject
-	@SystemProperty(name = "resourceFolder")
+	@Config(RESOURCE_FOLDER)
 	private String resourceFolder;
 
 	public void createFolder(FileCategory category, String folder) throws Exception {
