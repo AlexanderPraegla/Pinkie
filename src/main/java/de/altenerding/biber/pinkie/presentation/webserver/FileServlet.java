@@ -1,7 +1,6 @@
 package de.altenerding.biber.pinkie.presentation.webserver;
 
-import de.altenerding.biber.pinkie.business.file.boundary.FileService;
-import de.altenerding.biber.pinkie.business.systemproperty.SystemProperty;
+import de.altenerding.biber.pinkie.business.config.entity.Config;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -23,6 +22,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
+import static de.altenerding.biber.pinkie.business.config.entity.ConfigProperty.RESOURCE_FOLDER;
+
 @WebServlet(name = "DownloadServlet", urlPatterns = {"/files/*"})
 public class FileServlet extends HttpServlet {
 
@@ -33,11 +34,8 @@ public class FileServlet extends HttpServlet {
 	private static final String MULTIPART_BOUNDARY = "MULTIPART_BYTERANGES";
 
 	// Properties ---------------------------------------------------------------------------------
-	@Inject
-	private FileService fileService;
-
     @Inject
-    @SystemProperty(name = "resourceFolder")
+	@Config(RESOURCE_FOLDER)
     private String resourceFolder;
 
 	// Actions ------------------------------------------------------------------------------------
