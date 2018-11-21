@@ -10,8 +10,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.common.base.CaseFormat;
+import de.altenerding.biber.pinkie.business.config.boundary.ConfigService;
+import de.altenerding.biber.pinkie.business.config.entity.Config;
 import de.altenerding.biber.pinkie.business.nuLiga.entity.TokenResult;
-import de.altenerding.biber.pinkie.business.systemproperty.SystemProperty;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.apache.commons.lang3.StringUtils;
@@ -28,38 +29,60 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import java.io.IOException;
 
+import static de.altenerding.biber.pinkie.business.config.entity.ConfigProperty.NU_LIGA_API_BASE_URL;
+import static de.altenerding.biber.pinkie.business.config.entity.ConfigProperty.NU_LIGA_API_CLIENT_ID;
+import static de.altenerding.biber.pinkie.business.config.entity.ConfigProperty.NU_LIGA_API_CLIENT_SECRET;
+import static de.altenerding.biber.pinkie.business.config.entity.ConfigProperty.NU_LIGA_API_GRANT_TYPE;
+import static de.altenerding.biber.pinkie.business.config.entity.ConfigProperty.NU_LIGA_API_GRANT_TYPE_REFRESH;
+import static de.altenerding.biber.pinkie.business.config.entity.ConfigProperty.NU_LIGA_API_SCOPE;
+import static de.altenerding.biber.pinkie.business.config.entity.ConfigProperty.NU_LIGA_API_TOKEN;
+import static de.altenerding.biber.pinkie.business.config.entity.ConfigProperty.NU_LIGA_API_TOKEN_REFRESH;
+
 @Singleton
 @Startup
 public class RetrofitRequester {
 
-    private static final String GRANT_TYPE = "client_credentials";
-    private static final String GRANT_TYPE_REFRESH = "refresh_token";
-    private static final String SCOPE = "nuPortalRS_club";
-    public static final String BASE_URL = "https://hbde-portal.liga.nu/rs/";
+    private TokenResult tokenResult;
+    private Retrofit retrofit;
 
     @Inject
     private Logger logger;
-    private TokenResult tokenResult;
-    private Retrofit retrofit;
     @Inject
-    @SystemProperty(name = "nuLigaRestClientId")
+    private ConfigService configService;
+
+    @Inject
+    @Config(NU_LIGA_API_GRANT_TYPE)
+    private String grantType;
+    @Inject
+    @Config(NU_LIGA_API_GRANT_TYPE_REFRESH)
+    private String grantTypeRefresh;
+    @Inject
+    @Config(NU_LIGA_API_SCOPE)
+    private String scope;
+    @Inject
+    @Config(NU_LIGA_API_BASE_URL)
+    private String baseUrl;
+    @Inject
+    @Config(NU_LIGA_API_CLIENT_ID)
     private String clientId;
     @Inject
-    @SystemProperty(name = "nuLigaRestClientSecret")
+    @Config(NU_LIGA_API_CLIENT_SECRET)
     private String clientSecret;
+    @Inject
+    @Config(NU_LIGA_API_TOKEN)
+    private String initialNuLigaToken;
+    @Inject
+    @Config(NU_LIGA_API_TOKEN_REFRESH)
+    private String initialNuLigaRefreshToken;
 
     @PostConstruct
     public void init() {
         logger.info("Initializing retrofit client");
         initRetrofit();
-
-        try {
-            createToken();
-        } catch (IOException e) {
-            logger.error("Error while creating token", e);
-        }
+        tokenResult = new TokenResult(initialNuLigaToken, initialNuLigaRefreshToken);
     }
 
+    @SuppressWarnings({"ConstantConditions", "WeakerAccess"})
     public <T> T executeSyncronousCall(Call<T> call) {
         try {
             logger.info("Calling URL \'{}\'", call.request().url().toString());
@@ -119,6 +142,7 @@ public class RetrofitRequester {
                                                                  BeanDescription beanDesc,
                                                                  final JsonDeserializer<?> deserializer) {
                 return new JsonDeserializer<Enum>() {
+                    @SuppressWarnings("unchecked")
                     @Override
                     public Enum deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
                         Class<? extends Enum> rawClass = (Class<Enum<?>>) type.getRawClass();
@@ -132,26 +156,28 @@ public class RetrofitRequester {
 
         retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(BASE_URL)
+                .baseUrl(baseUrl)
                 .addConverterFactory(JacksonConverterFactory.create(mapper))
                 .build();
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void refreshToken() throws IOException {
         logger.info("Refreshing token!");
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(baseUrl)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
         TokenApi tokenApi = retrofit.create(TokenApi.class);
 
-        Call<TokenResult> tokenCall = tokenApi.refreshToken(GRANT_TYPE_REFRESH, clientId, clientSecret, SCOPE, tokenResult.getRefreshToken());
+        Call<TokenResult> tokenCall = tokenApi.refreshToken(grantTypeRefresh, clientId, clientSecret, scope, tokenResult.getRefreshToken());
         logger.info("Calling URL \'{}\'", tokenCall.request().url().toString());
         retrofit2.Response<TokenResult> response = tokenCall.execute();
 
         if (response.isSuccessful()) {
             tokenResult = response.body();
             logger.info("Token successfully refreshed");
+            configService.updateFromTokenResult(tokenResult);
         } else if (response.code() == 400) {
             logger.warn("Trying to create new token because of HTTP Status Code 400");
             logger.warn(response.errorBody().string());
@@ -161,20 +187,22 @@ public class RetrofitRequester {
         }
     }
 
+    @SuppressWarnings({"ConstantConditions", "WeakerAccess"})
     public void createToken() throws IOException {
         logger.info("Creating new token!");
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(baseUrl)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
         TokenApi tokenApi = retrofit.create(TokenApi.class);
-        Call<TokenResult> tokenCall = tokenApi.getToken(GRANT_TYPE, clientId, clientSecret, SCOPE);
+        Call<TokenResult> tokenCall = tokenApi.getToken(grantType, clientId, clientSecret, scope);
         logger.info("Calling URL \'{}\'", tokenCall.request().url().toString());
         retrofit2.Response<TokenResult> response = tokenCall.execute();
 
         if (response.isSuccessful()) {
             tokenResult = response.body();
             logger.info("Token successfully created");
+            configService.updateFromTokenResult(tokenResult);
         } else {
             throw new IOException(response.errorBody().string());
         }
