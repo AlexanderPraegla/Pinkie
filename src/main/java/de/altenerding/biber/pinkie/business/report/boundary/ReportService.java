@@ -1,5 +1,6 @@
 package de.altenerding.biber.pinkie.business.report.boundary;
 
+import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.report.control.ReportProcessor;
 import de.altenerding.biber.pinkie.business.report.control.ReportProvider;
 import de.altenerding.biber.pinkie.business.report.entity.Report;
@@ -42,8 +43,8 @@ public class ReportService {
 		reportProcessor.updateReport(report);
 	}
 
-	public void releaseReport(Report report) {
-		reportProcessor.releaseReport(report);
+	public void releaseReport(Report report, Member member) {
+		reportProcessor.releaseReport(report, member);
 	}
 
 	public void deleteReport(Report report) {

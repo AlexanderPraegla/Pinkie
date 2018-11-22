@@ -1,16 +1,14 @@
 package de.altenerding.biber.pinkie.presentation.login;
 
 import de.altenerding.biber.pinkie.business.login.boundary.AuthenticateService;
-import de.altenerding.biber.pinkie.business.members.bounday.MemberService;
+import de.altenerding.biber.pinkie.business.login.entity.MemberHasOneTimePasswordException;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
-import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 import net.bootsfaces.utils.FacesMessages;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -30,12 +28,6 @@ public class LoginBean {
 
     private String alias;
 	private String password;
-	private MemberService memberService;
-
-	@PostConstruct
-	public void init() {
-		logger.info("page: {}", page);
-	}
 
 	public String login() throws IOException {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -43,22 +35,15 @@ public class LoginBean {
 
 		String result;
 		try {
-            if (authenticateService.validate(alias, password)) {
-                Member member = memberService.getMemberByAlias(alias);
-				userSessionBean.setMember(member);
-				logger.info("Login successful for member alias={}", member.getAlias());
-
-				if (authenticateService.hasMemberOnetimePasswort(member)) {
-					return "changePassword";
-				}
-
-                //check if member has missing notification settings -> redirect to display the missing ones
+            if (authenticateService.login(alias, password)) {
 				result = "success";
 			} else {
                 logger.error("Login NOT successful for alias={}", alias);
 				FacesMessages.error("Login fehlgeschlagen");
 				return "error";
 			}
+		} catch (MemberHasOneTimePasswordException ex) {
+			return "changePassword";
 		} catch (Exception e) {
 			logger.info("Error while validating login", e);
 			FacesMessages.error("Es ist ein Fehler beim Login aufgetreten");
@@ -75,7 +60,7 @@ public class LoginBean {
 
 	@Access(role = Role.MEMBER)
 	public String logout() {
-		userSessionBean.setMember(null);
+		userSessionBean.logout();
 		return "logout";
 	}
 
@@ -103,11 +88,6 @@ public class LoginBean {
 	@Inject
 	public void setAuthenticateService(AuthenticateService authenticateService) {
 		this.authenticateService = authenticateService;
-	}
-
-	@Inject
-	public void setMemberService(MemberService memberService) {
-		this.memberService = memberService;
 	}
 
 	@Inject
