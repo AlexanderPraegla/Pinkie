@@ -2,6 +2,7 @@ package de.altenerding.biber.pinkie.business.members.control;
 
 import de.altenerding.biber.pinkie.business.login.control.Authenticator;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
+import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
@@ -13,7 +14,10 @@ import java.io.Serializable;
 @Interceptor
 public class RoleInterceptor implements Serializable {
 
+	@Inject
 	private Authenticator authenticator;
+	@Inject
+	private UserSessionBean userSessionBean;
 
 	@AroundInvoke
 	public Object intercept(InvocationContext ic) throws Exception {
@@ -24,15 +28,10 @@ public class RoleInterceptor implements Serializable {
 			return ic.proceed();
 		}
 
-		if (authenticator.authenticateLoggedInUserRole(annotation.role())) {
+		if (authenticator.isMemberInRole(userSessionBean.getMember(), annotation.role())) {
 			return ic.proceed();
 		}
 
 		throw new Exception("Not allowed to perform this action");
-	}
-
-	@Inject
-	public void setAuthenticator(Authenticator authenticator) {
-		this.authenticator = authenticator;
 	}
 }
