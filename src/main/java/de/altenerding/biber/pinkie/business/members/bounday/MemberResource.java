@@ -1,6 +1,8 @@
 package de.altenerding.biber.pinkie.business.members.bounday;
 
 import de.altenerding.biber.pinkie.business.members.entity.Member;
+import de.altenerding.biber.pinkie.business.security.AuthenticatedMember;
+import de.altenerding.biber.pinkie.business.security.Secured;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
@@ -15,12 +17,16 @@ import java.util.List;
 
 @Path("/members")
 @Produces(MediaType.APPLICATION_JSON)
+@Secured
 public class MemberResource {
 
 	@Inject
     private MemberService memberService;
 	@Inject
 	private Logger logger;
+    @Inject
+    @AuthenticatedMember
+    private Member member;
 
     @GET
     public Response getUsers() {
