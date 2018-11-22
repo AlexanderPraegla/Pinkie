@@ -3,7 +3,6 @@ package de.altenerding.biber.pinkie.business.login.control;
 import de.altenerding.biber.pinkie.business.login.entity.Login;
 import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
-import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
@@ -14,13 +13,12 @@ import java.util.Base64;
 
 public class Authenticator implements Serializable{
 
-	private UserSessionBean userSessionBean;
 	private SecurityProvider securityProvider;
 	private LoginProvider loginProvider;
 	private LoginModifier loginModifier;
 	private Logger logger;
 
-	public boolean validate(String alias, String password) throws Exception {
+	public boolean validatePassword(String alias, String password) throws Exception {
 		alias = alias.toLowerCase();
 		logger.info("Checking login credentials for alias={}", alias);
 
@@ -50,12 +48,10 @@ public class Authenticator implements Serializable{
 		}
 	}
 
-	public boolean authenticateLoggedInUserRole(Role role) {
-		if (userSessionBean.getMember() == null) {
+	public boolean isMemberInRole(Member member, Role role) {
+		if (member == null) {
 			return false;
 		}
-
-		Member member = userSessionBean.getMember();
 
 		if (member.getRole() == Role.ADMIN) {
 			return true;
@@ -82,11 +78,6 @@ public class Authenticator implements Serializable{
 	@Inject
 	public void setLogger(Logger logger) {
 		this.logger = logger;
-	}
-
-	@Inject
-	public void setUserSessionBean(UserSessionBean userSessionBean) {
-		this.userSessionBean = userSessionBean;
 	}
 
 	@Inject

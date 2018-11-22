@@ -143,7 +143,7 @@ public class MemberService implements Serializable {
     public void changePassword(Member member, String passwordOld, String passwordNew) throws Exception {
         logger.info("Changing password for alias={}", member.getAlias());
 
-        if (!authenticator.validate(member.getAlias(), passwordOld)) {
+        if (!authenticator.validatePassword(member.getAlias(), passwordOld)) {
             throw new Exception("Invalid password");
         }
 
