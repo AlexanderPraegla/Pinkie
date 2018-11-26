@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import static de.altenerding.biber.pinkie.business.config.entity.ConfigProperty.NU_LIGA_API_TOKEN;
 import static de.altenerding.biber.pinkie.business.config.entity.ConfigProperty.NU_LIGA_API_TOKEN_REFRESH;
@@ -30,6 +31,7 @@ public class ConfigService {
 		return configuration;
 	}
 
+	@Transactional(Transactional.TxType.REQUIRES_NEW)
 	public void updateFromTokenResult(TokenResult tokenResult) {
 		Configuration configToken = new Configuration(NU_LIGA_API_TOKEN, tokenResult.getAccessToken());
 		Configuration configRefreshToken = new Configuration(NU_LIGA_API_TOKEN_REFRESH, tokenResult.getRefreshToken());

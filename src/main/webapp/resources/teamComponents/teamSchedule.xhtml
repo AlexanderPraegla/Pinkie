@@ -11,16 +11,24 @@
     <composite:interface/>
 
     <composite:implementation>
+        <b:form>
+            <b:commandButton rendered="#{teamBean.team != null}" icon="download"
+                             actionListener="#{nuLigaBean.downloadIcalForTeam(teamBean.team)}" target="blank"
+                             value="ICAL Download" look="primary"/>
+        </b:form>
         <b:dataTable value="#{teamBean.teamMeetings}" searching="false" paginated='false' info="false"
                      var="meeting" fixedHeader="true" scrollHorizontally="true">
             <b:dataTableColumn label="#{label['table.day']}" value="#{meeting.getDayOfMeeting()}" orderable="false"/>
-            <b:dataTableColumn label="#{label['table.date']}" value="#{meeting.getFormattedMatchDate()}" orderable="false"/>
-            <b:dataTableColumn label="#{label['table.time']}" value="#{meeting.getFormattedMatchTime()}" orderable="false"/>
+            <b:dataTableColumn label="#{label['table.date']}" value="#{meeting.getFormattedMatchDate()}"
+                               orderable="false"/>
+            <b:dataTableColumn label="#{label['table.time']}" value="#{meeting.getFormattedMatchTime()}"
+                               orderable="false"/>
             <b:dataTableColumn label="#{label['table.homeTeam']}" value="#{meeting.teamHome}" orderable="false"
                                contentStyle="#{contentStyleBean.svaTeamStyle(meeting.teamHomeClubNr)}"/>
             <b:dataTableColumn label="#{label['table.guestTeam']}" value="#{meeting.teamGuest}" orderable="false"
                                contentStyle="#{contentStyleBean.svaTeamStyle(meeting.teamGuestClubNr)}"/>
-            <b:dataTableColumn label="#{label['table.result']}" value="#{meeting.matchesHome}:#{meeting.matchesGuest}" orderable="false"/>
+            <b:dataTableColumn label="#{label['table.result']}" value="#{meeting.matchesHome}:#{meeting.matchesGuest}"
+                               orderable="false"/>
         </b:dataTable>
     </composite:implementation>
 </h:body>

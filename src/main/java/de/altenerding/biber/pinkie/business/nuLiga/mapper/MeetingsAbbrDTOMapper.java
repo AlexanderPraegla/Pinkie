@@ -28,6 +28,7 @@ public class MeetingsAbbrDTOMapper {
         clubMeeting.setTeamGuestId(meetingAbbrDTO.getTeamGuestId());
         clubMeeting.setCourtHallId(meetingAbbrDTO.getCourtHallId());
         clubMeeting.setCourtHallNumbers(meetingAbbrDTO.getCourtHallNumbers());
+        clubMeeting.setCourtHallName(meetingAbbrDTO.getCourtHallName());
 
         return clubMeeting;
     }
