@@ -125,7 +125,7 @@ public class TeamBean implements Serializable {
 
 	public List<ClubMeeting> getTeamMeetings() {
 		if (teamMeetings == null) {
-			teamMeetings = nuLigaDataService.getTeamMeetings(team.getNuLigaGroupId());
+			teamMeetings = nuLigaDataService.getTeamMeetings(team);
 		}
 		return teamMeetings;
 	}

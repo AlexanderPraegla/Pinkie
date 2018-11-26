@@ -1,10 +1,13 @@
 package de.altenerding.biber.pinkie.business.nuLiga.entity;
 
+import de.altenerding.biber.pinkie.business.team.entity.Team;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -16,8 +19,8 @@ import java.util.Locale;
 @Entity
 @Table(name = "club_meeting")
 @NamedQueries({
-        @NamedQuery(name = "ClubMeeting.getAllByGroupId", query = "SELECT e FROM ClubMeeting e " +
-                "where e.groupId = :groupId order by e.scheduled asc"),
+        @NamedQuery(name = "ClubMeeting.getAllByTeamId", query = "SELECT e FROM ClubMeeting e " +
+                "where e.team.id = :teamId order by e.scheduled asc"),
         @NamedQuery(name = "ClubMeeting.deleteAll", query = "DELETE from ClubMeeting"),
         @NamedQuery(name = "ClubMeeting.upcomingGames", query = "SELECT e FROM ClubMeeting e " +
                 "WHERE e.completed = false " +
@@ -54,8 +57,11 @@ public class ClubMeeting {
     private String teamGuestId;
     private String courtHallId;
     private String courtHallNumbers;
+    private String courtHallName;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
+    @OneToOne
+    private Team team;
 
     @PrePersist
     protected void onPersist() {
@@ -230,5 +236,21 @@ public class ClubMeeting {
 
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public String getCourtHallName() {
+        return courtHallName;
+    }
+
+    public void setCourtHallName(String courtHallName) {
+        this.courtHallName = courtHallName;
     }
 }
