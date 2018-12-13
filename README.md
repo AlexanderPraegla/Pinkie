@@ -27,7 +27,7 @@ Downloaded [Postgres Driver](https://jdbc.postgresql.org/download.html) and put 
 Download [here](https://hbde-portal.liga.nu/rs/documentation/downloads.html#artifact_java_json_client_library) and put it under GLASSFISH_HOME/domains/YOUR_DOMAIN/lib 
 
 ### Datasource Setup
-Install local PostgreSQL database or use a remote one.
+Install local PostgreSQL database or use a remote one. 
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
