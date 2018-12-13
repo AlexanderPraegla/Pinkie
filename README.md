@@ -57,4 +57,4 @@ At start up the JVM Option -DresourceFolder=[Path to folder] has to be provided.
 'profileImages'
 'documents'
 
-### Jenkins test commit
+### Jenkins test commit 2
