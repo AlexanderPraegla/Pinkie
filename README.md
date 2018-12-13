@@ -70,3 +70,4 @@ In Bash:
 Fill the configuration table with the neccessary properties. 
 
 TODO name neccessary properties
+- 
