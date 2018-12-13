@@ -67,4 +67,4 @@ In Bash:
 ./asadmin add-resources ../domains/domain1/config/email-ressource.xml
 
 ### Configuration
-Fill the configuration table with the neccessary properties 
+Fill the configuration table with the neccessary properties. TODO name neccessary properties
