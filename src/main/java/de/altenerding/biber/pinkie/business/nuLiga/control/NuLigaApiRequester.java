@@ -48,16 +48,20 @@ public class NuLigaApiRequester {
         }
     }
 
-    public GroupTableDTO getTeamTable(String nuLigaTeamId) {
+    public GroupTableDTO getTeamTable(String nuLigaTeamId, String nuLigaGroupId) {
         NuLigaApi nuLigaApi = retrofit.create(NuLigaApi.class);
         Call<TeamGroupTablesDTO> call = nuLigaApi.getTeamGroupTables(nuLigaTeamId);
         TeamGroupTablesDTO teamGroupTablesDTO = retrofitRequester.executeSyncronousCall(call);
 
         if (teamGroupTablesDTO != null) {
-            return teamGroupTablesDTO.getGroupTables().get(0);
-        } else {
-            return null;
+            for (GroupTableDTO groupTableDTO : teamGroupTablesDTO.getGroupTables()) {
+                if (groupTableDTO.getGroupId().equals(nuLigaGroupId)) {
+                    return groupTableDTO;
+                }
+            }
         }
+
+        return null;
     }
 
     public List<MeetingAbbrDTO> getClubMeetingsOfCurrentSeason() {
