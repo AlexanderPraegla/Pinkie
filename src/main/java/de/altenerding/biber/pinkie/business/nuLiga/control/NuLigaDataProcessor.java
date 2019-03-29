@@ -37,7 +37,7 @@ public class NuLigaDataProcessor {
                 logger.warn("No nuLiga team id provided for {} with id={}", team.getName(), team.getId());
             } else {
                 logger.info("Loading nuLiga table for {} with id={}", team.getName(), team.getId());
-                GroupTableDTO groupTableDTO = nuLigaApiRequester.getTeamTable(team.getNuLigaTeamId());
+                GroupTableDTO groupTableDTO = nuLigaApiRequester.getTeamTable(team.getNuLigaTeamId(), team.getNuLigaGroupId());
                 List<GroupTableTeam> from = GroupTableTeamDTOMapper.from(groupTableDTO);
                 logger.info("Found {} entries for ranking table of team with id={}", from.size(), team.getId());
                 for (GroupTableTeam groupTableTeam : from) {

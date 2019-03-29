@@ -71,7 +71,7 @@ public class TeamEditBean implements Serializable {
 
 		List<TeamAbbrDTO> teamAbbrDTO = nuLigaBean.getTeamAbbrDTO();
 		for (TeamAbbrDTO abbrDTO : teamAbbrDTO) {
-			if (abbrDTO.getTeamId().equals(team.getNuLigaTeamId())) {
+			if (abbrDTO.getGroupId().equals(team.getNuLigaGroupId())) {
 				selectedNuLigaTeam = abbrDTO;
 			}
 		}
