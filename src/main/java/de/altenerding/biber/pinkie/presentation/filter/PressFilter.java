@@ -1,7 +1,9 @@
 package de.altenerding.biber.pinkie.presentation.filter;
 
 import de.altenerding.biber.pinkie.business.login.boundary.AuthenticateService;
+import de.altenerding.biber.pinkie.business.members.entity.Member;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
+import de.altenerding.biber.pinkie.presentation.session.UserSessionBean;
 
 import javax.inject.Inject;
 import javax.servlet.Filter;
@@ -20,6 +22,9 @@ public class PressFilter implements Filter{
 
 	@Inject
 	private AuthenticateService authenticateService;
+	@Inject
+	private UserSessionBean userSessionBean;
+
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -30,7 +35,8 @@ public class PressFilter implements Filter{
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
-		if (authenticateService.authenticateLoggedInUserRole(Role.PRESS)) {
+		Member member = userSessionBean.getMember();
+		if (authenticateService.authenticateLoggedInMemberRole(member, Role.PRESS)) {
 			chain.doFilter(request, response);
 		} else {
 			response.sendError(HttpServletResponse.SC_FORBIDDEN);

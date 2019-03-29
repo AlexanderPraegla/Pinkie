@@ -1,5 +1,6 @@
 package de.altenerding.biber.pinkie.business.file.boundary;
 
+import de.altenerding.biber.pinkie.business.config.entity.Config;
 import de.altenerding.biber.pinkie.business.file.control.FileDeletion;
 import de.altenerding.biber.pinkie.business.file.control.FileMappingControl;
 import de.altenerding.biber.pinkie.business.file.control.FileSystemModifier;
@@ -11,7 +12,6 @@ import de.altenerding.biber.pinkie.business.file.entity.Image;
 import de.altenerding.biber.pinkie.business.file.entity.Mapping;
 import de.altenerding.biber.pinkie.business.file.entity.TextMapping;
 import de.altenerding.biber.pinkie.business.file.entity.Video;
-import de.altenerding.biber.pinkie.business.systemproperty.SystemProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 
@@ -29,6 +29,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
+import static de.altenerding.biber.pinkie.business.config.entity.ConfigProperty.RESOURCE_FOLDER;
+
 @Stateless
 public class FileService {
 
@@ -40,7 +42,7 @@ public class FileService {
     @Inject
     private FileDeletion fileDeletion;
 	@Inject
-	@SystemProperty(name = "resourceFolder")
+	@Config(RESOURCE_FOLDER)
 	private String resourceFolder;
 	@PersistenceContext
 	private EntityManager em;

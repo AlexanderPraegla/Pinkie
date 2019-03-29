@@ -52,11 +52,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.10.3</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.0</version>
@@ -89,6 +84,12 @@
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${basedir}/lib/nu.liga.portal.rs-json-client.jar</systemPath>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mnode.ical4j/ical4j -->
+        <dependency>
+            <groupId>org.mnode.ical4j</groupId>
+            <artifactId>ical4j</artifactId>
+            <version>3.0.1</version>
         </dependency>
 
         <!--Logging-->

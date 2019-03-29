@@ -2,6 +2,7 @@ package de.altenerding.biber.pinkie.business.nuLiga.control;
 
 import de.altenerding.biber.pinkie.business.nuLiga.entity.ClubMeeting;
 import de.altenerding.biber.pinkie.business.nuLiga.entity.GroupTableTeam;
+import de.altenerding.biber.pinkie.business.team.entity.Team;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
@@ -29,10 +30,10 @@ public class NuLigaDataProvider {
                 .getResultList();
     }
 
-    public List<ClubMeeting> getTeamMeetings(String groupId) {
-        logger.info("Loading team schedule for groupId={}", groupId);
-        return em.createNamedQuery("ClubMeeting.getAllByGroupId", ClubMeeting.class)
-                .setParameter("groupId", groupId)
+    public List<ClubMeeting> getTeamMeetings(Team team) {
+        logger.info("Loading team schedule for groupId={} and teamId={}", team.getNuLigaGroupId(), team.getId());
+        return em.createNamedQuery("ClubMeeting.getAllByTeamId", ClubMeeting.class)
+                .setParameter("teamId", team.getId())
                 .getResultList();
     }
 

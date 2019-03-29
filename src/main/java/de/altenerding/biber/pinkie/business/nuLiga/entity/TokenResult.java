@@ -9,6 +9,14 @@ public class TokenResult {
     @JsonProperty("refresh_token")
     private String refreshToken;
 
+    public TokenResult() {
+    }
+
+    public TokenResult(String accessToken, String refreshToken) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+    }
+
     public String getAccessToken() {
         return accessToken;
     }

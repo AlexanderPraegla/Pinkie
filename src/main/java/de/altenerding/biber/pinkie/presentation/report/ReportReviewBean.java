@@ -1,6 +1,5 @@
 package de.altenerding.biber.pinkie.presentation.report;
 
-import de.altenerding.biber.pinkie.business.file.boundary.FileService;
 import de.altenerding.biber.pinkie.business.members.entity.Access;
 import de.altenerding.biber.pinkie.business.members.entity.Role;
 import de.altenerding.biber.pinkie.business.report.boundary.ReportService;
@@ -29,7 +28,6 @@ public class ReportReviewBean implements Serializable {
 
     private List<Report> reports;
     private Report report = new Report();
-    private FileService fileService;
     private List<Report> unreleasedReports;
 
 
@@ -42,7 +40,7 @@ public class ReportReviewBean implements Serializable {
 
     @Access(role = Role.ADMIN)
     public String releaseReport(Report report) {
-        reportService.releaseReport(report);
+        reportService.releaseReport(report, userSessionBean.getMember());
 
         return "releaseReport";
     }
@@ -55,11 +53,6 @@ public class ReportReviewBean implements Serializable {
     @Inject
     public void setReportService(ReportService reportService) {
         this.reportService = reportService;
-    }
-
-    @Inject
-    public void setFileService(FileService fileService) {
-        this.fileService = fileService;
     }
 
     public long getReportId() {

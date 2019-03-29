@@ -13,28 +13,28 @@ import java.io.Serializable;
 @SessionScoped
 public class UserSessionBean implements Serializable {
 
-	private AuthenticateService authenticateService;
+    private AuthenticateService authenticateService;
 
-	private Member member = null;
+    private Member member = null;
 
-	public boolean isUserInRole(Role role) {
-		return authenticateService.authenticateLoggedInUserRole(role);
-	}
+    public boolean isUserInRole(Role role) {
+        return authenticateService.authenticateLoggedInMemberRole(member, role);
+    }
 
-	public Member getMember() {
-		return member;
-	}
+    public Member getMember() {
+        return member;
+    }
 
-	public void setMember(Member member) {
-		this.member = member;
-	}
+    public void setMember(Member member) {
+        this.member = member;
+    }
 
     public void logout() {
         member = null;
     }
 
-	@Inject
-	public void setAuthenticateService(AuthenticateService authenticateService) {
-		this.authenticateService = authenticateService;
-	}
+    @Inject
+    public void setAuthenticateService(AuthenticateService authenticateService) {
+        this.authenticateService = authenticateService;
+    }
 }

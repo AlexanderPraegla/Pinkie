@@ -10,7 +10,9 @@ Current test version is visible [here](https://www.praegla.net/pinkie)
 
 ## Frontend
 * JSF 2.3
-* Bootsfaces 1.2.0
+* Bootsfaces 1.3.0
+* PrimeFaces 6.1
+* Omnifaces 2.6.6
 
 # Environment setup
 ## Application server
@@ -64,9 +66,8 @@ In Bash:
 In Bash:
 ./asadmin add-resources ../domains/domain1/config/email-ressource.xml
 
-### JVM Options
-Add following JVM options for the application:
-* /GLASSFISH_HOME/bin/asadmin create-jvm-options '-DnuLigaRestClientId=xxxxxxxx'
-* /GLASSFISH_HOME/bin/asadmin create-jvm-options '-DnuLigaRestClientSecret=xxxxx'
-* /GLASSFISH_HOME/bin/asadmin create-jvm-options '-DresourceFolder=xxxxx'
-  * This folder is used to store images and documents uploaded to the website
+### Configuration
+Fill the configuration table with the neccessary properties. 
+
+TODO name neccessary properties
+- 

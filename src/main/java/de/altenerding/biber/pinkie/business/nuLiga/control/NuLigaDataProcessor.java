@@ -52,6 +52,10 @@ public class NuLigaDataProcessor {
         List<MeetingAbbrDTO> clubMeetingsOfCurrentSeason = nuLigaApiRequester.getClubMeetingsOfCurrentSeason();
         List<ClubMeeting> from = MeetingsAbbrDTOMapper.from(clubMeetingsOfCurrentSeason);
         for (ClubMeeting clubMeeting : from) {
+
+                Team meetingTeam = teams.stream().filter(team -> team.getNuLigaGroupId() != null && team.getNuLigaGroupId().equals(clubMeeting.getGroupId())).findFirst().orElse(null);
+                clubMeeting.setTeam(meetingTeam);
+
             em.persist(clubMeeting);
             em.flush();
         }
