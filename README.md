@@ -51,12 +51,12 @@ In Bash:
 <!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN"
         "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
 <resources>
-    <mail-resource debug="true" host="smtp.strato.de" from="webmaster@praegla.net" user="webmaster@praegla.net" jndi-name="mail/default">
-        <property name="mail.user" value="webmaster@praegla.net"></property>
+    <mail-resource debug="true" host="<smtp-host>" from="<email-address>" user="<email-address>" jndi-name="mail/default">
+        <property name="mail.user" value="<email-address>"></property>
         <property name="mail.smtp.socketFactory.fallback" value="false"></property>
         <property name="mail.smtp.starttls.enable" value="true"></property>
         <property name="mail.password" value="<password>"></property>
-        <property name="mail.host" value="smtp.strato.de"></property>
+        <property name="mail.host" value="<smtp-host>"></property>
         <property name="mail.port" value="465"></property>
         <property name="mail.smtp.auth" value="true"></property>
         <property name="mail.smtp.socketFactory.port" value="465"></property>
