@@ -1,14 +1,16 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:b="http://bootsfaces.net/ui">
+                xmlns:b="http://bootsfaces.net/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <b:container style="padding-top: 20px;">
         <hr/>
         <footer>
             <b:row>
                 <b:column colLg="5" colMd="5" colSm="6" colXs="12">
-                    <p style="float: left">© 2018 SpVgg Altenerding e.V. | Abteilung Handball</p>
+                    <p style="float: left">© <h:outputText value="#{now}">
+                        <f:convertDateTime pattern="yyyy" type="date" />
+                    </h:outputText> SpVgg Altenerding e.V. | Abteilung Handball</p>
                 </b:column>
                 <h:form>
                     <b:column colLg="3" colMd="3" colSm="3" colXs="3">
