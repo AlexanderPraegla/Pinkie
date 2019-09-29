@@ -7,7 +7,7 @@
 
     <ui:define name="content">
         <b:container>
-            <b:panel title="Premium Sponsoren" collapsible="false">
+            <b:panel title="Premium Sponsoren" collapsible="false" rendered="#{sponsorBean.premiumSponsors.size() > 0}">
                 <b:panelGrid colSpans="6,6" size="xs">
                     <c:forEach items="#{sponsorBean.premiumSponsors}" var="sponsor">
                         <b:panel styleClass="panel-no-border">
@@ -17,7 +17,7 @@
                     </c:forEach>
                 </b:panelGrid>
             </b:panel>
-            <b:panel title="Weitere Sponsoren" collapsed="false">
+            <b:panel title="Sponsoren" collapsed="false">
                 <b:panelGrid colSpans="4,4,4" size="sm">
                     <c:forEach items="#{sponsorBean.nonePremiumSponsors}" var="sponsor">
                         <b:panel styleClass="panel-no-border">
