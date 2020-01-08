@@ -85,6 +85,13 @@
             <scope>system</scope>
             <systemPath>${basedir}/lib/nu.liga.portal.rs-json-client.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>nu.liga.portal</groupId>
+            <artifactId>rs-json-client-20200108</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/nu.liga.portal.rs-json-client-20200108.jar</systemPath>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.mnode.ical4j/ical4j -->
         <dependency>
             <groupId>org.mnode.ical4j</groupId>
