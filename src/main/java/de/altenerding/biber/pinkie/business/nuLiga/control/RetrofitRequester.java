@@ -158,7 +158,7 @@ public class RetrofitRequester {
 		retrofit = new Retrofit.Builder()
 				.client(client)
 				.baseUrl(baseUrl)
-				.addConverterFactory(JacksonConverterFactory.create(mapper))
+				.addConverterFactory(JacksonConverterFactory.create())
 				.build();
 	}
 
