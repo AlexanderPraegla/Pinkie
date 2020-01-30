@@ -91,6 +91,9 @@
                     <b:navLink value="#{menu['menu.administration.sponsors.edit']}"
                                outcome="/secure/admin/editSponsors.xhtml"
                                rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
+                    <b:navLink value="#{menu['menu.administration.nuLigaTrigger']}"
+                               outcome="/secure/admin/nuLigaTrigger.xhtml"
+                               rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
                 </b:dropMenu>
             </b:navbarLinks>
             <b:navbarLinks pull="right">

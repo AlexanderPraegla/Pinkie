@@ -91,7 +91,6 @@ public class RetrofitRequester {
 
 			if (response.isSuccessful()) {
 				//Successful call
-				logger.info("Response: {}", new ObjectMapper().writeValueAsString(response.body()));
 				return response.body();
 			} else if (response.code() == 401) {
 				//Token probably invalid, so try refresh of token
@@ -100,7 +99,6 @@ public class RetrofitRequester {
 				response = call.clone().execute();
 
 				if (response.isSuccessful()) {
-					logger.info("Response after token refresh: {}", new ObjectMapper().writeValueAsString(response.body()));
 					// now call is successful after refreshing token
 					return response.body();
 				} else if (response.code() == 401) {
