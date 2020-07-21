@@ -1,7 +1,9 @@
 package de.altenerding.biber.pinkie.business.nuLiga.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TokenResult {
 
     @JsonProperty("access_token")
