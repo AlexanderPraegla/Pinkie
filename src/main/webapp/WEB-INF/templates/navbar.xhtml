@@ -51,7 +51,7 @@
                     <b:navLink value="#{menu['menu.club.trainers']}" outcome="/public/club/trainers.xhtml"/>
                     <b:navLink value="#{menu['menu.club.boosterClub']}" outcome="/public/club/boosterClub.xhtml"/>
                     <b:navLink value="#{menu['menu.club.biberFriends']}" rendered="#{false}" outcome="/public/club/biberFriends.xhtml"/>
-                    <b:navLink value="#{menu['menu.about.lottery']}" outcome="/public/club/lottery.xhtml"/>
+                    <b:navLink value="#{menu['menu.about.lottery']}" rendered="false" outcome="/public/club/lottery.xhtml"/>
                     <!--<b:navLink disabled="#{true}" value="#{menu['menu.club.archive']}"-->
                     <!--outcome="/public/club/archive.xhtml"/>-->
                 </b:dropMenu>
@@ -90,6 +90,9 @@
                                rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
                     <b:navLink value="#{menu['menu.administration.sponsors.edit']}"
                                outcome="/secure/admin/editSponsors.xhtml"
+                               rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
+                    <b:navLink value="#{menu['menu.administration.nuLigaTrigger']}"
+                               outcome="/secure/admin/nuLigaTrigger.xhtml"
                                rendered="#{userSessionBean.isUserInRole('ADMIN')}"/>
                 </b:dropMenu>
             </b:navbarLinks>

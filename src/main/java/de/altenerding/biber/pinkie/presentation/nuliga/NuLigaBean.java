@@ -1,6 +1,7 @@
 package de.altenerding.biber.pinkie.presentation.nuliga;
 
 import de.altenerding.biber.pinkie.business.nuLiga.boundary.NuLigaDataService;
+import de.altenerding.biber.pinkie.business.nuLiga.control.NuLigaDataTimer;
 import de.altenerding.biber.pinkie.business.team.entity.Team;
 import net.bootsfaces.utils.FacesMessages;
 import nu.liga.open.rs.v2014.dto.championships.TeamAbbrDTO;
@@ -22,9 +23,15 @@ public class NuLigaBean implements Serializable {
     @Inject
     private NuLigaDataService nuLigaDataService;
     @Inject
+    private NuLigaDataTimer nuLigaDataTimer;
+    @Inject
     private Logger logger;
 
     private List<TeamAbbrDTO> teamAbbrDTO;
+
+    public void triggerNuLigaTimer() {
+        nuLigaDataTimer.loadNuLigaData();
+    }
 
     public List<TeamAbbrDTO> getTeamAbbrDTO() {
         if (teamAbbrDTO == null) {

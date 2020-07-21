@@ -24,7 +24,8 @@ This Glassfish version only works with a jdk 8u152 or earlier (see [here](https:
 Downloaded [Postgres Driver](https://jdbc.postgresql.org/download.html) and put it under GLASSFISH_HOME/domains/YOUR_DOMAIN/lib 
 
 ### Install nuLiga JSON client library
-Download [here](https://hbde-portal.liga.nu/rs/documentation/downloads.html#artifact_java_json_client_library) and put it under GLASSFISH_HOME/domains/YOUR_DOMAIN/lib 
+Download client jar [here](https://hbde-portal.liga.nu/rs/documentation/nu.liga.portal.rs-json-client.jar) and put it under GLASSFISH_HOME/domains/YOUR_DOMAIN/lib.
+Sources for the client jar are available [here](https://hbde-portal.liga.nu/rs/documentation/nu.liga.portal.rs-json-client-json-sources.jar) 
 
 ### Datasource Setup
 Install local PostgreSQL database or use a remote one.
@@ -51,12 +52,12 @@ In Bash:
 <!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN"
         "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
 <resources>
-    <mail-resource debug="true" host="smtp.strato.de" from="webmaster@praegla.net" user="webmaster@praegla.net" jndi-name="mail/default">
-        <property name="mail.user" value="webmaster@praegla.net"></property>
+    <mail-resource debug="true" host="<smtp-host>" from="<email-address>" user="<email-address>" jndi-name="mail/default">
+        <property name="mail.user" value="<email-address>"></property>
         <property name="mail.smtp.socketFactory.fallback" value="false"></property>
         <property name="mail.smtp.starttls.enable" value="true"></property>
         <property name="mail.password" value="<password>"></property>
-        <property name="mail.host" value="smtp.strato.de"></property>
+        <property name="mail.host" value="<smtp-host>"></property>
         <property name="mail.port" value="465"></property>
         <property name="mail.smtp.auth" value="true"></property>
         <property name="mail.smtp.socketFactory.port" value="465"></property>
